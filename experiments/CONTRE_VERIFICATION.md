@@ -260,24 +260,30 @@ que 139 de ses 643 tâches ont servi à l'entraîner.
 
 ## La couverture de la suite de tests
 
-Le nombre de tests qui passent était avancé comme signal de qualité, la suite en comptant 89 au moment de ce
-contrôle et le décompte ayant bougé depuis. La mesure de couverture, elle, donne 62 % sur 1 104 lignes, avec
-100 % sur `l1_reference` et `l1_sideeffect`, 89 % sur `l1_temporal`, 94 % sur `models.py` et 31 % sur
-`cli.py`. Le reste n'apparaît pas dans le rapport parce que la suite ne l'importe même pas : `scoring.py`,
-`report.py`, `channels.py`, `l2_liveness.py`, `l2_campaign.py`, `l2_content.py`, les trois modules L3, les
-six modules `ground_truth/`, `run_all.py`, `analysis_longitudinal.py`, `experiments/` et `figures/`, soit
-13 848 lignes à 0 % de couverture dans l'état du dépôt au 16 août 2026. Le périmètre non couvert n'a pas
-bougé depuis, le décompte si : l'allègement des docstrings a raccourci ces fichiers sans les faire entrer
-dans la suite. Ne
-sont testés ni la formule de score, ni la dérivation de κ et de λ, ni le garde-fou de comparabilité, ni la
-réconciliation des patch-sets, ni le classifieur anti-bot.
+Le nombre de tests qui passent était avancé comme signal de qualité. La mesure de couverture dit autre
+chose : la suite couvre 20 % des instructions du paquet et des deux scripts de campagne. La couche statique
+et le modèle de données sont éprouvés, `l1_reference` et `l1_sideeffect` à 100 %, `l1_temporal` à 92 %,
+`models.py` à 95 %. En descendant, cela s'effondre : `cli.py` 31 %, `scoring.py` 32 %, c'est-à-dire que le
+moteur de score n'est éprouvé qu'au tiers. Le reste n'est pas même importé par la suite : `report.py`,
+`channels.py`, `l2_liveness.py`, `l2_campaign.py`, `l2_content.py`, les trois modules L3, les six modules
+`ground_truth/` et `analysis_longitudinal.py`, tous à 0 %. Ne sont donc testés ni la dérivation de κ et de λ,
+ni le garde-fou de comparabilité, ni la réconciliation des patch-sets, ni le classifieur anti-bot.
 
-J'ai cessé de présenter ce décompte comme un signal de qualité. Ce qui vaut d'être dit est le périmètre : les
-tests portent sur la couche statique et le modèle de données, et le moteur de score, les rapports et les deux
-couches coûteuses ne sont vérifiés que par des invariants exécutés à la main. Un second défaut a été corrigé
-au passage : sur un clone frais, `data/raw/` étant absent, trois tests de verrouillage se contentaient de se
-désactiver et la suite affichait 86 passés et 3 ignorés sans que rien ait été vérifié. Ces trois tests
-échouent désormais au lieu d'être ignorés quand `BDOCTOR_REQUIRE_DATA=1`, et la variable est posée dans la CI.
+Ce qui échappe à la suite est précisément ce qui convertit des constats en notes publiées. Une régression y
+déplacerait toutes les notes sans qu'aucun constat ne change, et le rejeu de la carte canonique la
+détecterait plus sûrement qu'un test unitaire de plus.
+
+Reproduire la mesure :
+
+```
+python3 -m coverage run --source=benchmark_doctor,run_all,analysis_longitudinal -m pytest tests/ -q
+python3 -m coverage report
+```
+
+Un second défaut a été corrigé au passage : sur un clone frais, `data/raw/` étant absent, trois tests de
+verrouillage se contentaient de se désactiver et la suite affichait 86 passés et 3 ignorés sans que rien ait
+été vérifié. Ces trois tests échouent désormais au lieu d'être ignorés quand `BDOCTOR_REQUIRE_DATA=1`, et la
+variable est posée dans la CI.
 
 ## Les chiffres L3 rejouables hors ligne
 
