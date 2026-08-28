@@ -1,0 +1,317 @@
+# Weekly health check of a web-live benchmark.
+#
+# Every Monday it re-measures WebVoyager with the free layers (L1 static + L2 web probes),
+# publishes the health card and its HTML report as artifacts, diffs the card against last
+# week's, and opens an issue when the benchmark loses health.
+#
+# What to know before editing this file:
+#
+# Free layers only. L3 (LLM probes) costs money and needs a key; a public repository must be
+# able to run its own monitoring without one. L1+L2 also happens to be the configuration with
+# the best risk ranking measured in the thesis (AUC 0.831, vs 0.775 for L1+L2+L3).
+#
+# `--no-prior`. The default stability score folds in a prior taken from the practitioner
+# ground truth. Tracking that over time would mostly track a frozen file. CI scores with the
+# detectors alone, so a movement in the number is a movement in the world (or in the channel).
+#
+# The corpus is pinned and checksummed. Comparing two weekly cards only means something if the
+# corpus is byte-identical; `bdoctor diff` refuses to call them comparable otherwise. Fetching
+# upstream `main` would silently mix corpus edits into the decay signal.
+#
+# No alert when not comparable. If the digest, the layer set or the L2 channel profile changed,
+# the score delta is an artifact of protocol, not decay. The workflow says so in the job summary
+# and stays silent rather than raise a false alarm.
+#
+# Caveat recorded in every run: GitHub-hosted runners have datacenter IPs. Sites that serve a
+# challenge, a paywall or a 403 to datacenter traffic will be probed as blocked here and may be
+# perfectly reachable from a browser. L2 access findings are therefore discounted (channel
+# credibility k = 0.40) and must never be read as "task dead".
+
+name: weekly health check
+
+on:
+  schedule:
+    # Mondays, 06:17 UTC. Off the hour on purpose: :00 is the busiest scheduling slot on
+    # GitHub's shared runners and delays scheduled jobs.
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      alert_drop_points:
+        description: "Alert when mean stability drops by more than this many points (0-100 scale)"
+        required: false
+        default: "1.0"
+      alert_new_d:
+        description: "Alert when at least this many tasks fall to grade D"
+        required: false
+        default: "5"
+
+permissions:
+  contents: read
+  actions: read # read the previous run's artifact (the baseline card)
+  issues: write # open or update the alert issue
+
+concurrency:
+  group: weekly-health-check
+  cancel-in-progress: false
+
+jobs:
+  health:
+    name: measure, compare, alert
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      CORPUS: data/raw/webvoyager_original.jsonl
+      CORPUS_URL: https://raw.githubusercontent.com/MinorJerry/WebVoyager/091544539eba485dbd74ef3742011ddeede37336/data/WebVoyager_data.jsonl
+      CORPUS_SHA256: 69b19fd86c23f1a500244a3724e039aa7ca6a1223d03e11eb10e308d4f11c488
+      LAYERS: l1,l2
+      CHANNEL: direct
+      ALERT_DROP_POINTS: ${{ inputs.alert_drop_points || '1.0' }}
+      ALERT_NEW_D: ${{ inputs.alert_new_d || '5' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip --quiet
+          pip install -e . --quiet
+          # L2 probes go through `requests`; L1 needs nothing at all.
+          pip install requests --quiet
+
+      - name: Fetch the pinned corpus and verify its digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$(dirname "$CORPUS")"
+          curl -sSLf --retry 3 --retry-delay 5 -o "$CORPUS" "$CORPUS_URL"
+          echo "${CORPUS_SHA256}  ${CORPUS}" | sha256sum -c -
+          echo "corpus: $(wc -c < "$CORPUS") bytes, digest verified"
+
+      - name: Measure (L1 static + L2 web probes)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runs/ci
+          python -m benchmark_doctor.cli audit "$CORPUS" \
+            --benchmark webvoyager \
+            --layers "$LAYERS" \
+            --channel "$CHANNEL" \
+            --no-prior \
+            --out runs/ci/health.html
+          test -s runs/ci/health.json
+
+      - name: Fetch last week's card
+        id: baseline
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p baseline
+          previous="$(gh run list \
+            --workflow weekly.yml \
+            --branch "$BRANCH" \
+            --status success \
+            --limit 1 \
+            --json databaseId \
+            --jq '.[0].databaseId // empty')"
+          if [ -n "$previous" ]; then
+            echo "previous successful run: $previous"
+            gh run download "$previous" --name health-card --dir baseline || true
+          else
+            echo "no previous successful run on this branch"
+          fi
+          if [ -s baseline/health.json ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Baseline::No previous card found — this run becomes the baseline."
+          fi
+
+      - name: Compare with last week
+        if: steps.baseline.outputs.found == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m benchmark_doctor.cli diff \
+            baseline/health.json runs/ci/health.json \
+            --out runs/ci/diff.html \
+            --json runs/ci/diff.json \
+            --show 25
+
+      - name: Decide whether this is worth waking someone up for
+        id: verdict
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, pathlib
+
+          drop_points = float(os.environ["ALERT_DROP_POINTS"])
+          new_d_limit = int(os.environ["ALERT_NEW_D"])
+          card = json.loads(pathlib.Path("runs/ci/health.json").read_text(encoding="utf-8"))
+          meta, summary = card["meta"], card["summary"]
+
+          lines = [
+              f"## Health card — {meta['benchmark']} @ {meta['generated_at']}",
+              "",
+              f"- tasks: **{meta['n_tasks']}** · layers: {'+'.join(meta['layers'])} "
+              f"· channels: {', '.join(meta['channels'])}",
+              f"- mean stability (detectors only): **{summary['mean_stability']:.4f}** "
+              f"· median {summary['median_stability']:.3f} · p10 {summary['p10_stability']:.3f}",
+              "- grades: " + " · ".join(
+                  f"**{g}** {summary['grades'][g]} ({100 * summary['grade_rates'][g]:.1f} %)"
+                  for g in ("A", "B", "C", "D")),
+              f"- below grade A: **{summary['n_below_A']}/{meta['n_tasks']}** "
+              f"({100 * summary['rate_below_A']:.1f} %)",
+              f"- cost: ${card['cost']['total_usd']:.5f} "
+              f"({card['cost']['total_calls']} calls, {card['cost']['total_seconds']:.1f} s)",
+              "",
+          ]
+
+          alert, title, body = False, "", ""
+          diff_path = pathlib.Path("runs/ci/diff.json")
+
+          if not diff_path.exists():
+              lines += ["_First run on this branch: no baseline to compare against. "
+                        "Next week's run will diff against this card._"]
+          else:
+              diff = json.loads(diff_path.read_text(encoding="utf-8"))
+              head, comp = diff["headline"], diff["comparability"]
+              delta_pts = 100.0 * head["mean_stability_delta"]
+              lines += [
+                  f"## Change since {diff['before']['generated_at']} "
+                  f"({head['days_elapsed']} days)",
+                  "",
+                  f"- mean stability: {diff['before']['mean_stability']:.4f} → "
+                  f"{diff['after']['mean_stability']:.4f} (**{delta_pts:+.2f} points**)",
+                  f"- degraded **{head['n_degraded']}** · improved {head['n_improved']} "
+                  f"· unchanged {head['n_unchanged']}",
+                  f"- lost grade A: {head['n_left_A']} · fell to grade D: "
+                  f"**{head['n_new_D']}**",
+                  f"- pace: {head['degradation_per_100_tasks_per_month']:.2f} degradations "
+                  "per 100 tasks per month (linear extrapolation)",
+                  "",
+              ]
+              if diff["degraded"]:
+                  lines += ["| task | grade | score | category |", "|---|---|---|---|"]
+                  lines += [
+                      f"| `{r['task_id']}` | {r['grade_before']}→{r['grade_after']} | "
+                      f"{r['score_before']:.3f}→{r['score_after']:.3f} ({r['delta']:+.3f}) | "
+                      f"{r.get('top_category_after') or ''} |"
+                      for r in diff["degraded"][:15]
+                  ]
+                  lines += [""]
+
+              if not comp["comparable"]:
+                  # A protocol change is not decay. Report it, do not alert on it.
+                  lines += ["> **Not comparable — no alert raised.** The score delta above is "
+                            "at least partly an artifact of protocol, not of the web:", ""]
+                  lines += [f"> - {w}" for w in comp["warnings"]]
+                  lines += [""]
+              else:
+                  reasons = []
+                  if delta_pts <= -drop_points:
+                      reasons.append(
+                          f"mean stability fell by {abs(delta_pts):.2f} points "
+                          f"(threshold {drop_points:.2f})")
+                  if head["n_new_D"] >= new_d_limit:
+                      reasons.append(
+                          f"{head['n_new_D']} tasks fell to grade D "
+                          f"(threshold {new_d_limit})")
+                  if reasons:
+                      alert = True
+                      title = (f"Benchmark health dropped: {meta['benchmark']} "
+                               f"{delta_pts:+.2f} pts on {meta['generated_at']}")
+                      body = "\n".join(
+                          [f"Automated weekly health check, run "
+                           f"{os.environ['GITHUB_SERVER_URL']}/{os.environ['GITHUB_REPOSITORY']}"
+                           f"/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+                           "",
+                           "**Why this issue was opened:** " + "; ".join(reasons) + ".",
+                           ""]
+                          + lines
+                          + ["---",
+                             "",
+                             "### Before acting on this",
+                             "",
+                             "- Probes ran from a **GitHub-hosted runner, i.e. a datacenter IP**. "
+                             "Sites that challenge or paywall datacenter traffic are recorded as "
+                             "blocked here and may be fine from a browser. Access findings carry "
+                             "channel credibility k = 0.40 and are never a proof of death.",
+                             "- The tool is a **triage instrument**: measured precision of the "
+                             "full stack is below 0.45. Treat this as a shortlist to inspect, "
+                             "not a verdict.",
+                             "- Findings are site-granular: one start URL per task, so a host-level "
+                             "verdict propagates to every task of that host.",
+                             "- The full card and the HTML report are attached to the run as "
+                             "artifacts (`health-card`, `health-diff`).",
+                             ])
+
+          summary_md = "\n".join(lines)
+          pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(summary_md, encoding="utf-8")
+          if alert:
+              pathlib.Path("runs/ci/issue_body.md").write_text(body, encoding="utf-8")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"alert={'true' if alert else 'false'}\n")
+              fh.write(f"title={title}\n")
+          print(summary_md)
+          PY
+
+      - name: Publish the health card
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-card
+          path: |
+            runs/ci/health.json
+            runs/ci/health.html
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Publish the differential
+        if: hashFiles('runs/ci/diff.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-diff
+          path: |
+            runs/ci/diff.json
+            runs/ci/diff.html
+          retention-days: 90
+
+      - name: Open or update the alert issue
+        if: steps.verdict.outputs.alert == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.verdict.outputs.title }}
+        run: |
+          set -euo pipefail
+          gh label create benchmark-health \
+            --color B60205 \
+            --description "Automated weekly benchmark health alert" \
+            --force >/dev/null 2>&1 || true
+          existing="$(gh issue list \
+            --label benchmark-health \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            # One open alert at a time: successive weeks comment on the same thread rather
+            # than opening a new issue every Monday until someone looks.
+            gh issue comment "$existing" --body-file runs/ci/issue_body.md
+            echo "commented on issue #$existing"
+          else
+            gh issue create \
+              --title "$TITLE" \
+              --label benchmark-health \
+              --body-file runs/ci/issue_body.md
+          fi
