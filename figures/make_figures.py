@@ -16,9 +16,14 @@ fig  sujet                                             source
 07   architecture fonctionnelle de l'outil             schéma, sans données
 ===  ================================================  ==========================================
 
+Quatre autres images du dossier n'ont pas de générateur ici, un schéma et trois montages de
+captures d'écran ; ``figures/legendes.md`` les documente en fin de fichier.
+
 Les légendes rédigées sont écrites dans ``figures/legendes.md`` par le même script, et leurs
 chiffres sont interpolés depuis les mêmes fichiers : une relance après une nouvelle campagne
-met à jour la figure ET sa légende, sans risque de désaccord entre les deux.
+met à jour la figure ET sa légende, sans risque de désaccord entre les deux. La légende de la
+figure 5 lit en plus ``runs/ablation_l3_clean_20260816.json``, le rejeu du 16/08 qui remplace
+le F1 du juge tracé sur la figure.
 
 Usage :
     python3 figures/make_figures.py            # les sept figures + les légendes
@@ -69,6 +74,10 @@ ABLATION = RUNS / "validation_ablation_20260815.json"
 CURVES = RUNS / "longitudinal_curves_20260815.csv"
 LONGITUDINAL = RUNS / "longitudinal_20260815.json"
 AMBIGUITY = RUNS / "ablation_ambiguity_20260815.json"
+#: Rejeu du 16/08 à rubrique nettoyée. Il ne porte pas la projection de coût dont dépend
+#: l'abscisse de la figure 5 : la figure garde donc l'artefact du 15/08, et seule la légende
+#: cite la mesure corrigée.
+AMBIGUITY_CLEAN = RUNS / "ablation_l3_clean_20260816.json"
 GROUND_TRUTH = DATA / "ground_truth.json"
 MAGNITUDE_LABELS = ROOT / "benchmark_doctor" / "ground_truth" / "magnitude_reason_labels.json"
 
@@ -514,7 +523,7 @@ def fig04() -> dict[str, Any]:
 
     fig, ax = plt.subplots(figsize=(WIDTH_FULL, 3.9))
 
-    # Jalons : les six annotateurs indépendants.
+    # Jalons : les six annotateurs.
     jalons = [j for j in longi["courbe_A_praticiens"]["jalons"] if j["annotateur_independant"]]
     pretty = {
         "browseruse": "browser-use", "convergence": "Convergence", "magnitude": "Magnitude",
@@ -925,7 +934,8 @@ def fig07() -> dict[str, Any]:
 
     Le schéma est fonctionnel et non technique : il montre ce que chaque étape produit et qui
     décide, pas les modules ni les bibliothèques. La boucle de retour est l'objet même du
-    mémoire : une réparation n'est pas un état stable, elle est une observation datée de plus.
+    mémoire : une réparation est une observation datée de plus, que la courbe B′ de la
+    figure 4 voit se défaire.
     """
     card = load_json(HEALTH)
     cost = card["cost"]
@@ -1033,24 +1043,60 @@ def fig07() -> dict[str, Any]:
     }
 
 
+#: Bloc final de ``legendes.md`` : les quatre images du dossier que ce script ne produit pas.
+#: Elles n'ont pas de générateur et ne sont donc pas contrôlées par ``--check``, qui ne connaît
+#: que les sept figures tracées.
+SANS_GENERATEUR = [
+    "## Figures sans générateur",
+    "",
+    "Quatre images du dossier `figures/` ne sortent pas de ce script : un schéma et trois",
+    "montages de captures d'écran, conservés tels quels. Le contrôle `--check` ne les couvre",
+    "pas.",
+    "",
+    "`fig11_pile_agent_juge.png`, citée par le mémoire en figure 1 (section 1.2)  ",
+    "Ce qu'elle montre : la boucle d'un agent web, de l'écran du site à l'action en passant par",
+    "l'encodeur visuel et le transformer, avec le juge automatique qui lit l'écran par le même",
+    "encodeur que l'agent qu'il note.  ",
+    "Origine de l'image : rendu de `figures/fig11_pile_agent_juge.svg`, versionné dans le même",
+    "dossier.",
+    "",
+    "`fig08_espn_deux_origines.png`, citée par le mémoire en figure 2 (section 2.1)  ",
+    "Ce qu'elle montre : espn.com interrogé le 16 août 2026 par un navigateur réel, servi depuis",
+    "une adresse résidentielle et refusé en 403 depuis un centre de données.  ",
+    "Origine de l'image : montage de `runs/captures/browser_residential_espn_p1.jpg` et de",
+    "`runs/captures/browser_datacenter_espn_p1.jpg`, campagne de la matrice des canaux.",
+    "",
+    "`fig09_allrecipes_mur_antibot.png`, non citée par le mémoire  ",
+    "Ce qu'elle montre : allrecipes.com le même jour, servi depuis l'adresse résidentielle et",
+    "arrêté par un mur anti-robot Cloudflare depuis le centre de données, au second passage",
+    "seulement.  ",
+    "Origine de l'image : montage de `runs/captures/browser_residential_allrecipes_p1.jpg` et de",
+    "`runs/captures/browser_datacenter_allrecipes_p2.jpg`.",
+    "",
+    "`soutenance_apple_2024_2026.png`, non citée par le mémoire  ",
+    "Ce qu'elle montre : la page d'accueil d'Apple à la veille du gel du corpus, Vision Pro et",
+    "iPhone 15 Pro, puis la même page deux ans et demi plus tard, MacBook Air M5 et gamme",
+    "d'août 2026.  ",
+    "Origine de l'image : montage de `runs/captures_archive/apple_accueil_20240301.png`, relevé",
+    "dans l'Internet Archive, et de `runs/captures/browser_residential_apple_p1.jpg`.",
+    "",
+]
+
+
 def build_captions(facts: dict[int, dict[str, Any]]) -> str:
     """Rédige les légendes des figures produites, chiffres interpolés depuis les mesures."""
     day = st.long_date_fr(st.REFERENCE_DATE)
     lines: list[str] = [
         "# Légendes des figures",
         "",
-        "Généré par `figures/make_figures.py`. Chaque légende est rédigée pour être collée telle",
-        "quelle sous la figure correspondante dans le mémoire. Tous les chiffres sont relus dans",
-        "les fichiers de mesure de l'outil : aucun n'est saisi à la main, et une relance après une",
-        "nouvelle campagne met à jour la figure et sa légende ensemble.",
+        "Fichier écrit par `figures/make_figures.py` en même temps que les figures. Les chiffres",
+        "cités sont relus dans les fichiers de mesure de l'outil, jamais saisis à la main.",
+        f"Date de mesure gelée : {day}.",
         "",
-        f"Date de mesure gelée : **{day}**.",
-        "",
-        "Insertion dans le mémoire : chaque figure est calibrée pour la largeur utile d'une page",
-        f"A4 aux marges du vademecum, soit {fr(PAGE_WIDTH_CM, 0)} cm. Les PNG portent une",
-        "résolution de 300 ppp dans leur en-tête, les PDF sont entièrement vectoriels et leurs",
-        "polices y sont incorporées. `python3 figures/make_figures.py --check` revérifie ces trois",
-        "propriétés sur les fichiers écrits.",
+        f"Chaque figure est calibrée pour une largeur utile de {PAGE_WIDTH_CM:.0f} cm, les PNG",
+        "portent une résolution de 300 ppp et les PDF sont vectoriels avec leurs polices",
+        "incorporées, trois propriétés que `python3 figures/make_figures.py --check`",
+        "revérifie sur les fichiers écrits.",
         "",
     ]
 
@@ -1058,9 +1104,9 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
         lines.extend([
             f"## Figure {number}",
             "",
-            f"**Fichiers** : `{stem}.png` (300 ppp) et `{stem}.pdf` (vectoriel)  ",
-            f"**Source des données** : `{source}`  ",
-            f"**Reproduction** : `python3 figures/make_figures.py --only {number}`",
+            f"Fichiers : `{stem}.png` (300 ppp) et `{stem}.pdf` (vectoriel)  ",
+            f"Source des données : `{source}`  ",
+            f"Reproduction : `python3 figures/make_figures.py --only {number}`",
             "",
             caption,
             "",
@@ -1118,7 +1164,7 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
             "Figure 3. Ablation des couches de détection, mesurée sur les constats seuls et jamais "
             "sur le score publié : celui-ci intègre un a priori tiré de la même vérité terrain, et "
             "le valider contre elle serait circulaire. La vérité de référence est « tâche signalée "
-            f"par au moins un des six annotateurs indépendants » ({f['n_truth']} tâches sur 643). "
+            f"par au moins un des six annotateurs » ({f['n_truth']} tâches sur 643). "
             "(a) Chaque configuration apparaît à ses deux seuils, reliés par un segment : le point "
             "plein est le seuil HIGH, le point creux le seuil MEDIUM. La couche L1 seule atteint "
             f"une précision de {fr(p['L1']['high'][1], 3)} pour un rappel de "
@@ -1148,7 +1194,7 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
             "Figure 4. Mortalité des tâches de mars 2024 à août 2026, selon l'instrument de "
             "mesure. Les quatre séries sont des parts de leur propre corpus et partagent donc un "
             "axe unique, malgré des dénominateurs différents. La courbe A cumule les tâches "
-            "signalées par au moins un des six annotateurs indépendants, aux dates de leurs "
+            "signalées par au moins un des six annotateurs, aux dates de leurs "
             f"publications respectives : elle passe de {pct(f['a_first'][1])} au premier audit de "
             f"décembre 2024 à {pct(f['a_last'][1])} en mai 2026. Elle est massivement censurée à "
             "gauche, puisque personne n'a examiné le corpus pendant les neuf mois qui ont suivi sa "
@@ -1181,10 +1227,16 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
             return usd(cost[key]["usd_per_year_weekly_643"])
 
         ecart = 100 * (f1("d_llm_judge_gemini-2_5-flash") - f1("d_llm_judge_rubric"))
+        clean = load_json(AMBIGUITY_CLEAN)
+        judges = {j["key"]: j for j in clean["judges"]}
+        leaky, propre = judges["d_judge_leaky"], judges["d_judge_clean"]
+        n_leak = len(clean["protocol"]["leaked_task_ids"])
         block(
             5, "fig05_cout_performance_l3", "runs/ablation_ambiguity_20260815.json",
             f"Figure 5. Coût et performance des quatre approches candidates pour la couche L3, "
-            f"évaluées sur les {f['n_annotated']} tâches annotées à la main pour l'ambiguïté, en "
+            f"évaluées sur les {f['n_annotated']} tâches du jeu d'annotation d'ambiguïté, "
+            "étiquetées par un annotateur unique qui est un modèle de langage "
+            "(`data/annotations_ambiguity.json`), sans vérité humaine, en "
             "validation croisée à cinq plis. L'ordonnée est le F1 au seuil de décision 0,5, "
             "l'abscisse le coût annuel d'une surveillance hebdomadaire des 643 tâches ; les "
             "méthodes sans appel facturé occupent le panneau de gauche, un axe logarithmique ne "
@@ -1197,9 +1249,19 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
             f"{yearly('d_llm_judge_rubric')} par an. La seule configuration nettement supérieure "
             f"est le même juge sur un modèle plus coûteux : {fr(f1('d_llm_judge_gemini-2_5-flash'), 3)} "
             f"pour {yearly('d_llm_judge_gemini-2_5-flash')} par an, soit un ordre de grandeur de "
-            "plus. Deux enseignements pour le mémoire : la qualité du juge tient au modèle bien "
-            "plus qu'au prompt, puisque le même prompt sur un modèle économique perd "
-            f"{fr(ecart, 0)} points de F1 ; et le coût reste, dans tous les cas de figure, "
+            f"plus. Ce F1 est celui de la rubrique fuitée, dans laquelle {n_leak} énoncés du jeu "
+            "évalué avaient été recopiés, et c'est la plus haute des cinq valeurs obtenues avec "
+            "cette rubrique, dont la moyenne vaut "
+            f"{fr(leaky['fixed_f1']['mean'], 3)} ± {fr(leaky['fixed_f1']['std_between_runs'], 3)}. "
+            f"Le rejeu du {st.long_date_fr(clean['generated_at'])}, rubrique nettoyée, ramène le "
+            f"même juge à {fr(propre['fixed_f1']['mean'], 3)} ± "
+            f"{fr(propre['fixed_f1']['std_between_runs'], 3)} "
+            f"(`{AMBIGUITY_CLEAN.relative_to(ROOT)}`, détail dans "
+            "`experiments/CONTRE_VERIFICATION.md`) ; "
+            f"le point tracé garde la valeur du {day}, le rejeu ne portant pas la projection de "
+            "coût dont dépend l'abscisse. La qualité du juge tient au modèle bien plus qu'au "
+            "prompt, puisque le même prompt sur un modèle économique perd "
+            f"{fr(ecart, 0)} points de F1. Le coût reste, dans tous les cas de figure, "
             "négligeable devant celui d'une exécution d'agents sur le même corpus.",
         )
 
@@ -1211,7 +1273,7 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
         part_unanime = 100 * f["unanime"] / f["au_moins_1"]
         block(
             6, "fig06_desaccord_inter_patcheurs", "data/ground_truth.json",
-            "Figure 6. Les six annotateurs indépendants ne mesurent pas le même benchmark. "
+            "Figure 6. Les six annotateurs ne mesurent pas le même benchmark. "
             "(a) Matrice orientée du désaccord dur : chaque case donne le nombre de tâches que "
             "l'annotateur en ligne a supprimées de son corpus et que l'annotateur en colonne a "
             "conservées sans la moindre modification. La matrice n'est pas symétrique, et elle ne "
@@ -1243,11 +1305,12 @@ def build_captions(facts: dict[int, dict[str, Any]]) -> str:
             f"{f['n_tasks']} tâches a coûté {usd(f['total_usd'])} pour "
             f"{st.count_fr(f['total_calls'])} appels, soit {fr(f['usd_per_task'], 5)} $ par tâche, "
             "la totalité étant imputable à la couche L3. Le point important est la boucle : la "
-            "carte de santé n'est pas un verdict mais un tri, l'arbitrage reste humain, et le "
-            "sous-ensemble vérifié qui en résulte retourne dans la file de surveillance. Une "
-            "réparation n'est pas un état stable, c'est une observation datée de plus, ce que "
-            "confirme la courbe B′ de la figure 4.",
+            "carte de santé produit un tri, l'arbitrage reste humain, et le sous-ensemble "
+            "vérifié qui en résulte retourne dans la file de surveillance. Une réparation est "
+            "une observation datée de plus, ce que confirme la courbe B′ de la figure 4.",
         )
+
+    lines.extend(SANS_GENERATEUR)
 
     return "\n".join(lines)
 

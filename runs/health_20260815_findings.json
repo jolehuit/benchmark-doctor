@@ -2,7 +2,7 @@
  "summary": {
   "benchmark": "webvoyager",
   "generated_at": "2026-08-15",
-  "source": "/home/user/memoirem2/benchmark-doctor/data/raw/webvoyager_original.jsonl",
+  "source": "data/raw/webvoyager_original.jsonl",
   "tool_version": "0.1.0",
   "channels": [
    "static",
@@ -154,7 +154,7 @@
   }
  },
  "notes": [
-  "Canal L2 : {\"name\": \"direct_http:browser\", \"kind\": \"http_datacenter\", \"available\": true, \"profile\": \"browser\", \"user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\", \"accept_encoding\": \"gzip, deflate\", \"timeout_s\": 25.0, \"min_interval_s\": 1.0, \"network_retries\": 1, \"follows_redirects\": true, \"egress_proxy\": true, \"egress_proxy_url\": \"http://127.0.0.1:42669\", \"note\": \"Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, le corps reviendrait binaire et fausserait la classification.\", \"memoised_urls\": 45, \"n_fetches\": 45, \"n_cache_hits\": 629}"
+  "Canal L2 : direct_http:browser, canal http_datacenter, profil d'en-têtes browser, crédibilité κ = 0,40 ; 45 requêtes HTTP réelles pour 643 tâches."
  ],
  "tasks": [
   {
@@ -48291,7 +48291,7 @@
  "meta": {
   "generated_by": "run_all.py (benchmark-doctor 0.1.0)",
   "reference_date": "2026-08-15",
-  "corpus": "/home/user/memoirem2/benchmark-doctor/data/raw/webvoyager_original.jsonl",
+  "corpus": "data/raw/webvoyager_original.jsonl",
   "layers_executed": [
    "L1",
    "L2",
@@ -48328,9 +48328,9 @@
     }
    },
    "notes": [
-    "L2 : 45 requêtes HTTP réelles pour 643 tâches (629 réponses mémoïsées) — coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
-    "L3 ambiguïté : 643 appels servis par le cache (coût évité 0.13177 $) : le coût publié est celui d'une première exécution, pas d'une relecture.",
-    "L3 solvabilité : 643 appels servis par le cache (coût évité 0.13121 $) : le coût publié est celui d'une première exécution, pas d'une relecture."
+    "L2 : 45 requêtes HTTP réelles pour 643 tâches, coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
+    "L3 ambiguïté : 643 appels de juge, 0,13177 $ à la première exécution.",
+    "L3 solvabilité : 643 appels de juge, 0,13121 $ à la première exécution."
    ]
   },
   "wall_seconds": 39.38

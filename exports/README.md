@@ -9,8 +9,8 @@ WebVoyager, dans l'ordre du corpus d'origine. Les statistiques agrégées sont d
 
 ## Ce que ce fichier est
 
-Une **réconciliation datée** de six audits publics indépendants de WebVoyager, augmentée
-de métadonnées de stabilité mesurées le 2026-08-15. Chaque ligne porte :
+Une **réconciliation datée** de six audits publics de WebVoyager, augmentée de
+métadonnées de stabilité mesurées le 2026-08-15. Chaque ligne porte :
 
 | Champ | Contenu |
 |---|---|
@@ -33,7 +33,7 @@ de métadonnées de stabilité mesurées le 2026-08-15. Chaque ligne porte :
 | `retirer` | 9 | consensus « supprimer » | à exclure du score |
 | `conteste` | 71 | supprimée par au moins un annotateur ET conservée intacte par au moins un autre | **à ne pas trancher automatiquement** |
 
-### Le sous-ensemble exécutable : deux chiffres, pas un
+### Le sous-ensemble exécutable : quel chiffre citer
 
 Le sous-ensemble consensuel (`noyau` ∪ `surveiller` ∪ `corriger`) compte
 **563 tâches**. Ce n'est **pas** le nombre de tâches
@@ -105,9 +105,9 @@ par l'outil. L'outil et les praticiens ne signalent pas les mêmes tâches. Les 
    premiers.** Emergence AI a publié en mars 2026 un audit humain de WebVoyager et une
    version corrigée de **535 tâches templatées** (`EmergenceAI/EmergenceWebVoyager`).
    Microsoft Fara publie un sous-ensemble de 595 tâches, Convergence de 601, Alumnium de
-   619, Skyvern de 635. Notre apport n'est ni l'audit ni la réparation : c'est la
-   **réconciliation multi-annotateurs**, la **mesure longitudinale** et les
-   **métadonnées de stabilité par tâche**, qui n'existent nulle part ailleurs.
+   619, Skyvern de 635. Ce dépôt apporte la réconciliation multi-annotateurs, la mesure
+   longitudinale et les métadonnées de stabilité par tâche, qui ne sont publiées nulle
+   part ailleurs.
 
 2. **Ce n'est pas une réparation exhaustive du benchmark.** Aucune tâche n'a été
    ré-exécutée par un agent, aucun énoncé n'a été réécrit par nous. Les patches proposés

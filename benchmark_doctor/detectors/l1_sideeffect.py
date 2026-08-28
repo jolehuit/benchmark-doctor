@@ -125,7 +125,7 @@ SIDE_EFFECT_PATTERNS: dict[str, tuple[re.Pattern[str], Severity, float, str]] = 
     ),
 }
 
-#: Sous-motifs considérés comme bloquants (sévérité HIGH) — utile aux tableaux du mémoire.
+#: Sous-motifs considérés comme bloquants (sévérité HIGH).
 BLOCKING_SIGNALS = frozenset(
     {name for name, (_, sev, _, _) in SIDE_EFFECT_PATTERNS.items() if sev >= Severity.HIGH}
 )

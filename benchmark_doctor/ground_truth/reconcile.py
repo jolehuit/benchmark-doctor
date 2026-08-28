@@ -16,15 +16,15 @@ verdicts de chaque source et une synthèse d'accord :
 }
 ```
 
-Deux partis pris, à assumer dans le mémoire :
+Deux partis pris, qui déterminent tout ce qui se calcule ensuite :
 
 - **Le silence vaut conservation.** Une source qui publie un fichier de tâches sans
   mentionner une tâche l'a de fait conservée : c'est ce qui rend le nombre d'annotateurs
   constant et le kappa calculable. La limite est réelle — un patcheur peut n'avoir jamais
   examiné une tâche qu'il conserve.
 - **Une réécriture n'est pas une suppression.** `modify` dit « défectueuse mais
-  réparable », `remove` dit « à sortir du corpus ». Le désaccord qui compte pour le
-  mémoire est celui qui oppose `remove` chez l'un à `keep` chez l'autre.
+  réparable », `remove` dit « à sortir du corpus ». Le désaccord dur, celui que les
+  statistiques isolent, oppose `remove` chez l'un à `keep` chez l'autre.
 
 Usage :
     python3 -m benchmark_doctor.ground_truth.reconcile [-o data/ground_truth.json]

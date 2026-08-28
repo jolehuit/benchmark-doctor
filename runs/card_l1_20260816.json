@@ -1,11 +1,10 @@
 {
  "statut_editorial": {
   "statut": "entree_de_differentiel",
-  "mention": "entrée d'un différentiel, pas une carte de santé : ne pas citer ses distributions de notes comme un état du benchmark",
-  "raison": "Terme « après » du différentiel temporel, L1 seule au 16/08/2026. Son score n'est pas celui de `health_webvoyager_20260815.json` : celui-ci passe par le modèle `scoring` (décote de fraîcheur, a priori), celui-là non.",
+  "mention": "terme d'un différentiel : sa distribution de notes ne décrit pas un état du benchmark",
+  "raison": "Terme « après » du différentiel temporel, L1 seule au 16/08/2026. Son score diffère de celui de `health_webvoyager_20260815.json`, qui passe par le modèle `scoring` avec décote de fraîcheur et a priori des praticiens.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "schema": "bdoctor-health-card/1",
  "meta": {

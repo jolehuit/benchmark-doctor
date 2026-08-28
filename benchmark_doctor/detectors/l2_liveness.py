@@ -8,9 +8,9 @@ mesures du 15/08/2026 suffisent à l'invalider :
 - ``allrecipes.com`` renvoie 402 avec un cookie ``__cf_bm`` : ce n'est pas une erreur de
   serveur, c'est le pay-per-crawl de Cloudflare, un refus commercial d'être crawlé, qui
   disparaît dès qu'on regarde depuis un navigateur ;
-- ``github.com`` renvoie 400 avec un corps JSON citant ``docs.anthropic.com`` : la
-  réponse n'a jamais été produite par GitHub, mais par le proxy d'egress de la machine de
-  mesure.
+- ``github.com`` renvoie 400 avec un corps JSON qui renvoie à la documentation d'un
+  proxy : la réponse n'a jamais été produite par GitHub, mais par le proxy d'egress de la
+  machine de mesure.
 
 D'où une classification en signatures plutôt qu'en booléen, et une règle de précédence
 stricte : avant d'imputer quoi que ce soit au site, éliminer ce qui est imputable au

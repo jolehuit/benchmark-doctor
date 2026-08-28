@@ -2,8 +2,8 @@
  "meta": {
   "generated_by": "run_all.py --phase validate (benchmark-doctor 0.1.0)",
   "reference_date": "2026-08-15",
-  "findings_source": "/home/user/memoirem2/benchmark-doctor/runs/health_20260815_findings.json",
-  "ground_truth": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+  "findings_source": "runs/health_20260815_findings.json",
+  "ground_truth": "data/ground_truth.json",
   "n_tasks": 643,
   "avertissement": "Les mesures portent sur les CONSTATS des détecteurs, jamais sur le score publié : celui-ci intègre un a priori tiré de la même base de vérité terrain, et le valider contre elle serait circulaire."
  },
@@ -1464,10 +1464,10 @@
     "ESPN": 30,
     "Google Map": 9,
     "BBC News": 7,
-    "Booking": 6,
     "ArXiv": 6,
-    "GitHub": 5,
+    "Booking": 6,
     "Cambridge Dictionary": 5,
+    "GitHub": 5,
     "Google Search": 4,
     "Coursera": 2,
     "Huggingface": 2,
@@ -1484,9 +1484,9 @@
     "GitHub": 4,
     "Google Flights": 4,
     "ArXiv": 3,
+    "Coursera": 2,
     "Google Search": 2,
-    "Wolfram Alpha": 2,
-    "Coursera": 2
+    "Wolfram Alpha": 2
    }
   },
   "granularite_L2": {

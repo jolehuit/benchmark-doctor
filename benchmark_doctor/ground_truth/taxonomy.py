@@ -1,15 +1,14 @@
-"""Les 8 catégories de decay (C1 du mémoire) et le classement des raisons de Magnitude.
+"""Les 8 catégories de decay et le classement des raisons de Magnitude.
 
 Ce module porte trois choses :
 
-1. **Les définitions** des catégories T1..T8, avec la *règle d'arbitrage* effectivement
-   appliquée pour trancher les cas frontaliers — sans elle, la prévalence par catégorie
-   n'est pas reproductible.
-2. **Le classifieur par mots-clés** (`classify_reason_keywords`), repris à l'identique du
-   script exploratoire du 15/08 : il sert de référence basse pour mesurer ce qu'apporte la
-   relecture manuelle.
-3. **Les étiquettes manuelles** des 121 raisons de Magnitude
-   (`magnitude_reason_labels.json`), relues une à une.
+- **Les définitions** des catégories T1..T8, avec la *règle d'arbitrage* effectivement
+  appliquée pour trancher les cas frontaliers. Sans elle, la prévalence par catégorie
+  n'est pas reproductible.
+- **Le classifieur par mots-clés** (`classify_reason_keywords`) : il sert de référence
+  basse pour mesurer ce qu'apporte la relecture manuelle.
+- **Les étiquettes manuelles** des 121 raisons de Magnitude
+  (`magnitude_reason_labels.json`), relues une à une.
 
 Les codes (``"T1_temporal"``…) sont ceux de `benchmark_doctor.models.Category` ; le module
 ne l'importe pas pour rester exécutable indépendamment du reste du paquet, mais
@@ -102,7 +101,8 @@ CATEGORIES: tuple[CategoryDef, ...] = (
     ),
 )
 
-#: Règle d'arbitrage appliquée aux cas frontaliers, à citer dans le mémoire.
+#: Règle d'arbitrage appliquée aux cas frontaliers, sans laquelle la prévalence par
+#: catégorie n'est pas reproductible.
 ARBITRATION_RULE = (
     "T2 quand l'ENTITÉ nommée par la tâche a disparu ou changé ; T4 quand l'entité existe "
     "encore mais que l'INTERACTION supposée (filtre, contrôle, widget) n'est plus disponible ; "

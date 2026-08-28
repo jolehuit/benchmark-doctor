@@ -14,7 +14,7 @@
     "positive_rate": 0.3957,
     "annotator": {
       "count": 1,
-      "identity": "l'agent rédacteur (Claude Opus 5), annotateur unique",
+      "identity": "annotateur unique : un modèle de langage (Claude Opus 5)",
       "protocol": "rubrique écrite AVANT l'étiquetage, puis passage unique sur les 139 énoncés dans l'ordre site/identifiant ; chaque positif porte au moins un code de critère et une justification en une phrase."
     },
     "limits": [
@@ -822,8 +822,7 @@
         "fn": 0,
         "tn": 0
       },
-      "cost_first_run_usd": 0.0,
-      "cost_spent_usd": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "site_majority",
@@ -1605,8 +1604,7 @@
         "fn": 14,
         "tn": 55
       },
-      "cost_first_run_usd": 0.0,
-      "cost_spent_usd": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "heuristic",
@@ -2388,8 +2386,7 @@
         "fn": 28,
         "tn": 71
       },
-      "cost_first_run_usd": 0.0,
-      "cost_spent_usd": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "a_tfidf",
@@ -3171,8 +3168,7 @@
         "fn": 19,
         "tn": 67
       },
-      "cost_first_run_usd": 0.0,
-      "cost_spent_usd": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "b_minilm",
@@ -3954,8 +3950,7 @@
         "fn": 14,
         "tn": 52
       },
-      "cost_first_run_usd": 0.0,
-      "cost_spent_usd": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "c_openrouter_embed",
@@ -4737,8 +4732,7 @@
         "fn": 17,
         "tn": 62
       },
-      "cost_first_run_usd": 7.4e-05,
-      "cost_spent_usd": 0.0
+      "cost_usd": 7.4e-05
     }
   ],
   "judges": [
@@ -8735,13 +8729,10 @@
         {
           "label": "d_judge_clean-c1",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3197,
           "total_tokens": 66664,
           "cost_usd": 0.027033,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.027033,
           "wall_time_s": 89.021,
           "avoided_time_s": 0.0,
           "model_time_s": 89.021,
@@ -8750,13 +8741,10 @@
         {
           "label": "d_judge_clean-c2",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3230,
           "total_tokens": 66697,
           "cost_usd": 0.027115,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.027115,
           "wall_time_s": 87.865,
           "avoided_time_s": 0.0,
           "model_time_s": 87.865,
@@ -8765,13 +8753,10 @@
         {
           "label": "d_judge_clean-c3",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3201,
           "total_tokens": 66668,
           "cost_usd": 0.027043,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.027043,
           "wall_time_s": 86.825,
           "avoided_time_s": 0.0,
           "model_time_s": 86.825,
@@ -8780,13 +8765,10 @@
         {
           "label": "d_judge_clean-c4",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3189,
           "total_tokens": 66656,
           "cost_usd": 0.027013,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.027013,
           "wall_time_s": 90.766,
           "avoided_time_s": 0.0,
           "model_time_s": 90.766,
@@ -8795,21 +8777,17 @@
         {
           "label": "d_judge_clean-c5",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3197,
           "total_tokens": 66664,
           "cost_usd": 0.027033,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.027033,
           "wall_time_s": 89.809,
           "avoided_time_s": 0.0,
           "model_time_s": 89.809,
           "errors": 0
         }
       ],
-      "cost_first_run_usd": 0.135237,
-      "cost_spent_usd": 0.135237
+      "cost_usd": 0.135237
     },
     {
       "key": "d_judge_leaky",
@@ -12803,14 +12781,11 @@
       "ledgers": [
         {
           "label": "d_judge_leaky-None",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.028343,
-          "first_run_cost_usd": 0.028343,
+          "cost_usd": 0.028343,
           "wall_time_s": 0.394,
           "avoided_time_s": 94.424,
           "model_time_s": 94.818,
@@ -12818,14 +12793,11 @@
         },
         {
           "label": "d_judge_leaky-v1",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.028368,
-          "first_run_cost_usd": 0.028368,
+          "cost_usd": 0.028368,
           "wall_time_s": 0.264,
           "avoided_time_s": 92.129,
           "model_time_s": 92.392,
@@ -12833,14 +12805,11 @@
         },
         {
           "label": "d_judge_leaky-v2",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.028483,
-          "first_run_cost_usd": 0.028483,
+          "cost_usd": 0.028483,
           "wall_time_s": 0.398,
           "avoided_time_s": 92.59,
           "model_time_s": 92.988,
@@ -12848,14 +12817,11 @@
         },
         {
           "label": "d_judge_leaky-v3",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.028348,
-          "first_run_cost_usd": 0.028348,
+          "cost_usd": 0.028348,
           "wall_time_s": 0.321,
           "avoided_time_s": 92.525,
           "model_time_s": 92.846,
@@ -12864,21 +12830,17 @@
         {
           "label": "d_judge_leaky-v4",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 56934,
           "completion_tokens": 4517,
           "total_tokens": 61451,
           "cost_usd": 0.028373,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.028373,
           "wall_time_s": 93.794,
           "avoided_time_s": 0.0,
           "model_time_s": 93.794,
           "errors": 0
         }
       ],
-      "cost_first_run_usd": 0.141915,
-      "cost_spent_usd": 0.028373
+      "cost_usd": 0.141915
     },
     {
       "key": "d_judge_plain",
@@ -16875,14 +16837,11 @@
       "ledgers": [
         {
           "label": "d_judge_plain-None",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.014989,
-          "first_run_cost_usd": 0.014989,
+          "cost_usd": 0.014989,
           "wall_time_s": 0.432,
           "avoided_time_s": 94.82,
           "model_time_s": 95.252,
@@ -16891,13 +16850,10 @@
         {
           "label": "d_judge_plain-p2",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 15512,
           "completion_tokens": 4125,
           "total_tokens": 19637,
           "cost_usd": 0.014966,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.014966,
           "wall_time_s": 93.576,
           "avoided_time_s": 0.0,
           "model_time_s": 93.576,
@@ -16906,13 +16862,10 @@
         {
           "label": "d_judge_plain-p3",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 15512,
           "completion_tokens": 4081,
           "total_tokens": 19593,
           "cost_usd": 0.014856,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.014856,
           "wall_time_s": 89.615,
           "avoided_time_s": 0.0,
           "model_time_s": 89.615,
@@ -16921,13 +16874,10 @@
         {
           "label": "d_judge_plain-p4",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 15512,
           "completion_tokens": 4117,
           "total_tokens": 19629,
           "cost_usd": 0.014946,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.014946,
           "wall_time_s": 91.28,
           "avoided_time_s": 0.0,
           "model_time_s": 91.28,
@@ -16936,21 +16886,17 @@
         {
           "label": "d_judge_plain-p5",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 15512,
           "completion_tokens": 4109,
           "total_tokens": 19621,
           "cost_usd": 0.014926,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.014926,
           "wall_time_s": 93.992,
           "avoided_time_s": 0.0,
           "model_time_s": 93.992,
           "errors": 0
         }
       ],
-      "cost_first_run_usd": 0.074683,
-      "cost_spent_usd": 0.059694
+      "cost_usd": 0.074683
     },
     {
       "key": "d_lite_clean",
@@ -20943,13 +20889,10 @@
         {
           "label": "d_lite_clean-c1",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3916,
           "total_tokens": 67383,
           "cost_usd": 0.007913,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007913,
           "wall_time_s": 81.166,
           "avoided_time_s": 0.0,
           "model_time_s": 81.166,
@@ -20958,13 +20901,10 @@
         {
           "label": "d_lite_clean-c2",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3940,
           "total_tokens": 67407,
           "cost_usd": 0.007923,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007923,
           "wall_time_s": 79.286,
           "avoided_time_s": 0.0,
           "model_time_s": 79.286,
@@ -20973,13 +20913,10 @@
         {
           "label": "d_lite_clean-c3",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3938,
           "total_tokens": 67405,
           "cost_usd": 0.007922,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007922,
           "wall_time_s": 77.977,
           "avoided_time_s": 0.0,
           "model_time_s": 77.977,
@@ -20988,13 +20925,10 @@
         {
           "label": "d_lite_clean-c4",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3952,
           "total_tokens": 67419,
           "cost_usd": 0.007927,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007927,
           "wall_time_s": 78.06,
           "avoided_time_s": 0.0,
           "model_time_s": 78.06,
@@ -21003,21 +20937,17 @@
         {
           "label": "d_lite_clean-c5",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 63467,
           "completion_tokens": 3944,
           "total_tokens": 67411,
           "cost_usd": 0.007924,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007924,
           "wall_time_s": 79.837,
           "avoided_time_s": 0.0,
           "model_time_s": 79.837,
           "errors": 0
         }
       ],
-      "cost_first_run_usd": 0.039609,
-      "cost_spent_usd": 0.039609
+      "cost_usd": 0.039609
     },
     {
       "key": "d_lite_leaky",
@@ -25012,14 +24942,11 @@
       "ledgers": [
         {
           "label": "d_lite_leaky-None",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.007285,
-          "first_run_cost_usd": 0.007285,
+          "cost_usd": 0.007285,
           "wall_time_s": 0.466,
           "avoided_time_s": 79.522,
           "model_time_s": 79.988,
@@ -25027,14 +24954,11 @@
         },
         {
           "label": "d_lite_leaky-v1",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.007289,
-          "first_run_cost_usd": 0.007289,
+          "cost_usd": 0.007289,
           "wall_time_s": 0.464,
           "avoided_time_s": 83.013,
           "model_time_s": 83.477,
@@ -25042,14 +24966,11 @@
         },
         {
           "label": "d_lite_leaky-v2",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.007284,
-          "first_run_cost_usd": 0.007284,
+          "cost_usd": 0.007284,
           "wall_time_s": 0.429,
           "avoided_time_s": 84.766,
           "model_time_s": 85.195,
@@ -25057,14 +24978,11 @@
         },
         {
           "label": "d_lite_leaky-v3",
-          "calls": 0,
-          "cached_calls": 139,
+          "calls": 139,
           "prompt_tokens": 0,
           "completion_tokens": 0,
           "total_tokens": 0,
-          "cost_usd": 0.0,
-          "avoided_cost_usd": 0.007289,
-          "first_run_cost_usd": 0.007289,
+          "cost_usd": 0.007289,
           "wall_time_s": 0.322,
           "avoided_time_s": 87.705,
           "model_time_s": 88.027,
@@ -25073,21 +24991,17 @@
         {
           "label": "d_lite_leaky-v4",
           "calls": 139,
-          "cached_calls": 0,
           "prompt_tokens": 56934,
           "completion_tokens": 3986,
           "total_tokens": 60920,
           "cost_usd": 0.007288,
-          "avoided_cost_usd": 0.0,
-          "first_run_cost_usd": 0.007288,
           "wall_time_s": 79.711,
           "avoided_time_s": 0.0,
           "model_time_s": 79.711,
           "errors": 0
         }
       ],
-      "cost_first_run_usd": 0.036435,
-      "cost_spent_usd": 0.007288
+      "cost_usd": 0.036435
     }
   ],
   "tfidf_in_sample_warning": {
@@ -25482,6 +25396,5 @@
       "b_only_correct": 19,
       "p_value": 0.13604594767093658
     }
-  ],
-  "cost_usd_this_run": 0.2702
+  ]
 }

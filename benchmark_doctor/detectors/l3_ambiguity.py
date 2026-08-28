@@ -1,19 +1,15 @@
 """L3 : ambiguïté d'un énoncé de tâche (T5, et T6 quand les deux sont indiscernables).
 
 Une tâche ambiguë ne casse pas : elle s'exécute, elle rend une réponse, et c'est le verdict
-qui devient arbitraire. « Trouve une recette de lasagnes végétariennes avec plus de 100 avis
-et 4,5 étoiles » admet des dizaines de réponses également correctes ; selon celle que
-l'agent rapporte, un juge strict compte un échec là où un juge indulgent compte une
-réussite. C'est le mode de dégradation le plus silencieux du benchmark, et celui que la
-couche statique rate presque complètement (rappel 33 % en v1).
+qui devient arbitraire. « Une recette de lasagnes avec plus de 100 avis et 4,5 étoiles »
+admet des dizaines de réponses également correctes, et selon celle que l'agent rapporte un
+juge strict compte un échec là où un juge indulgent compte une réussite. Mode de dégradation
+silencieux, et la couche statique n'attrape aucune des 5 tâches étiquetées T5 du corpus par
+un constat de la bonne catégorie.
 
-Quatre implémentations interchangeables sont fournies, par coût croissant. Les chiffres
-ci-dessous sont ceux de `experiments/ablation_l3_clean.py` (16/08/2026), qui remplace ceux
-du banc du 15/08 : ces derniers étaient mesurés avec une rubrique de juge contenant des
-énoncés du jeu évalué (problème B1, cf. le commentaire de ``_RUBRIC``). Protocole : 139
-tâches annotées, validation croisée à 5 plis stratifiés, seuil calibré sur les plis
-d'entraînement par le J de Youden, coût relevé dans ``usage.cost``. Le juge est exécuté cinq
-fois et l'on publie sa moyenne, jamais son maximum.
+Quatre implémentations interchangeables, mesurées sur les 139 tâches annotées en validation
+croisée à 5 plis stratifiés, seuil calibré par le J de Youden sur les plis d'entraînement,
+juge exécuté cinq fois et moyenné (`runs/ablation_l3_clean_20260816.json`).
 
 ==============  ==================================  ==========  =====  ===============
 Backend         Représentation                      F1          AUC    Coût / 643 tâches
@@ -24,52 +20,23 @@ Backend         Représentation                      F1          AUC    Coût / 
 ``llm``         juge gemini-2.5-flash, note 0-1     0,715±0,006 0,772  0,13 $
 ==============  ==================================  ==========  =====  ===============
 
-Le ``±`` du juge est la dispersion entre les cinq exécutions (même prompt, même température
-0). La dispersion entre plis, beaucoup plus large (≈ 0,18), est un fait sur la taille des
-plis, pas sur la stabilité du juge ; le tableau du 15/08 publiait la seconde sous
-l'apparence de la première.
+Le ``±`` est la dispersion entre exécutions ; celle entre plis, ≈ 0,18, dit la taille des
+plis et non l'instabilité du juge. Les trois premières approches ne se départagent pas et ne
+battent pas une ligne de base qui ne connaît que le nom du site. Le juge n'ordonne pas mieux
+les énoncés (AUC 0,772 contre 0,776) ; ce qu'il apporte est un point de fonctionnement, à
+rappel égal (0,60) 4 faux positifs sur 84 négatifs contre 17, pour une précision de 0,89.
+L'écart de F1 avec TF-IDF n'est pas significatif, et `gemini-2.5-flash-lite` est au hasard.
 
-Ce que la mesure soutient, tests à l'appui dans `experiments/ABLATION_L3.md` : les trois
-premières approches sont indiscernables entre elles et ne battent pas une ligne de base qui
-ne connaît que le nom du site, donc payer des embeddings n'achète rien ici. Le juge LLM
-n'ordonne pas mieux les énoncés (AUC 0,772 contre 0,776 pour TF-IDF) ; ce qu'il apporte est
-un point de fonctionnement, puisqu'à rappel identique il produit 4 faux positifs sur 84
-négatifs contre 17. C'est un détecteur de haute précision (0,89) et de rappel moyen, et
-c'est la seule revendication soutenue : sur le F1 global l'écart avec TF-IDF n'est pas
-significatif. Le juge bon marché, lui, est au niveau du hasard (`gemini-2.5-flash-lite`,
-rubrique propre : AUC 0,551) ; la performance n'est pas monotone en fonction du prix, et le
-backend ``llm`` pointe sur `gemini-2.5-flash`.
+Deux bornes hautes à publier avec le chiffre. Sans rubrique (prompt ``plain``) le juge tombe
+à F1 0,565, la valeur de la ligne « tout positif » : l'essentiel de sa performance vient de
+la grille d'annotation qu'on lui transmet, celle qu'a suivie l'annotateur, et le protocole
+mesure la reproductibilité d'une grille entre deux modèles. Et ``build_scorer(fit=True)``
+entraîne le classifieur sur les 139 annotations avant de lui faire scorer les 643 tâches
+dont ces 139 : ``tfidf`` y montre 0,964 de précision, 0,660 hors plis, seule valeur publiable.
 
-Le chiffre du juge reste une borne haute. Le même modèle, même corpus, sans rubrique (prompt
-``plain``), tombe à F1 0,565, soit la valeur de la ligne « tout positif » (0,567) :
-l'essentiel de sa performance vient de la grille d'annotation qu'on lui transmet, celle-là
-même qu'a suivie l'annotateur du jeu de test. Le protocole mesure donc la reproductibilité
-d'une grille entre deux modèles, pas la détection de l'ambiguïté. Aucune formulation du
-corpus n'est plus dans le prompt (contrôlé par `experiments/check_rubric_leak.py`), mais la
-définition l'est, et elle ne peut pas ne pas l'être.
-
-Le backend se choisit par la variable d'environnement ``BDOCTOR_L3_BACKEND`` (défaut :
-``tfidf``, le seul qui n'exige ni clé d'API ni dépendance lourde ; ``llm`` est le choix
-recommandé dès qu'une clé est disponible et que 0,13 $ par passage est acceptable). Les
-trois premiers backends sont des classifieurs supervisés entraînés sur
-``data/annotations_ambiguity.json`` : le jeu annoté est une donnée de l'outil, livrée avec
-lui, et non un simple artefact d'évaluation. Leur performance est par conséquent une borne
-haute, mesurée sur le corpus qui a servi à les définir.
-
-Conséquence à ne jamais publier sans elle : ``build_scorer(fit=True)`` entraîne le
-classifieur sur la totalité des 139 annotations, puis la carte de santé le fait scorer les
-643 tâches, dont ces 139. Sur cette intersection, la précision apparente du backend
-``tfidf`` est de 0,964 ; hors plis elle est de 0,660. Une carte produite avec le backend par
-défaut applique donc deux instruments à un même corpus. Seule la valeur hors plis est
-publiable, et pour un chiffre destiné au mémoire il faut ``--l3-backend llm`` (problème C13
-de la vérification adverse).
-
-Choix de sévérité assumé : un constat d'ambiguïté est émis en ``MEDIUM``, jamais en
-``HIGH``. Une tâche ambiguë reste exécutable ; elle corrompt la mesure, pas le run. Le seuil
-de flag dur de l'outil (``Severity.HIGH``) reste donc insensible à cette couche, ce qui
-évite de faire bouger les taux de decay publiés par la couche L1 en ajoutant une couche dont
-la précision hors plis va de 0,66 (backend ``tfidf``, celui par défaut) à 0,89 (juge LLM),
-et dont le rappel plafonne à 0,60 dans les deux cas.
+Backend choisi par ``BDOCTOR_L3_BACKEND`` (défaut ``tfidf``, ni clé ni dépendance lourde).
+Un constat sort en ``MEDIUM``, jamais en ``HIGH`` : la tâche ambiguë reste exécutable, elle
+corrompt la mesure et non le run, et le seuil de flag dur reste insensible à cette couche.
 """
 
 from __future__ import annotations
@@ -275,7 +242,7 @@ class TfidfScorer:
         return [float(p) for p in self._pipeline.predict_proba(list(texts))[:, 1]]
 
     def top_features(self, k: int = 15) -> list[tuple[str, float]]:
-        """Les n-grammes les plus discriminants, pour l'interprétation du mémoire."""
+        """Les n-grammes les plus discriminants, pour l'interprétation du classifieur."""
         if self._pipeline is None:
             raise RuntimeError("TfidfScorer.fit doit être appelé avant top_features")
         vectorizer, model = self._pipeline.steps[0][1], self._pipeline.steps[1][1]
@@ -377,14 +344,21 @@ class EmbeddingScorer:
 
 
 # Tous les exemples de cette rubrique sont FABRIQUÉS. La première version de `_RUBRIC`
-# illustrait ses critères avec quatre énoncés du jeu d'évaluation recopiés mot pour mot,
-# tous étiquetés positifs (GitHub--5, Coursera--0, Huggingface--23, Apple--11), et ses
-# contre-exemples négatifs décrivaient un à un les sites du corpus qui ne portent aucun
+# illustrait ses critères avec cinq énoncés du jeu d'évaluation recopiés mot pour mot :
+# quatre positifs (GitHub--5, Coursera--0, Huggingface--23, Apple--11) et un négatif dont le
+# trait distinctif figurait dans la liste des contre-exemples (GitHub--28). Ces
+# contre-exemples décrivaient en outre un à un les sites du corpus qui ne portent aucun
 # positif (Cambridge Dictionary, ArXiv, ESPN, Wolfram Alpha). Le juge ne voyait donc pas ces
 # cas, il les relisait dans son propre prompt : la comparaison avec les classifieurs, qui
 # n'apprennent que sur 111 exemples par pli, était structurellement déloyale, et
-# l'enseignement qualitatif qu'on en tirait une tautologie. Diagnostic posé par la
-# vérification adverse du 16/08/2026 (problème B1).
+# l'enseignement qualitatif qu'on en tirait une tautologie.
+#
+# Ce que cela coûtait en mesure : le F1 de 0,827 publié avec cette rubrique était le
+# meilleur de quatre exécutions à température 0 ; rejouée cinq fois elle donne 0,810 ± 0,012,
+# et la rubrique fabriquée ci-dessous donne 0,715 ± 0,006. Retirer du calcul les cinq
+# énoncés recopiés ne récupérait que 0,016 point, l'écart restant de 0,094 sur les 134
+# autres : les exemples fuités enseignaient un motif transférable, et corriger par retrait
+# d'items ne marchait pas.
 #
 # Règles appliquées à la réécriture, à vérifier avant toute modification de ce texte :
 #   1. aucun exemple ne provient d'un benchmark existant, ni d'aucun corpus évalué ;
@@ -402,10 +376,10 @@ class EmbeddingScorer:
 # Les points 1 à 4 sont vérifiés par `experiments/check_rubric_leak.py`, qui échoue sur
 # l'ancienne rubrique et passe sur celle-ci. À relancer après toute retouche de ce texte.
 #
-# Ce que le juge reçoit encore, et qui reste une limite assumée du protocole (mesurée par la
-# ligne « prompt plain » de `experiments/ABLATION_L3.md`), c'est la définition de
-# l'étiquette, identique à celle de l'annotateur. Ce qu'il ne reçoit plus, ce sont les
-# énoncés qu'on lui demande ensuite de noter.
+# Ce que le juge reçoit encore, et qui reste une limite assumée du protocole, c'est la
+# définition de l'étiquette, identique à celle de l'annotateur : privé de cette grille, le
+# même juge tombe à F1 0,565, la valeur de la stratégie « tout positif ». Ce qu'il ne reçoit
+# plus, ce sont les énoncés qu'on lui demande ensuite de noter.
 _RUBRIC = """A web-agent benchmark task is AMBIGUOUS when, reading the statement alone, two
 different answers can both be equally correct because the statement gives no
 tie-breaking criterion and the website imposes no deterministic order.

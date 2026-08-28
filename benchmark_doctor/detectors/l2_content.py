@@ -1,12 +1,9 @@
 """L2 — existence des contenus cités par les tâches (T2, dérive de contenu).
 
-Le trou que ce module vise
---------------------------
-
 La dérive de contenu pèse environ un quart des patches de la ground truth
-(« GitHub Pro does not exist anymore », « This phone is no longer sold ») et le rappel du
-détecteur statique sur cette catégorie est de **0 %** (mesures du 15/08, `RESULTS.md`).
-La raison est structurelle : aucune analyse de l'énoncé ne peut savoir si un modèle
+(« GitHub Pro does not exist anymore », « This phone is no longer sold ») et la couche
+statique n'en attrape rien : au seuil HIGH, L1 seul recense **0 des 21 tâches étiquetées
+T2**. La raison est structurelle, aucune analyse de l'énoncé ne peut savoir si un modèle
 Hugging Face a été dépublié. Il faut le demander au site.
 
 Le principe retenu : **ne mécaniser que ce qui est vérifiable sans ambiguïté**. Une tâche

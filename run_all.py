@@ -1,44 +1,34 @@
 #!/usr/bin/env python3
 """Campagne complète de `benchmark-doctor` sur WebVoyager, et sa validation.
 
-Ce script est le point d'entrée reproductible du chapitre 4 du mémoire. Il enchaîne
-trois phases, chacune exécutable seule :
+Point d'entrée reproductible de la campagne, en trois phases exécutables séparément :
 
-1. ``audit``    — une passe L1 + L2 + L3 sur les 643 tâches, à date de référence fixée,
-                  produisant la carte de santé (JSON + HTML) et le journal brut des
-                  constats ;
-2. ``validate`` — précision / rappel / F1 de l'outil contre la base de verdicts
-                  réconciliée des six annotateurs indépendants, globalement et par
-                  catégorie de la taxonomie, avec l'ablation par couche ;
-3. ``export``   — le sous-ensemble WebVoyager-Verified v0.1 et son README.
+1. ``audit`` : une passe L1 + L2 + L3 sur les 643 tâches, à date de référence fixée,
+   produisant la carte de santé (JSON + HTML) et le journal brut des constats ;
+2. ``validate`` : précision, rappel et F1 contre la base de verdicts réconciliée des six
+   annotateurs indépendants, globalement et par catégorie, avec l'ablation par couche ;
+3. ``export`` : le sous-ensemble WebVoyager-Verified v0.1 et son README.
 
-Quatre décisions de méthode portent tout le reste et méritent d'être défendues :
+Quatre décisions de méthode portent le reste. Les trois couches sont exécutées une seule
+fois, et l'ablation « L1 seul / L1+L2 / L1+L2+L3 » se fait ensuite en filtrant les constats
+par couche : ré-exécuter la campagne pour chaque niveau introduirait une variation de
+mesure, le web changeant entre deux passes, là où l'on veut mesurer une variation de
+méthode. C'est pourquoi `TaskVerdict` ne stocke aucun verdict binaire.
 
-**a. Une seule passe de mesure, l'ablation par filtrage.** Les trois couches sont
-exécutées une fois ; l'ablation « L1 seul / L1+L2 / L1+L2+L3 » se fait ensuite en
-filtrant les constats par couche. Ré-exécuter la campagne pour chaque niveau
-introduirait une variation de mesure (le web change entre deux passes) là où l'on veut
-mesurer une variation de méthode. C'est la raison pour laquelle `TaskVerdict` ne stocke
-aucun verdict binaire.
+La validation porte sur les constats, jamais sur le score publié. Le score de stabilité de
+la carte de santé intègre un a priori tiré de `data/ground_truth.json`, la vérité terrain
+elle-même : le valider contre cette base mesurerait la capacité de l'outil à recopier ce
+qu'on lui a donné. Précision et rappel sont calculés sur les constats des détecteurs, et
+les métriques d'ordonnancement sur le score détecteurs seuls (`prior` vide).
 
-**b. La validation porte sur les constats, jamais sur le score publié.** Le score de
-stabilité de la carte de santé intègre un a priori tiré de `data/ground_truth.json` —
-c'est-à-dire de la vérité terrain elle-même. Le valider contre cette même base
-mesurerait la capacité de l'outil à recopier ce qu'on lui a donné. Toutes les mesures
-de précision et de rappel de la phase ``validate`` sont donc calculées sur les constats
-des détecteurs, et les métriques d'ordonnancement sur le score **détecteurs seuls**
-(`prior` vide).
+Il n'y a pas une vérité terrain mais cinq, « tâche défectueuse » n'ayant pas de définition
+unique : les six annotateurs signalent 169 tâches, dont 68 seulement font l'unanimité et 78
+sont supprimées par au moins un. Publier un seul couple (P, R) choisirait silencieusement
+une définition ; les cinq sont mesurées côte à côte, et leur écart est un résultat.
 
-**c. Il n'y a pas une vérité terrain mais cinq.** « Une tâche défectueuse » n'a pas de
-définition unique : les six annotateurs signalent 169 tâches, dont 68 seulement font
-l'unanimité, et 78 sont supprimées par au moins un. Publier un seul couple (P, R)
-reviendrait à choisir silencieusement une définition. Les cinq définitions sont donc
-mesurées côte à côte, et l'écart entre elles est un résultat.
-
-**d. Le seuil de décision est explicite et varié.** La couche L3 (ambiguïté) n'émet que
-des constats MEDIUM par construction — une tâche ambiguë s'exécute. Mesurer l'apport de
-L3 au seuil HIGH donnerait mécaniquement zéro. Chaque tableau est donc produit aux deux
-seuils, HIGH (« flag dur ») et MEDIUM (« flag large »).
+Le seuil de décision est explicite et varié : la couche L3 (ambiguïté) n'émet que des
+constats MEDIUM par construction, une tâche ambiguë s'exécute, et mesurer son apport au
+seuil HIGH donnerait zéro. Chaque tableau est produit aux deux seuils, HIGH et MEDIUM.
 
 Usage :
 
@@ -82,6 +72,13 @@ from benchmark_doctor.models import (  # noqa: E402
 REFERENCE_DATE = _dt.date(2026, 8, 15)
 
 CORPUS = ROOT / "data" / "raw" / "webvoyager_original.jsonl"
+
+#: Le chemin du corpus tel qu'il est publié. `CORPUS` sert à ouvrir le fichier et à en
+#: calculer l'empreinte, ce qui exige un chemin absolu ; l'étiquette écrite dans la carte
+#: et dans le journal des constats est relative à la racine, pour qu'un artefact versionné
+#: ne nomme pas le poste de travail qui l'a produit.
+CORPUS_LABEL = str(CORPUS.relative_to(ROOT))
+
 GROUND_TRUTH = ROOT / "data" / "ground_truth.json"
 RUNS = ROOT / "runs"
 EXPORTS = ROOT / "exports"
@@ -173,6 +170,12 @@ def phase_audit(args: argparse.Namespace) -> dict[str, Any]:
         ],
         protocol=protocol,
     )
+    # `_run_layers` étiquette le bulletin avec le chemin qu'on lui a passé, et `build_card`
+    # a besoin de ce chemin absolu pour calculer l'empreinte du corpus. Une fois l'empreinte
+    # prise, l'étiquette repasse en relatif dans les deux artefacts écrits ci-dessous.
+    card.corpus_path = CORPUS_LABEL
+    health.source = CORPUS_LABEL
+
     RUNS.mkdir(parents=True, exist_ok=True)
     write_card(card, json_path=str(CARD_JSON), html_path=str(CARD_HTML))
 
@@ -183,7 +186,7 @@ def phase_audit(args: argparse.Namespace) -> dict[str, Any]:
     raw["meta"] = {
         "generated_by": f"run_all.py (benchmark-doctor {__version__})",
         "reference_date": today.isoformat(),
-        "corpus": str(CORPUS),
+        "corpus": CORPUS_LABEL,
         "layers_executed": executed,
         "protocol": protocol,
         "cost": cost.to_dict(len(health)),
@@ -416,8 +419,8 @@ def phase_validate(args: argparse.Namespace) -> dict[str, Any]:
         "meta": {
             "generated_by": f"run_all.py --phase validate (benchmark-doctor {__version__})",
             "reference_date": today.isoformat(),
-            "findings_source": str(FINDINGS_JSON),
-            "ground_truth": str(GROUND_TRUTH),
+            "findings_source": str(FINDINGS_JSON.relative_to(ROOT)),
+            "ground_truth": str(GROUND_TRUTH.relative_to(ROOT)),
             "n_tasks": len(all_ids),
             "avertissement": (
                 "Les mesures portent sur les CONSTATS des détecteurs, jamais sur le score "
@@ -581,7 +584,10 @@ def phase_validate(args: argparse.Namespace) -> dict[str, Any]:
     fp_ids = flagged_high - truth_any
     fp_detectors = Counter()
     fp_sites = Counter()
-    for task_id in fp_ids:
+    # Le parcours est trié : `most_common()` départage les ex æquo par ordre d'insertion,
+    # et un ensemble ne s'itère pas deux fois dans le même ordre d'un processus à l'autre.
+    # Sans ce tri, deux exécutions du même script écrivent des octets différents.
+    for task_id in sorted(fp_ids):
         v = by_id_all[task_id]
         for f in v.findings:
             if f.severity >= Severity.HIGH:
@@ -589,7 +595,7 @@ def phase_validate(args: argparse.Namespace) -> dict[str, Any]:
         fp_sites[v.task.site or "?"] += 1
     fn_ids = truth_any - flagged_high
     fn_sites = Counter()
-    for task_id in fn_ids:
+    for task_id in sorted(fn_ids):
         fn_sites[by_id_all[task_id].task.site or "?"] += 1
 
     # Effet de la granularité de L2 : une sonde par site, propagée à toutes ses tâches.
@@ -762,8 +768,8 @@ def phase_export(args: argparse.Namespace) -> dict[str, Any]:
         # Le champ `question` conserve l'énoncé d'origine (le patch vit à côté). Un
         # sous-ensemble qui s'appelle « Verified » ne peut pas laisser croire que ces
         # énoncés sont exécutables tels quels : 84 des 563 tâches du sous-ensemble dit
-        # exécutable portent une date déjà révolue à la date de mesure (cf.
-        # `VERIFICATION.md` §C9). Nous les **marquons** plutôt que de les retirer, pour
+        # exécutable portent une date déjà révolue à la date de mesure, dont 14 dans le
+        # noyau. Nous les **marquons** plutôt que de les retirer, pour
         # trois raisons : (a) le fichier est une photographie à 643 lignes, une par tâche,
         # et retirer des lignes casserait l'invariant qui le rend comparable dans le temps ;
         # (b) la péremption est datée — elle sera vraie de plus de tâches dans six mois, et
@@ -968,8 +974,8 @@ WebVoyager, dans l'ordre du corpus d'origine. Les statistiques agrégées sont d
 
 ## Ce que ce fichier est
 
-Une **réconciliation datée** de six audits publics indépendants de WebVoyager, augmentée
-de métadonnées de stabilité mesurées le {s['date']}. Chaque ligne porte :
+Une **réconciliation datée** de six audits publics de WebVoyager, augmentée de
+métadonnées de stabilité mesurées le {s['date']}. Chaque ligne porte :
 
 | Champ | Contenu |
 |---|---|
@@ -992,7 +998,7 @@ de métadonnées de stabilité mesurées le {s['date']}. Chaque ligne porte :
 | `retirer` | {st.get('retirer', 0)} | consensus « supprimer » | à exclure du score |
 | `conteste` | {st.get('conteste', 0)} | supprimée par au moins un annotateur ET conservée intacte par au moins un autre | **à ne pas trancher automatiquement** |
 
-### Le sous-ensemble exécutable : deux chiffres, pas un
+### Le sous-ensemble exécutable : quel chiffre citer
 
 Le sous-ensemble consensuel (`noyau` ∪ `surveiller` ∪ `corriger`) compte
 **{s['n_sous_ensemble_executable']} tâches**. Ce n'est **pas** le nombre de tâches
@@ -1060,9 +1066,9 @@ par l'outil. {d['lecture']}
    premiers.** Emergence AI a publié en mars 2026 un audit humain de WebVoyager et une
    version corrigée de **535 tâches templatées** (`EmergenceAI/EmergenceWebVoyager`).
    Microsoft Fara publie un sous-ensemble de 595 tâches, Convergence de 601, Alumnium de
-   619, Skyvern de 635. Notre apport n'est ni l'audit ni la réparation : c'est la
-   **réconciliation multi-annotateurs**, la **mesure longitudinale** et les
-   **métadonnées de stabilité par tâche**, qui n'existent nulle part ailleurs.
+   619, Skyvern de 635. Ce dépôt apporte la réconciliation multi-annotateurs, la mesure
+   longitudinale et les métadonnées de stabilité par tâche, qui ne sont publiées nulle
+   part ailleurs.
 
 2. **Ce n'est pas une réparation exhaustive du benchmark.** Aucune tâche n'a été
    ré-exécutée par un agent, aucun énoncé n'a été réécrit par nous. Les patches proposés

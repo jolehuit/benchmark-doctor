@@ -2,10 +2,9 @@
  "statut_editorial": {
   "statut": "exploratoire",
   "mention": "configuration exploratoire, non citée",
-  "raison": "Carte L1 seule (`bdoctor scan`), sans modèle de score : le score y vaut 1 − max(risque), sans crédibilité de canal ni décote de fraîcheur. Régénérée le 16/08 avec l'échelle de notes unifiée — les 65 tâches que l'échelle héritée classait en D sont désormais en C (A 509 · B 61 · C 73 · D 0). Utile pour la prévalence par catégorie de la couche L1, jamais comme état du benchmark.",
+  "raison": "Carte L1 seule (`bdoctor scan`), sans modèle de score : le score y vaut 1 − max(risque), sans crédibilité de canal ni décote de fraîcheur. Régénérée le 16/08/2026 avec l'échelle de notes unifiée, ce qui fait passer en C les 65 tâches que l'échelle héritée classait en D (A 509, B 61, C 73, D 0). Elle donne la prévalence par catégorie de la couche L1 ; sa distribution de notes ne décrit pas l'état du benchmark.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "summary": {
   "benchmark": "webvoyager",

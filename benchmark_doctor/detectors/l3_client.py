@@ -42,13 +42,13 @@ __all__ = [
 ]
 
 #: Modèle de conversation par défaut : ce n'est pas le moins cher, c'est un résultat de
-#: mesure. Campagne à rubrique propre du 16/08/2026 (`experiments/ablation_l3_clean.py`,
-#: rapport `experiments/ABLATION_L3.md`), qui remplace celle du 15/08 : `gemini-2.5-flash`
-#: obtient F1 0,715 ± 0,006 et AUC 0,772 ; `gemini-2.5-flash-lite` tombe à F1 0,245 et
-#: AUC 0,551, soit presque le hasard. Deux réserves : le F1 de 0,827 annoncé le 15/08 était
-#: gonflé par cinq énoncés du jeu évalué recopiés dans la rubrique du juge, et l'avantage
-#: du juge propre sur la ligne de base gratuite n'est pas significatif à 5 % sur 139 items
-#: (ce qu'il apporte est de la précision, 0,89 contre 0,66, à rappel égal).
+#: mesure. Campagne à rubrique propre (`experiments/ablation_l3_clean.py`,
+#: `runs/ablation_l3_clean_20260816.json`) : `gemini-2.5-flash` obtient F1 0,715 ± 0,006 et
+#: AUC 0,772 ; `gemini-2.5-flash-lite` tombe à F1 0,245 et AUC 0,551, soit presque le
+#: hasard. Deux réserves : le F1 de 0,827 publié auparavant était gonflé par cinq énoncés du
+#: jeu évalué recopiés dans la rubrique du juge, et l'avantage du juge propre sur la ligne de
+#: base gratuite n'est pas significatif à 5 % sur 139 items (ce qu'il apporte est de la
+#: précision, 0,89 contre 0,66, à rappel égal).
 DEFAULT_CHAT_MODEL = os.environ.get("BDOCTOR_L3_CHAT_MODEL", "google/gemini-2.5-flash")
 
 #: Le modèle le moins cher du fournisseur, conservé comme point de comparaison de
@@ -168,16 +168,15 @@ class CostLedger:
 
     def to_dict(self) -> dict[str, Any]:
         # Sérialisation explicite : `asdict` échouerait sur le verrou de synchronisation.
+        # `calls` et `cost_usd` décrivent la mesure entière, jetons compris quand ils ont
+        # été relevés : c'est ce couple qui se compare d'une approche à l'autre.
         return {
             "label": self.label,
-            "calls": self.calls,
-            "cached_calls": self.cached_calls,
+            "calls": self.calls + self.cached_calls,
             "prompt_tokens": self.prompt_tokens,
             "completion_tokens": self.completion_tokens,
             "total_tokens": self.total_tokens,
-            "cost_usd": round(self.cost_usd, 6),
-            "avoided_cost_usd": round(self.avoided_cost_usd, 6),
-            "first_run_cost_usd": round(self.first_run_cost_usd, 6),
+            "cost_usd": round(self.first_run_cost_usd, 6),
             "wall_time_s": round(self.wall_time_s, 3),
             "avoided_time_s": round(self.avoided_time_s, 3),
             "model_time_s": round(self.model_time_s, 3),

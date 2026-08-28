@@ -30,14 +30,14 @@ class SourceSpec:
 
     Args:
         key: identifiant court utilisé partout dans la base (`verdicts[].source`).
-        label: nom lisible pour les tableaux du mémoire.
+        label: nom lisible, utilisé dans les tableaux produits par `stats`.
         annotator: équipe qui a produit le verdict. Deux sources peuvent partager un
             annotateur (les deux instantanés Skyvern) : c'est cette clé qui sert à ne
             compter qu'une fois un même annotateur dans les calculs d'accord.
         date: date de l'artefact (ISO), telle que datée par le dépôt d'origine.
         repo: dépôt ou dataset d'origine.
         commit: révision épinglée.
-        expresses: ce que l'artefact dit réellement (à citer tel quel dans le mémoire).
+        expresses: ce que l'artefact dit réellement, formulé sans interprétation.
         confidence: `haute` si les verdicts sont explicites et attribuables au decay ;
             `faible` si l'exclusion d'une tâche peut avoir une autre cause (rééchantillonnage).
         counted_in_agreement: faux pour les sources exclues du calcul d'accord principal.

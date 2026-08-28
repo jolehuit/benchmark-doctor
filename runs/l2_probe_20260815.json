@@ -29,7 +29,6 @@
    "network_retries": 1,
    "follows_redirects": true,
    "egress_proxy": true,
-   "egress_proxy_url": "http://127.0.0.1:42669",
    "note": "Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, le corps reviendrait binaire et fausserait la classification."
   },
   {
@@ -44,7 +43,6 @@
    "network_retries": 1,
    "follows_redirects": true,
    "egress_proxy": true,
-   "egress_proxy_url": "http://127.0.0.1:42669",
    "note": "Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, le corps reviendrait binaire et fausserait la classification."
   },
   {

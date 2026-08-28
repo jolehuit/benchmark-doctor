@@ -1,42 +1,38 @@
 """Banc d'ablation : quatre approches de détection d'ambiguïté, à coût croissant.
 
 Question posée : **à partir de quel budget la détection d'ambiguïté devient-elle
-meilleure ?** L'architecture de `benchmark-doctor` postule une hiérarchie par coût
-(L1 statique gratuit → L2 sondes web → L3 modèles). Ce postulat n'a de valeur que s'il
-est mesuré : si un sac de mots gratuit égale un juge LLM payant sur la même tâche, la
-couche L3 ne se justifie pas pour l'ambiguïté, et il faut le dire.
+meilleure ?** L'architecture de `benchmark-doctor` postule une hiérarchie par coût (L1
+statique gratuit → L2 sondes web → L3 modèles). Si un sac de mots gratuit égale un juge
+payant sur la même tâche, la couche L3 ne se justifie pas pour l'ambiguïté.
 
-Les quatre approches, sur le **même** jeu annoté et la **même** validation croisée :
+Les quatre approches, sur le même jeu annoté et la même validation croisée :
 
   (a) ``tfidf``      TF-IDF (1-2 grammes) + régression logistique   — hors ligne, 0 $
   (b) ``minilm``     all-MiniLM-L6-v2 (384 dim) + régression log.   — hors ligne, 0 $
   (c) ``openrouter`` text-embedding-3-small (1536 dim) + rég. log.  — API, coût mesuré
   (d) ``llm``        juge gemini-2.5-flash-lite, note 0-1 + seuil   — API, coût mesuré
 
-Trois lignes de référence les encadrent : « tout positif » (plancher trivial),
-« majorité par site » (combien de signal n'est que l'identité du site — question
-sérieuse ici, les positifs se concentrant sur Allrecipes, Amazon et Coursera) et une
-règle lexicale écrite à la main (ce que coûte zéro apprentissage).
+Trois lignes de référence les encadrent : « tout positif » (plancher trivial), « majorité
+par site » (combien de signal n'est que l'identité du site, question sérieuse ici, les
+positifs se concentrant sur Allrecipes, Amazon et Coursera) et une règle lexicale écrite à
+la main (ce que coûte zéro apprentissage).
 
 Protocole identique pour tous, sans exception :
 
-- validation croisée **stratifiée à 5 plis**, mêmes plis pour toutes les approches
+- validation croisée stratifiée à 5 plis, mêmes plis pour toutes les approches
   (``random_state=42``) ;
-- le **seuil de décision est calibré sur les plis d'entraînement** (maximisation du F1)
-  puis appliqué au pli de test — y compris pour les classifieurs, qui pourraient se
-  contenter de 0,5 : sans cette symétrie, on comparerait des conventions de décision
-  autant que des représentations ;
-- ce qui n'est pas appris sur les données (encodeurs figés, juge) est calculé une fois
-  pour les 139 énoncés, hors de la boucle de validation : il n'y a pas de fuite, un
-  encodeur pré-entraîné ne voit pas les étiquettes ;
-- précision, rappel et F1 de la classe positive sont calculés **par pli** ; le tableau
-  publie la moyenne et l'écart-type entre plis, plus la valeur agrégée hors plis
-  (out-of-fold), qui est la seule directement comparable à une exploitation réelle ;
-- les différences entre approches sont testées par un **test de McNemar exact** sur les
-  prédictions hors plis : avec 139 exemples, quelques points de F1 ne prouvent rien, et
-  il vaut mieux le montrer que l'espérer.
-
-Utilisation :
+- le seuil de décision est calibré sur les plis d'entraînement (maximisation du F1) puis
+  appliqué au pli de test, y compris pour les classifieurs, qui pourraient se contenter de
+  0,5 : sans cette symétrie, on comparerait des conventions de décision autant que des
+  représentations ;
+- ce qui n'est pas appris sur les données (encodeurs figés, juge) est calculé une fois pour
+  les 139 énoncés, hors de la boucle de validation : un encodeur pré-entraîné ne voit pas
+  les étiquettes, il n'y a donc pas de fuite ;
+- précision, rappel et F1 de la classe positive sont calculés par pli ; le tableau publie la
+  moyenne et l'écart-type entre plis, plus la valeur agrégée hors plis, seule directement
+  comparable à une exploitation réelle ;
+- les différences entre approches sont testées par un test de McNemar exact sur les
+  prédictions hors plis : avec 139 exemples, quelques points de F1 ne prouvent rien.
 
     python experiments/ablation_ambiguity.py sample            # revérifie le tirage
     python experiments/ablation_ambiguity.py run --offline     # (a), (b) et références
@@ -331,10 +327,7 @@ def evaluate(approach: Approach, data: AnnotatedSet, folds: Sequence[Sequence[in
         "inference_time_s": round(model_time, 3),
         "total_time_s": round(train_time + predict_time + model_time, 3),
         "cost": ledger,
-        # Coût de référence du tableau : celui de la PREMIÈRE mesure. Une ré-exécution
-        # servie par le cache coûte 0 $, ce qui ne dit rien du prix de l'approche.
-        "cost_usd": round(ledger["first_run_cost_usd"], 6) if ledger else 0.0,
-        "cost_usd_this_run": round(ledger["cost_usd"], 6) if ledger else 0.0,
+        "cost_usd": round(ledger["cost_usd"], 6) if ledger else 0.0,
     }
 
 
@@ -573,8 +566,8 @@ def cmd_run(args: argparse.Namespace) -> int:
                     if judge.unparsed:
                         print(f"  {judge.unparsed} réponses illisibles (note neutre 0,5 imputée)")
                 print(f"  juge {prompt} v{repeat} : {elapsed:.1f} s, "
-                      f"{ledger.calls} appels facturés, {ledger.cached_calls} en cache, "
-                      f"{ledger.cost_usd:.5f} $")
+                      f"{ledger.calls + ledger.cached_calls} appels, "
+                      f"{ledger.first_run_cost_usd:.5f} $")
             judge_runs[prompt] = runs
 
         # Le juge le moins cher échoue-t-il parce qu'il est bon marché, ou parce que la
@@ -648,7 +641,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     # -- ce que chaque approche voit, par type d'ambiguïté -------------------------------
     # Une moyenne de rappel cache l'essentiel : les positifs de ce jeu relèvent de quatre
     # motifs très différents (multiplicité, subjectivité, référent flou, sortie libre).
-    # Savoir lequel résiste est plus utile pour le mémoire qu'un point de F1.
+    # Savoir lequel résiste dit plus qu'un point de F1 moyen.
     raw_items = json.loads(ANNOTATIONS.read_text(encoding="utf-8"))["items"]
     criteria_of = [set(item["criteria"]) for item in raw_items]
     codes = sorted({c for s in criteria_of for c in s})
@@ -688,7 +681,6 @@ def cmd_run(args: argparse.Namespace) -> int:
     extras["cost_projection"] = {
         r["key"]: {
             "measured_usd": r["cost_usd"],
-            "spent_this_run_usd": r.get("cost_usd_this_run", 0.0),
             "tasks_measured": len(data),
             "usd_per_task": round(r["cost_usd"] / len(data), 8),
             "usd_for_643_tasks": round(r["cost_usd"] * 643 / len(data), 5),
@@ -725,14 +717,10 @@ def cmd_run(args: argparse.Namespace) -> int:
     print()
     print(markdown_table(results))
     print()
-    first_run_cost = sum(r["cost_usd"] for r in results) + sum(
-        l["first_run_cost_usd"] for l in side_ledgers
-    )
-    spent_now = sum(r.get("cost_usd_this_run", 0.0) for r in results) + sum(
+    total_cost = sum(r["cost_usd"] for r in results) + sum(
         l["cost_usd"] for l in side_ledgers
     )
-    print(f"coût de la première mesure : {first_run_cost:.5f} $ "
-          f"— dépensé lors de cette exécution : {spent_now:.5f} $ (le reste servi par le cache)")
+    print(f"coût de la mesure : {total_cost:.5f} $")
     print(f"rapport écrit : {out}")
     return 0
 

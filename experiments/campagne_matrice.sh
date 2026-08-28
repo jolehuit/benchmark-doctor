@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-# Campagne « matrice des canaux » — 15 sites × 4 cellules × 2 passes.
+# Campagne « matrice des canaux » : 15 sites, 4 cellules, 2 passes.
 #
-# Ce script est la moitié de la valeur du travail. La mesure qu'il remplace — quatre
-# observations de navigateur saisies à la main — n'est pas rejetée parce qu'elle est
-# petite, mais parce qu'elle n'est pas rejouable : personne ne peut la contredire sans
-# refaire à la main ce que son auteur a fait à la main. Celle-ci doit tourner sans son
-# auteur.
+# Ce script remplace les quatre observations de navigateur saisies à la main le 15/08 par
+# une collecte automatisée, que d'autres peuvent relancer.
 #
-# LE PLAN
+# Le plan
 #
 #                         moteur : aucun (client HTTP)   moteur : navigateur réel
 #   origine : datacenter        http_datacenter              browser_datacenter
@@ -18,23 +15,24 @@
 # réseau. La campagne du 15/08 ne disposait que d'une case et demie, et ne pouvait donc
 # attribuer ses écarts à l'un plutôt qu'à l'autre.
 #
-# OÙ TOURNE QUOI
+# Où tourne quoi
 #
 #   cellules résidentielles : sur une machine derrière un abonnement grand public.
-#   cellules datacenter     : sur un serveur loué, ou via .github/workflows/
-#                             matrice_canaux_datacenter.yml (runner GitHub Actions).
+#   cellules datacenter     : sur un serveur loué, ou sur un runner d'intégration continue
+#                             hébergé, dont l'adresse de sortie est celle d'un centre de
+#                             données.
 #
-#   Le script ne devine pas où il tourne : c'est `--cellules` qui le dit. Un canal mal
-#   déclaré vaut moins que pas de canal du tout.
+#   Le script ne devine pas où il tourne : c'est `--cellules` qui le dit, et une cellule
+#   mal déclarée fausse l'attribution de l'écart.
 #
-# USAGE
+# Usage
 #
 #   ./experiments/campagne_matrice.sh --passe 1 --cellules residentielles
 #   ./experiments/campagne_matrice.sh --passe 2 --cellules residentielles   # ≥ 1 h après
 #   ./experiments/campagne_matrice.sh --passe 1 --cellules datacenter
 #   ./experiments/campagne_matrice.sh --analyse
 #
-# POLITESSE — ces réglages ne sont pas négociables, ils vivent dans matrice_lib.py :
+# Politesse, réglée dans matrice_lib.py :
 #   une requête par hôte toutes les 2 s (15 s pour arxiv.org, qui déclare Crawl-delay: 15),
 #   séquentiellement, une seule navigation de document par site et par passe, aucun clic,
 #   aucune saisie, aucun contournement de protection, aucun réessai sur un code HTTP.
@@ -54,7 +52,7 @@ while [[ $# -gt 0 ]]; do
     --cellules)  CELLULES="$2"; shift 2 ;;
     --analyse)   ANALYSE=1; shift ;;
     --attendre)  ATTENDRE=1; shift ;;   # dort une heure avant de commencer (passe 2)
-    -h|--help)   sed -n '2,40p' "$0"; exit 0 ;;
+    -h|--help)   sed -n '2,38p' "$0"; exit 0 ;;
     *) echo "option inconnue : $1" >&2; exit 2 ;;
   esac
 done
@@ -94,8 +92,8 @@ if [[ -z "$PASSE" || -z "$CELLULES" ]]; then
   exit 2
 fi
 
-# La répétabilité n'est pas un supplément d'âme : sans deuxième passe, un écart entre
-# canaux ne se distingue pas d'une fluctuation du site. Une heure est le minimum retenu.
+# Sans deuxième passe, un écart entre canaux ne se distingue pas d'une fluctuation du
+# site. Une heure est le délai minimum retenu.
 if [[ "$ATTENDRE" == "1" ]]; then
   echo "→ attente d'une heure avant la passe $PASSE (répétabilité)"
   sleep 3600
@@ -114,15 +112,14 @@ case "$CELLULES" in
         --sortie "$RUNS/browser_residential_p$PASSE.json" \
         --har "$HAR" --captures "$CAPTURES"
 
-    $PY experiments/reparer_corps_reseau.py \
+    $PY experiments/reconstruire_corps_depuis_har.py \
         "$RUNS/browser_residential_p$PASSE.json" --har "$HAR"
     ;;
 
   datacenter)
     # Chrome refuse de démarrer sous le bac à sable sur beaucoup de serveurs loués : les
     # espaces de noms utilisateur y sont désactivés. `--no-sandbox` est un réglage de
-    # confinement du processus, sans effet sur l'empreinte réseau ni sur l'User-Agent :
-    # il ne déguise pas le client, il le laisse démarrer.
+    # confinement du processus, sans effet sur l'empreinte réseau ni sur l'User-Agent.
     export AGENT_BROWSER_ARGS="${AGENT_BROWSER_ARGS:---no-sandbox}"
 
     $PY experiments/collecte_http.py \
@@ -135,7 +132,7 @@ case "$CELLULES" in
           --sortie "$RUNS/browser_datacenter_p$PASSE.json" \
           --har "$HAR" --captures "$CAPTURES"
 
-      $PY experiments/reparer_corps_reseau.py \
+      $PY experiments/reconstruire_corps_depuis_har.py \
           "$RUNS/browser_datacenter_p$PASSE.json" --har "$HAR"
     else
       echo "agent-browser absent : cellule browser_datacenter NON mesurée." >&2

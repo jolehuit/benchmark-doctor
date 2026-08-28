@@ -1,31 +1,8 @@
-# Weekly health check of a web-live benchmark.
-#
-# Every Monday it re-measures WebVoyager with the free layers (L1 static + L2 web probes),
-# publishes the health card and its HTML report as artifacts, diffs the card against last
-# week's, and opens an issue when the benchmark loses health.
-#
-# What to know before editing this file:
-#
-# Free layers only. L3 (LLM probes) costs money and needs a key; a public repository must be
-# able to run its own monitoring without one. L1+L2 also happens to be the configuration with
-# the best risk ranking measured in the thesis (AUC 0.831, vs 0.775 for L1+L2+L3).
-#
-# `--no-prior`. The default stability score folds in a prior taken from the practitioner
-# ground truth. Tracking that over time would mostly track a frozen file. CI scores with the
-# detectors alone, so a movement in the number is a movement in the world (or in the channel).
-#
-# The corpus is pinned and checksummed. Comparing two weekly cards only means something if the
-# corpus is byte-identical; `bdoctor diff` refuses to call them comparable otherwise. Fetching
-# upstream `main` would silently mix corpus edits into the decay signal.
-#
-# No alert when not comparable. If the digest, the layer set or the L2 channel profile changed,
-# the score delta is an artifact of protocol, not decay. The workflow says so in the job summary
-# and stays silent rather than raise a false alarm.
-#
-# Caveat recorded in every run: GitHub-hosted runners have datacenter IPs. Sites that serve a
-# challenge, a paywall or a 403 to datacenter traffic will be probed as blocked here and may be
-# perfectly reachable from a browser. L2 access findings are therefore discounted (channel
-# credibility k = 0.40) and must never be read as "task dead".
+# Weekly health check of a web-live benchmark. Every Monday it re-measures WebVoyager with
+# the free layers (L1 static, L2 web probes), publishes the health card, diffs it against last
+# week's card and opens an issue when health drops. L3 costs money and needs a key, which a
+# public repository cannot require of whoever forks it. Probes leave a GitHub-hosted runner,
+# so a site that refuses datacenter traffic is recorded as blocked even if a browser reaches it.
 
 name: weekly health check
 
@@ -81,9 +58,8 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip --quiet
-          pip install -e . --quiet
-          # L2 probes go through `requests`; L1 needs nothing at all.
-          pip install requests --quiet
+          # probe = requests, used by the L2 direct channel; dev = pytest. L1 needs nothing.
+          pip install -e ".[probe,dev]" --quiet
 
       - name: Fetch the pinned corpus and verify its digest
         shell: bash
@@ -93,6 +69,16 @@ jobs:
           curl -sSLf --retry 3 --retry-delay 5 -o "$CORPUS" "$CORPUS_URL"
           echo "${CORPUS_SHA256}  ${CORPUS}" | sha256sum -c -
           echo "corpus: $(wc -c < "$CORPUS") bytes, digest verified"
+
+      - name: Test suite, including the locks on the published numbers
+        shell: bash
+        env:
+          # Without it, a missing data/raw turns the locks on 643 tasks, 121 and 73 flags
+          # into skips and the job reports "passed" having checked none of them.
+          BDOCTOR_REQUIRE_DATA: "1"
+        run: |
+          set -euo pipefail
+          python -m pytest tests/ -q
 
       - name: Measure (L1 static + L2 web probes)
         shell: bash
@@ -133,7 +119,7 @@ jobs:
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
             echo "found=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Baseline::No previous card found — this run becomes the baseline."
+            echo "::notice title=Baseline::No previous card found, this run becomes the baseline."
           fi
 
       - name: Compare with last week
@@ -161,7 +147,7 @@ jobs:
           meta, summary = card["meta"], card["summary"]
 
           lines = [
-              f"## Health card — {meta['benchmark']} @ {meta['generated_at']}",
+              f"## Health card: {meta['benchmark']} @ {meta['generated_at']}",
               "",
               f"- tasks: **{meta['n_tasks']}** · layers: {'+'.join(meta['layers'])} "
               f"· channels: {', '.join(meta['channels'])}",
@@ -213,7 +199,7 @@ jobs:
 
               if not comp["comparable"]:
                   # A protocol change is not decay. Report it, do not alert on it.
-                  lines += ["> **Not comparable — no alert raised.** The score delta above is "
+                  lines += ["> **Not comparable, no alert raised.** The score delta above is "
                             "at least partly an artifact of protocol, not of the web:", ""]
                   lines += [f"> - {w}" for w in comp["warnings"]]
                   lines += [""]

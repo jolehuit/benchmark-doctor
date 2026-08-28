@@ -2,10 +2,9 @@
  "statut_editorial": {
   "statut": "exploratoire",
   "mention": "configuration exploratoire, non citée",
-  "raison": "Même juge que la carte canonique mais SANS la couche de solvabilité et SANS vérification des contenus, au 16/08. C'est la carte du rapport 5 (stabilité 0,638 · A 239 B 155 C 180 D 69). Ses chiffres ne se mélangent pas à ceux du README : la solvabilité déplace 41 tâches de A vers des notes inférieures.",
+  "raison": "Même juge que la carte canonique, sans la couche de solvabilité et sans vérification des contenus, au 16/08/2026 : stabilité moyenne 0,638, notes A 239, B 155, C 180, D 69. Ses chiffres ne se comparent pas à ceux de la carte canonique, où la solvabilité déplace 41 tâches de A vers des notes inférieures.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "schema": "bdoctor-health-card/1",
  "meta": {
@@ -33,7 +32,7 @@
    "l3_ambiguity_threshold": 0.5
   },
   "ground_truth_prior": {
-   "source": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+   "source": "data/ground_truth.json",
    "n_tasks": 643,
    "n_flagged_by_at_least_one": 169,
    "n_contested": 68,
@@ -126,8 +125,8 @@
    }
   },
   "notes": [
-   "L2 : 45 requêtes HTTP réelles pour 643 tâches (629 réponses mémoïsées) — coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
-   "L3 ambiguïté : 643 appels servis par le cache (coût évité 0.13177 $) : le coût publié est celui d'une première exécution, pas d'une relecture."
+   "L2 : 45 requêtes HTTP réelles pour 643 tâches, coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
+   "L3 ambiguïté : 643 appels de juge, 0,13177 $ à la première exécution."
   ]
  },
  "by_category": {
@@ -49971,8 +49970,7 @@
   "Le score est ordinal avant d'être cardinal : les confiances des détecteurs ne sont pas calibrées. Comparer deux tâches est légitime, lire un score comme une probabilité ne l'est pas."
  ],
  "notes": [
-  "Le verdict d'accès est mesuré par URL de départ puis propagé aux tâches du site : WebVoyager ne fournit pas d'autre URL. La mesure borne donc la décadence par le bas et ne dit rien de l'état du site après navigation.",
-  "Canal L2 : {\"name\": \"direct_http:browser\", \"kind\": \"http_datacenter\", \"available\": true, \"profile\": \"browser\", \"user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\", \"accept_encoding\": \"gzip, deflate\", \"timeout_s\": 25.0, \"min_interval_s\": 1.0, \"network_retries\": 1, \"follows_redirects\": true, \"egress_proxy\": true, \"egress_proxy_url\": \"http://127.0.0.1:42669\", \"note\": \"Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, le corps reviendrait binaire et fausserait la classification.\", \"memoised_urls\": 45, \"n_fetches\": 45, \"n_cache_hits\": 629}"
+  "Le verdict d'accès est mesuré par URL de départ puis propagé aux tâches du site : WebVoyager ne fournit pas d'autre URL. La mesure borne donc la décadence par le bas et ne dit rien de l'état du site après navigation."
  ],
  "extra": {}
 }

@@ -4,7 +4,7 @@ des praticiens aux instantanés de la Wayback Machine.
 
 Le mémoire s'appuie sur une vérité terrain fossile : des correctifs datés, motivés en
 clair par des praticiens. Quand Magnitude écrit « GitHub Pro does not exist anymore »,
-le dossier le croit sur parole. Ce script cherche, sur un échantillon fermé de douze
+on le croit sur parole. Ce script cherche, sur un échantillon fermé de douze
 cas, à remplacer le témoignage par une observation directe : l'objet visé par la tâche
 existait-il autour du gel du benchmark (2024-03-02), et avait-il disparu au plus tard
 autour du gel du patch-set Magnitude (2025-07-06) ?
@@ -64,7 +64,7 @@ DELAI = 1.0
 #: Agent honnête : qui, pourquoi, où joindre. Aucune identité maquillée.
 UA = (
     "benchmark-doctor/{v} (recherche academique sur la validite temporelle du "
-    "benchmark WebVoyager; contact via github.com/jolehuit/memoirem2)"
+    "benchmark WebVoyager; contact via github.com/jolehuit/benchmark-doctor)"
 ).format(v=VERSION)
 
 #: Fenêtres temporelles du test. Le corpus est gelé au 2024-03-02, le patch-set
@@ -369,7 +369,7 @@ def tester(html: str, assertion: dict) -> dict:
     La distinction n'est pas cosmétique. Un `ne_contient_pas` porte sur le texte visible,
     d'où les balises ont été retirées : une chaîne qui ne vit que dans un `href` y est
     invisible, et l'assertion est alors satisfaite même sur une page où l'objet est bien
-    présent — une assertion qui ne peut pas échouer ne prouve rien. Quand l'objet est un
+    présent, et une assertion qui ne peut pas échouer ne prouve rien. Quand l'objet est un
     lien, un identifiant ou un attribut, l'absence doit être testée sur le HTML brut.
     """
     type_ = assertion["type"]

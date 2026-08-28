@@ -1,42 +1,24 @@
 #!/usr/bin/env python3
-"""Carte de santé CANONIQUE du mémoire : rejeu hors ligne, à coût nul.
+"""Carte de santé canonique : rejeu hors ligne du journal de constats, à coût nul.
 
-Pourquoi ce script existe
--------------------------
-Trois cartes de santé aux chiffres différents circulaient dans le dossier
-(cf. `VERIFICATION.md` §C8). Elles ne sont pas fausses : ce sont trois
-*configurations* différentes du même outil. Le problème est qu'aucune n'était
-déclarée comme la référence, et que les tables de sensibilité publiées à côté du
-README étaient calculées dans une AUTRE configuration que le README lui-même.
+Trois cartes de santé aux chiffres différents circulaient dans ``runs/`` : stabilité moyenne
+0,638 sans la couche solvabilité, 0,585 avec, 0,856 pour la couche statique seule. Ce sont
+trois configurations différentes du même outil, et aucune n'était déclarée comme la
+référence ; les tables de sensibilité publiées à côté du README étaient même calculées dans
+une autre configuration que le README lui-même.
 
 Ce script fait deux choses et rien d'autre :
 
-1. il **rejoue** la campagne canonique à partir du journal de constats gelé
-   ``runs/health_20260815_findings.json`` — donc sans un seul appel réseau et
-   sans un centime d'API : les constats sont des faits datés du 15/08/2026, pas
-   quelque chose qu'on recalcule ;
-2. il produit **dans cette configuration et dans elle seule** la carte, les
-   tables de sensibilité (κ, agrégation, échelle de notes) et le journal
-   canonique ``runs/carte_canonique_20260815.json``.
+1. il rejoue la campagne canonique à partir du journal de constats gelé
+   ``runs/health_20260815_findings.json``, donc sans un seul appel réseau : les constats
+   sont des faits datés du 15/08/2026, pas quelque chose qu'on recalcule ;
+2. il produit, dans cette configuration et dans elle seule, la carte, les tables de
+   sensibilité (κ, agrégation, échelle de notes) et le journal canonique
+   ``runs/carte_canonique_20260815.json``.
 
-Configuration canonique (une seule, nommée, opposable)
-------------------------------------------------------
-======================  ==================================================
-Corpus                  ``data/raw/webvoyager_original.jsonl`` (643 tâches)
-                        sha256 69b19fd8…c488
-Date de référence       **2026-08-15**, gelée (``run_all.REFERENCE_DATE``)
-Couches                 **L1 + L2 + L3**, solvabilité **incluse**
-Canal L2                ``direct_http:browser`` (kind ``http_datacenter``)
-Contenus L2             vérifiés (``--l2-content``)
-Backend L3 ambiguïté    ``llm-judge:gemini-2.5-flash:rubric``, seuil 0,5
-Backend L3 solvabilité  ``google/gemini-2.5-flash``
-A priori praticiens     ``data/ground_truth.json`` (inclus dans le score publié)
-Échelle de notes        1 − w(σ) : A > 0,75 · B > 0,50 · C > 0,25 · D ≤ 0,25
-======================  ==================================================
-
-Le choix est justifié dans ``CARTE_CANONIQUE.md``. Les autres cartes de
-``runs/`` restent sur le disque mais sont marquées « configuration
-exploratoire, non citée ».
+La configuration canonique est déclarée en clair dans ``CONFIG_CANONIQUE``, plus bas, et
+récapitulée par `runs/CARTES.md`, qui porte aussi le statut des autres cartes de ``runs/`` :
+elles restent sur le disque, marquées « configuration exploratoire, non citée ».
 
 Usage :
     python3 experiments/carte_canonique.py            # rejeu + écriture
@@ -100,8 +82,7 @@ CONFIG_CANONIQUE: dict[str, Any] = {
     "echelle_de_notes": dict(GRADE_THRESHOLDS),
     "kappa": CHANNEL_CREDIBILITY[Channel.HTTP_DATACENTER],
     "commande_de_production": (
-        "python3 run_all.py --phase audit --l3-backend llm   "
-        "# 15/08/2026, 0,26 $ (servi par runs/l3_cache ensuite)"
+        "python3 run_all.py --phase audit --l3-backend llm   # 15/08/2026, 0,26 $"
     ),
     "commande_de_rejeu": "python3 experiments/carte_canonique.py --check",
 }
@@ -174,9 +155,9 @@ def moyenne(assessments) -> float:
 def sensibilite_kappa(health: BenchmarkHealth, prior: PractitionerPrior) -> list[dict[str, Any]]:
     """Effet de κ (crédibilité du canal HTTP datacenter) sur la distribution des notes.
 
-    C'est la table que le rapport 5 publiait **sans la couche solvabilité** alors que le
-    README publiait la carte **avec**. Elle est ici recalculée dans la configuration
-    canonique : les deux chiffres sont désormais collables dans le même paragraphe.
+    Cette table a longtemps été publiée sans la couche solvabilité alors que le README
+    publiait la carte avec. Elle est ici recalculée dans la configuration canonique : les
+    deux chiffres sont désormais collables dans le même paragraphe.
     """
     from dataclasses import replace as _replace
 
@@ -231,8 +212,8 @@ def sensibilite_agregation(
 def sensibilite_echelle(health: BenchmarkHealth, prior: PractitionerPrior) -> dict[str, Any]:
     """Échelle retenue (1 − w(σ)) contre l'ancienne échelle 0,85 / 0,60 / 0,35.
 
-    Publiée pour mémoire : l'échelle héritée n'est plus dans le code depuis la
-    correction C8, cette table dit ce qu'elle aurait donné.
+    Publiée pour mémoire : l'échelle héritée n'est plus dans le code, cette table dit ce
+    qu'elle aurait donné.
     """
     a = score_health(health, model=DEFAULT_MODEL, prior=prior, today=REFERENCE_DATE)
     heritee = {"A": 0.85, "B": 0.60, "C": 0.35, "D": 0.0}

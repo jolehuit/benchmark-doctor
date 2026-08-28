@@ -7,7 +7,7 @@
     "positive_rate": 0.3957,
     "annotator": {
       "count": 1,
-      "identity": "l'agent rédacteur (Claude Opus 5), annotateur unique",
+      "identity": "annotateur unique : un modèle de langage (Claude Opus 5)",
       "protocol": "rubrique écrite AVANT l'étiquetage, puis passage unique sur les 139 énoncés dans l'ordre site/identifiant ; chaque positif porte au moins un code de critère et une justification en une phrase."
     },
     "limits": [
@@ -421,8 +421,7 @@
       "inference_time_s": 0.0,
       "total_time_s": 0.0,
       "cost": null,
-      "cost_usd": 0.0,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "site_majority",
@@ -819,8 +818,7 @@
       "inference_time_s": 0.0,
       "total_time_s": 0.001,
       "cost": null,
-      "cost_usd": 0.0,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "heuristic",
@@ -1217,8 +1215,7 @@
       "inference_time_s": 0.0,
       "total_time_s": 0.009,
       "cost": null,
-      "cost_usd": 0.0,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "a_tfidf",
@@ -1615,8 +1612,7 @@
       "inference_time_s": 0.0,
       "total_time_s": 0.985,
       "cost": null,
-      "cost_usd": 0.0,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "b_minilm",
@@ -2015,20 +2011,16 @@
       "cost": {
         "label": "minilm-local",
         "calls": 1,
-        "cached_calls": 0,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
         "cost_usd": 0.0,
-        "avoided_cost_usd": 0.0,
-        "first_run_cost_usd": 0.0,
         "wall_time_s": 6.677,
         "avoided_time_s": 0.0,
         "model_time_s": 6.677,
         "errors": 0
       },
-      "cost_usd": 0.0,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.0
     },
     {
       "key": "c_openrouter_embed",
@@ -2426,21 +2418,17 @@
       "total_time_s": 2.729,
       "cost": {
         "label": "embed-openrouter",
-        "calls": 0,
-        "cached_calls": 3,
+        "calls": 3,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "cost_usd": 0.0,
-        "avoided_cost_usd": 7.4e-05,
-        "first_run_cost_usd": 7.4e-05,
+        "cost_usd": 7.4e-05,
         "wall_time_s": 0.044,
         "avoided_time_s": 2.598,
         "model_time_s": 2.642,
         "errors": 0
       },
-      "cost_usd": 7.4e-05,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 7.4e-05
     },
     {
       "key": "d_llm_judge_rubric",
@@ -2838,21 +2826,17 @@
       "total_time_s": 83.589,
       "cost": {
         "label": "judge-rubric-v1",
-        "calls": 0,
-        "cached_calls": 139,
+        "calls": 139,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "cost_usd": 0.0,
-        "avoided_cost_usd": 0.007289,
-        "first_run_cost_usd": 0.007289,
+        "cost_usd": 0.007289,
         "wall_time_s": 0.575,
         "avoided_time_s": 83.013,
         "model_time_s": 83.588,
         "errors": 0
       },
-      "cost_usd": 0.007289,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.007289
     },
     {
       "key": "d_llm_judge_plain",
@@ -3250,21 +3234,17 @@
       "total_time_s": 84.518,
       "cost": {
         "label": "judge-plain-v1",
-        "calls": 0,
-        "cached_calls": 139,
+        "calls": 139,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "cost_usd": 0.0,
-        "avoided_cost_usd": 0.003144,
-        "first_run_cost_usd": 0.003144,
+        "cost_usd": 0.003144,
         "wall_time_s": 0.401,
         "avoided_time_s": 84.115,
         "model_time_s": 84.516,
         "errors": 0
       },
-      "cost_usd": 0.003144,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.003144
     },
     {
       "key": "d_llm_judge_gemini-2_5-flash",
@@ -3662,21 +3642,17 @@
       "total_time_s": 92.532,
       "cost": {
         "label": "judge-gemini-2_5-flash",
-        "calls": 0,
-        "cached_calls": 139,
+        "calls": 139,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "cost_usd": 0.0,
-        "avoided_cost_usd": 0.028368,
-        "first_run_cost_usd": 0.028368,
+        "cost_usd": 0.028368,
         "wall_time_s": 0.402,
         "avoided_time_s": 92.129,
         "model_time_s": 92.531,
         "errors": 0
       },
-      "cost_usd": 0.028368,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.028368
     },
     {
       "key": "d_llm_judge_claude-haiku-4_5",
@@ -4074,21 +4050,17 @@
       "total_time_s": 196.424,
       "cost": {
         "label": "judge-claude-haiku-4_5",
-        "calls": 0,
-        "cached_calls": 139,
+        "calls": 139,
         "prompt_tokens": 0,
         "completion_tokens": 0,
         "total_tokens": 0,
-        "cost_usd": 0.0,
-        "avoided_cost_usd": 0.099532,
-        "first_run_cost_usd": 0.099532,
+        "cost_usd": 0.099532,
         "wall_time_s": 0.392,
         "avoided_time_s": 196.03,
         "model_time_s": 196.422,
         "errors": 0
       },
-      "cost_usd": 0.099532,
-      "cost_usd_this_run": 0.0
+      "cost_usd": 0.099532
     }
   ],
   "tfidf_top_features": [
@@ -4751,14 +4723,11 @@
   "side_ledgers": [
     {
       "label": "judge-gemini-2_5-flash-v2",
-      "calls": 0,
-      "cached_calls": 139,
+      "calls": 139,
       "prompt_tokens": 0,
       "completion_tokens": 0,
       "total_tokens": 0,
-      "cost_usd": 0.0,
-      "avoided_cost_usd": 0.028483,
-      "first_run_cost_usd": 0.028483,
+      "cost_usd": 0.028483,
       "wall_time_s": 0.393,
       "avoided_time_s": 92.59,
       "model_time_s": 92.984,
@@ -4766,14 +4735,11 @@
     },
     {
       "label": "judge-gemini-2_5-flash-v3",
-      "calls": 0,
-      "cached_calls": 139,
+      "calls": 139,
       "prompt_tokens": 0,
       "completion_tokens": 0,
       "total_tokens": 0,
-      "cost_usd": 0.0,
-      "avoided_cost_usd": 0.028348,
-      "first_run_cost_usd": 0.028348,
+      "cost_usd": 0.028348,
       "wall_time_s": 0.398,
       "avoided_time_s": 92.525,
       "model_time_s": 92.923,
@@ -4783,7 +4749,6 @@
   "cost_projection": {
     "always_positive": {
       "measured_usd": 0.0,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.0,
       "usd_for_643_tasks": 0.0,
@@ -4791,7 +4756,6 @@
     },
     "site_majority": {
       "measured_usd": 0.0,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.0,
       "usd_for_643_tasks": 0.0,
@@ -4799,7 +4763,6 @@
     },
     "heuristic": {
       "measured_usd": 0.0,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.0,
       "usd_for_643_tasks": 0.0,
@@ -4807,7 +4770,6 @@
     },
     "a_tfidf": {
       "measured_usd": 0.0,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.0,
       "usd_for_643_tasks": 0.0,
@@ -4815,7 +4777,6 @@
     },
     "b_minilm": {
       "measured_usd": 0.0,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.0,
       "usd_for_643_tasks": 0.0,
@@ -4823,7 +4784,6 @@
     },
     "c_openrouter_embed": {
       "measured_usd": 7.4e-05,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 5.3e-07,
       "usd_for_643_tasks": 0.00034,
@@ -4831,7 +4791,6 @@
     },
     "d_llm_judge_rubric": {
       "measured_usd": 0.007289,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 5.244e-05,
       "usd_for_643_tasks": 0.03372,
@@ -4839,7 +4798,6 @@
     },
     "d_llm_judge_plain": {
       "measured_usd": 0.003144,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 2.262e-05,
       "usd_for_643_tasks": 0.01454,
@@ -4847,7 +4805,6 @@
     },
     "d_llm_judge_gemini-2_5-flash": {
       "measured_usd": 0.028368,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.00020409,
       "usd_for_643_tasks": 0.13123,
@@ -4855,7 +4812,6 @@
     },
     "d_llm_judge_claude-haiku-4_5": {
       "measured_usd": 0.099532,
-      "spent_this_run_usd": 0.0,
       "tasks_measured": 139,
       "usd_per_task": 0.00071606,
       "usd_for_643_tasks": 0.46043,

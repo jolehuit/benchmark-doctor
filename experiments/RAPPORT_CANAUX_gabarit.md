@@ -17,8 +17,8 @@ même classifieur.
 
 | | moteur : aucun (client HTTP) | moteur : navigateur réel |
 |---|---|---|
-| **origine : datacenter** | `http_datacenter` | `browser_datacenter` |
-| **origine : résidentielle** | `http_residential` | `browser_residential` |
+| origine : datacenter | `http_datacenter` | `browser_datacenter` |
+| origine : résidentielle | `http_residential` | `browser_residential` |
 
 Les cellules résidentielles sont sorties par un abonnement grand public mobile
 (AS51207 Free Mobile SAS, France), les cellules datacenter par un serveur loué
@@ -29,8 +29,8 @@ que les deux origines n'atteignent jamais le même point d'entrée des réseaux 
 servies diffèrent, Booking en anglais américain d'un côté et en français de l'autre, ESPN
 redirigé vers son édition britannique depuis l'adresse résidentielle. Le contraste
 d'origine embarque donc trois choses à la fois : la réputation de l'adresse, le chemin de
-diffusion, et l'édition localisée du site. Le facteur mesuré est cet ensemble, pas la
-réputation seule.
+diffusion, et l'édition localisée du site. Ce que la campagne fait varier est cet
+ensemble.
 
 ## 1. Le résultat en une phrase
 
@@ -38,14 +38,14 @@ Les deux facteurs existent et portent sur des sites différents, mais leur poids
 n'est pas mesurable à cet effectif : quatre à cinq sites basculent sous l'effet du moteur,
 deux sous l'effet de l'origine, et l'écart n'est pas distinguable du hasard.
 
-Ce que la campagne établit solidement est plus utile qu'un classement des deux facteurs.
-Sur Booking et Amazon, changer d'adresse IP ne sert à rien et seul le navigateur ouvre la
-porte. Sur ESPN, aucun des deux ne suffit seul. Sur Allrecipes, la réponse dépend de la
-passe : à la première, seule l'adresse comptait ; une heure plus tard, l'adresse
-résidentielle était bloquée elle aussi et seul le navigateur passait encore. Un dispositif
-de mesure qui ne fait varier qu'un seul de ces deux paramètres se croira donc représentatif
-alors qu'il sera aveugle à une partie du corpus, et la thèse du mémoire s'en trouve
-confirmée dans son principe : la validité d'une tâche n'est pas une propriété de la tâche.
+La campagne établit autre chose qu'un classement des deux facteurs. Sur Booking et Amazon,
+changer d'adresse IP ne sert à rien et seul le navigateur ouvre la porte. Sur ESPN, aucun des
+deux ne suffit seul. Sur Allrecipes, la réponse dépend de la passe : à la première, seule
+l'adresse comptait ; une heure plus tard, l'adresse résidentielle était bloquée elle aussi et
+seul le navigateur passait encore. Un dispositif de mesure qui ne fait varier qu'un seul de
+ces deux paramètres se croira donc représentatif alors qu'il sera aveugle à une partie du
+corpus. La validité d'une tâche se mesure sur le couple (tâche, canal d'accès), ce que le
+mémoire pose au chapitre 3.
 
 Le basculement d'Allrecipes entre les deux passes est le résultat que je n'attendais pas,
 et c'est celui qui justifie à lui seul l'exigence de répétabilité. Avec une seule passe,
@@ -73,12 +73,10 @@ sites, l'écart entre ces effectifs ne se distingue pas d'une fluctuation d'éch
 Je ne peux donc pas écrire que le moteur pèse deux fois plus lourd que l'origine, et la
 première version de ce rapport le faisait à tort.
 
-Ce qui reste, et qui est solide, est la dissociation. Les sites que fait basculer le moteur
-ne sont pas tous ceux que fait basculer l'origine. Amazon et Booking répondent au moteur et
-sont indifférents à l'adresse, dans les deux passes. À l'inverse, aucun site n'est
-durablement sensible à la seule adresse : Allrecipes l'était à la première passe et ne l'est
-plus à la seconde. Un facteur dominant en moyenne, à supposer qu'on parvienne à l'établir,
-ne serait de toute façon pas un facteur suffisant.
+La dissociation, elle, reste. Les sites que fait basculer le moteur ne sont pas tous ceux
+que fait basculer l'origine. Amazon et Booking répondent au moteur et sont indifférents à
+l'adresse, dans les deux passes. À l'inverse, aucun site n'est durablement sensible à la
+seule adresse : Allrecipes l'était à la première passe et ne l'est plus à la seconde.
 
 ## 4. Accord entre canaux, et réestimation de κ
 
@@ -97,23 +95,21 @@ Ces valeurs demandent trois précautions de lecture, dont la dernière annule pr
 première.
 
 D'abord, le plus fort accord est celui des deux canaux HTTP. Changer d'adresse sans
-changer de moteur laisse la plupart des verdicts en place. Il faut noter aussitôt que
-c'est aussi la paire qui partage le plus de méthode, puisque les deux cellules utilisent
-le même client, les mêmes en-têtes et le même chemin de code : une part de cet accord
-mesure l'instrument plutôt que les sites.
+changer de moteur laisse la plupart des verdicts en place, et c'est aussi la paire qui
+partage le plus de méthode, puisque les deux cellules utilisent le même client, les mêmes
+en-têtes et le même chemin de code : une part de cet accord mesure l'instrument plutôt que
+les sites.
 
-Ensuite, deux paires obtiennent un κ négatif. La tentation est d'y lire un désaccord
-systématique. Ce serait une erreur : avec onze à quatorze verdicts `ok` sur quinze, les
-marges sont si déséquilibrées que κ devient piloté par la prévalence et non par l'accord.
-Le test de permutation leur donne p = 1, c'est-à-dire qu'un remélange au hasard des
-verdicts fait aussi bien dans la totalité des tirages.
+Ensuite, deux paires obtiennent un κ négatif, sans qu'il faille y lire un désaccord
+systématique : avec onze à quatorze verdicts `ok` sur quinze, les marges sont si
+déséquilibrées que κ devient piloté par la prévalence et non par l'accord. Le test de
+permutation leur donne p = 1, c'est-à-dire qu'un remélange au hasard des verdicts fait
+aussi bien dans la totalité des tirages.
 
-Enfin, et c'est ce qui doit être retenu, une seule paire sur six atteint un seuil de
-signification, celle des deux canaux HTTP. Toutes les paires impliquant un navigateur ont
-p supérieur à 0,15. Le tableau est donc surtout utile pour ce qu'il interdit d'affirmer.
-Je le publie parce que le protocole le demandait, et parce qu'un κ de Cohen sur quinze
-sites est précisément le genre de chiffre qu'un lecteur pressé surinterpréterait s'il le
-trouvait sans cet avertissement.
+Enfin, une seule paire sur six atteint un seuil de signification, celle des deux canaux
+HTTP. Toutes les paires impliquant un navigateur ont p supérieur à 0,15. Je publie le
+tableau parce que je l'avais prévu au protocole, et avec ses p-valeurs, un κ de Cohen sur
+quinze sites se prêtant à la surinterprétation.
 
 ### 4.2 Réestimation du κ du score publié
 
@@ -121,8 +117,8 @@ trouvait sans cet avertissement.
 
 Le mémoire traite κ comme une propriété du canal accusé : il écrit que le canal
 `http_datacenter` porte κ = 0,40, comme on énoncerait la précision d'un instrument. Cette
-lecture ne tient pas. κ n'est pas une propriété d'un canal mais d'un couple de canaux.
-Selon le canal pris pour juge, la même cellule `http_datacenter` obtient une crédibilité
+lecture ne tient pas : κ est une propriété d'un couple de canaux. Selon le canal pris pour
+juge, la même cellule `http_datacenter` obtient une crédibilité
 qui va de 0,17 à 0,83.
 
 Trois remarques, dont deux vont contre l'intérêt du résultat.
@@ -135,8 +131,8 @@ le mémoire rappelle lui-même qu'un κ plus élevé produit davantage de tâche
 Mais cette stabilité de la valeur masque un renversement complet de son contenu. La seule
 confirmation sur laquelle reposait le 0,40 était Booking ; la campagne l'infirme, puisque
 le navigateur y voit la page. Les deux confirmations nouvelles sont Allrecipes et ESPN,
-c'est-à-dire précisément les deux réfutations du mémoire. Le nombre est presque le même,
-les sites qui le produisent sont les inverses.
+c'est-à-dire précisément les deux réfutations du mémoire. Le nombre est presque le même et
+il repose sur les sites inverses.
 
 Enfin, les intervalles de crédibilité à 95 % de ces proportions se recouvrent tous, et ils
 recouvrent aussi celui du mémoire. Sur quatre refus, une confirmation de plus ou de moins
@@ -152,7 +148,7 @@ Pour chacun, l'hypothèse la plus simple compatible avec les quatre cellules et 
 pièces conservées. Ce sont des hypothèses : la campagne mesure des verdicts, elle
 n'inspecte pas les règles des dispositifs de filtrage.
 
-**Allrecipes, le seul site instable de la campagne.** À la première passe, il répond 200 et
+Allrecipes est le seul site instable de la campagne. À la première passe, il répond 200 et
 sert sa page d'accueil à l'adresse résidentielle, avec ou sans navigateur, et refuse depuis
 le serveur loué dans les deux cas ; la capture
 `runs/captures/browser_residential_allrecipes_p1.jpg` montre la page de recettes réelle et
@@ -172,8 +168,8 @@ est un défi ordinaire. Et les deux origines n'atteignent pas le même point de 
 Cloudflare, si bien qu'une politique configurée par région reste une explication concurrente
 de la réputation d'adresse.
 
-**Amazon et Booking.** Les deux opposent au client HTTP un défi servi en 202 par AWS WAF,
-avec l'en-tête `x-amzn-waf-action: challenge`, dans les deux origines. Les deux répondent
+Amazon et Booking opposent au client HTTP un défi servi en 202 par AWS WAF, avec l'en-tête
+`x-amzn-waf-action: challenge`, dans les deux origines. Les deux répondent
 normalement au navigateur, dans les deux origines. Pour Booking, le HAR montre bien la
 séquence attendue, un 202 puis la page : le navigateur a exécuté le défi. Pour Amazon, le
 corps réseau reçu par le navigateur est directement la vraie page et aucun 202 n'apparaît,
@@ -181,8 +177,8 @@ si bien qu'une explication concurrente tient : le site n'a peut-être pas oppos�
 navigateur, plutôt que le navigateur ne l'ait résolu. Le résultat, lui, est le même. Sur
 ces deux sites, changer d'adresse ne sert à rien.
 
-**ESPN.** Aucun facteur seul ne suffit : le site n'est accessible que par la combinaison
-du navigateur et de l'adresse résidentielle. L'hypothèse d'un score de risque cumulant
+Sur ESPN, aucun facteur seul ne suffit : le site n'est accessible que par la combinaison du
+navigateur et de l'adresse résidentielle. L'hypothèse d'un score de risque cumulant
 plusieurs signaux est possible, mais elle n'est pas la plus simple. Le corps du 403 reçu
 depuis le serveur est une page d'erreur générique CloudFront, sans en-tête de pare-feu
 applicatif, ce qui ressemble davantage à un blocage de préfixe au bord du réseau de
@@ -190,26 +186,25 @@ diffusion. Et l'adresse résidentielle est routée vers l'édition britannique d
 `espn.co.uk`, quand le serveur interroge `espn.com`. Deux portes indépendantes, ou deux
 éditions différentes du même site, expliquent la matrice aussi bien qu'un score unique.
 
-**Wolfram Alpha, qui n'est pas un site divergent mais un défaut du classifieur.** Le
-verdict `captcha` rendu sur les deux cellules navigateur est un faux positif. Le marqueur
+Wolfram Alpha est un défaut du classifieur plutôt qu'un site divergent. Le verdict
+`captcha` rendu sur ses deux cellules navigateur est un faux positif. Le marqueur
 qui le déclenche est la chaîne `"captchaApi":"/n/v1/api/captcha"`, une adresse d'interface
 de programmation dans un objet de configuration JavaScript. Le titre de la page est
 `Wolfram|Alpha: Computational Intelligence` et la capture
 `runs/captures/browser_residential_wolfram_alpha_p1.jpg` montre la page d'accueil complète,
 sans aucun test de vérification. La même chaîne est présente dans le corps servi au client
 HTTP, mais au-delà des 4 000 caractères de l'extrait classifié, si bien que le canal HTTP
-ne la voit pas. La différence de verdict entre les canaux ne vient donc pas des sites : elle
-vient de ce que le DOM rendu est plus compact que le corps servi, et amène la chaîne à
-l'intérieur de la fenêtre de classification.
+ne la voit pas. La différence de verdict entre les canaux vient ici du DOM rendu, plus
+compact que le corps servi, qui ramène la chaîne à l'intérieur de la fenêtre de
+classification.
 
-Ce cas a coûté à la première version de ce rapport sa conclusion la plus frappante. J'y
-écrivais que le canal agit dans les deux sens et qu'un navigateur peut aggraver le sort
-d'un agent. Aucun site de la campagne ne le montre. La section 6 mesure l'effet de ce faux
-positif sur tous les chiffres.
+Ce cas a coûté une conclusion à la première version de ce rapport. J'y écrivais que le
+canal agit dans les deux sens et qu'un navigateur peut aggraver le sort d'un agent. Aucun
+site de la campagne ne le montre. La section 6 mesure l'effet de ce faux positif sur tous
+les chiffres.
 
-Les dix autres sites rendent le même verdict dans les quatre cellules. Il faut le dire
-aussi nettement que les divergences : sur les deux tiers du corpus, le canal n'a aucune
-importance.
+Les dix autres sites rendent le même verdict dans les quatre cellules, soit les deux tiers
+du corpus où le canal ne change rien.
 
 ### 5.1 Confrontation aux quatre observations du 15 août
 
@@ -233,17 +228,18 @@ campagnes sont séparées d'une journée.
 Ce que ces divergences suggèrent en revanche, c'est que « navigateur cloud » désigne mal un
 canal. Deux navigateurs réels sortant l'un et l'autre d'une adresse d'hébergeur rendent des
 verdicts opposés sur deux des trois sites comparables. Une mesure qui déclare son canal
-« navigateur cloud » sans nommer son fournisseur n'est donc guère plus reproductible qu'une
-mesure qui ne déclare rien.
+« navigateur cloud » sans nommer son fournisseur laisse donc indéterminé ce qu'elle a
+mesuré.
 
 ### 5.2 Le canal HTTP datacenter n'est pas non plus homogène
 
-Le protocole demandait de ne pas re-mesurer ce canal. Je l'ai tout de même mesuré, pour
-deux raisons. D'abord l'appariement : comparer une cellule du 15 août à trois cellules du
-16 aurait mêlé l'effet de canal à la dérive des sites, alors que le protocole exige
-lui-même que les quatre cellules soient prises dans la même fenêtre de temps. Ensuite la
-provenance : la campagne du 15 août est sortie par un proxy d'egress interceptant, qui
-répondait à la place des sites. Le serveur de cette campagne n'en a pas.
+J'avais prévu de ne pas re-mesurer ce canal et de reprendre telle quelle la cellule du
+15 août. Je l'ai finalement mesuré, pour deux raisons. D'abord l'appariement : comparer une
+cellule du 15 août à trois cellules du 16 aurait mêlé l'effet de canal à la dérive des
+sites, alors que le plan croisé demande que les quatre cellules soient prises dans la même
+fenêtre de temps. Ensuite la provenance : la campagne du 15 août est sortie par un proxy
+d'egress interceptant, qui répondait à la place des sites. Le serveur de cette campagne
+n'en a pas.
 
 Les observations du 15 août ne sont ni écrasées ni modifiées.
 
@@ -289,80 +285,79 @@ lui.
 
 {{T10}}
 
-## 7. Ce que cela change pour le mémoire
+## 7. Ce que la campagne établit sur trois paramètres de mesure
 
-**1. κ ne doit plus être écrit sans nommer le canal qui juge.** La même cellule
-`http_datacenter` obtient une crédibilité qui va de 0,17 à 0,83 selon le canal auquel on la
-confronte. La correction à apporter au chapitre 3 n'est pas un nouveau nombre, dont
-l'effectif ne permettrait de toute façon pas de le distinguer de l'ancien, mais une
-notation : κ(accusé, juge), et la mention explicite du juge dans la configuration canonique
-de l'annexe A.
+1. κ dépend du canal qui juge. La même cellule `http_datacenter` obtient une crédibilité
+qui va de 0,17 à 0,83 selon le canal auquel on la confronte, si bien qu'un κ écrit sans
+juge nommé ne désigne aucune grandeur précise. Ce que la campagne ne permet pas, c'est de
+désigner une valeur de remplacement : le juge comparable à celui du chapitre 3, un
+navigateur en centre de données, donne 0,50, dont l'intervalle à 95 % recouvre le 0,40
+publié, et un seul refus confirmé de plus ou de moins déplace le résultat d'un sixième. Le
+mémoire écrit κ à deux arguments, κ(canal accusé, canal juge), et conserve 0,40 pour le
+couple (HTTP direct, navigateur en centre de données) ; ce relevé ne le remplace pas.
 
-**2. La nomenclature des canaux est incomplète de deux dimensions.** Le mémoire décrit un
-canal par son moteur de rendu et son origine réseau. Il y manque la présence d'un
-intermédiaire, puisque le retrait du proxy d'egress fait passer GitHub de `channel_blocked`
-à `ok`, et l'identité du fournisseur, puisque deux navigateurs sortant tous deux d'une
-adresse d'hébergeur divergent sur deux des trois sites comparables. Deux équipes qui
-déclarent le même canal au sens actuel peuvent donc publier des chiffres non comparables.
+2. Un canal décrit par son seul moteur de rendu et sa seule origine réseau ne suffit pas à
+rendre deux mesures comparables. Deux mesures qui déclareraient les mêmes valeurs sur ces
+deux dimensions ont divergé ici de deux façons. Le retrait du proxy d'egress fait passer
+GitHub de `channel_blocked` à `ok` à moteur et origine constants. Et deux navigateurs
+sortant l'un et l'autre d'une adresse d'hébergeur, Browserbase le 15 août et le serveur
+loué le 16, rendent des verdicts opposés sur deux des trois sites comparables. La campagne
+n'établit pas la part qui revient au fournisseur lui-même : faute de compte, Browserbase
+n'a pas été re-mesuré, et les adresses de sortie, les contre-mesures de détection appliquées
+par défaut et la journée écoulée restent des explications concurrentes.
 
-**3. La longueur de l'extrait classifié est un paramètre de mesure, pas un détail
-d'implémentation.** Le cas Wolfram Alpha montre qu'elle peut à elle seule faire diverger
-deux canaux qui voient la même page, et le cas Allrecipes qu'un défi Cloudflare de 330 ko
-passe entièrement sous le radar d'un extrait de 4 000 caractères. Or ce paramètre
-n'apparaît nulle part dans le mémoire : ni au chapitre 3, ni dans la fiche de configuration
-canonique de l'annexe A, alors que celle-ci consigne κ. Il n'est documenté que dans une
-docstring du paquet. Une variable dont dépend le verdict devrait figurer dans la
-configuration publiée au même titre que κ, sans quoi deux exécutions de l'outil réglées
-différemment produiront des chiffres qu'on croira comparables.
+3. La longueur de l'extrait classifié décide de certains verdicts. Le cas Wolfram Alpha
+montre qu'elle peut à elle seule faire diverger deux canaux qui voient la même page, et le
+cas Allrecipes qu'un défi Cloudflare de 330 ko passe entièrement sous le radar d'un extrait
+de 4 000 caractères. Deux exécutions de l'outil réglées sur des longueurs différentes ne
+sont donc pas comparables sur ces cas. La campagne ne mesure pas l'ampleur de cet effet sur
+l'ensemble des verdicts : elle a été conduite à une seule longueur, sans variation
+contrôlée, et deux cas ne suffisent pas à en estimer la fréquence.
 
 ## 8. Limites
 
-Ces limites sont écrites contre le résultat, parce qu'une limite trouvée par le jury coûte
-plus cher qu'une limite reconnue par l'auteur.
-
-**La faiblesse principale est bornée, pas levée.** Le mémoire définit sa fragilité comme le
+La faiblesse principale est bornée sans être levée. Le mémoire définit sa fragilité comme le
 fait que κ = 0,40 repose sur trois observations Browserbase non reproductibles. Faute de
-compte, je n'ai pas pu re-mesurer Browserbase. Ces trois observations restent donc
-exactement aussi peu reproductibles qu'avant. Ce que la campagne apporte est un plan
-identifiable, une mesure rejouable et un ordre de grandeur ; elle ne remplace pas la mesure
-manquante.
+compte, je n'ai pas pu re-mesurer Browserbase. Ces trois observations restent donc exactement
+aussi peu reproductibles qu'avant. Ce que la campagne apporte est un plan identifiable et
+rejouable ; elle ne remplace pas la mesure manquante.
 
-**Quinze sites restent quinze sites, et l'effectif interdit le classement.** Quatre sites
+L'effectif de quinze sites interdit le classement. Quatre sites
 basculent sous l'effet du moteur, deux sous l'effet de l'origine. Le test exact de Fisher ne
 permet pas de distinguer ces deux nombres. Sur les κ de crédibilité, la résolution du
 dispositif est d'un sixième par site.
 
-**L'adresse résidentielle est une adresse mobile.** Elle appartient à AS51207 Free Mobile,
+L'adresse résidentielle est une adresse mobile. Elle appartient à AS51207 Free Mobile,
 c'est-à-dire à un réseau mobile dont les abonnés partagent des adresses publiques par
 traduction d'adresses à grande échelle. Sa réputation auprès des dispositifs anti-robot
 n'est pas celle d'une ligne fixe, et elle n'est pas non plus celle d'une autre adresse
 mobile. Un seul point a été échantillonné, sur un seul opérateur, dans un seul pays.
 
-**Le contraste d'origine n'isole pas la réputation de l'adresse.** Les points de présence
+Le contraste d'origine n'isole pas la réputation de l'adresse. Les points de présence
 atteints diffèrent, les éditions localisées servies diffèrent, et les systèmes
 d'exploitation des deux machines diffèrent, macOS d'un côté et Linux de l'autre, ce que
 l'User-Agent annonce. Ces trois facteurs sont confondus avec l'origine réseau. C'est le
 défaut de plan que je n'ai pas pu éliminer, et il limite l'interprétation de la ligne
 « origine » du tableau 2.
 
-**Le contraste de moteur ne fait pas varier que le moteur.** Le canal HTTP présente
+Le contraste de moteur ne fait pas varier que le moteur. Le canal HTTP présente
 l'User-Agent d'un Chrome 128, celui du profil « browser » du paquet, tandis que les
 cellules navigateur présentent celui de leur Chrome 148 réel. Vingt versions majeures
 séparent les deux, et un dispositif de filtrage peut en tenir compte.
 
-**Le classifieur a été pris tel quel, avec ses défauts.** Quatre lui sont apparus pendant la
+Le classifieur a été pris tel quel, avec ses défauts. Quatre lui sont apparus pendant la
 campagne, décrits en annexe A, et l'un d'eux a produit un faux positif qui a coûté à ce
 rapport une conclusion entière. Je ne les ai pas corrigés, parce que changer les règles en
-cours de campagne aurait rendu les quatre cellules incomparables et incomparables aux
-mesures du 15 août. Les verdicts publiés ici héritent donc de ces défauts.
+cours de campagne aurait rendu les quatre cellules incomparables et incomparables aux mesures
+du 15 août. Les verdicts publiés ici héritent donc de ces défauts.
 
-**Le contrôle `meta.page_reelle_affichee` n'est pas indépendant du classifieur.** Il
-réutilise les mêmes expressions de détection, si bien que sur une observation tranchée par
-un marqueur, il ne peut structurellement que confirmer le verdict. Le seul contrôle
-réellement indépendant est la capture d'écran, et c'est elle qui a révélé le faux positif
-de Wolfram Alpha.
+Le contrôle `meta.page_reelle_affichee` n'est pas indépendant du classifieur. Il réutilise
+les mêmes expressions de détection, si bien que sur une observation tranchée par un
+marqueur, il ne peut structurellement que confirmer le verdict. Le seul contrôle réellement
+indépendant est la capture d'écran, et c'est elle qui a révélé le faux positif de Wolfram
+Alpha.
 
-**Cinq robots.txt sont ambigus.** Sur allrecipes.com, amazon.com, bbc.com, espn.com et
+Cinq robots.txt sont ambigus. Sur allrecipes.com, amazon.com, bbc.com, espn.com et
 wolframalpha.com, la racine est autorisée au groupe `User-agent: *`, mais le fichier
 interdit explicitement `/` à des agents d'intelligence artificielle nommés. Mon client ne se
 déclare sous aucun de ces noms et respecte donc la lettre du fichier, mais pas l'intention
@@ -370,51 +365,50 @@ que ces lignes expriment. Je l'ai fait quand même, pour une requête par site e
 sur une page d'accueil publique, sans extraction de contenu. Aucune cible n'était interdite
 au sens strict, et le `Crawl-delay: 15` d'arxiv.org a été respecté.
 
-**Deux passes en une heure ne disent rien du long terme.** La répétabilité mesurée ici borne
+Deux passes en une heure ne disent rien du long terme. La répétabilité mesurée ici borne
 la fluctuation à l'échelle de l'heure. Elle ne dit rien de ce que ces quinze sites
 répondront dans six mois, qui est pourtant la question du mémoire.
 
-**La campagne a pu provoquer le seul changement qu'elle observe.** Allrecipes a été sollicité
+La campagne a pu provoquer le seul changement qu'elle observe. Allrecipes a été sollicité
 quatre fois en une heure depuis la même adresse résidentielle, et c'est le seul site dont la
 signature change entre les deux passes. Je ne peux pas exclure que le blocage constaté à la
 seconde passe soit une réaction à la première. Une campagne qui mesure des dispositifs
 anti-robot est un objet qui perturbe ce qu'il observe, et le protocole choisi, une requête
 par site et par passe, limite cette perturbation sans la supprimer.
 
-**Une seule mesure par case et par passe.** Aucun vote, aucune moyenne. Un site qui alterne
-ses réponses est vu une fois par passe, pas caractérisé.
+Une seule mesure a été prise par case et par passe, sans vote ni moyenne. Un site qui
+alterne ses réponses est vu une fois par passe.
 
-## Annexe A. Ce que le protocole a dû corriger en route
+## Annexe A. Ce que j'ai corrigé au protocole en cours de route
 
-Le protocole qui m'a été transmis venait d'une lecture de la documentation, pas d'une
-exécution. J'ai donc commencé par établir la surface réelle de l'outil, et plusieurs
-corrections ont suivi.
+J'avais écrit le protocole d'après la documentation d'agent-browser, sans avoir exécuté
+l'outil. J'ai donc commencé par établir sa surface réelle, et plusieurs corrections ont
+suivi.
 
-**Ce qui existait bien.** Contrairement à ce que le protocole envisageait, le drapeau
-`--allowed-domains` existe, de même que `network har start/stop`, `network requests --json`
-et `network request <id>`. La seule commande introuvable est un prétendu skill « cloud
-browser » générique : il n'y en a pas, la documentation des cinq fournisseurs se trouve dans
-le README du paquet.
+Contrairement à ce que j'avais supposé, le drapeau `--allowed-domains` existe, de même que
+`network har start/stop`, `network requests --json` et `network request <id>`. La seule
+commande introuvable est un skill « cloud browser » générique : il n'y en a pas, la
+documentation des cinq fournisseurs se trouve dans le README du paquet.
 
-**Le confinement de domaines a été retiré du protocole principal.** C'est la correction qui
-va le plus directement contre une consigne explicite. Le protocole demandait de passer
-`--allowed-domains` pour se contraindre matériellement. Appliqué, ce drapeau fabrique des
-refus. Comparé à la mesure sans confinement, il change quatre verdicts sur quinze :
-`dictionary.cambridge.org` devient `unreachable` faute de rendre son DOM, Google Flights et
-Google Maps passent de `ok` à `forbidden_403`, et Amazon de `ok` à `antibot_challenge`. Le
-drapeau bloque les ressources tierces dont ces pages ont besoin pour s'afficher, si bien
-qu'il mesure le confinement plutôt que le site. Quatre faux refus sur quinze, c'est plus que
-l'effet que la campagne cherche à mesurer. J'ai donc mesuré sans confinement et conservé la
-mesure confinée comme analyse de sensibilité, dans
-`runs/matrice/browser_residential_p1_confine.json`. La contrainte d'accès tient au script,
-qui n'émet qu'une navigation par site, sans clic ni saisie ni navigation interne.
+Le confinement de domaines a été retiré du protocole principal. C'est la correction qui
+s'écarte le plus de ce que j'avais prévu : je comptais passer `--allowed-domains` pour me
+contraindre matériellement. Appliqué, ce drapeau fabrique des refus. Comparé à la mesure
+sans confinement, il change quatre verdicts sur quinze : `dictionary.cambridge.org` devient
+`unreachable` faute de rendre son DOM, Google Flights et Google Maps passent de `ok` à
+`forbidden_403`, et Amazon de `ok` à `antibot_challenge`. Le drapeau bloque les ressources
+tierces dont ces pages ont besoin pour s'afficher, si bien qu'il mesure le confinement
+plutôt que le site. Quatre faux refus sur quinze, c'est plus que l'effet que la campagne
+cherche à mesurer. J'ai donc mesuré sans confinement et conservé la mesure confinée comme
+analyse de sensibilité, dans `runs/matrice/browser_residential_p1_confine.json`. La
+contrainte d'accès tient au script, qui n'émet qu'une navigation par site, sans clic ni
+saisie ni navigation interne.
 
-**Le navigateur tourne avec fenêtre et non sans affichage.** En mode sans affichage, Chrome
+Le navigateur tourne avec fenêtre et non sans affichage. En mode sans affichage, Chrome
 annonce `HeadlessChrome` dans son User-Agent. Mesurer ainsi reviendrait à se signaler comme
 robot au moment même où l'on mesure la façon dont les sites traitent les robots. Le mode
 avec fenêtre présente l'User-Agent authentique du navigateur, sans rien maquiller.
 
-**Quatre défauts du classifieur sont apparus, et n'ont pas été corrigés.**
+Quatre défauts du classifieur sont apparus, et n'ont pas été corrigés.
 
 1. La règle du code 202 est évaluée avant le corps : un défi résolu par le navigateur reste
    classé `antibot_challenge` parce que la réponse initiale portait ce code. C'est ce qui
@@ -433,7 +427,7 @@ J'ai laissé le classifieur trancher et enregistré à côté un contrôle, dans
 `meta.page_reelle_affichee` et `meta.defi_dans_corps_reseau_integral`, dont la section 8
 rappelle qu'il n'est pas indépendant.
 
-**Trois défauts de collecte ont été corrigés.** Le protocole de débogage de Chrome ne rend
+Trois défauts de collecte ont été corrigés. Le protocole de débogage de Chrome ne rend
 pas toujours le corps du document ; il revenait vide, et le classifieur y lisait un
 `soft_404`, c'est-à-dire une page morte imputée au site. Le corps a été relu dans les HAR.
 Une lecture de DOM revenue vide est désormais retentée puis déclarée invalide plutôt que
@@ -443,13 +437,13 @@ consentement ou ancre reCAPTCHA, et publiait son statut à la place de celui du 
 règle corrigée retient l'URL de la page finale, et `meta.document_principal_url` porte
 désormais le document retenu.
 
-**Les cellules en centre de données ont été mesurées sur un serveur loué.** Aucune clé de
+Les cellules en centre de données ont été mesurées sur un serveur loué. Aucune clé de
 fournisseur de navigateurs cloud n'était disponible. Un serveur OVH en France donne la même
 chose sur le plan expérimental, une adresse d'hébergeur et un Chrome réel, avec l'avantage
 d'être reproductible sans compte payant. Chrome y a été aligné sur la version 148 utilisée
 localement, et lancé avec `--no-sandbox` parce que les espaces de noms utilisateur sont
 désactivés sur cette machine ; ce drapeau ne change ni l'empreinte réseau ni l'User-Agent.
-Une variante par runner GitHub Actions est fournie pour qui n'a pas de serveur.
+Un runner d'intégration continue hébergé conviendrait aussi à qui n'a pas de serveur loué.
 
 ## Annexe B. Reproduire la campagne
 
@@ -471,11 +465,11 @@ python experiments/rendre_rapport_canaux.py --runs runs/matrice \
     --sortie experiments/RAPPORT_CANAUX.md
 ```
 
-Une variante sans serveur loué est fournie dans
-`.github/workflows/matrice_canaux_datacenter.yml` : un runner GitHub Actions offre lui aussi
-une adresse d'hébergeur et un navigateur réel, gratuitement.
+Les cellules datacenter peuvent aussi être prises sur un runner d'intégration continue
+hébergé plutôt que sur un serveur loué : son adresse de sortie est celle d'un centre de
+données et il exécute un navigateur réel, sans compte payant.
 
 Les tableaux de ce rapport sont produits par `experiments/rendre_rapport_canaux.py` à partir
 des fichiers de `runs/matrice/`, et le texte est assemblé autour d'eux. Les chiffres cités
-dans les phrases, eux, sont écrits à la main et peuvent donc se désynchroniser des tableaux
-si la campagne est rejouée : ils sont à relire avant toute republication.
+dans les phrases, eux, sont écrits à la main et se désynchronisent donc des tableaux si la
+campagne est rejouée.

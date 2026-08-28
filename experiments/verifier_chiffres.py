@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Vérifie que chaque chiffre de `CHIFFRES_CANONIQUES.md` est bien celui de son fichier source.
+"""Vérifie que chaque chiffre publié est celui de son artefact source.
 
-Un document qui déclare des chiffres canoniques sans les vérifier est un quatrième jeu de
-chiffres. Ce script lit les fichiers de `runs/`, `exports/` et `data/`, et **ré-assène**
-chaque valeur publiée. Il ne recalcule rien : il compare ce que le mémoire écrira à ce que
-les artefacts contiennent.
+Un chiffre recopié à la main dans un rapport devient, à la première correction oubliée, un
+jeu de chiffres de plus. Ce script relit les fichiers de `runs/`, `exports/` et `data/` et
+compare chaque valeur publiée à celle qu'ils portent. Il ne recalcule rien, à l'exception
+des lifts et des p-valeurs contre `supprimee_1`, que la grille de validation ne stocke pas.
 
 Exécution : hors ligne, déterministe, 0,00 $, moins d'une seconde.
 
@@ -31,7 +31,7 @@ def jsonl(rel: str) -> list[dict[str, Any]]:
     return [json.loads(l) for l in (ROOT / rel).read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-#: (§ du registre, libellé, valeur publiée, fichier qui en fait foi, accesseur)
+#: (repère, libellé, valeur publiée, fichier qui en fait foi, accesseur)
 CHECKS: list[tuple[str, str, Any, str, Callable[[Any], Any]]] = [
     # -- 1. Carte de santé canonique -----------------------------------------------------
     ("1.1", "corpus : nombre de tâches", 643, "runs/health_20260815.json",
@@ -105,7 +105,7 @@ CHECKS: list[tuple[str, str, Any, str, Callable[[Any], Any]]] = [
      "runs/validation_ablation_20260815.json",
      lambda d: d["ablation"]["L1+L2+L3"]["seuils"]["medium"]["contre"]["signalee_1"]["recall"]),
 
-    # -- 4. Validation hors échantillon (correction B2) -----------------------------------
+    # -- 4. Validation hors échantillon ---------------------------------------------------
     ("4.1", "hors échantillon : verdict L1/HIGH", "non validable hors échantillon",
      "runs/validation_hors_echantillon_20260816.json",
      lambda d: d["conclusions"]["L1_high"]["verdict"]),
@@ -201,7 +201,7 @@ CHECKS: list[tuple[str, str, Any, str, Callable[[Any], Any]]] = [
      "configuration exploratoire, non citée",
      "runs/health_card_webvoyager_llm_20260816.json",
      lambda d: d["statut_editorial"]["mention"]),
-    ("0.3", "tables de sensibilité du rapport 5 marquées exploratoires",
+    ("0.3", "tables de sensibilité non canoniques marquées exploratoires",
      "configuration exploratoire, non citée", "runs/scoring_model_20260816.json",
      lambda d: d["statut_editorial"]["mention"]),
 ]
@@ -215,12 +215,13 @@ def _p_binomiale(k: int, n: int, p0: float) -> float:
 
 
 def _supprimee_1(cfg: str, seuil: str, quoi: str) -> Callable[[Any], Any]:
-    """Lift ou p-valeur d'une configuration contre la vérité `supprimee_1` (§3.6).
+    """Lift ou p-valeur d'une configuration contre la vérité `supprimee_1`.
 
     Ces deux quantités ne sont stockées nulle part : la grille de validation publie P, R et
-    F1 mais jamais la précision attendue au hasard. C'est précisément l'absence relevée par
-    `VERIFICATION.md` §C3, et la seule façon de garantir qu'elle ne se reproduise pas est de
-    la recalculer ici à chaque contrôle.
+    F1 mais jamais la précision attendue au hasard, sans laquelle une précision affichée ne
+    dit ni bien ni mal. C'est l'absence relevée par `experiments/CONTRE_VERIFICATION.md`, et
+    la seule façon de garantir qu'elle ne se reproduise pas est de la recalculer ici à chaque
+    contrôle.
     """
 
     def acces(d: Any) -> float:
@@ -265,19 +266,19 @@ def main() -> int:
             data = jsonl(fichier) if fichier.endswith(".jsonl") else load(fichier)
             obtenu = acces(data)
         except Exception as exc:  # noqa: BLE001
-            echecs.append(f"§{section} {libelle} : LECTURE IMPOSSIBLE ({exc})")
-            print(f"  ERREUR  §{section:<5} {libelle:<52} {fichier}")
+            echecs.append(f"{section} {libelle} : LECTURE IMPOSSIBLE ({exc})")
+            print(f"  ERREUR  {section:<6} {libelle:<52} {fichier}")
             continue
         ok = approx(attendu, obtenu)
         par_section[section] = par_section.get(section, 0) + 1
         if not ok:
-            echecs.append(f"§{section} {libelle} : publié {attendu!r}, source {obtenu!r} ({fichier})")
-        print(f"  {'OK ' if ok else 'ÉCART'}    §{section:<5} {libelle:<52} {attendu}")
+            echecs.append(f"{section} {libelle} : publié {attendu!r}, source {obtenu!r} ({fichier})")
+        print(f"  {'OK ' if ok else 'ÉCART'}    {section:<6} {libelle:<52} {attendu}")
 
     print()
     print(f"{len(CHECKS)} chiffres vérifiés sur {len(set(c[3] for c in CHECKS))} fichiers source.")
     if echecs:
-        print(f"\n{len(echecs)} ÉCART(S) — CHIFFRES_CANONIQUES.md ne correspond plus aux artefacts :")
+        print(f"\n{len(echecs)} ÉCART(S) : un chiffre publié n'est plus celui de son artefact source.")
         for e in echecs:
             print(f"  - {e}")
         return 1

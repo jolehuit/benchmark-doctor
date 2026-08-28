@@ -2,10 +2,9 @@
  "statut_editorial": {
   "statut": "exploratoire",
   "mention": "configuration exploratoire, non citée",
-  "raison": "Tables de sensibilité (κ, agrégation, échelles) calculées SANS la couche de solvabilité et SANS vérification des contenus. C'est la source de la table κ → D {53, 62, 69, 74, 144} du rapport 5. **Ne jamais coller cette table à côté de la carte du README** : dans la configuration canonique, la même sensibilité donne D {83, 100, 110, 113, 136, 177}. La version canonique est dans `runs/carte_canonique_20260815.json`.",
+  "raison": "Tables de sensibilité (κ, agrégation, échelles) calculées sans la couche de solvabilité et sans vérification des contenus. La sensibilité à κ y donne D {53, 62, 69, 74, 144} ; dans la configuration canonique, la même sensibilité donne D {83, 100, 110, 113, 136, 177}. La table canonique est publiée dans `runs/carte_canonique_20260815.json`, section `sensibilite_kappa`.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "tool_version": "0.1.0",
  "reference_date": "2026-08-16",
@@ -104,7 +103,7 @@
    "caveat": "n très petit ; l'estimateur de Laplace est là pour ne pas publier 0 ou 1. Booking compte comme « confirmé » parce que la signature reste un challenge, alors que le navigateur l'a en fait résolu : c'est la lecture la plus favorable au constat de blocage, donc la plus prudente pour le score."
   },
   "world_decay": {
-   "source": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+   "source": "data/ground_truth.json",
    "online_mind2web": {
     "corpus": 300,
     "replaced": 52,

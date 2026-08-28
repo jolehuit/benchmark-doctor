@@ -3,7 +3,7 @@
 
     python experiments/analyse_matrice.py --runs runs/matrice --sortie runs/matrice/analyse.json
 
-Deux grandeurs portent la lettre κ dans ce dossier, et les confondre serait une faute
+Deux grandeurs portent la lettre κ dans cette campagne, et les confondre serait une faute
 ----------------------------------------------------------------------------------------
 
 - **κ de Cohen** mesure l'*accord* entre deux canaux qui jugent les mêmes sites, corrigé

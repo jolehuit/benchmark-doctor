@@ -1,34 +1,33 @@
-"""Ablation L3 rejouée à rubrique propre — correction du problème bloquant B1.
+"""Ablation L3 rejouée avec une rubrique de juge écrite hors du corpus évalué.
 
 Ce banc reprend `experiments/ablation_ambiguity.py` (même jeu annoté, mêmes plis, mêmes
-primitives de mesure, importées et non recopiées) et corrige les quatre défauts que la
-vérification adverse du 16/08/2026 lui a trouvés :
+primitives de mesure, importées et non recopiées) et corrige quatre défauts de la mesure
+initiale.
 
-**B1 — fuite du jeu de test dans le prompt du juge.** L'ancienne rubrique contenait des
-énoncés du jeu évalué recopiés mot pour mot. Elle est réécrite avec des exemples
-fabriqués (cf. le commentaire de ``_RUBRIC`` et `experiments/check_rubric_leak.py`), et
-les deux versions sont mesurées côte à côte : *leaky* rejoue la rubrique du 15/08,
-*clean* exécute la nouvelle. L'écart entre les deux est la valeur de la fuite.
+Fuite du jeu de test dans le prompt du juge. L'ancienne rubrique contenait des énoncés du
+jeu évalué recopiés mot pour mot. Elle est réécrite avec des exemples fabriqués (cf. le
+commentaire de ``_RUBRIC`` et `experiments/check_rubric_leak.py`), et les deux versions
+sont mesurées côte à côte : *leaky* rejoue l'ancienne rubrique, *clean* exécute la
+nouvelle. L'écart entre les deux est la valeur de la fuite.
 
-**C1 — un maximum publié pour une moyenne.** Le F1 0,827 était le meilleur de quatre
-exécutions. Chaque juge est ici exécuté ``JUDGE_RUNS`` fois (variantes de cache
-indépendantes, même prompt, même température) et le tableau publie **moyenne et
-écart-type inter-exécutions**, à côté — et jamais à la place — de l'écart-type
-inter-plis. Les deux dispersions mesurent des choses différentes et portent des noms
-différents.
+Un maximum publié pour une moyenne. Le F1 0,827 était le meilleur de quatre exécutions.
+Chaque juge est ici exécuté ``JUDGE_RUNS`` fois (variantes de cache indépendantes, même
+prompt, même température) et le tableau publie moyenne et écart-type inter-exécutions, à
+côté, et jamais à la place, de l'écart-type inter-plis. Les deux dispersions mesurent des
+choses différentes et portent des noms différents.
 
-**C2 — un seuil calibré qui dégénère.** La calibration par maximisation du F1 choisit la
-ligne « tout positif » dès que les notes séparent mal les classes. Le tableau principal
-est donc calibré sur le **J de Youden**, qui vaut 0 pour toute règle ignorant l'énoncé,
-et le **seuil fixe 0,5** est publié en regard. Le seuil F1 reste calculé, comme témoin
-de la dégénérescence.
+Un seuil calibré qui dégénère. La calibration par maximisation du F1 choisit la ligne
+« tout positif » dès que les notes séparent mal les classes. Le tableau principal est donc
+calibré sur le J de Youden, qui vaut 0 pour toute règle ignorant l'énoncé, et le seuil fixe
+0,5 est publié en regard. Le seuil F1 reste calculé, comme témoin de la dégénérescence.
 
-**C13 — TF-IDF in-sample.** Aucune métrique in-sample n'est produite ici : toutes les
-lignes sont hors plis. La précision apparente de 0,964 du backend ``tfidf`` entraîné sur
-les 139 annotations puis appliqué à ces mêmes 139 tâches est recalculée **uniquement**
-pour être publiée comme un artefact à ne pas citer (champ ``tfidf_in_sample_warning``).
+Une précision TF-IDF mesurée sur son propre jeu d'entraînement. Aucune métrique in-sample
+n'est produite ici : toutes les lignes sont hors plis. La précision apparente de 0,964 du
+backend ``tfidf`` entraîné sur les 139 annotations puis appliqué à ces mêmes 139 tâches est
+recalculée uniquement pour être publiée comme un artefact à ne pas citer (champ
+``tfidf_in_sample_warning``).
 
-Sorties : un JSON dans ``runs/`` et le tableau Markdown de `experiments/ABLATION_L3.md`.
+Sortie : un JSON dans ``runs/``, mis en forme par `experiments/render_ablation_l3.py`.
 
     python experiments/ablation_l3_clean.py --offline    # (a), (b) et références, 0 $
     python experiments/ablation_l3_clean.py              # tout, coût réel relevé
@@ -90,16 +89,15 @@ ANNOTATIONS = ROOT / "data" / "annotations_ambiguity.json"
 JUDGE_RUNS = 5
 
 #: Étiquettes de cache des exécutions. Les quatre premières de la rubrique fuitée
-#: existent déjà (``None``, ``v1``, ``v2``, ``v3``) : elles sont resservies à 0 $, ce qui
-#: rend la comparaison avant/après gratuite pour sa moitié.
+#: (``None``, ``v1``, ``v2``, ``v3``) sont celles de la mesure initiale : les resservir
+#: telles quelles est ce qui rend la comparaison avant/après possible.
 LEAKY_VARIANTS = [None, "v1", "v2", "v3", "v4"]
 CLEAN_VARIANTS = ["c1", "c2", "c3", "c4", "c5"]
 PLAIN_VARIANTS = [None, "p2", "p3", "p4", "p5"]
 
-#: Les cinq items du jeu annoté dont une formulation figurait dans l'ancienne rubrique.
-#: Quatre positifs (relevés par la vérification adverse) **et un négatif** — GitHub--28,
-#: dont « most starred » était le contre-exemple négatif de la rubrique — que la
-#: vérification avait manqué. Retirer les cinq donne le F1 « hors fuite ».
+#: Les cinq items du jeu annoté dont une formulation figurait dans l'ancienne rubrique :
+#: quatre positifs et un négatif, GitHub--28, dont « most starred » servait de
+#: contre-exemple. Retirer les cinq donne le F1 « hors fuite ».
 LEAKED_TASK_IDS = ["Apple--11", "Coursera--0", "GitHub--5", "Huggingface--23", "GitHub--28"]
 
 
@@ -268,15 +266,15 @@ def run_judge_family(
         print(f"    {str(variant):5s} : F1 hors plis {y['pooled']['f1']:.3f} "
               f"(seuil J {statistics.mean(y['thresholds']):.2f}) · "
               f"F1@0,5 {y['fixed_0_5']['f1']:.3f} · AUC {y['auc']:.3f} · "
-              f"{ledger.calls} appels, {ledger.cost_usd:.5f} $ "
-              f"({ledger.cached_calls} en cache)")
+              f"{ledger.calls + ledger.cached_calls} appels, "
+              f"{ledger.first_run_cost_usd:.5f} $")
 
     def across(path: Callable[[dict[str, Any]], float]) -> dict[str, float]:
         v = [path(r) for r in runs]
         return {
             "mean": statistics.mean(v),
             # Dispersion ENTRE EXÉCUTIONS du même prompt à température 0. C'est elle que
-            # le tableau du 15/08 n'avait jamais mesurée.
+            # la mesure initiale n'avait jamais publiée.
             "std_between_runs": statistics.stdev(v) if len(v) > 1 else 0.0,
             "min": min(v),
             "max": max(v),
@@ -310,8 +308,7 @@ def run_judge_family(
             4,
         ),
         "ledgers": ledgers,
-        "cost_first_run_usd": round(sum(l["first_run_cost_usd"] for l in ledgers), 6),
-        "cost_spent_usd": round(sum(l["cost_usd"] for l in ledgers), 6),
+        "cost_usd": round(sum(l["cost_usd"] for l in ledgers), 6),
     }
 
 
@@ -351,8 +348,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "key": key, "label": label, "note": note,
             "youden": y, "f1max": f,
             "f1_excluding_leaked": subset_metrics(data.labels, y["oof_pred"], keep),
-            "cost_first_run_usd": round(ledger.first_run_cost_usd, 6) if ledger else 0.0,
-            "cost_spent_usd": round(ledger.cost_usd, 6) if ledger else 0.0,
+            "cost_usd": round(ledger.first_run_cost_usd, 6) if ledger else 0.0,
         }
         classical.append(entry)
         print(f"  {label}\n    F1 hors plis {y['pooled']['f1']:.3f} (J) · "
@@ -394,8 +390,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         # Cinq familles de juge, toutes à cinq exécutions. Les trois premières isolent ce
         # que vaut le prompt (fuité → propre → aucune rubrique) à modèle constant ; les
-        # deux dernières refont la même mesure sur le modèle bon marché, dont le dossier
-        # du 15/08 affirmait qu'il « s'effondre au niveau du hasard ».
+        # deux dernières refont la même mesure sur le modèle bon marché, dont la mesure
+        # initiale affirmait qu'il « s'effondre au niveau du hasard ».
         print("juges (5 exécutions chacun)")
         plan = [
             ("d_judge_clean", f"(d) juge {short(args.chat_model)} — rubrique PROPRE",
@@ -416,7 +412,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 budget=args.budget_usd, spent=spent))
             print(f"    (cumul dépensé : {spent[0]:.5f} $)")
 
-    # -- C13 : ce que vaut vraiment la précision in-sample du backend tfidf --------------
+    # -- Ce que vaut vraiment la précision in-sample du backend tfidf --------------------
     tfidf_full = TfidfScorer().fit(data.texts, data.labels)
     in_sample = prf(data.labels, [1 if s >= 0.5 else 0 for s in tfidf_full.score(data.texts)])
     oof_tfidf = next(r for r in classical if r["key"] == "a_tfidf")["youden"]["pooled"]
@@ -434,8 +430,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     payload = {
         "generated_at": dt.date.today().isoformat(),
         "supersedes": "runs/ablation_ambiguity_20260815.json",
-        "corrects": ["B1 (fuite de rubrique)", "C1 (maximum publié pour une moyenne)",
-                     "C2 (seuil dégénéré)", "C13 (métrique in-sample)"],
+        "corrects": ["fuite de rubrique", "maximum publié pour une moyenne",
+                     "seuil dégénéré", "métrique mesurée sur le jeu d'entraînement"],
         "annotations": {
             "path": str(ANNOTATIONS.relative_to(ROOT)), "n": len(data),
             "n_positive": sum(data.labels), "positive_rate": round(data.positive_rate, 4),
@@ -464,7 +460,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
         },
         "mcnemar": comparisons,
-        "cost_usd_this_run": round(spent[0], 6),
     }
 
     out = Path(args.out) if args.out else ROOT / "runs" / f"ablation_l3_clean_{dt.date.today():%Y%m%d}.json"

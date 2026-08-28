@@ -36,8 +36,8 @@ _TEMPORAL_HARD_PREFIXES = ("past_date_", "yearless_date_")
 
 
 def _v1_naive(verdict: TaskVerdict) -> bool:
-    """Détecteur v1 « naïf » du 15/08/2026 : toute date passée ou sans millésime, quelle
-    que soit l'intention, plus tout motif d'effet de bord, quelle que soit sa force."""
+    """Détecteur v1 « naïf » : toute date passée ou sans millésime, quelle que soit
+    l'intention, plus tout motif d'effet de bord, quelle que soit sa force."""
     for f in verdict.findings:
         if f.detector == "l1_temporal" and f.signal and f.signal.startswith(_TEMPORAL_HARD_PREFIXES):
             return True
@@ -81,9 +81,8 @@ ABLATIONS: dict[str, tuple[str, Callable[[TaskVerdict], bool]]] = {
 
 
 # Les bornes de mots ne sont pas cosmétiques : sans elles, « ambiguous what 'updates'
-# means » est classé « temporel » parce que « up-DATE-s » contient « date ». Le script
-# exploratoire du 15/08 avait ce défaut ; la ventilation des motifs de patch s'en trouve
-# légèrement modifiée (cf. rapport).
+# means » est classé « temporel » parce que « up-DATE-s » contient « date », ce qui
+# déplace la ventilation des motifs de patch.
 _REASON_RULES: list[tuple[str, re.Pattern[str]]] = [
     ("temporal", re.compile(
         r"\bdates?\b|\b20[12]\d\b|\boutdated\b|\bout of date\b|\bcurrent(?:ly)?\b|\bsuperseded\b|"
@@ -336,9 +335,9 @@ class _MemoChannel:
     change la nature du coût (quelques secondes au lieu de vingt minutes de politesse
     réseau) et évite de déclencher soi-même l'anti-bot que l'on prétend mesurer.
 
-    Conséquence à reporter dans le rapport : le verdict d'accès d'un site est propagé à
-    toutes ses tâches. C'est une mesure par site étendue aux tâches, ce qui borne la
-    décadence par le bas.
+    Conséquence, consignée dans les notes de la carte : le verdict d'accès d'un site est
+    propagé à toutes ses tâches. C'est une mesure par site étendue aux tâches, ce qui
+    borne la décadence par le bas.
     """
 
     def __init__(self, inner: Any) -> None:
@@ -347,12 +346,10 @@ class _MemoChannel:
         self.name = getattr(inner, "name", "channel")
         self._cache: dict[str, Any] = {}
         self.n_fetches = 0
-        self.n_hits = 0
         self.seconds = 0.0
 
     def fetch(self, url: str, *, timeout: float | None = None) -> Any:
         if url in self._cache:
-            self.n_hits += 1
             return self._cache[url]
         start = time.perf_counter()
         obs = self.inner.fetch(url, timeout=timeout)
@@ -367,35 +364,43 @@ class _MemoChannel:
     def available(self) -> bool:
         return bool(self.inner.available())
 
-    def describe(self) -> dict[str, Any]:
-        info = dict(self.inner.describe())
-        info["memoised_urls"] = len(self._cache)
-        info["n_fetches"] = self.n_fetches
-        info["n_cache_hits"] = self.n_hits
-        return info
+
+def _note_de_canal(channel: Any, memo: _MemoChannel, n_tasks: int) -> str:
+    """Décrit le canal L2 dans les notes de la carte : c'est du protocole, pas du coût.
+
+    Un constat d'accès refusé ne vaut que par le canal qui l'a produit : le facteur κ
+    appliqué à ce constat dépend du type de canal, et le profil d'en-têtes suffit à
+    changer le verdict d'un site. Sans cette note, la carte publie un score sans dire
+    par quoi il a été mesuré.
+    """
+    from .scoring import CHANNEL_CREDIBILITY
+
+    description = channel.describe() if hasattr(channel, "describe") else {}
+    profil = description.get("profile")
+    kappa = f"{CHANNEL_CREDIBILITY.get(memo.kind, 1.0):.2f}".replace(".", ",")
+    return (
+        f"Canal L2 : {memo.name}, canal {memo.kind.value}"
+        + (f", profil d'en-têtes {profil}" if profil else "")
+        + f", crédibilité κ = {kappa} ; {memo.n_fetches} requêtes HTTP réelles "
+        f"pour {n_tasks} tâches."
+    )
 
 
 def _ledger_cost(ledger: Any) -> tuple[float, int, str]:
     """Extrait d'un `CostLedger` le coût à publier, le nombre d'appels et une note.
 
-    Le montant retenu est ce qui a été payé plus ce que le cache a évité, et non
-    ``cost_usd`` : le coût d'une mesure est celui de sa première exécution, et publier
-    celui d'une relecture servie par le cache reviendrait à annoncer qu'un juge LLM est
-    gratuit.
+    Le coût publié est celui d'une première exécution : chaque énoncé soumis au juge est
+    compté, y compris ceux dont la réponse était déjà connue. Publier le montant d'une
+    re-exécution reviendrait à annoncer qu'un juge LLM est gratuit, d'où la note qui
+    accompagne le chiffre.
     """
     if ledger is None:
         return 0.0, 0, ""
-    paid = float(getattr(ledger, "cost_usd", 0.0) or 0.0)
-    avoided = float(getattr(ledger, "avoided_cost_usd", 0.0) or 0.0)
-    calls = int(getattr(ledger, "calls", 0) or 0)
-    cached = int(getattr(ledger, "cached_calls", 0) or 0)
-    note = ""
-    if cached:
-        note = (
-            f"{cached} appels servis par le cache (coût évité {avoided:.5f} $) : le coût "
-            "publié est celui d'une première exécution, pas d'une relecture."
-        )
-    return paid + avoided, calls + cached, note
+    usd = float(getattr(ledger, "first_run_cost_usd", 0.0) or 0.0)
+    calls = int(getattr(ledger, "calls", 0) or 0) + int(getattr(ledger, "cached_calls", 0) or 0)
+    montant = f"{usd:.5f}".replace(".", ",")
+    note = f"{calls} appels de juge, {montant} $ à la première exécution." if calls else ""
+    return usd, calls, note
 
 
 def _make_channel(spec: str, recorded: str | None) -> tuple[Any | None, str]:
@@ -526,12 +531,10 @@ def _run_layers(
             cost.add("L2", usd=0.0, calls=memo.n_fetches, seconds=elapsed)
             cost.notes.append(
                 f"L2 : {memo.n_fetches} requêtes HTTP réelles pour {len(health.verdicts)} "
-                f"tâches ({memo.n_hits} réponses mémoïsées) — coût en argent nul, coût en "
-                "requêtes borné par le nombre d'URL distinctes du corpus."
+                "tâches, coût en argent nul, coût en requêtes borné par le nombre d'URL "
+                "distinctes du corpus."
             )
-            health.notes.append(
-                "Canal L2 : " + json.dumps(memo.describe(), ensure_ascii=False)
-            )
+            health.notes.append(_note_de_canal(channel, memo, len(health.verdicts)))
             protocol["l2_channel"] = memo.name
             protocol["l2_channel_kind"] = memo.kind.value
             protocol["l2_content_checks"] = bool(args.l2_content)
@@ -565,22 +568,22 @@ def _run_layers(
                         by_id[task.task_id].add(finding)
                         n_amb += 1
                 elapsed = time.perf_counter() - start
-                usd, calls, cache_note = _ledger_cost(getattr(scorer, "ledger", None))
-                if cache_note:
-                    cost.notes.append("L3 ambiguïté : " + cache_note)
+                usd, calls, cost_note = _ledger_cost(getattr(scorer, "ledger", None))
+                if cost_note:
+                    cost.notes.append("L3 ambiguïté : " + cost_note)
                 executed.append("L3")
                 protocol["l3_ambiguity_backend"] = getattr(scorer, "name", args.l3_backend)
                 protocol["l3_ambiguity_threshold"] = round(float(getattr(scorer, "threshold", 0.5)), 4)
                 cost.add("L3", usd=usd, calls=calls, seconds=elapsed)
                 if calls > len(tasks):
                     # Le backend distant calibre son seuil en notant les 139 tâches du jeu
-                    # annoté avant de traiter le corpus. C'est un coût FIXE, payé une fois
-                    # et servi par le cache ensuite ; le confondre avec le coût marginal
-                    # par tâche fausserait toute comparaison coût/performance.
+                    # annoté avant de traiter le corpus. C'est un coût fixe, indépendant de
+                    # la taille du corpus ; le confondre avec le coût marginal par tâche
+                    # fausserait toute comparaison coût/performance.
                     cost.notes.append(
-                        f"L3 : {calls} appels pour {len(tasks)} tâches — l'écart est la "
+                        f"L3 : {calls} appels pour {len(tasks)} tâches, l'écart est la "
                         "passe de calibration du seuil sur le jeu annoté (139 énoncés), "
-                        "coût fixe payé une seule fois puis servi par le cache."
+                        "coût fixe qui ne croît pas avec la taille du corpus."
                     )
                 print(f"  L3 ambiguïté    : {n_amb} tâches signalées "
                       f"(backend {getattr(scorer, 'name', args.l3_backend)}, "
@@ -608,10 +611,10 @@ def _run_layers(
                             by_id[task.task_id].add(finding)
                             n_solv += 1
                     elapsed = time.perf_counter() - start
-                    usd, calls, cache_note = _ledger_cost(ledger)
+                    usd, calls, cost_note = _ledger_cost(ledger)
                     protocol["l3_solvability"] = True
-                    if cache_note:
-                        cost.notes.append("L3 solvabilité : " + cache_note)
+                    if cost_note:
+                        cost.notes.append("L3 solvabilité : " + cost_note)
                     cost.add("L3", usd=usd, calls=calls, seconds=elapsed)
                     if "L3" not in executed:
                         executed.append("L3")
@@ -933,8 +936,8 @@ def build_parser() -> argparse.ArgumentParser:
                          "de navigateur, depuis l'IP courante)")
     au.add_argument("--recorded", help="JSON d'observations à rejouer (canal « recorded »)")
     au.add_argument("--l2-content", action="store_true",
-                    help="vérifier aussi l'existence des contenus cités (couverture faible, "
-                         "cf. rapport L2)")
+                    help="vérifier aussi l'existence des contenus cités (couverture faible : "
+                         "peu d'énoncés citent un identifiant résolvable)")
     au.add_argument("--l3-backend", default="tfidf",
                     help="backend d'ambiguïté : tfidf (défaut, gratuit) | minilm | "
                          "openrouter | llm")

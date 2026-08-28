@@ -23,6 +23,16 @@ résolus dans l'ordre : argument explicite, variable d'environnement
 ``BDOCTOR_TEMPLATES``, ``templates/`` relatif au paquet, puis gabarit minimal embarqué
 pour qu'une installation en wheel sans données de paquet produise tout de même un
 rapport lisible.
+
+``health_card.html`` ne porte que la coquille : en-tête, encadré terminologique, pied de
+page et emplacements vides. Les sections sont construites ici, avec échappement de tout
+contenu variable. Le rendu substitue neuf emplacements, ``{{title}}``, ``{{css}}``,
+``{{benchmark}}``, ``{{subtitle}}``, ``{{provenance}}``, ``{{sections}}``,
+``{{terminology}}``, ``{{limits}}`` et ``{{footer}}``. Leur liste est tenue ici plutôt
+que dans un commentaire du gabarit, parce que la substitution est un remplacement de
+chaîne sur le fichier entier : un commentaire HTML qui citerait ces noms serait lui aussi
+substitué, et chaque carte publiée porterait en tête une copie de la feuille de style et
+de ses sections.
 """
 
 from __future__ import annotations

@@ -423,10 +423,10 @@ def load_emergence(
     gloutonne sur la similarité décroissante (`difflib`), ce qui interdit qu'un même
     original soit revendiqué par deux gabarits.
 
-    Réserve à conserver dans le mémoire : l'absence d'une tâche chez Emergence **n'est
-    pas** un verdict de suppression pour cause de decay — Emergence rééchantillonne à 35
-    tâches par site alors que les sites d'origine en comptent 41 à 46. Ces verdicts sont
-    donc marqués `confiance="faible"` et exclus de l'accord inter-annotateurs.
+    Réserve : l'absence d'une tâche chez Emergence n'est pas un verdict de suppression
+    pour cause de decay, Emergence rééchantillonnant à 35 tâches par site alors que les
+    sites d'origine en comptent 41 à 46. Ces verdicts sont donc marqués
+    `confiance="faible"` et exclus de l'accord inter-annotateurs.
 
     Returns:
         Le dictionnaire de verdicts, et un rapport d'appariement (taux, similarité

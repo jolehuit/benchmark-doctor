@@ -5309,14 +5309,14 @@
      "pct_corpus": 7.6,
      "par_site": {
       "Apple": 21,
-      "Google Flights": 7,
       "Booking": 7,
+      "Google Flights": 7,
       "GitHub": 5,
       "Amazon": 4,
       "Google Search": 2,
+      "ArXiv": 1,
       "Coursera": 1,
-      "Huggingface": 1,
-      "ArXiv": 1
+      "Huggingface": 1
      },
      "ids": [
       "Amazon--10",
@@ -5378,10 +5378,10 @@
       "Google Flights": 4,
       "Amazon": 3,
       "Booking": 2,
-      "Google Search": 2,
       "GitHub": 2,
-      "Coursera": 1,
-      "ArXiv": 1
+      "Google Search": 2,
+      "ArXiv": 1,
+      "Coursera": 1
      },
      "ids": [
       "Amazon--10",
@@ -5762,8 +5762,8 @@
       "Google Flights": 7,
       "GitHub": 5,
       "Google Search": 2,
-      "Coursera": 1,
       "ArXiv": 1,
+      "Coursera": 1,
       "Huggingface": 1
      },
      "ids": [
@@ -5943,10 +5943,10 @@
       "Apple": 18,
       "Booking": 6,
       "Google Flights": 4,
-      "Google Search": 2,
       "GitHub": 2,
-      "Coursera": 1,
-      "ArXiv": 1
+      "Google Search": 2,
+      "ArXiv": 1,
+      "Coursera": 1
      },
      "ids": [
       "Allrecipes--0",
@@ -6155,16 +6155,16 @@
       "Amazon": 38,
       "ESPN": 37,
       "Booking": 11,
-      "Google Map": 9,
       "BBC News": 9,
+      "Google Map": 9,
       "ArXiv": 8,
-      "GitHub": 6,
       "Cambridge Dictionary": 6,
+      "GitHub": 6,
       "Google Search": 4,
       "Wolfram Alpha": 3,
       "Apple": 2,
-      "Huggingface": 2,
-      "Coursera": 2
+      "Coursera": 2,
+      "Huggingface": 2
      },
      "ids": [
       "Allrecipes--0",
@@ -6357,12 +6357,12 @@
       "BBC News": 7,
       "ArXiv": 6,
       "Booking": 6,
-      "GitHub": 5,
       "Cambridge Dictionary": 5,
+      "GitHub": 5,
       "Google Search": 4,
-      "Wolfram Alpha": 2,
-      "Huggingface": 2,
       "Coursera": 2,
+      "Huggingface": 2,
+      "Wolfram Alpha": 2,
       "Apple": 1
      },
      "ids": [
@@ -6940,8 +6940,8 @@
       "ArXiv": 12,
       "Cambridge Dictionary": 9,
       "Google Search": 9,
-      "Wolfram Alpha": 6,
       "Booking": 6,
+      "Wolfram Alpha": 6,
       "Google Flights": 5
      },
      "ids": [
@@ -7345,10 +7345,10 @@
      "n": 42,
      "pct_corpus": 6.5,
      "par_site": {
-      "Wolfram Alpha": 7,
-      "Google Flights": 7,
-      "Booking": 7,
       "ArXiv": 7,
+      "Booking": 7,
+      "Google Flights": 7,
+      "Wolfram Alpha": 7,
       "ESPN": 4,
       "GitHub": 4,
       "Amazon": 3,
@@ -7404,12 +7404,12 @@
      "n": 22,
      "pct_corpus": 3.4,
      "par_site": {
-      "Wolfram Alpha": 6,
       "ArXiv": 6,
+      "Wolfram Alpha": 6,
       "Google Flights": 4,
       "Booking": 2,
-      "Google Search": 2,
-      "GitHub": 2
+      "GitHub": 2,
+      "Google Search": 2
      },
      "ids": [
       "ArXiv--14",
@@ -7490,11 +7490,11 @@
       "GitHub": 17,
       "Coursera": 16,
       "Amazon": 4,
-      "Google Search": 2,
       "ESPN": 2,
+      "Google Search": 2,
       "Huggingface": 2,
-      "Booking": 1,
       "Allrecipes": 1,
+      "Booking": 1,
       "Wolfram Alpha": 1
      },
      "ids": [
@@ -7619,15 +7619,15 @@
      "par_site": {
       "Cambridge Dictionary": 27,
       "Apple": 18,
-      "Coursera": 16,
       "ArXiv": 16,
+      "Coursera": 16,
       "GitHub": 15,
       "Amazon": 3,
-      "Google Search": 2,
       "ESPN": 2,
+      "Google Search": 2,
       "Huggingface": 2,
-      "Booking": 1,
       "Allrecipes": 1,
+      "Booking": 1,
       "Wolfram Alpha": 1
      },
      "ids": [
@@ -7879,14 +7879,14 @@
      "pct_corpus": 7.6,
      "par_site": {
       "Apple": 21,
-      "Google Flights": 7,
       "Booking": 7,
+      "Google Flights": 7,
       "GitHub": 5,
       "Amazon": 4,
       "Google Search": 2,
+      "ArXiv": 1,
       "Coursera": 1,
-      "Huggingface": 1,
-      "ArXiv": 1
+      "Huggingface": 1
      },
      "ids": [
       "Amazon--10",
@@ -7948,10 +7948,10 @@
       "Google Flights": 4,
       "Amazon": 3,
       "Booking": 2,
-      "Google Search": 2,
       "GitHub": 2,
-      "Coursera": 1,
-      "ArXiv": 1
+      "Google Search": 2,
+      "ArXiv": 1,
+      "Coursera": 1
      },
      "ids": [
       "Amazon--10",

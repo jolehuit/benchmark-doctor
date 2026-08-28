@@ -100,16 +100,17 @@ SEVERITY_WEIGHTS: dict[str, float] = {
 #: de cette sévérité tenu pour certain » ; aucun seuil n'est ajusté sur la vérité terrain,
 #: qui sert déjà à l'évaluation.
 #:
-#: Une échelle 0,85 / 0,60 / 0,35 a coexisté avec celle-ci jusqu'au 16/08/2026, la
+#: Une échelle 0,85 / 0,60 / 0,35 a coexisté avec celle-ci jusqu'au 16 août 2026, la
 #: première ici, la seconde dans `scoring`. Sur la carte canonique elles donnaient
-#: A 193 / B 124 / C 146 / D 180 contre A 210 / B 138 / C 185 / D 110 ; sur la carte L1
-#: seule, D 65 contre D 0. L'échelle héritée est abandonnée ;
-#: `scoring.compare_grade_scales` en publie la correspondance, pour que les chiffres des
-#: rapports antérieurs au 16/08 restent lisibles.
+#: A 193 / B 124 / C 146 / D 180 contre A 210 / B 138 / C 185 / D 110, soit 118 tâches
+#: sur 643 dont la note dépendait de l'échelle appliquée ; sur la carte statique, D 65
+#: contre D 0. L'échelle héritée est abandonnée ; `scoring.compare_grade_scales` en
+#: publie la correspondance, pour que les distributions publiées avant cette date restent
+#: lisibles.
 #:
-#: Conséquence : aucun constat de la seule couche L1 n'atteint la note D, aucun détecteur
-#: statique n'annonçant une confiance de 1,0. Le chiffre « 65 tâches en D par L1 seul »
-#: du rapport 1 tombe donc à 0 (73 en C).
+#: Conséquence, avec le score de référence ``1 - max(risque)`` : aucune tâche analysée
+#: par la seule couche L1 n'atteint la note D, aucun détecteur statique n'annonçant une
+#: confiance de 1,0. La carte statique du 15 août 2026 donne A 509 / B 61 / C 73 / D 0.
 GRADE_THRESHOLDS: dict[str, float] = {
     "A": 1.0 - SEVERITY_WEIGHTS["low"],  # 0,75
     "B": 1.0 - SEVERITY_WEIGHTS["medium"],  # 0,50
@@ -236,8 +237,15 @@ class Finding:
 
     ``evidence`` cite l'extrait qui justifie le constat : jamais de verdict sans preuve.
     ``signal`` est le sous-motif interne du détecteur (``"past_date_transactional"``),
-    granularité à laquelle se fait l'ablation. ``observed_at`` est obligatoire : une
-    observation sans date ne veut rien dire sur un objet qui se dégrade dans le temps.
+    granularité à laquelle se fait l'ablation. ``observed_at`` porte la date de
+    l'observation, celle du jour à défaut, parce qu'une observation sans date ne dit rien
+    d'un objet qui se dégrade dans le temps.
+
+    ``channel`` vaut `Channel.STATIC` par défaut, ce qui convient aux détecteurs hors
+    ligne, les seuls à pouvoir se passer d'un canal. Tout détecteur qui touche le réseau
+    ou interroge un modèle renseigne le sien : laisser la valeur par défaut rendrait son
+    constat irreproductible et lui vaudrait la crédibilité pleine accordée au statique
+    par `scoring.StabilityModel.credibility`.
     """
 
     category: Category
@@ -299,8 +307,8 @@ class Finding:
 
 
 #: Seuil de sévérité à partir duquel une tâche est considérée « signalée » (flag dur).
-#: Exposé comme constante pour que les chiffres du mémoire soient explicites : le taux
-#: de 18,8 % dépend de ce seuil autant que des détecteurs.
+#: Exposé comme constante parce qu'un taux de tâches signalées dépend de ce seuil autant
+#: que des détecteurs : le publier sans lui le rendrait ininterprétable.
 DEFAULT_FLAG_THRESHOLD = Severity.HIGH
 
 

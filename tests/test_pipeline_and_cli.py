@@ -2,13 +2,16 @@
 
 Le dernier bloc verrouille les chiffres publiés dans le mémoire : si un détecteur est
 modifié, ces tests échouent et signalent qu'un tableau du mémoire doit être recalculé.
-Ils sont ignorés si le corpus n'est pas présent (il n'est pas versionné).
+Ils sont ignorés quand le fichier de données qu'ils lisent est absent, sauf si la
+variable d'environnement BDOCTOR_REQUIRE_DATA est posée : ils échouent alors, pour
+qu'une intégration continue ne rende pas un « passed » sans avoir rien vérifié.
 """
 
 from __future__ import annotations
 
 import datetime as dt
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -29,9 +32,14 @@ RAW = Path(__file__).resolve().parent.parent / "data" / "raw"
 CORPUS = RAW / "webvoyager_original.jsonl"
 PATCHES = RAW / "magnitude_patches.json"
 
-needs_corpus = pytest.mark.skipif(
-    not CORPUS.exists(), reason="corpus WebVoyager absent (data/raw non versionné)"
-)
+
+def exiger(fichier: Path) -> None:
+    if fichier.exists():
+        return
+    motif = f"{fichier.name} absent de data/raw"
+    if os.environ.get("BDOCTOR_REQUIRE_DATA"):
+        pytest.fail(f"{motif}, et BDOCTOR_REQUIRE_DATA interdit de sauter ce test")
+    pytest.skip(motif)
 
 
 # -- chaîne L1 -------------------------------------------------------------------------
@@ -133,14 +141,14 @@ def test_les_politiques_d_ablation_sont_ordonnees_par_permissivite():
 # -- verrouillage des chiffres publiés -------------------------------------------------
 
 
-@needs_corpus
 def test_le_corpus_de_reference_compte_643_taches():
+    exiger(CORPUS)
     assert len(load_webvoyager(CORPUS)) == 643
 
 
-@needs_corpus
-@pytest.mark.skipif(not PATCHES.exists(), reason="patch-set Magnitude absent")
 def test_les_chiffres_l1_publies_sont_reproductibles():
+    exiger(CORPUS)
+    exiger(PATCHES)
     # Chiffres du mémoire, mesurés au 15/08/2026 sur les 643 tâches d'origine.
     # Toute modification d'un détecteur L1 doit faire échouer ce test.
     tasks = load_webvoyager(CORPUS)
@@ -163,8 +171,8 @@ def test_les_chiffres_l1_publies_sont_reproductibles():
     assert sites["Booking"]["flagged"] == 33
 
 
-@needs_corpus
 def test_la_commande_scan_s_execute(capsys, tmp_path):
+    exiger(CORPUS)
     out = tmp_path / "health.json"
     code = main(["scan", str(CORPUS), "--today", "2026-08-15", "--json", str(out)])
     assert code == 0

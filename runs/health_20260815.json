@@ -1,18 +1,17 @@
 {
  "statut_editorial": {
   "statut": "canonique",
-  "mention": "carte de référence du mémoire — seule carte citable",
-  "raison": "Configuration canonique : L1+L2+L3 avec solvabilité, canal direct_http:browser, contenus vérifiés, juge gemini-2.5-flash seuil 0,5, a priori praticiens inclus, date de référence gelée au 15/08/2026. C'est la carte du README, des figures et de l'export. Rejouable hors ligne et à coût nul par `python3 experiments/carte_canonique.py --check`.",
+  "mention": "carte de référence du mémoire, seule carte citable",
+  "raison": "Configuration canonique : L1+L2+L3 avec solvabilité, canal direct_http:browser, contenus vérifiés, juge gemini-2.5-flash au seuil 0,5, a priori des praticiens inclus, date de référence gelée au 15/08/2026. C'est la carte du README, des figures et de l'export. Elle se rejoue hors ligne, sans appel réseau, par `python3 experiments/carte_canonique.py --check`.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "schema": "bdoctor-health-card/1",
  "meta": {
   "benchmark": "webvoyager",
   "generated_at": "2026-08-15",
   "tool_version": "0.1.0",
-  "corpus": "/home/user/memoirem2/benchmark-doctor/data/raw/webvoyager_original.jsonl",
+  "corpus": "data/raw/webvoyager_original.jsonl",
   "corpus_sha256": "69b19fd86c23f1a500244a3724e039aa7ca6a1223d03e11eb10e308d4f11c488",
   "n_tasks": 643,
   "layers": [
@@ -34,7 +33,7 @@
    "l3_solvability": true
   },
   "ground_truth_prior": {
-   "source": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+   "source": "data/ground_truth.json",
    "n_tasks": 643,
    "n_flagged_by_at_least_one": 169,
    "n_contested": 68,
@@ -127,9 +126,9 @@
    }
   },
   "notes": [
-   "L2 : 45 requêtes HTTP réelles pour 643 tâches (629 réponses mémoïsées) — coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
-   "L3 ambiguïté : 643 appels servis par le cache (coût évité 0.13177 $) : le coût publié est celui d'une première exécution, pas d'une relecture.",
-   "L3 solvabilité : 643 appels servis par le cache (coût évité 0.13121 $) : le coût publié est celui d'une première exécution, pas d'une relecture."
+   "L2 : 45 requêtes HTTP réelles pour 643 tâches, coût en argent nul, coût en requêtes borné par le nombre d'URL distinctes du corpus.",
+   "L3 ambiguïté : 643 appels de juge, 0,13177 $ à la première exécution.",
+   "L3 solvabilité : 643 appels de juge, 0,13121 $ à la première exécution."
   ]
  },
  "by_category": {
@@ -51077,7 +51076,7 @@
   "Le verdict d'accès est mesuré par URL de départ puis propagé aux tâches du site : WebVoyager ne fournit pas d'autre URL. La mesure borne donc la décadence par le bas et ne dit rien de l'état du site après navigation.",
   "Les constats de solvabilité sont produits sans consulter le site (canal LLM) : ce sont des a priori datés de la coupure d'entraînement du modèle, à confirmer par une sonde L2.",
   "Campagne produite par run_all.py (phase « audit ») : une seule passe de mesure, dont l'ablation par couche est ensuite dérivée par filtrage des constats. Le score publié intègre l'a priori des praticiens ; la validation du chapitre 4 n'utilise, elle, que les constats des détecteurs.",
-  "Canal L2 : {\"name\": \"direct_http:browser\", \"kind\": \"http_datacenter\", \"available\": true, \"profile\": \"browser\", \"user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\", \"accept_encoding\": \"gzip, deflate\", \"timeout_s\": 25.0, \"min_interval_s\": 1.0, \"network_retries\": 1, \"follows_redirects\": true, \"egress_proxy\": true, \"egress_proxy_url\": \"http://127.0.0.1:42669\", \"note\": \"Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, le corps reviendrait binaire et fausserait la classification.\", \"memoised_urls\": 45, \"n_fetches\": 45, \"n_cache_hits\": 629}"
+  "Canal L2 : direct_http:browser, canal http_datacenter, profil d'en-têtes browser, crédibilité κ = 0,40 ; 45 requêtes HTTP réelles pour 643 tâches."
  ],
  "extra": {}
 }

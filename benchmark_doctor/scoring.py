@@ -1,246 +1,42 @@
-r"""Score de stabilité *task-side* d'une tâche de benchmark, et échelle A/B/C/D.
+r"""Score de stabilité task-side d'une tâche de benchmark, et échelle A/B/C/D.
 
-Ce module répond à une seule question, et il faut l'énoncer avant toute formule :
+La question posée est : cette tâche mesure-t-elle encore, à la date :math:`t`, ce
+qu'elle mesurait à sa publication ? Ce n'est pas la fiabilité *agent-side* des travaux
+de reliability (HAL, Rabanser et al., ICML 2026), qui fixent la tâche et font varier
+l'exécution d'un agent sur quelques heures. Ici aucun agent n'est exécuté : la tâche est
+l'objet mesuré, le monde est ce qui varie, l'échelle de temps est le mois. Les deux
+dimensions se composent, et le dépôt écrit « stabilité task-side » ou « validité
+longitudinale », jamais « stabilité » seule.
 
-    **Cette tâche mesure-t-elle encore, à la date** *t*, **ce qu'elle mesurait à sa
-    publication** *t₀* **?**
-
-Ce n'est pas la question de la *reliability* agent-side de HAL / Rabanser et al.
-(ICML 2026). La confusion serait fatale au mémoire ; le tableau suivant fixe le
-vocabulaire, et il est repris tel quel dans la carte de santé HTML.
-
-=====================  =======================================  ==============================
-                       Fiabilité **agent-side** (HAL, Rabanser)  Validité **task-side** (ici)
-=====================  =======================================  ==============================
-Objet mesuré           l'agent                                  la tâche (l'item de benchmark)
-Ce qui varie           l'exécution (décodage, harnais, réseau)   le monde (le web vivant)
-Ce qui est fixé        la tâche, supposée valide                 l'agent : aucun agent n'est
-                                                                 exécuté, la mesure est
-                                                                 statique ou observationnelle
-Protocole              *k* exécutions de la même tâche           1 mesure datée, répétée dans
-                                                                 le temps
-Échelle de temps       minutes à heures                          mois à années
-Symptôme               variance du score entre exécutions        le score reste stable et ne
-                                                                 veut plus rien dire
-Remède                 répéter, rapporter un intervalle          re-dater, réparer ou retirer
-                                                                 la tâche
-=====================  =======================================  ==============================
-
-Les deux dimensions sont orthogonales et **se composent** : le score publié d'un agent
-sur un benchmark est le produit d'une compétence, d'une fiabilité d'exécution, d'une
-validité de tâche et d'une justesse de juge. Notre outil n'instrumente que la troisième ;
-la quatrième (T7, fragilité d'évaluation) est signalée mais non mesurée. Écrire
-« stabilité » sans qualificatif dans le mémoire serait donc une faute : on écrira
-**stabilité task-side** ou **validité longitudinale**, et l'on citera HAL en note pour
-marquer la différence.
-
---------------------------------------------------------------------------------------
-1. Critique de la formule de départ
---------------------------------------------------------------------------------------
-
-Le cadrage (§9 de ``PLAN.md``) proposait :
-
-.. math:: S = 1 - \max_f \bigl(w(\sigma_f)\, c_f\bigr)
-
-Elle a le mérite d'être lisible, et elle est conservée comme **référence** (elle est
-implémentée dans ``models.TaskVerdict.stability_score``). Quatre objections la rendent
-insuffisante pour un jury :
-
-1. **Elle n'accumule rien.** Une tâche portant un défaut temporel *et* un contenu
-   disparu *et* un accès refusé obtient le même score que la même tâche avec un seul de
-   ces défauts. Or ce sont trois modes de défaillance distincts : la tâche est cassée si
-   l'un *quelconque* d'entre eux est survenu.
-2. **Elle traite toutes les observations comme équivalentes.** Nous avons mesuré le
-   contraire : le 15/08/2026, ``allrecipes.com`` renvoie 402 en HTTP direct et 200
-   depuis un navigateur cloud, à 67 secondes d'intervalle. Un constat de blocage ne vaut
-   pas la même chose selon le canal qui l'a produit.
-3. **Elle est atemporelle.** Un outil dont la thèse est « les benchmarks pourrissent »
-   ne peut pas traiter une observation d'il y a six mois comme une observation
-   d'aujourd'hui.
-4. **Elle ignore la seule vérité terrain disponible** : six annotateurs indépendants se
-   sont déjà prononcés sur chacune des 643 tâches de WebVoyager.
-
---------------------------------------------------------------------------------------
-2. La formule retenue
---------------------------------------------------------------------------------------
-
-Le modèle lit chaque constat comme une **perte espérée** et le score comme une
-**probabilité de survie**. Pour une tâche :math:`\tau` observée à la date :math:`t` :
+Le score se lit comme une probabilité de survie, chaque constat comme une perte espérée.
+Pour une tâche :math:`\tau` observée à la date :math:`t` :
 
 .. math::
 
-   S(\tau, t) \;=\; \prod_{g \in \mathcal{T}} \bigl(1 - \rho_g(\tau, t)\bigr)
+   S(\tau, t) = \prod_{g \in \mathcal{T}} \bigl(1 - \rho_g(\tau, t)\bigr), \quad
+   \rho_g = \max\Bigl(\max_{f \in F_g(\tau)} w(\sigma_f)\, c_f\, \kappa(\gamma_f, g)\,
+                      e^{-\lambda_f (t - t_f)},\; \pi_g(\tau)\Bigr)
 
-où :math:`\mathcal{T} = \{T_1, \dots, T_8\}` est la taxonomie du chapitre 2 et
-:math:`\rho_g \in [0,1]` le risque porté par le mode de défaillance :math:`g` :
+:math:`\mathcal{T}` est la taxonomie T1..T8, :math:`w` le poids de sévérité, :math:`c`
+la confiance du détecteur, :math:`\kappa` la crédibilité du canal d'accès,
+:math:`\lambda` le taux de péremption de l'observation, :math:`\pi_g` l'a priori des
+praticiens (fraction des annotateurs ayant supprimé ou réécrit la tâche, pondérée par
+``prior_remove_weight`` et ``prior_modify_weight``). Le maximum à l'intérieur d'une
+catégorie évite de compter deux fois un même défaut vu par deux détecteurs ; le produit
+entre catégories suppose les modes de défaillance indépendants, hypothèse que
+`compare_aggregations` chiffre et que ``aggregation="max"`` annule.
 
-.. math::
+Chaque constante est mesurée et son origine est donnée à sa définition :
+`SEVERITY_WEIGHTS` (échelle ordinale grossière, assumée), `CHANNEL_CREDIBILITY`,
+`WORLD_DECAY_PER_MONTH`, et `GRADE_THRESHOLDS` dont chaque frontière vaut 1 − w(σ),
+soit « un constat de cette sévérité tenu pour certain ». Aucun seuil n'est ajusté sur la
+vérité terrain, qui sert déjà à l'évaluation. `calibrate_channel_credibility` et
+`calibrate_world_decay` les recalculent depuis leurs journaux.
 
-   \rho_g(\tau, t) \;=\; \max\Bigl(
-       \underbrace{\max_{f \in F_g(\tau)}
-           w(\sigma_f)\; c_f\; \kappa(\gamma_f, g)\; \varphi(t - t_f;\, \lambda_f)}
-           _{\text{détecteurs}},
-       \;\underbrace{\pi_g(\tau)}_{\text{praticiens}}
-   \Bigr)
-
-.. math::
-
-   \pi_g(\tau) \;=\; w_{\mathrm{rm}}\,\frac{m^{\mathrm{rm}}_g(\tau)}{n}
-                  \;+\; w_{\mathrm{md}}\,\frac{m^{\mathrm{md}}_g(\tau)}{n}
-   \qquad
-   \varphi(\Delta;\lambda) \;=\; e^{-\lambda \Delta}
-
-avec, pour un constat :math:`f` : :math:`\sigma_f` sa sévérité, :math:`c_f` la confiance
-du détecteur, :math:`\gamma_f` son canal, :math:`t_f` sa date d'observation ; et pour la
-tâche : :math:`n` le nombre d'annotateurs, :math:`m^{\mathrm{rm}}_g` le nombre d'entre
-eux qui l'ont supprimée, :math:`m^{\mathrm{md}}_g` le nombre qui l'ont réécrite.
-
-**Lecture en une phrase** : *le score est la probabilité que la tâche ait survécu à tous
-les modes de décadence de la taxonomie, sous l'hypothèse que ces modes sont
-indépendants.* C'est un modèle de survie, ce qui est exactement le registre du chapitre 4
-(courbe de mortalité des tâches).
-
---------------------------------------------------------------------------------------
-3. Justification de chaque terme (c'est ce que le jury demandera)
---------------------------------------------------------------------------------------
-
-``w(σ)`` : **poids de sévérité**. Repris tel quel de ``models.SEVERITY_WEIGHTS``
-(0 / 0,25 / 0,50 / 0,75 / 1,00). Échelle ordinale grossière, assumée : elle n'est pas
-calibrée, elle ordonne. Rien dans le score ne dépend d'une précision qu'elle n'a pas.
-
-``c_f`` : **confiance du détecteur**, lue comme :math:`P(\text{le défaut est réel})`.
-Le produit :math:`w \cdot c` est donc une *perte espérée*, pas un score composite
-arbitraire. C'est ce qui autorise à combiner les termes par des règles de probabilité.
-
-``κ(γ, g)`` : **crédibilité du canal**, et c'est le terme le plus original du modèle.
-Il ne s'applique qu'aux constats d'**accès refusé** (T3) obtenus par un canal réseau,
-parce que c'est exactement l'assertion qu'un canal peut fabriquer de toutes pièces.
-Mesure du 15/08/2026 (``runs/l2_probe_20260815.json``) : sur les trois URL bloquées en
-HTTP direct pour lesquelles un canal navigateur était disponible, **deux étaient servies
-normalement au navigateur** (Allrecipes, ESPN) et la troisième (Booking) renvoyait le
-même challenge mais le navigateur l'a résolu. Autrement dit : *aucun blocage observé
-depuis une IP de datacenter n'a survécu à l'épreuve d'un vrai navigateur.* Sur n = 3, on
-ne publie pas 0 % ; on applique la règle de succession de Laplace, :math:`(k+1)/(n+2)`
-avec :math:`k = 1` (Booking compté comme confirmé, lecture la plus favorable au constat),
-soit :math:`\kappa = 0{,}40`. Un 404 ou un contenu disparu ne sont pas remisés : un canal
-filtrant ne fabrique pas un 404. `calibrate_channel_credibility` recalcule la valeur
-depuis un rapport de sondes ; `sensitivity_channel_credibility` montre l'effet du choix.
-
-``φ(Δ; λ)`` : **fraîcheur de l'observation**. Une observation du monde périme ; une
-propriété de l'énoncé, non. D'où deux régimes, et un refus explicite :
-
-- :math:`\lambda = 0` pour les constats **statiques** (L1) : « la date du 20/12/2023 est
-  passée » ne devient pas moins vrai avec le temps, et re-calculer L1 coûte zéro : il
-  n'y a jamais de raison de réutiliser un constat L1 périmé.
-- :math:`\lambda = 0{,}0143\ \text{mois}^{-1}` pour les constats **d'état du monde**
-  (existence d'un contenu, faisabilité) : taux mesuré sur le journal de remplacement
-  d'Online-Mind2Web, benchmark maintenu : 52 tâches distinctes sur 300 remplacées entre
-  le 05/04/2025 et le 15/05/2026, soit :math:`\lambda = -\ln(1 - 52/300)/13{,}35`. La
-  demi-vie d'une tâche web est donc d'environ **48 mois**. Contre-vérification
-  indépendante sur nos propres données : 169 tâches WebVoyager sur 643 signalées par au
-  moins un annotateur en 17 mois donnent :math:`\lambda = 0{,}0180`, soit une demi-vie de
-  39 mois. Deux sources, un même ordre de grandeur : la constante n'est pas un réglage.
-- **Aucun taux pour les constats d'accès** (T3). Les signatures anti-bot changent à
-  l'échelle de la semaine ; notre seule mesure de répétabilité porte sur trois minutes
-  (0 % de variation), ce qui ne dit rien de la semaine. Nous refusons d'inventer un
-  chiffre : :math:`\varphi = 1`, et le rapport affiche l'**âge** de l'observation, avec
-  un avertissement au-delà de `StabilityModel.staleness_days`. Un âge visible vaut mieux
-  qu'une décote fabriquée.
-
-``max`` **à l'intérieur d'une catégorie** : deux détecteurs qui signalent la même date
-périmée ne sont pas deux preuves, c'est une preuve vue deux fois. Le maximum évite ce
-double comptage.
-
-``∏`` **entre catégories** (OU bruité) : deux modes de défaillance distincts sont deux
-raisons indépendantes que la tâche soit invalide. C'est l'hypothèse H3 ci-dessous, et
-`compare_aggregations` en chiffre l'effet. **Cet effet dépend fortement du nombre de
-couches exécutées, et il faut le dire :** sur la seule couche L1, 10,4 % des tâches
-relèvent de plusieurs catégories et le choix ne déplace que **7 notes sur 643** (écart
-absolu moyen 0,008) ; avec les trois couches, 40,8 % des tâches sont multi-catégories et
-le choix en déplace **83** (écart absolu moyen 0,049). Autrement dit, l'hypothèse est
-anodine tant qu'on ne regarde qu'une facette du problème, et structurante dès qu'on les
-cumule. C'est une limite à assumer, pas à minimiser : elle est mesurée, publiée,
-recalculable par ``bdoctor score-model``, et l'agrégation par maximum reste accessible
-par un paramètre.
-
-``π_g`` : **a priori des praticiens**. Six annotateurs indépendants (browser-use,
-Skyvern, Convergence, Magnitude, Fara, Alumnium) se sont prononcés sur les 643 tâches ;
-la fraction qui a signalé une tâche est une estimation directe de
-:math:`P(\text{défaut})` par jugement humain. Les poids : :math:`w_{\mathrm{rm}} = 1{,}0`
-pour une suppression (le praticien juge la tâche irrécupérable) et
-:math:`w_{\mathrm{md}} = 0{,}5` pour une réécriture. L'asymétrie est *documentée, pas
-choisie* : Magnitude re-date par précaution des tâches encore valides, donc une
-réécriture confond « cassée » et « rafraîchie » : c'est le poids MEDIUM de l'échelle.
-Le prior n'est pas vieilli : ce n'est pas une observation de l'état courant, c'est un
-jugement, et la restauration par Alumnium de 30 des 53 suppressions de Magnitude prouve
-que la décadence n'est pas absorbante. Le désaccord est déjà encodé par la fraction
-elle-même.
-
---------------------------------------------------------------------------------------
-4. Hypothèses, énoncées pour être attaquées
---------------------------------------------------------------------------------------
-
-H1. *La confiance d'un détecteur est lisible comme une probabilité.* Elle n'est pas
-    calibrée (aucun détecteur n'a de courbe de fiabilité). Le score est donc **ordinal
-    avant d'être cardinal** : comparer deux tâches est légitime, lire 0,62 comme « 62 %
-    de chances de survie » ne l'est pas.
-H2. *Le silence vaut conservation.* Un annotateur qui ne mentionne pas une tâche est
-    compté « keep ». C'est ce qui rend :math:`n` constant, et c'est une borne haute de
-    l'accord réel (limite héritée de la base de verdicts, cf. `ground_truth`).
-H3. *Les catégories de la taxonomie sont indépendantes.* Faux en toute rigueur : une
-    date périmée et un contenu disparu partagent une cause commune (le site a changé).
-    L'hypothèse gonfle donc le risque des tâches multi-catégories, et d'autant plus qu'on
-    exécute de couches : 7 notes déplacées sur 643 en L1 seule, 83 sur 643 avec les trois
-    couches. C'est la plus conséquente des quatre hypothèses. Chiffrée par
-    `compare_aggregations`, et réversible par ``aggregation="max"``.
-H4. *On n'impute jamais à la tâche ce qui peut être imputé à la mesure.* Conséquence
-    directe : **le score sous-estime la décadence par construction**, et les taux publiés
-    en sont une borne basse. C'est le sens du terme :math:`\kappa` et de la signature
-    ``channel_blocked`` de la couche L2.
-
---------------------------------------------------------------------------------------
-5. L'échelle A/B/C/D
---------------------------------------------------------------------------------------
-
-Les seuils ne sont pas ajustés sur les données : ce serait circulaire, la ground truth
-servant déjà à l'évaluation. Ils sont **lus dans l'échelle de sévérité elle-même** :
-chaque frontière correspond à « un constat de cette sévérité, tenu pour certain ».
-
-La comparaison est **stricte** et la frontière appartient à la note inférieure : un
-constat de sévérité :math:`\sigma` tenu pour certain suffit à faire perdre la note
-supérieure. C'est ce qui rend la colonne « signification » littéralement vraie.
-
-======  ============================  ===================================================
-Note    Score                         Signification opérationnelle
-======  ============================  ===================================================
-**A**   :math:`S > 0{,}75`            Rien n'atteint le niveau ``low``. Utilisable telle
-                                      quelle.
-**B**   :math:`0{,}50 < S \le 0{,}75` Au moins l'équivalent d'un constat ``low`` certain :
-                                      la tâche vieillit. Surveiller.
-**C**   :math:`0{,}25 < S \le 0{,}50` Au moins l'équivalent d'un constat ``medium``
-                                      certain : l'attendu a probablement bougé. Vérifier
-                                      à la main.
-**D**   :math:`S \le 0{,}25`          Au moins l'équivalent d'un constat ``high`` certain.
-                                      Ne pas publier de score d'agent sur cette tâche
-                                      sans revue.
-======  ============================  ===================================================
-
-Ces seuils sont **les seuls du dépôt** : ``models.GRADE_THRESHOLDS`` les définit,
-``models.TaskVerdict.grade`` et `grade_for` les lisent, et rien d'autre ne les
-redéfinit. Une seconde échelle (0,85 / 0,60 / 0,35) a coexisté dans ``models`` jusqu'au
-16/08/2026 ; sur la carte canonique elle donnait A 193 / B 124 / C 146 / D 180 là où
-celle-ci donne A 210 / B 138 / C 185 / D 110. Elle est abandonnée ;
-`compare_grade_scales` publie la correspondance pour que les chiffres des rapports
-antérieurs au 16/08 restent lisibles, et pour aucun autre usage.
-
---------------------------------------------------------------------------------------
-6. Ce que le score ne dit pas
---------------------------------------------------------------------------------------
-
-Il ne dit pas qu'une tâche est morte : il dit ce que nos détecteurs, notre canal et six
-praticiens en savent à une date donnée. Il ne remplace pas une revue humaine, il la
-**priorise**. Et il ne mesure ni la difficulté de la tâche, ni la performance d'un agent,
-ni la justesse du juge.
+Le score est **ordinal avant d'être cardinal** : aucun détecteur n'a de courbe de
+fiabilité, donc comparer deux tâches est légitime, lire 0,62 comme « 62 % de chances de
+survie » ne l'est pas. Il ne dit pas qu'une tâche est morte, il dit ce que les
+détecteurs, le canal et six praticiens en savent à une date donnée.
 """
 
 from __future__ import annotations
@@ -304,7 +100,7 @@ CHANNEL_CREDIBILITY: dict[Channel, float] = {
     Channel.HTTP_DATACENTER: 0.40,
     # Jamais mesuré ici (pas de proxy résidentiel disponible). On applique par défaut la
     # remise du datacenter : cela sous-estime la décadence plutôt que de la surestimer,
-    # conformément à H4. À recalibrer dès qu'une mesure existe.
+    # comme partout ailleurs dans le score. À recalibrer dès qu'une mesure existe.
     Channel.HTTP_RESIDENTIAL: 0.40,
     # Canal de référence : dans les quatre divergences mesurées, le navigateur a toujours
     # vu *plus* du site que le HTTP direct, jamais moins. Un blocage qui résiste à un
@@ -327,9 +123,12 @@ CHANNEL_CREDIBILITY: dict[Channel, float] = {
 WORLD_DECAY_PER_MONTH: float = 0.0143
 
 #: Bornes des notes : **importées de `models`**, jamais redéfinies ici. Le dépôt a porté
-#: deux échelles concurrentes jusqu'au 16/08/2026 (cf. `VERIFICATION.md` §C8) ; il n'en
-#: porte plus qu'une, et le seul moyen de garantir qu'elle reste unique est qu'un seul
-#: fichier la définisse. Ce ré-export existe pour les appelants historiques.
+#: deux échelles concurrentes jusqu'au 16 août 2026, 0,85 / 0,60 / 0,35 d'un côté et
+#: 0,75 / 0,50 / 0,25 de l'autre ; appliquées aux scores de la carte canonique elles
+#: déplacent la note de 118 tâches sur 643 (A 193 / B 124 / C 146 / D 180 contre
+#: A 210 / B 138 / C 185 / D 110). Il n'en reste qu'une, et le seul moyen de garantir
+#: qu'elle reste unique est qu'un seul fichier la définisse. Ce ré-export existe pour les
+#: appelants historiques.
 
 #: Catégories pour lesquelles la crédibilité du canal s'applique. Un canal filtrant peut
 #: fabriquer un refus d'accès ; il ne fabrique pas un 404 ni un contenu supprimé.
@@ -360,11 +159,11 @@ class StabilityModel:
         world_decay_per_month: ``λ`` des observations de l'état du monde.
         access_decay_per_month: ``λ`` des constats d'accès. Vaut 0 par défaut : nous
             n'avons pas de mesure de la volatilité hebdomadaire des signatures anti-bot,
-            et l'âge est affiché plutôt que décoté (cf. §3 de l'en-tête).
+            et l'âge de l'observation est affiché plutôt que décoté.
         prior_remove_weight: ``w_rm``, poids d'une suppression par un praticien.
         prior_modify_weight: ``w_md``, poids d'une réécriture par un praticien.
-        aggregation: ``"noisy_or"`` (défaut) ou ``"max"`` (formule de référence du
-            cadrage), pour l'ablation.
+        aggregation: ``"noisy_or"`` (défaut) ou ``"max"``, la formule de départ
+            ``1 − max_f w(σ_f)·c_f``, pour l'ablation.
         staleness_days: âge au-delà duquel une observation réseau est signalée comme
             à re-mesurer dans le rapport.
     """
@@ -403,8 +202,9 @@ class StabilityModel:
            signatures ``channel_blocked`` (réponse fabriquée par le proxy d'egress) et
            ``unreachable`` (aucune réponse HTTP). Ce sont des faits sur la mesure, pas sur
            la tâche ; les compter reviendrait à dégrader un benchmark parce que notre
-           réseau va mal. C'est l'hypothèse H4, rendue exécutable, et c'est elle qui
-           épargne aux 41 tâches GitHub un faux verdict de mort.
+           réseau va mal. C'est la règle « on n'impute jamais à la tâche ce qui peut
+           l'être à la mesure », rendue exécutable, et c'est elle qui épargne aux
+           41 tâches GitHub un faux verdict de mort.
         2. **La remise de canal ne s'applique qu'aux constats d'accès refusé** issus d'un
            canal réseau : c'est la seule assertion qu'un canal de mesure peut fabriquer à
            lui seul. Un 404 ou un contenu supprimé ne s'inventent pas.
@@ -576,7 +376,7 @@ class PractitionerPrior:
                 contested=bool(accord.get("desaccord_exclusion", False)),
                 sources_flagging=tuple(accord.get("signalee_par", []) or ()),
             )
-        return cls(entries, source=str(target))
+        return cls(entries, source=_display_path(target))
 
     def describe(self) -> dict[str, Any]:
         flagged = [e for e in self._entries.values() if e.n_remove or e.n_modify]
@@ -594,6 +394,19 @@ class PractitionerPrior:
 def _default_ground_truth_path() -> Path:
     """``<racine du dépôt>/data/ground_truth.json``, sans dépendre du répertoire courant."""
     return Path(__file__).resolve().parent.parent / "data" / "ground_truth.json"
+
+
+def _display_path(target: Path) -> str:
+    """Chemin relatif à la racine du dépôt s'il y est, absolu sinon.
+
+    Les cartes de santé sont des artefacts versionnés : y écrire le chemin de la machine
+    qui les a produites les rend inutilement dépendantes d'elle.
+    """
+    root = Path(__file__).resolve().parent.parent
+    try:
+        return str(Path(target).resolve().relative_to(root))
+    except ValueError:
+        return str(target)
 
 
 # Résultat du calcul
@@ -860,7 +673,7 @@ def score_verdict(
         else:
             # Sans étiquette, on ignore quel mode de défaillance les praticiens ont vu :
             # combiner par OU bruité risquerait de compter deux fois le même défaut. On
-            # se rabat sur le maximum, conservateur (cf. H4).
+            # se rabat sur le maximum, plus conservateur.
             unlabelled_prior = prior_risk
             notes.append(
                 "a priori praticiens sans étiquette de catégorie : combiné par maximum "
@@ -1142,12 +955,15 @@ def compare_aggregations(
     today: _dt.date | None = None,
     model: StabilityModel = DEFAULT_MODEL,
 ) -> dict[str, Any]:
-    """Chiffre l'effet de l'hypothèse H3 (indépendance des catégories).
+    """Chiffre l'effet de l'hypothèse d'indépendance des catégories de la taxonomie.
 
-    Compare l'agrégation par OU bruité (retenue) à l'agrégation par maximum (formule du
-    cadrage). Si l'écart est faible, l'hypothèse est peu conséquente et le choix est
-    défendable sans démonstration supplémentaire : c'est ce qu'il faut vérifier, pas
-    supposer.
+    Compare l'agrégation par OU bruité (retenue) à l'agrégation par maximum, la formule
+    de départ. L'effet dépend du nombre de couches exécutées : il reste faible tant
+    qu'une seule facette du problème est instrumentée, peu de tâches cumulant alors
+    plusieurs modes de défaillance, et il devient structurant quand les trois couches
+    tournent ensemble. Sont renvoyés le nombre de tâches multi-catégories, l'écart absolu
+    moyen des scores et la liste des notes déplacées, de quoi vérifier l'hypothèse au
+    lieu de la supposer.
     """
     noisy = score_health(health, model=replace(model, aggregation="noisy_or"),
                          prior=prior, today=today)
@@ -1226,11 +1042,10 @@ def compare_grade_scales(
 ) -> dict[str, Any]:
     """Compare l'échelle en vigueur (1 − w(σ)) à l'échelle héritée, abandonnée.
 
-    Depuis le 16/08/2026 le dépôt n'a plus qu'une échelle. Cette fonction ne compare
-    donc plus deux conventions vivantes mais **traduit les chiffres des rapports
-    antérieurs** : les rapports 1 et 5 publient des distributions calculées avec
-    0,85 / 0,60 / 0,35, et un lecteur doit pouvoir les rapprocher de la carte canonique
-    sans croire à une erreur de mesure.
+    Depuis le 16 août 2026 le dépôt n'a plus qu'une échelle. Cette fonction ne compare
+    donc plus deux conventions vivantes, elle **traduit les distributions publiées avant
+    cette date** avec les seuils 0,85 / 0,60 / 0,35, pour qu'un lecteur puisse les
+    rapprocher de la carte canonique sans croire à une erreur de mesure.
     """
     legacy = dict(legacy_thresholds or {"A": 0.85, "B": 0.60, "C": 0.35, "D": 0.0})
     new_counts = {g: 0 for g in ("A", "B", "C", "D")}

@@ -2,12 +2,12 @@
   "meta": {
     "genere_par": "experiments/validation_hors_echantillon.py",
     "date_de_reference": "2026-08-15",
-    "constats": "/home/user/memoirem2/benchmark-doctor/runs/health_20260815_findings.json",
-    "verite_terrain": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+    "constats": "runs/health_20260815_findings.json",
+    "verite_terrain": "data/ground_truth.json",
     "graine": 20260816,
     "n_replicats_bootstrap": 20000,
     "cout_api_usd": 0.0,
-    "probleme_traite": "B2 — la précision de 0,986 de L1 est intégralement in-sample : 71 de ses 72 vrais positifs sont des tâches du patch-set qui a servi à régler les détecteurs.",
+    "motif_de_la_mesure": "La précision de 0,986 publiée pour L1 au seuil HIGH est intégralement in-sample : 71 de ses 72 vrais positifs sont des tâches du patch-set qui a servi à régler les détecteurs.",
     "avertissement": "Les mesures portent sur les CONSTATS des détecteurs, jamais sur le score publié : celui-ci intègre un a priori tiré de la même base de vérité, et le valider contre elle serait circulaire."
   },
   "scission": {
@@ -32,7 +32,7 @@
     "hors_lignee_1": {
       "n": 45,
       "prevalence": 0.0862,
-      "description": "signalée par au moins 1 des 4 annotateurs sans filiation connue avec Magnitude (Convergence exclue : 56/60 réécritures identiques, cf. B3)"
+      "description": "signalée par au moins 1 des 4 annotateurs sans filiation connue avec Magnitude (Convergence exclue : 56/60 réécritures identiques)"
     },
     "supprimee_autres_1": {
       "n": 20,

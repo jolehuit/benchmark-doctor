@@ -4,10 +4,9 @@
     python experiments/rendre_rapport_canaux.py --runs runs/matrice \\
         --sortie experiments/RAPPORT_CANAUX_tableaux.md
 
-Aucun chiffre du rapport n'est saisi à la main. Ce n'est pas de la coquetterie : le
-dossier auquel ce travail s'ajoute a déjà eu à corriger des artefacts périmés qui
-affirmaient des nombres que plus rien ne produisait. Un tableau recopié se désynchronise
-de ses données au premier recalcul, et personne ne s'en aperçoit — surtout pas l'auteur.
+Aucun chiffre du rapport n'est saisi à la main. Le dossier auquel ce travail s'ajoute a
+déjà eu à corriger des artefacts périmés qui affirmaient des nombres que plus rien ne
+produisait, et un tableau recopié se désynchronise de ses données au premier recalcul.
 """
 
 from __future__ import annotations
@@ -47,17 +46,17 @@ def table_sites(resultat: dict, passes: list[int]) -> str:
                 # Une case qui change d'une passe à l'autre doit le montrer : la masquer
                 # en n'affichant que la première passe transformerait une instabilité en
                 # fait établi.
-                cases.append(" → ".join(f"`{v}`" for v in valeurs))
+                cases.append(" vers ".join(f"`{v}`" for v in valeurs))
         lignes.append(f"| {site} | " + " | ".join(cases) + " |")
     return "\n".join(lignes)
 
 
 def table_facteurs(resultat: dict, passes: list[int]) -> str:
     intitules = {
-        "moteur_a_origine_datacenter": "Changer de **moteur**, origine datacenter tenue fixe",
-        "moteur_a_origine_residentielle": "Changer de **moteur**, origine résidentielle tenue fixe",
-        "origine_a_moteur_http": "Changer d'**origine**, moteur HTTP tenu fixe",
-        "origine_a_moteur_navigateur": "Changer d'**origine**, moteur navigateur tenu fixe",
+        "moteur_a_origine_datacenter": "Changer de moteur, origine datacenter tenue fixe",
+        "moteur_a_origine_residentielle": "Changer de moteur, origine résidentielle tenue fixe",
+        "origine_a_moteur_http": "Changer d'origine, moteur HTTP tenu fixe",
+        "origine_a_moteur_navigateur": "Changer d'origine, moteur navigateur tenu fixe",
     }
     lignes = ["| Contraste | Passe | Sites changeant de verdict | Lesquels |", "|---|---|---|---|"]
     for cle in intitules:
@@ -68,7 +67,7 @@ def table_facteurs(resultat: dict, passes: list[int]) -> str:
             noms = ", ".join(s["site"] for s in bloc["sites_qui_changent"]) or "aucun"
             lignes.append(
                 f"| {intitules[cle]} | {passe} | "
-                f"**{bloc['n_changent_de_verdict']}** / {bloc['n_comparables']} | {noms} |"
+                f"{bloc['n_changent_de_verdict']} / {bloc['n_comparables']} | {noms} |"
             )
     return "\n".join(lignes)
 
@@ -82,7 +81,7 @@ def table_kappa_cohen(resultat: dict, passes: list[int]) -> str:
         passe, paire = cle.split(":", 1)
         gauche, droite = paire.split("|")
         kappa = bloc["kappa"]
-        rendu = "indéfini" if kappa is None else f"**{kappa:.3f}**"
+        rendu = "indéfini" if kappa is None else f"{kappa:.3f}"
         lignes.append(
             f"| {COURT.get(gauche, gauche)} ↔ {COURT.get(droite, droite)} | {passe[1:]} | "
             f"{bloc['n']} | {bloc.get('accord_observe', 'n/d')} | {rendu} | "
@@ -103,7 +102,7 @@ def table_kappa_credibilite(resultat: dict) -> str:
         ic = bloc.get("ic95_proportion")
         lignes.append(
             f"| {COURT.get(juge, juge)} | {passe[1:]} | {bloc['n_refus_annonces']} | "
-            f"{bloc['k_refus_confirmes']} | **{kappa if kappa is not None else 'n/d'}** | "
+            f"{bloc['k_refus_confirmes']} | {kappa if kappa is not None else 'n/d'} | "
             f"{bloc['proportion_brute'] if bloc['proportion_brute'] is not None else 'n/d'} | "
             f"{f'[{ic[0]:.3f} ; {ic[1]:.3f}]' if ic else 'n/d'} |"
         )
@@ -120,20 +119,20 @@ def table_repetabilite(resultat: dict) -> str:
     for cellule, bloc in resultat["repetabilite"].items():
         detail = (
             "; ".join(
-                f"{d['site']} : {list(d.values())[1]} → {list(d.values())[2]}"
+                f"{d['site']} : {list(d.values())[1]} vers {list(d.values())[2]}"
                 for d in bloc["detail"]
             )
             or "aucune"
         )
         lignes.append(
             f"| {COURT.get(cellule, cellule)} | {bloc['n_sites']} | "
-            f"**{bloc['n_signatures_changees']}** | {bloc['taux']} | {detail} |"
+            f"{bloc['n_signatures_changees']} | {bloc['taux']} | {detail} |"
         )
     return "\n".join(lignes)
 
 
 def table_divergents(resultat: dict, passes: list[int]) -> str:
-    """Les sites dont le verdict n'est pas le même partout — le cœur du résultat."""
+    """Les sites dont le verdict n'est pas le même partout, le cœur du résultat."""
     cellules = resultat["cellules_mesurees"]
     lignes = ["| Site | Verdicts distincts | Facteur qui explique le mieux |", "|---|---|---|"]
     for site, par in resultat["tableau_sites"].items():
@@ -157,14 +156,14 @@ def table_divergents(resultat: dict, passes: list[int]) -> str:
             and acc.get("http_datacenter") != acc.get("http_residential")
         )
         if par_moteur and not par_origine:
-            facteur = "**moteur de rendu**"
+            facteur = "moteur de rendu"
         elif par_origine and not par_moteur:
-            facteur = "**origine réseau**"
+            facteur = "origine réseau"
         elif len(set(acc.values())) == 1:
             facteur = "aucun : les signatures diffèrent, le verdict binaire non"
         else:
-            facteur = "**interaction** : ni l'un ni l'autre seul ne suffit"
-        detail = ", ".join(f"{COURT.get(c, c)} → `{v}`" for c, v in vus.items())
+            facteur = "interaction : ni l'un ni l'autre seul ne suffit"
+        detail = " ; ".join(f"{COURT.get(c, c)} : `{v}`" for c, v in vus.items())
         lignes.append(f"| {site} | {detail} | {facteur} |")
     return "\n".join(lignes)
 
@@ -185,9 +184,9 @@ def table_comparaison_facteurs(resultat: dict) -> str:
         origine = ", ".join(bloc["sites_sensibles_a_l_origine"]) or "aucun"
         communs = ", ".join(bloc["sensibles_aux_deux"]) or "aucun"
         lignes.append(
-            f"| {nom[1:]} | **{bloc['n_moteur']}** / {bloc['n_sites']} : {moteur} | "
-            f"**{bloc['n_origine']}** / {bloc['n_sites']} : {origine} | {communs} | "
-            f"**{bloc['fisher_p_bilateral']}** |"
+            f"| {nom[1:]} | {bloc['n_moteur']} / {bloc['n_sites']} : {moteur} | "
+            f"{bloc['n_origine']} / {bloc['n_sites']} : {origine} | {communs} | "
+            f"{bloc['fisher_p_bilateral']} |"
         )
     return "\n".join(lignes)
 
@@ -271,7 +270,7 @@ def table_historique(resultat: dict, passes: list[int], racine: Path) -> str:
         site = par_url.get(url)
         if site is None:
             lignes.append(
-                f"| `{url}` | `{ancienne}` | n/a | **non** : URL absente du corpus de la "
+                f"| `{url}` | `{ancienne}` | n/a | non : URL absente du corpus de la "
                 "campagne, qui mesure la racine `https://github.com/` |"
             )
             continue
@@ -280,7 +279,7 @@ def table_historique(resultat: dict, passes: list[int], racine: Path) -> str:
         )
         accord = ""
         if nouvelle:
-            accord = "**oui**, concordent" if nouvelle == ancienne else "**oui**, divergent"
+            accord = "oui, concordent" if nouvelle == ancienne else "oui, divergent"
         lignes.append(f"| `{url}` | `{ancienne}` | `{nouvelle or '—'}` | {accord or '—'} |")
     return "\n".join(lignes)
 
@@ -288,14 +287,14 @@ def table_historique(resultat: dict, passes: list[int], racine: Path) -> str:
 def table_http_datacenter_15aout(resultat: dict, passes: list[int], racine: Path) -> str:
     """Compare la cellule HTTP datacenter de la campagne à celle du 15/08.
 
-    Le protocole demandait de ne pas re-mesurer ce canal, déjà couvert par 179
-    observations. Je l'ai tout de même mesuré, pour deux raisons. D'abord l'appariement :
-    comparer une cellule du 15/08 à trois cellules du 16/08 aurait mêlé l'effet de canal
-    à la dérive des sites, et le protocole exige lui-même que les quatre cellules soient
-    prises dans la même fenêtre de temps. Ensuite la provenance : la campagne du 15/08 est
-    sortie par un proxy d'egress interceptant, qui répondait à la place des sites. Le
-    serveur de cette campagne n'en a pas. La colonne de droite mesure donc ce que devient
-    le canal une fois ce proxy retiré.
+    J'avais prévu de ne pas re-mesurer ce canal, déjà couvert par 179 observations. Je
+    l'ai finalement mesuré, pour deux raisons. D'abord l'appariement : comparer une
+    cellule du 15/08 à trois cellules du 16/08 aurait mêlé l'effet de canal à la dérive
+    des sites, et le plan croisé demande que les quatre cellules soient prises dans la
+    même fenêtre de temps. Ensuite la provenance : la campagne du 15/08 est sortie par un
+    proxy d'egress interceptant, qui répondait à la place des sites. Le serveur de cette
+    campagne n'en a pas. La colonne de droite mesure donc ce que devient le canal une fois
+    ce proxy retiré.
 
     Les 179 observations du 15/08 ne sont ni écrasées ni modifiées.
     """
@@ -304,7 +303,7 @@ def table_http_datacenter_15aout(resultat: dict, passes: list[int], racine: Path
         return "_Fichier `runs/l2_probe_20260815.json` absent._"
     sondage = json.loads(campagne.read_text(encoding="utf-8"))
     lignes = [
-        "| Site | 15/08, datacenter **avec** proxy d'egress | 16/08, datacenter **sans** proxy | Écart |",
+        "| Site | 15/08, datacenter avec proxy d'egress | 16/08, datacenter sans proxy | Écart |",
         "|---|---|---|---|",
     ]
     for site, bloc in sondage.get("sites", {}).items():
@@ -316,7 +315,7 @@ def table_http_datacenter_15aout(resultat: dict, passes: list[int], racine: Path
         )
         if not ancienne or not nouvelle:
             continue
-        ecart = "identique" if ancienne == nouvelle else "**change**"
+        ecart = "identique" if ancienne == nouvelle else "change"
         lignes.append(f"| {site} | `{ancienne}` | `{nouvelle}` | {ecart} |")
     return "\n".join(lignes)
 

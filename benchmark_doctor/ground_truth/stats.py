@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Statistiques de désaccord entre patch-sets — résultat central du chapitre 4.
+"""Statistiques de désaccord entre les patch-sets réconciliés par `reconcile`.
 
 Ce que le module calcule, et pourquoi :
 
@@ -129,8 +129,8 @@ def gwet_ac1(ratings: Sequence[Sequence[str]], categories: Sequence[str]) -> dic
 def cohen_kappa(a: Sequence[str], b: Sequence[str], categories: Sequence[str]) -> float:
     """Kappa de Cohen entre deux juges — utilisé pour la matrice par couple.
 
-    Fleiss donne un chiffre global, Cohen dit *quels* couples se disputent : c'est le
-    couple qui intéresse le mémoire (Magnitude contre Alumnium, par exemple).
+    Fleiss donne un chiffre global, Cohen dit *quels* couples se disputent (Magnitude
+    contre Alumnium, par exemple), ce que le chiffre global masque.
     """
     n = len(a)
     observed = sum(1 for x, y in zip(a, b) if x == y) / n
@@ -140,7 +140,7 @@ def cohen_kappa(a: Sequence[str], b: Sequence[str], categories: Sequence[str]) -
 
 
 def interpret_kappa(value: float) -> str:
-    """Échelle de Landis & Koch (1977), citée telle quelle dans le mémoire."""
+    """Échelle de Landis & Koch (1977), reprise telle quelle."""
     if value < 0:
         return "désaccord (pire que le hasard)"
     if value < 0.21:
@@ -542,7 +542,7 @@ def _table(rows: Sequence[Sequence[Any]], headers: Sequence[str]) -> str:
 
 
 def format_report(stats: dict[str, Any]) -> str:
-    """Met en forme les statistiques pour la console (et pour copie dans le mémoire)."""
+    """Met en forme les statistiques pour la console."""
     out: list[str] = []
     add = out.append
     n = stats["meta"]["n_taches"]

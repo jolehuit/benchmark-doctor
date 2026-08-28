@@ -1,9 +1,9 @@
-"""Rend les tableaux de `experiments/ABLATION_L3.md` depuis le JSON de l'ablation.
+"""Met en forme les tableaux de l'ablation L3 depuis le JSON produit par le banc.
 
-Aucun chiffre du rapport n'est recopié à la main : c'est ce script qui les met en forme,
-de sorte qu'une ré-exécution du banc et un `python experiments/render_ablation_l3.py`
-suffisent à republier un rapport cohérent. Une erreur de transcription dans un mémoire se
-paie en soutenance ; elle est ici structurellement impossible.
+Les tableaux partent sur la sortie standard, prêts à coller : ce sont eux que publie
+`experiments/CONTRE_VERIFICATION.md`. Aucun chiffre n'est recopié à la main, de sorte
+qu'une ré-exécution du banc et un `python experiments/render_ablation_l3.py` suffisent à
+republier des tableaux cohérents avec l'artefact.
 
     python experiments/render_ablation_l3.py [runs/ablation_l3_clean_20260816.json]
 """
@@ -44,11 +44,11 @@ def main(argv: list[str]) -> int:
         if not r:
             continue
         y = r["youden"]["pooled"]
-        cost = f"{r['cost_first_run_usd']:.5f} $".replace(".", ",") if r["cost_first_run_usd"] else "0 $"
+        cost = f"{r['cost_usd']:.5f} $".replace(".", ",") if r["cost_usd"] else "0 $"
         print(f"| {r['label']} | {fmt(y['precision'])} | {fmt(y['recall'])} | **{fmt(y['f1'])}** | "
               f"{fmt(r['youden']['auc'])} | {fmt(r['youden']['f1_std_between_folds'])} | — | {cost} |")
     for k, j in judges.items():
-        cost = f"{j['cost_first_run_usd']:.5f} $".replace(".", ",")
+        cost = f"{j['cost_usd']:.5f} $".replace(".", ",")
         print(f"| {j['label']} | {pm(j['youden_pooled_precision'])} | {pm(j['youden_pooled_recall'])} | "
               f"**{pm(j['youden_pooled_f1'])}** | {pm(j['auc'])} | "
               f"{fmt(j['f1_std_between_folds']['mean'])} | {fmt(j['youden_pooled_f1']['std_between_runs'])} | {cost} |")
@@ -121,8 +121,7 @@ def main(argv: list[str]) -> int:
         print(f"- `{k}` : {j['score_histogram']} · taux de bascule à 0,5 sur 5 exécutions : "
               f"{fmt(j['verdict_flip_rate_at_0_5'] * 100, 1)} %")
 
-    print(f"\nCoût réel de l'exécution : {d['cost_usd_this_run']:.5f} $")
-    print(f"TF-IDF : précision in-sample {d['tfidf_in_sample_warning']['in_sample_precision']} "
+    print(f"\nTF-IDF : précision in-sample {d['tfidf_in_sample_warning']['in_sample_precision']} "
           f"contre {d['tfidf_in_sample_warning']['out_of_fold_precision']} hors plis")
     return 0
 

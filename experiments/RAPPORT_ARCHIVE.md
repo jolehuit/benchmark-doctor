@@ -6,8 +6,8 @@ Données : `runs/archive_t2_20260818.json`. Journal des requêtes : `runs/archiv
 
 La vérité terrain temporelle du mémoire est un registre fossile : des correctifs datés,
 motivés en clair par des praticiens. Quand Magnitude écrit « GitHub Pro does not exist
-anymore », le dossier le croit sur parole. Aucune observation directe d'un état passé du web
-n'y figurait jusqu'ici, ni par la Wayback Machine, ni par archive.is. Cette campagne teste, sur
+anymore », je le crois sur parole. Aucune observation directe d'un état passé du web ne
+l'appuyait jusqu'ici, ni par la Wayback Machine, ni par archive.is. Cette campagne teste, sur
 douze cas, ce que devient ce témoignage quand on va regarder l'archive.
 
 Ce qu'elle peut prouver et ce qu'elle ne peut pas tient en une distinction, et toute la
@@ -49,28 +49,30 @@ que l'écart entre elles est précisément ce que cette méthode sait et ne sait
 | Allrecipes--23 | « DNE » | **NON VÉRIFIABLE** | La seule page de recherche servie en 200 dans la fenêtre contient le conteneur `search-results` et un unique lien de recette, un encart promotionnel : la liste est injectée côté client. |
 | Allrecipes--30 | « DNE » | **NON VÉRIFIABLE** | Aucune carte de collection ne porte d'ingrédients ; les compteurs d'avis dérivent d'un passage du robot à l'autre (25 puis 31 sur la même recette). |
 
-Les deux moitiés du tableau n'ont pas le même statut, et il faut le dire. Pour les sept cas à
-URL stable, l'état de chaque instantané est **dérivé** du test des chaînes déclarées dans le
-plan, et le verdict de la règle : changer un verdict suppose de changer une observation. Les
-cinq NON VÉRIFIABLE ne sont pas dérivés. Ce sont des qualifications de l'énoncé, posées par le
-plan : aucune URL stable ne peut porter la réponse, donc il n'y a rien à mesurer. Les
-observations qui les motivent, elles, sont rejouées par le script et figurent dans le JSON
-sous `observations_d_appui`.
+Les deux moitiés du tableau n'ont pas le même statut. Pour les sept cas à URL stable, l'état
+de chaque instantané est **dérivé** du test des chaînes déclarées dans le plan, et le verdict
+de la règle : changer un verdict suppose de changer une observation. Les cinq NON VÉRIFIABLE
+ne sont pas dérivés. Ce sont des qualifications de l'énoncé, posées par le plan : aucune URL
+stable ne peut porter la réponse, donc il n'y a rien à mesurer. Les observations qui les
+motivent, elles, sont rejouées par le script et figurent dans le JSON sous
+`observations_d_appui`.
 
-## 3. Ce que cela change pour le mémoire
+## 3. Ce que la campagne établit, et ce qu'elle ne permet pas d'établir
 
 **Sept motifs sur douze passent du témoignage à l'observation directe et datée ; les cinq
 autres, soit 42 % de l'échantillon, sont structurellement invérifiables par archive.** Les
-deux chiffres se citent ensemble. Le premier seul laisserait croire que la méthode se
-généralise ; le second seul enterrerait un résultat solide.
+deux chiffres se lisent ensemble. Le premier seul laisserait croire que la méthode se
+généralise ; le second seul enterrerait un résultat solide. C'est ainsi que le chapitre 6 les
+reprend : la campagne y borne une menace sur la validité de l'axe temporel sans la lever, et
+le témoignage des praticiens reste seul pour le reste du corpus.
 
-La seconde conséquence est plus gênante pour le dossier, et c'est celle qu'il faut écrire :
-sur les sept cas vérifiables, **aucun n'a produit d'infirmation**. Le mémoire soutient par
-ailleurs que les praticiens patchent parfois par excès de prudence. Cette campagne ne
-l'alimente pas, mais elle ne le contredit pas non plus : l'échantillon a été choisi parmi les
-motifs de disparition explicites, ceux dont l'objet est nommé et l'adresse stable,
-c'est-à-dire la population où la confirmation était la plus probable. Un échantillon tiré des
-re-datations ou des reformulations d'énoncés donnerait un tout autre taux, et il reste à faire.
+Le second constat me gêne davantage, et je préfère l'écrire : sur les sept cas vérifiables,
+aucun n'a produit d'infirmation. Le mémoire soutient par ailleurs que les praticiens patchent
+parfois par excès de prudence. Cette campagne ne l'alimente pas, et elle ne le contredit pas
+non plus : l'échantillon a été choisi parmi les motifs de disparition explicites, ceux dont
+l'objet est nommé et l'adresse stable, c'est-à-dire la population où la confirmation était la
+plus probable. Un échantillon tiré des re-datations ou des reformulations d'énoncés donnerait
+un tout autre taux ; je ne l'ai pas tiré.
 
 Ce zéro ne vaut d'ailleurs que depuis une correction apportée en fin de campagne. Dans sa
 première version, la règle ne pouvait pas produire d'infirmation : une sonde d'absence qui
@@ -112,7 +114,7 @@ l'arrêt commercial du produit. Pour Huggingface--10, Hugging Face renvoie le m�
 accessible publiquement, ce qui ne veut pas dire qu'il a été effacé. Pour Huggingface--22, le
 guide était encore servi sur le chemin `/main/en/` le 2025-03-21, trois mois avant le gel du
 patch-set : ce qui a disparu, c'est l'adresse que la tâche visait, pas le texte. Cette
-observation, qui affaiblit le dossier, est citée dans le JSON au même rang que les autres.
+observation, qui joue contre le résultat, est citée dans le JSON au même rang que les autres.
 
 **Le rendu archivé n'est pas la page.** Toutes les preuves portent sur le HTML archivé, jamais
 sur un rendu visuel. Le prix affiché par Apple sur ses fiches marketing est injecté en
@@ -179,9 +181,9 @@ que soit le nombre d'explorateurs travaillant en parallèle. L'en-tête User-Age
 honnête et identifie le dépôt. Aucun recours à archive.is : pas d'API, protection anti-robot
 agressive, et le contourner serait exactement ce que le mémoire refuse de faire.
 
-Quatre défauts de l'outillage ont été trouvés en cours de campagne, tous par contre-expertise
-et non par l'agent qui les avait produits. Aucun n'a changé un verdict, et c'est justement ce
-qui les rend instructifs : ils auraient pu.
+Quatre défauts de l'outillage ont été trouvés en cours de campagne, tous par relecture croisée
+et non par le programme qui produisait les mesures. Aucun n'a changé un verdict, et c'est
+justement ce qui les rend instructifs : ils auraient pu.
 
 Le premier était un faux négatif silencieux. Les assertions négatives portaient sur le texte
 visible, d'où les balises sont retirées : une chaîne qui ne vit que dans un attribut `href` y
@@ -209,8 +211,8 @@ présence ne soit observée après la première absence retenue, faute de quoi l
 INSUFFISANT pour état non monotone. Les sept séquences réelles sont monotones et survivent à
 cette règle plus stricte.
 
-Une erreur d'analyse, enfin, présente dans presque tous les comptes rendus d'exploration,
-mérite d'être signalée parce qu'elle est facile à commettre : la colonne `length` de l'API CDX
+Une erreur d'analyse, enfin, mérite d'être signalée parce qu'elle est facile à commettre et
+qu'elle a traversé presque toutes mes notes d'exploration : la colonne `length` de l'API CDX
 donne la taille de l'enregistrement WARC compressé, pas celle de la page. Plusieurs arguments
 de datation fondés sur des « chutes de taille » étaient faux, dont un où la page avait en
 réalité grossi. Les tailles citées ici sont mesurées après décompression, et comptées en
@@ -230,8 +232,8 @@ exécution ; aucun n'est stocké.
 
 ## 7. Deux limites mesurées en marge, et une capture sur deux
 
-La campagne devait produire, pour la soutenance seulement, une paire de captures d'écran
-opposant l'état de deux pages d'accueil en 2024 et en 2026, à la condition expresse que le
+Je voulais tirer de cette campagne, pour la soutenance seulement, une paire de captures
+d'écran opposant l'état de deux pages d'accueil en 2024 et en 2026, à la condition que le
 rendu archivé soit fidèle. Une seule des quatre remplit la condition, et l'échec des trois
 autres est une mesure.
 
@@ -250,7 +252,7 @@ sans trace d'un iPhone 14 Pro : c'est l'illustration de ce que la section 5 éta
 Les instantanés de 2026, eux, ne se rendent pas. Sur celui du 2026-08-01, aucune des 50 images
 de la page ne se charge ; sur celui du 2026-07-01, 24 sur 49. Ce n'est pas un défaut de
 défilement différé, il a été déclenché avant la mesure. La paire opposant 2024 à 2026 n'est
-donc pas livrable, et seule la moitié qui remplit la condition est versée au dépôt.
+donc pas produite, et seule la moitié qui remplit la condition est versée au dépôt.
 
 Une précision sur la façon de juger cette fidélité, parce qu'elle a failli induire en erreur.
 Le compte des images chargées, qui disqualifie les instantanés de 2026, vaut zéro sur zéro pour

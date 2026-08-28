@@ -1,104 +1,41 @@
 """Validation **hors échantillon** des détecteurs de `benchmark-doctor`.
 
-Pourquoi ce script existe
--------------------------
-
 La grille de validation publiée (`run_all.py --phase validate`,
-`runs/validation_ablation_20260815.json`, README, `docs/METHODOLOGY.md`) annonce pour la
-couche L1 au seuil HIGH une précision de **0,986** contre la vérité `signalee_1`. Ce
-chiffre est **intégralement in-sample** : sur les 72 vrais positifs, **71 sont des tâches
-du patch-set Magnitude**, c'est-à-dire exactement le corpus sur lequel les détecteurs L1
-ont été réglés (correction des faux positifs, distinction transactionnel / archivistique,
-choix des seuils). L'apport des cinq autres annotateurs à cette précision est **une seule
-tâche**. Mesurer un détecteur sur son propre jeu de réglage ne mesure pas sa capacité à
-généraliser : cela mesure sa capacité à mémoriser.
+`runs/validation_ablation_20260815.json`) annonce pour la couche L1 au seuil HIGH une
+précision de 0,986 contre la vérité `signalee_1`. Ce chiffre est intégralement in-sample :
+sur les 72 vrais positifs, 71 sont des tâches du patch-set Magnitude, exactement le corpus
+sur lequel les détecteurs L1 ont été réglés, et l'apport des cinq autres annotateurs se
+réduit à une tâche. Mesurer un détecteur sur son propre jeu de réglage mesure sa capacité à
+mémoriser, pas à généraliser.
 
-Ce script construit le protocole que le dépôt ne contenait pas : un **jeu d'ajustement**
-et un **jeu de validation strictement disjoints**, et une grille où **aucune ligne n'est
-publiable sans sa ligne de base**.
+D'où la scission : jeu d'ajustement A = les 121 tâches que Magnitude a patchées, jeu de
+validation V = les 522 restantes, disjonction vérifiée à l'exécution. Une tâche de V est
+défectueuse si elle a été signalée par au moins un des cinq annotateurs autres que
+Magnitude, qui n'intervient jamais dans l'étiquetage de V. Chaque ligne de la grille porte
+sa ligne de base : précision au hasard (la prévalence dans V, sans laquelle « précision
+0,33 » ne dit ni bien ni mal), lift, et test binomial unilatéral.
 
-Le protocole
-------------
+Le binomial suppose des signalements indépendants, ce qu'ils ne sont pas : la couche L2
+mesure l'accès par site et propage un constat unique aux 8 à 46 tâches du site. Dans V,
+L2/HIGH signale 126 tâches, mais ce sont quatre décisions (Allrecipes 40/40, Amazon 38/38,
+Booking 11/11, ESPN 37/37). Trois lectures sont donc calculées et nommées : ``p_binomial``,
+le test naïf, publié comme borne optimiste ; ``p_intra_site``, exact et stratifié par site ;
+``p_site``, permutation exacte au niveau site quand l'ensemble signalé est une réunion de
+sites entiers. Chacune est justifiée à sa fonction, la règle de choix dans `_retained_p`.
+S'y ajoute un intervalle de confiance rééchantillonnant les 15 sites, non les tâches, et
+deux contrôles de robustesse, `leave_one_site_out` et `per_annotator`.
 
-1. **Scission.** Jeu d'ajustement :math:`A` = les 121 tâches que Magnitude a patchées
-   (``remove`` ou ``modify``) — le patch-set de réglage. Jeu de validation :math:`V` =
-   les 522 tâches restantes. :math:`A \\cap V = \\emptyset`, vérifié à l'exécution.
+Ce que le protocole ne corrige pas : la scission est disjointe sur les positifs, pas sur les
+négatifs, puisque régler les détecteurs a consisté pour partie à supprimer des faux positifs,
+donc à regarder des tâches non patchées, ce qui laisse le chiffre hors échantillon en borne
+haute. Et la vérité de validation reste le jugement d'autres praticiens, faillible et non
+motivé pour la plupart des sources.
 
-2. **Vérité de validation.** Une tâche de :math:`V` est *défectueuse* si elle a été
-   signalée (réécrite ou supprimée) par **au moins un des cinq annotateurs autres que
-   Magnitude**. Magnitude n'intervient jamais dans l'étiquetage de :math:`V` : par
-   construction, aucune de ses décisions ne porte sur ces tâches.
-
-3. **Trois colonnes obligatoires sur chaque ligne.** Une ligne de grille sans elles n'est
-   pas interprétable et ne doit plus être publiée :
-
-   - **précision au hasard** = la prévalence de la vérité dans :math:`V`. C'est ce
-     qu'obtiendrait un détecteur qui signale des tâches au hasard. Sans elle, « précision
-     0,33 » ne dit pas si c'est bien ou mal ;
-   - **lift** = précision observée / précision au hasard. Un lift de 1,0 est un résultat
-     nul, quel que soit le niveau de précision affiché ;
-   - **test binomial unilatéral** :math:`H_0 : p \\le \\pi_0` et sa p-value.
-
-4. **Correction de la dépendance intra-site.** Le test binomial suppose que les tâches
-   signalées sont indépendantes. Elles ne le sont pas : la couche L2 mesure l'accès **par
-   site** et propage un constat unique aux 8 à 46 tâches du site. Dans le jeu de
-   validation, L2/HIGH signale 126 tâches — mais ce sont **quatre décisions**, pas 126
-   (Allrecipes 40/40, Amazon 38/38, Booking 11/11, ESPN 37/37). Trois lectures sont donc
-   calculées pour chaque ligne :
-
-   - ``p_binomial`` : le test naïf, i.i.d., publié pour comparaison — c'est la borne
-     optimiste ;
-   - ``p_intra_site`` : **test exact conditionnel stratifié par site**. Sous
-     :math:`H_0`, les :math:`f_s` constats d'un site sont tirés au hasard parmi ses
-     :math:`n_s` tâches ; le nombre de vrais positifs suit une somme de lois
-     hypergéométriques indépendantes, calculée **exactement par convolution** (pas de
-     Monte-Carlo). Ce test ne crédite jamais un détecteur pour avoir deviné *quel site*
-     est malade, seulement pour avoir désigné *quelles tâches* dans un site. Un détecteur
-     qui signale des sites entiers y obtient mécaniquement :math:`p = 1` : c'est le
-     comportement voulu ;
-   - ``p_site`` : **test de permutation exact au niveau site**, défini quand l'ensemble
-     signalé est une réunion de sites entiers. Les :math:`\\binom{15}{k}` choix de
-     :math:`k` sites parmi 15 sont énumérés exhaustivement. C'est le test qui rend
-     justice à L2 : il lui accorde ses 4 observations, ni plus ni moins.
-
-   S'y ajoute un **intervalle de confiance en clusters** : bootstrap non paramétrique
-   rééchantillonnant les **15 sites** avec remise (le cluster, pas la tâche), percentiles
-   à 2,5 % et 97,5 % sur la précision et sur le lift.
-
-5. **Robustesse.** Retrait d'un site à la fois (*leave-one-site-out*) sur la ligne de
-   tête, et validation de L1 contre **chaque annotateur pris séparément** — deux
-   annotateurs (Fara 08/2025, Alumnium 03/2026) n'ont aucune filiation connue avec
-   Magnitude, contrairement à Convergence (cf. problème B3 de la vérification : 56/60
-   réécritures identiques au caractère près).
-
-Ce que ce protocole ne corrige pas, et qu'il faut dire
------------------------------------------------------
-
-La scission est disjointe **sur les positifs** : aucune tâche du jeu de validation n'a été
-patchée par Magnitude. Elle ne l'est pas sur les **négatifs** : le réglage des détecteurs a
-consisté pour partie à supprimer des faux positifs, donc à regarder des tâches que
-Magnitude n'avait pas patchées. Deux éléments bornent cette contamination résiduelle sans
-l'annuler : (a) aucun identifiant de tâche n'est codé en dur dans une décision de
-détecteur (vérifié : ``grep -rE "Site--[0-9]+" benchmark_doctor/detectors/*.py`` ne rend
-que des commentaires) ; (b) les corrections sont des règles linguistiques générales
-(« book » nom contre verbe, « check out » verbe à particule, négations). Le chiffre
-hors échantillon reste donc une **borne haute**, mais d'un ordre de grandeur plus honnête
-que le chiffre in-sample.
-
-La vérité de validation n'est pas une vérité terrain : c'est le jugement d'autres
-praticiens, faillible et non motivé pour la plupart des sources. Un faux positif de nos
-détecteurs peut être une tâche réellement défectueuse que personne n'a encore signalée.
-
-Utilisation
------------
+Aucun appel réseau : tout est relu dans les constats déjà journalisés.
 
     python experiments/validation_hors_echantillon.py                  # grille complète
     python experiments/validation_hors_echantillon.py --bootstrap 0    # sans bootstrap
     python experiments/validation_hors_echantillon.py --out chemin.json
-
-Aucun appel réseau, aucune dépense d'API : le script relit les constats déjà journalisés
-dans ``runs/health_20260815_findings.json`` et la base réconciliée
-``data/ground_truth.json``. Coût d'exécution : **0,00 $**.
 """
 
 from __future__ import annotations
@@ -137,7 +74,7 @@ TUNING_SOURCE = "magnitude"
 
 #: Les six annotateurs comptés dans l'accord (`run_all.INDEPENDENT_SOURCES`). Le mot
 #: « indépendants » est retiré : Convergence et Magnitude partagent 56 de leurs 60
-#: réécritures communes au caractère près (problème B3 de la vérification).
+#: réécritures communes au caractère près.
 ANNOTATORS = tuple(_ra.INDEPENDENT_SOURCES)
 
 #: Convergence appartient à la même lignée que Magnitude : une vérité qui l'exclut est
@@ -246,7 +183,7 @@ def build_validation_truths(
         "hors_lignee_1",
         {t["id"] for t in tasks if n_signalers(t, strict) >= 1},
         f"signalée par au moins 1 des {len(strict)} annotateurs sans filiation connue "
-        "avec Magnitude (Convergence exclue : 56/60 réécritures identiques, cf. B3)",
+        "avec Magnitude (Convergence exclue : 56/60 réécritures identiques)",
     )
     add(
         "supprimee_autres_1",
@@ -525,8 +462,8 @@ def holm_bonferroni(pvalues: Mapping[str, float], alpha: float = 0.05) -> dict[s
     Douze configurations sont testées contre la même vérité : à 5 % par test, on attend
     une ligne significative par pur hasard tous les vingt tests. La procédure de Holm
     (descendante, uniformément plus puissante que Bonferroni et valide sans hypothèse
-    d'indépendance) répond à la seule question qui compte pour un jury : *y a-t-il un
-    résultat, ou une collection de coïncidences ?*
+    d'indépendance) répond à la seule question qui compte : y a-t-il un résultat, ou une
+    collection de coïncidences ?
     """
     ordered = sorted(pvalues.items(), key=lambda kv: kv[1])
     m = len(ordered)
@@ -593,7 +530,7 @@ def per_annotator(
 ) -> dict[str, Any]:
     """L1 contre **chaque** annotateur pris seul : cinq validations indépendantes.
 
-    C'est la mesure la plus décontaminée du dossier : Fara (08/2025) et Alumnium (03/2026)
+    C'est la mesure la plus décontaminée de la grille : Fara (08/2025) et Alumnium (03/2026)
     n'ont aucune filiation connue avec Magnitude ni entre eux, et leurs verdicts portent
     sur des tâches que Magnitude n'a jamais touchées.
     """
@@ -665,7 +602,7 @@ def in_sample_mirror(
     return out
 
 
-# 4. Le dénominateur browser-use (problème C4)
+# 4. Le dénominateur browser-use
 
 
 def browseruse_denominator() -> dict[str, Any]:
@@ -785,15 +722,15 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "meta": {
             "genere_par": "experiments/validation_hors_echantillon.py",
             "date_de_reference": TODAY.isoformat(),
-            "constats": str(FINDINGS),
-            "verite_terrain": str(GROUND_TRUTH),
+            "constats": str(FINDINGS.relative_to(ROOT)),
+            "verite_terrain": str(GROUND_TRUTH.relative_to(ROOT)),
             "graine": args.seed,
             "n_replicats_bootstrap": args.bootstrap,
             "cout_api_usd": 0.0,
-            "probleme_traite": (
-                "B2 — la précision de 0,986 de L1 est intégralement in-sample : 71 de ses "
-                "72 vrais positifs sont des tâches du patch-set qui a servi à régler les "
-                "détecteurs."
+            "motif_de_la_mesure": (
+                "La précision de 0,986 publiée pour L1 au seuil HIGH est intégralement "
+                "in-sample : 71 de ses 72 vrais positifs sont des tâches du patch-set qui "
+                "a servi à régler les détecteurs."
             ),
             "avertissement": (
                 "Les mesures portent sur les CONSTATS des détecteurs, jamais sur le score "
@@ -980,7 +917,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
 
         b = report["denominateur_browseruse"]
-        print("\n=== DÉNOMINATEUR browser-use (problème C4) ===")
+        print("\n=== DÉNOMINATEUR browser-use ===")
         for key in ("publiee", "corrigee"):
             r = b[key]
             print(
@@ -1000,7 +937,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("\n=== CE QUE L'ON PEUT ENCORE AFFIRMER ===")
         for key, c in report["conclusions"].items():
             print(f"  {key:26s} {c['verdict']}\n      {c['detail']}")
-        print("\ncoût API de cette exécution : 0,00000 $ (aucun appel réseau)")
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

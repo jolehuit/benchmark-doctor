@@ -1,11 +1,10 @@
 {
  "statut_editorial": {
   "statut": "entree_de_differentiel",
-  "mention": "entrée d'un différentiel, pas une carte de santé : ne pas citer ses distributions de notes comme un état du benchmark",
-  "raison": "Terme « avant » du même différentiel. Attention : 11 des 15 sites n'ont AUCUNE mesure navigateur et sont notés A par défaut (`VERIFICATION.md` §C6). Les 127 « dégradations » du différentiel mesurent autant la couverture que le canal.",
+  "mention": "terme d'un différentiel : sa distribution de notes ne décrit pas un état du benchmark",
+  "raison": "Terme « avant » du différentiel de canal. 11 des 15 sites n'ont aucune mesure navigateur et sont notés A par défaut : les 127 « dégradations » du différentiel mesurent autant la couverture que le canal.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "schema": "bdoctor-health-card/1",
  "meta": {
@@ -29,7 +28,7 @@
    "l2_content_checks": false
   },
   "ground_truth_prior": {
-   "source": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+   "source": "data/ground_truth.json",
    "n_tasks": 643,
    "n_flagged_by_at_least_one": 169,
    "n_contested": 68,
@@ -45363,8 +45362,7 @@
   "Le score est ordinal avant d'être cardinal : les confiances des détecteurs ne sont pas calibrées. Comparer deux tâches est légitime, lire un score comme une probabilité ne l'est pas."
  ],
  "notes": [
-  "Le verdict d'accès est mesuré par URL de départ puis propagé aux tâches du site : WebVoyager ne fournit pas d'autre URL. La mesure borne donc la décadence par le bas et ne dit rien de l'état du site après navigation.",
-  "Canal L2 : {\"name\": \"recorded\", \"kind\": \"browser_cloud\", \"available\": true, \"source\": \"runs/l2_browser_cloud_20260815.json\", \"n_observations\": 4, \"note\": \"Observations rejouées : aucun accès réseau au moment de l'analyse.\", \"memoised_urls\": 15, \"n_fetches\": 15, \"n_cache_hits\": 628}"
+  "Le verdict d'accès est mesuré par URL de départ puis propagé aux tâches du site : WebVoyager ne fournit pas d'autre URL. La mesure borne donc la décadence par le bas et ne dit rien de l'état du site après navigation."
  ],
  "extra": {}
 }

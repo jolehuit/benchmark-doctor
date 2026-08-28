@@ -1,27 +1,8 @@
 #!/usr/bin/env python3
-"""Répare les corps réseau manquants d'une collecte navigateur, depuis les HAR conservés.
+"""Recalcule la signature du corps réseau d'une collecte navigateur à partir des HAR conservés.
 
-    python experiments/reparer_corps_reseau.py runs/matrice/browser_residential_p1.json \\
-        --har runs/har
-
-Pourquoi une réparation plutôt qu'une nouvelle campagne
-------------------------------------------------------
-
-La première passe a enregistré ``taille_corps_reseau = 0`` sur plusieurs sites : le
-protocole de débogage de Chrome n'avait plus le corps du document en cache au moment où
-il a été réclamé. Le classifieur, à qui l'on présentait alors un 2xx de zéro octet, a
-conclu au `soft_404` — il a imputé au site une page morte là où la campagne avait raté sa
-lecture.
-
-Le corps n'est pourtant pas perdu : le HAR l'avait capté au vol et il dort dans
-``runs/har/``. Le récupérer là plutôt que re-sonder les sites est à la fois plus honnête
-et plus économe — re-solliciter quinze serveurs tiers pour retrouver une donnée qu'on
-possède déjà serait du gaspillage, et cela remplacerait une observation de la bonne
-minute par une observation d'une autre.
-
-Le verdict principal de ces observations, qui porte sur le DOM rendu, n'est pas touché :
-seule la mesure secondaire — la signature du corps que le serveur a réellement envoyé —
-est recalculée.
+Les observations dont le corps réseau est vide sont reclassifiées depuis le corps capté dans
+``runs/har/``, sans nouvelle requête. Le verdict porté sur le DOM rendu n'est pas modifié.
 """
 
 from __future__ import annotations
@@ -54,9 +35,9 @@ def main() -> int:
         chemin_har = args.har / f"{cellule}_{cle}_p{passe}.har"
 
         if meta.get("taille_corps_reseau"):
-            # Corps déjà en main : rien à réparer, mais le contrôle sur le corps entier
-            # reste à faire — c'est lui qui rattrape les interstitiels trop volumineux
-            # pour que leur marqueur tienne dans l'extrait classifié.
+            # Corps déjà en main : rien à reconstruire, mais le contrôle sur le corps
+            # entier reste à faire, c'est lui qui rattrape les interstitiels trop
+            # volumineux pour que leur marqueur tienne dans l'extrait classifié.
             corps_entier, _ = lib.corps_document_depuis_har(
                 chemin_har, observation.get("final_url")
             )

@@ -22,11 +22,11 @@ Les deux courbes bornent le phénomène. B est une mesure exacte d'un sous-ensem
 causes, A une mesure bruitée de toutes les causes ; leur écart est lui-même un résultat.
 
 Le script publie aussi la rouille des correctifs (parmi les 68 énoncés réécrits par
-Magnitude en 07/2025, combien sont périmés au 15/08/2026 ; le chiffre préliminaire de
-10/68 était faux, voir `patch_rot`), la décadence accumulée hors patch-sets, la santé
-comparée des sept forks mesurés chacun à sa date de naissance puis au 15/08/2026, et un
-contrôle Online-Mind2Web, benchmark activement maintenu dont le journal de remplacement
-daté donne un taux de décadence observé sous surveillance.
+Magnitude en 07/2025, combien sont périmés au 15/08/2026, plusieurs lectures étant données
+côte à côte dans `patch_rot`), la décadence accumulée hors patch-sets, la santé comparée
+des sept forks mesurés chacun à sa date de naissance puis au 15/08/2026, et un contrôle
+Online-Mind2Web, benchmark activement maintenu dont le journal de remplacement daté donne
+un taux de décadence observé sous surveillance.
 
 Usage :
 
@@ -589,13 +589,17 @@ def unseen_decay(gt: Mapping[str, Any], findings_path: Path) -> dict[str, Any]:
             "hors_magnitude": {
                 "n": len(hors_magnitude),
                 "pct_corpus": round(100 * len(hors_magnitude) / len(tasks), 1),
-                "par_site": dict(Counter(sites[i] for i in hors_magnitude).most_common()),
+                # Parcours trié : `most_common()` départage les ex æquo par ordre
+                # d'insertion, et un ensemble ne s'itère pas deux fois dans le même ordre
+                # d'un processus à l'autre. Sans ce tri, deux exécutions du même script
+                # écrivent des octets différents.
+                "par_site": dict(Counter(sites[i] for i in sorted(hors_magnitude)).most_common()),
                 "ids": sorted(hors_magnitude),
             },
             "hors_union_6": {
                 "n": len(hors_union6),
                 "pct_corpus": round(100 * len(hors_union6) / len(tasks), 1),
-                "par_site": dict(Counter(sites[i] for i in hors_union6).most_common()),
+                "par_site": dict(Counter(sites[i] for i in sorted(hors_union6)).most_common()),
                 "ids": sorted(hors_union6),
             },
             "hors_union_8": {

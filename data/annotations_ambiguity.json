@@ -32,7 +32,7 @@
   },
   "annotator": {
     "count": 1,
-    "identity": "l'agent rédacteur (Claude Opus 5), annotateur unique",
+    "identity": "annotateur unique : un modèle de langage (Claude Opus 5)",
     "protocol": "rubrique écrite AVANT l'étiquetage, puis passage unique sur les 139 énoncés dans l'ordre site/identifiant ; chaque positif porte au moins un code de critère et une justification en une phrase."
   },
   "limits": [

@@ -110,7 +110,6 @@ PROXY_BODY_MARKERS: tuple[str, ...] = (
     "add this host to your network egress settings",
     "request path could not be canonicalized",
     "access to this repository is not enabled for this session",
-    "docs.anthropic.com/en/docs/claude-code",
     "proxy authentication required",
     "blocked by your organization",
     "egress policy",
@@ -397,7 +396,6 @@ class DirectHTTPChannel(BaseChannel):
             # Provenance honnête : la campagne du 15/08 est sortie par un proxy
             # interceptant, ce qui est en soi une caractéristique du canal.
             "egress_proxy": bool(proxy),
-            "egress_proxy_url": proxy if proxy else None,
             "note": (
                 "Brotli désactivé (Accept-Encoding sans `br`) : sans décodeur installé, "
                 "le corps reviendrait binaire et fausserait la classification."
@@ -503,6 +501,8 @@ class BrowserChannel(BaseChannel):
     def fetch(self, url: str, *, timeout: float | None = None) -> Observation: ...
 
 
+# Exécuter ce canal élargirait la base du facteur κ = 0.40 de `scoring.py`, calculé sur
+# 3 blocages seulement, dont 2 ont répondu au navigateur (runs/l2_probe_20260815.json).
 class PlaywrightChannel(BrowserChannel):
     """Canal navigateur local piloté par Playwright, implémentation optionnelle.
 

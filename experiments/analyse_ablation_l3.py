@@ -1,20 +1,21 @@
 """Analyses complémentaires de l'ablation L3 : significativité, rappel par critère, fuite.
 
-Le banc `ablation_l3_clean.py` produit les prédictions ; ce script en tire les trois
-lectures dont le mémoire a besoin et que le tableau ne porte pas :
+Le banc `ablation_l3_clean.py` produit les prédictions ; ce script en tire trois lectures que
+le tableau ne porte pas.
 
-1. **Significativité entre exécutions.** Le McNemar du banc oppose *une* exécution de
-   chaque juge, ce qui est le pire cas de puissance : cinq exécutions à température 0
-   donnent cinq échantillons appariés. On publie ici (a) un test exact de Mann-Whitney
-   sur les cinq F1 de chaque famille — quand les deux étendues sont disjointes, il
-   n'existe qu'une valeur de p possible et elle vaut 2/C(10,5) = 0,0079 — et (b) un
-   McNemar sur le **verdict majoritaire** des cinq exécutions, qui a plus de puissance
-   qu'un McNemar sur un tirage.
-2. **Rappel par critère d'ambiguïté (A1–A4).** C'est là que la fuite était censée payer :
-   les quatre énoncés recopiés couvraient A2 et A3, et le rapport du 15/08 y annonçait
-   la supériorité du juge. La question est de savoir si cette supériorité survit.
-3. **Où passent les cinq items fuités.** Le juge fuité les reconnaît-il mieux que le
-   juge propre, et de combien ?
+Significativité entre exécutions. Le McNemar du banc oppose *une* exécution de chaque juge,
+ce qui est le pire cas de puissance : cinq exécutions à température 0 donnent cinq
+échantillons appariés. On publie ici un test exact de Mann-Whitney sur les cinq F1 de chaque
+famille, où deux étendues disjointes ne laissent qu'une valeur de p possible, 2/C(10,5) =
+0,0079, et un McNemar sur le verdict majoritaire des cinq exécutions, qui a plus de puissance
+qu'un McNemar sur un tirage.
+
+Rappel par critère d'ambiguïté (A1-A4). C'est là que la fuite était censée payer : les quatre
+énoncés recopiés couvraient A2 et A3, et la mesure initiale y donnait le juge supérieur. La
+question est de savoir si cette supériorité survit à une rubrique propre.
+
+Où passent les cinq items dont une formulation figurait dans l'ancienne rubrique. Le juge
+fuité les reconnaît-il mieux que le juge propre, et de combien ?
 
     python experiments/analyse_ablation_l3.py [runs/ablation_l3_clean_20260816.json]
 """

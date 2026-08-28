@@ -1,11 +1,10 @@
 {
  "statut_editorial": {
   "statut": "entree_de_differentiel",
-  "mention": "entrée d'un différentiel, pas une carte de santé : ne pas citer ses distributions de notes comme un état du benchmark",
-  "raison": "Terme « après » du même différentiel. L'écart entre les deux est le résultat « les correctifs pourrissent », le plus solide du dossier.",
+  "mention": "terme d'un différentiel : sa distribution de notes ne décrit pas un état du benchmark",
+  "raison": "Terme « après » du différentiel de pourrissement des correctifs, au 16/08/2026. L'écart avec `card_magnitude_20250706.json` mesure la dégradation des correctifs Magnitude depuis leur publication.",
   "carte_de_reference": "runs/health_20260815.json",
-  "index": "runs/CARTES.md",
-  "pose_le": "2026-08-16"
+  "index": "runs/CARTES.md"
  },
  "schema": "bdoctor-health-card/1",
  "meta": {

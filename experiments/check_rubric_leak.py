@@ -1,31 +1,31 @@
 """Contrôle de non-fuite : la rubrique du juge L3 ne doit rien emprunter au corpus évalué.
 
-Le problème B1 de la vérification adverse du 16/08/2026 tenait à quatre énoncés du jeu
-annoté recopiés mot pour mot dans le prompt du juge (`GitHub--5`, `Coursera--0`,
-`Huggingface--23`, `Apple--11`), tous étiquetés positifs. Un tel défaut se réintroduit à
-la première réécriture distraite de ``_RUBRIC`` : ce script en fait un test exécutable,
-et il **échoue sur l'ancienne rubrique** (``--old`` le rejoue pour le montrer).
+La première version de la rubrique recopiait mot pour mot quatre énoncés du jeu annoté
+(`GitHub--5`, `Coursera--0`, `Huggingface--23`, `Apple--11`), tous étiquetés positifs. Un
+tel défaut se réintroduit à la première réécriture distraite de ``_RUBRIC`` : ce script en
+fait un test exécutable, et il **échoue sur l'ancienne rubrique** (``--old`` la rejoue pour
+le montrer).
 
 Quatre contrôles, du plus littéral au plus exigeant :
 
-1. **Verbatim** — aucune suite de 4 mots (mots outils compris) d'un des 643 énoncés de
+1. Verbatim, aucune suite de 4 mots (mots outils compris) d'un des 643 énoncés de
    WebVoyager n'apparaît dans la rubrique. C'est le contrôle qui aurait dû exister.
-2. **Domaines** — la rubrique ne nomme aucun des quinze sites du corpus ni leurs
-   marqueurs de domaine (``recipe``, ``repo``, ``iPad``, ``hotel``, ``university``…).
-   C'est ce contrôle qui condamne l'ancienne rubrique : huit marqueurs, dont les quatre
-   sites qui ne portent aucun positif.
-3. **Vocabulaire des exemples** — chaque mot de contenu des *illustrations* (les seuls
-   fragments entre guillemets ou entre parenthèses : le reste est la définition, qu'on ne
-   peut pas écrire sans anglais courant) est soit absent du corpus, soit présent dans au
-   moins ``MIN_GENERIC_DF`` énoncés. Le régime intermédiaire — un mot rare partagé avec
-   quelques énoncés — est la signature d'une fuite par paraphrase.
-4. **Recouvrement lexical** — pour chaque énoncé annoté, la part de ses mots de contenu
-   présents dans la rubrique reste sous ``MAX_OVERLAP``.
+2. Domaines, la rubrique ne nomme aucun des quinze sites du corpus ni leurs marqueurs de
+   domaine (``recipe``, ``repo``, ``iPad``, ``hotel``, ``university``…). C'est ce contrôle
+   qui condamne l'ancienne rubrique : huit marqueurs, dont les quatre sites qui ne portent
+   aucun positif.
+3. Vocabulaire des exemples, chaque mot de contenu des *illustrations* (les seuls fragments
+   entre guillemets ou entre parenthèses : le reste est la définition, qu'on ne peut pas
+   écrire sans anglais courant) est soit absent du corpus, soit présent dans au moins
+   ``MIN_GENERIC_DF`` énoncés. Le régime intermédiaire, un mot rare partagé avec quelques
+   énoncés, est la signature d'une fuite par paraphrase.
+4. Recouvrement lexical, pour chaque énoncé annoté, la part de ses mots de contenu présents
+   dans la rubrique reste sous ``MAX_OVERLAP``.
 
-Aucun de ces contrôles ne traite la fuite **structurelle** restante : le juge reçoit
-toujours la définition de l'étiquette, celle-là même qu'a suivie l'annotateur. Elle n'est
-pas corrigeable par une réécriture de prompt ; elle est mesurée par la ligne « prompt
-plain » et discutée dans `experiments/ABLATION_L3.md`.
+Aucun de ces contrôles ne traite la fuite structurelle restante : le juge reçoit toujours la
+définition de l'étiquette, celle-là même qu'a suivie l'annotateur. Elle n'est pas corrigeable
+par une réécriture de prompt ; elle est mesurée par la ligne « prompt plain » de
+`experiments/ablation_l3_clean.py`.
 
     python experiments/check_rubric_leak.py          # rubrique courante
     python experiments/check_rubric_leak.py --old    # contrôle négatif : l'ancienne
