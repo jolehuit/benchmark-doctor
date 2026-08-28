@@ -1,0 +1,44 @@
+benchmark-doctor 0.1.0 — couche L1 (statique, canal=static)
+corpus      : data/raw/webvoyager_original.jsonl
+date        : 2026-08-15   politique : v1 naïf (date passée OU effet de bord, sans contexte)
+tâches      : 643
+signalées   : 121  ( 18.8 %)
+stabilité ⌀ : 0.856   notes : {'A': 509, 'B': 61, 'C': 8, 'D': 65}
+
+Prévalence par catégorie de la taxonomie (tâches concernées) :
+  T1_temporal              97  ( 15.1 %)
+  T2_content_drift        130  ( 20.2 %)
+  T3_access_denied         13  (  2.0 %)
+  T7_eval_brittleness     163  ( 25.3 %)
+
+Sous-motifs déclenchés :
+  relative_date                     146
+  named_content                      92
+  past_date_transactional            65
+  versioned_product                  35
+  past_date_archival                 24
+  yearless_date_transactional        17
+  past_date_unknown                   8
+  booking_commit                      7
+  plan_or_tier                        3
+  auth_required                       2
+  local_action                        2
+  purchase_commit                     1
+  subscription                        1
+
+Par site (trié par taux de flag dur) :
+  Google Flights          41/ 42   97.6 %   stabilité ⌀ 0.388
+  Booking                 40/ 44   90.9 %   stabilité ⌀ 0.421
+  ESPN                     8/ 44   18.2 %   stabilité ⌀ 0.914
+  ArXiv                    7/ 43   16.3 %   stabilité ⌀ 0.903
+  Wolfram Alpha            7/ 46   15.2 %   stabilité ⌀ 0.974
+  GitHub                   4/ 41    9.8 %   stabilité ⌀ 0.905
+  Google Search            4/ 43    9.3 %   stabilité ⌀ 0.901
+  Amazon                   3/ 41    7.3 %   stabilité ⌀ 0.956
+  Google Map               3/ 41    7.3 %   stabilité ⌀ 0.962
+  Huggingface              2/ 43    4.7 %   stabilité ⌀ 0.937
+  BBC News                 1/ 42    2.4 %   stabilité ⌀ 0.911
+  Apple                    1/ 43    2.3 %   stabilité ⌀ 0.761
+  Allrecipes               0/ 45    0.0 %   stabilité ⌀ 0.996
+  Cambridge Dictionary     0/ 43    0.0 %   stabilité ⌀ 0.953
+  Coursera                 0/ 42    0.0 %   stabilité ⌀ 0.959

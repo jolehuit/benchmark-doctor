@@ -1,0 +1,3211 @@
+{
+  "collected_at": "2026-08-18T20:24:31+00:00",
+  "collector": {
+    "outil": "benchmark-doctor / experiments/verif_archive.py",
+    "version": "1.0",
+    "systeme": "Darwin 25.5.0 / Python 3.11.14",
+    "plan": "experiments/plan_archive.json",
+    "user_agent": "benchmark-doctor/1.0 (recherche academique sur la validite temporelle du benchmark WebVoyager; contact via github.com/jolehuit/memoirem2)"
+  },
+  "method": "Pour chaque cas, l'API CDX de la Wayback Machine donne l'inventaire des instantanés de l'URL canonique entre 2023 et 2026 ; quatre d'entre eux sont téléchargés en HTML brut (suffixe id_) et testés sur des chaînes de caractères précises, un cinquième lorsqu'une observation contraire méritait d'être citée, et deux seulement quand l'inventaire n'en offre pas davantage. Le verdict n'est pas saisi à la main : il est dérivé de l'état observé par instantané (présent, absent ou indéterminé) et de sa position par rapport au gel du corpus (2024-03-02) et à celui du patch-set Magnitude (2025-07-06).",
+  "limits": "La Wayback Machine archive des pages, pas des fonctionnalités : aucune archive ne permet de rejouer une recherche ni un parcours, donc une tâche formulée comme une quête reste hors de portée (verdict NON_VERIFIABLE). L'absence d'instantané ne prouve pas l'absence de la page : la couverture du robot est inégale, d'où INSUFFISANT plutôt que CONFIRMEE. Une redirection archivée est un signal, pas une preuve : la page cible est ouverte avant de conclure. Le contenu rendu peut être incomplet sur les pages riches en JavaScript, donc les preuves portent sur le HTML archivé et non sur un rendu visuel. Enfin, confirmer qu'un objet a disparu ne dit rien de l'exécutabilité de la tâche : c'est une condition nécessaire, pas suffisante.",
+  "fenetres": {
+    "gel_corpus": "20240302",
+    "gel_patch": "20250706",
+    "fenetre_avant": [
+      "20230901",
+      "20240630"
+    ],
+    "fenetre_patch": [
+      "20240701",
+      "20251231"
+    ]
+  },
+  "budget_requetes": {
+    "plafond": 150,
+    "emises_vers_archive": 96
+  },
+  "resume": {
+    "CONFIRMEE": 7,
+    "NON_VERIFIABLE": 5
+  },
+  "cas": [
+    {
+      "id": "Apple--2",
+      "site": "Apple",
+      "enonce": "Compare the prices and chips for the iPhone 14 Pro and iPhone 15 Pro models directly from Apple's website.",
+      "motif_praticien": "These phones are no longer sold and don't have prices listed anymore, can't even compare 15 pro to 16 pro to modernize the example",
+      "groupe": "A",
+      "url_canonique": "https://www.apple.com/iphone-15-pro/",
+      "comment_trouvee": "Deux familles d'URL testées par modèle : la fiche marketing (apple.com/iphone-15-pro/) et la fiche boutique (apple.com/shop/buy-iphone/iphone-15-pro). La fiche boutique porte le prix, la fiche marketing porte la puce ; l'énoncé demande les deux. La fiche marketing est retenue comme canonique parce qu'elle seule porte la chaîne de disparition jusqu'en 2026 : la fiche boutique n'a plus aucun instantané entre sa redirection du 2024-09-09 et 2026, elle ne peut donc porter aucune observation d'absence. Les deux sont citées, la boutique pour le prix, la marketing pour la puce et la disparition. Précision de traçabilité : les deux observations d'absence sont prises sur la page de gamme https://www.apple.com/iphone/, cible de la redirection, et non sur l'URL canonique elle-même, qui n'a pas été rouverte après le gel.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240220001111",
+          "role": "avant_gel_prix",
+          "role_preuve": "presence",
+          "url": "https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+          "statut": "200",
+          "statut_declare_non_confirme": true,
+          "caracteres_html": 1268152,
+          "caracteres_texte_visible": 39054,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 15 Pro and iPhone 15 Pro Max",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Buy iPhone 15 Pro and iPhone 15 Pro Max - Apple Apple Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessor"
+            },
+            {
+              "type": "contient",
+              "chaine": "$999.00",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "note ² Black Titanium Verizon 128 GB Footnote ² Black Titanium Connect on your own later. $999.00 512 GB Footnote ² Blue Titanium AT&T 512 GB Footnote ² Blue Titanium T-Mobile 512 GB Foot"
+            },
+            {
+              "type": "contient",
+              "chaine": "A17 Pro chip with 6-core GPU",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "tured matte glass back Action button Dynamic Island A magical way to interact with iPhone A17 Pro chip with 6-core GPU Pro camera system 48MP Main | Ultra Wide | Telephoto Super-high-resolution photos (24MP a"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Onze jours avant le gel du corpus, la page d'achat de l'iPhone 15 Pro est servie complète et porte, dans son texte visible, le prix « $999.00 » et la puce « A17 Pro chip with 6-core GPU » : les deux grandeurs que l'énoncé demande de comparer sont bien affichées."
+        },
+        {
+          "timestamp": "20240302082256",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 563452,
+          "caracteres_texte_visible": 40175,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "A17 Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ch the iPhone 15 Pro film Watch the iPhone 15 Pro event Item 1 Item 2 Item 3 Item 4 Enter A17 Pro. Game&#x2011;changing chip. Groundbreaking performance. Titanium. So strong. So light. So"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 15 Pro and iPhone 15 Pro Max - Apple",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "iPhone 15 Pro and iPhone 15 Pro Max - Apple Apple Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Supp"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 2 mars 2024, jour même du gel du corpus WebVoyager, la fiche marketing est encore servie sous son titre « iPhone 15 Pro and iPhone 15 Pro Max - Apple » et annonce sa puce « A17 Pro »."
+        },
+        {
+          "timestamp": "20250627000930",
+          "role": "proche_patch",
+          "role_preuve": "absence",
+          "url": "https://www.apple.com/iphone/",
+          "statut": "200",
+          "statut_declare_non_confirme": true,
+          "caracteres_html": 789770,
+          "caracteres_texte_visible": 73362,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "A17 Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "A17 Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 16 Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "tore Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support 0 + iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 Compare AirPods AirTag Accessories Apple Card iOS 26 Previ"
+            },
+            {
+              "type": "contient",
+              "chaine": "A18 Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Titanium, and Black Titanium The ultimate iPhone. *** Learn more Buy Apple Intelligence 1 A18 Pro chip with 6-core GPU Camera Control Pro camera system Our most advanced 48MP Fusion camer"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Neuf jours avant le gel du patch-set, la page vers laquelle l'URL de la fiche redirige depuis le 2024-09-10 présente la gamme iPhone 16 Pro et la puce A18 Pro, et ne contient plus la chaîne « A17 Pro » nulle part, ni dans le texte visible ni dans le HTML brut. Les deux assertions positives servent de témoin : la page est bien rendue, ce n'est pas un défaut d'archivage."
+        },
+        {
+          "timestamp": "20260702040507",
+          "role": "apres",
+          "role_preuve": "absence",
+          "url": "https://www.apple.com/iphone/",
+          "statut": "200",
+          "statut_declare_non_confirme": true,
+          "caracteres_html": 647724,
+          "caracteres_texte_visible": 72013,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "A17 Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 15 Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 17 Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "& Home Entertainment Accessories Support 0 + Get credit toward iPhone 17, iPhone Air, or iPhone 17 Pro when you trade in an eligible smartphone. Get credit toward iPhone 17, iPhone Air, or iPh"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 2 juillet 2026, la même page cible affiche la gamme iPhone 17 Pro et ne contient ni « A17 Pro » ni « iPhone 15 Pro » : l'objet n'est jamais revenu."
+        }
+      ],
+      "observation_remarquable": "La moitié iPhone 14 Pro de la tâche avait déjà perdu sa page produit le jour du gel du corpus, mais l'archive ne permet pas d'aller jusqu'à dire que la tâche était irréalisable. Ce qui est mesuré : sur https://www.apple.com/iphone-14-pro/, la fenêtre du 2023-10-01 au 2025-01-01 ne contient aucun enregistrement servi en 200, uniquement des revisites et des redirections, alors que la page était capturée plusieurs fois par jour l'année précédente ; et l'instantané 20240228001447 de https://www.apple.com/iphone/, trois jours avant le gel, liste dans sa navigation « iPhone 15 Pro / iPhone 15 / iPhone 14 / iPhone 13 / iPhone SE / Compare » sans l'iPhone 14 Pro, dont le nom ne subsiste que dans une note technique sur les tailles d'écran. Ce qui l'empêche de conclure : le dernier élément de cette navigation, « Compare », mène à https://www.apple.com/iphone/compare/, dont l'instantané 20240229082121, trois jours avant le gel, contient encore quatre fois « iPhone 14 Pro », dont deux colonnes de comparaison. Le modèle restait donc comparable sur le site. Mais cette page n'expose ni prix ni puce dans son HTML archivé (zéro occurrence de « A16 Bionic », zéro de « $999 ») : les deux grandeurs que l'énoncé demande y sont injectées en JavaScript et ne s'archivent pas. L'archive établit donc que la fiche produit avait disparu six mois avant le gel du corpus, et laisse ouverte la question de savoir si la tâche restait exécutable par la page de comparaison.",
+      "notes": "La fiche boutique de l'iPhone 15 Pro compte 394 instantanés 200 de septembre 2023 au 2024-09-09 08:18, un 301 le 2024-09-09 22:33 (jour du keynote iPhone 16), puis plus aucun instantané jusqu'en 2026. Deux de ses instantanés (20240229072955 et 20240301020752) ne se rejouent pas : l'archive y sert sa propre page d'erreur (« This snapshot cannot be displayed due to an internal error »), désormais refusée par le cache de l'outil, défaut de rejeu et non disparition. La généralisation initiale de l'explorateur, selon laquelle aucune assertion ne serait opposable sur cette URL, était fausse : l'instantané 20240220001111 se rejoue parfaitement, et c'est elle qui porte le prix. La fiche marketing cesse d'être servie en 200 le 2024-09-09 et redirige à partir du 2024-09-10 (instantané 20240910112455, statut 301) : redirection citée ici comme signal daté, jamais comme preuve, conformément au protocole. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités.",
+      "portee_de_la_preuve": "L'archive atteste que la fiche existait et annonçait sa puce, et que la page d'achat affichait le prix ; elle n'atteste pas que la page marketing affichait un prix, qui y est injecté en JavaScript et ne s'archive pas. Elle n'atteste pas non plus l'arrêt de la vente : ce qui est observé est l'arrêt du service de la page, pas une décision commerciale.",
+      "inventaire_cdx": {
+        "echantillonnage": "un instantane par mois (collapse=timestamp:6)",
+        "nb_instantanes_echantillon": 38,
+        "premier": "20230330214049",
+        "dernier": "20260812042430",
+        "statuts": [
+          "-",
+          "200",
+          "301",
+          "404"
+        ],
+        "par_annee": {
+          "2023": 6,
+          "2024": 12,
+          "2025": 12,
+          "2026": 8
+        },
+        "instantanes_pris_sur_une_autre_url": [
+          "https://www.apple.com/iphone/",
+          "https://www.apple.com/shop/buy-iphone/iphone-15-pro"
+        ]
+      },
+      "controles_complementaires": [
+        {
+          "question": "L'iPhone 14 Pro, seconde moitié de la tâche, était-il encore vendu au gel du corpus ? Combien d'instantanés de sa fiche répondent 200 après octobre 2023 ?",
+          "url": "https://www.apple.com/iphone-14-pro/",
+          "fenetre": [
+            "20231001",
+            "20250101"
+          ],
+          "nb_instantanes": 155,
+          "distribution_des_statuts": {
+            "-": 125,
+            "301": 30
+          },
+          "note": "Aucun filtre n'est applique : filtrer sur statuscode ecarte silencieusement les enregistrements de revisite, dont la colonne vaut « - », et un compteur filtre a zero ne se distingue pas d'une URL jamais exploree.",
+          "premiers": [
+            "20231001105628 -",
+            "20231006192325 -",
+            "20231006195111 -",
+            "20231007184456 -",
+            "20231008120016 -"
+          ],
+          "derniers": [
+            "20241207032325 -",
+            "20241213050103 301",
+            "20241226141953 301"
+          ]
+        }
+      ],
+      "statut_web_vivant_du_jour": "301",
+      "redirection_web_vivant": "https://www.apple.com/iphone/",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240302, absent au 20250627, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Apple--20",
+      "site": "Apple",
+      "enonce": "Check the price for an Apple iPhone 14 Plus with 256GB storage in Purple color.",
+      "motif_praticien": "This phone is no longer sold",
+      "groupe": "A",
+      "url_canonique": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "comment_trouvee": "La page d'achat unique couvrait les deux tailles, iPhone 14 et iPhone 14 Plus : c'est la seule URL où la configuration exacte demandée par l'énoncé (6,7 pouces, 256 Go, violet) est sélectionnable et chiffrée. Vérifiée sur l'instantané du 2024-03-01, qui contient le lien de configuration /shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240301072801",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 1047401,
+          "caracteres_texte_visible": 282520,
+          "page_close": false,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 14 and iPhone 14 Plus",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Buy iPhone 14 and iPhone 14 Plus - Apple Apple Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessor"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "/shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "<div class=\"item equalize-capacity-button-height \">\n<a href=\"https://www.apple.com/shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked\"   data-slot-name=\"productSelection\"  data-display-name=\"AOS: home/shop_iphone/family/iph"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "<span class=\"current_price\">$929.00</span>",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "<span class=\"price\">\n                                    <span class=\"current_price\">$929.00</span>"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "\"name\":\"iPhone 14 Plus 256GB Purple\"",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "14 Plus 512GB Starlight\"},{\"sku\":\"MQ403\",\"price\":{\"fullPrice\":929.00},\"category\":\"iphone\",\"name\":\"iPhone 14 Plus 256GB Purple\"},{\"sku\":\"MQ463\",\"price\":{\"fullPrice\":1129.00},\"category\":\"iphone\",\"name\":\"iPhone 14 Plus"
+            }
+          ],
+          "etat": "present",
+          "preuve": "La veille du gel du corpus, la page d'achat porte la configuration exacte de l'énoncé : le lien /shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked, le prix rendu côté serveur dans <span class=\"current_price\">$929.00</span>, et l'entrée de catalogue « iPhone 14 Plus 256GB Purple ». Les deux premières assertions sont indépendantes du bloc analytique, ce qui distingue un prix affiché d'une simple donnée de mesure d'audience."
+        },
+        {
+          "timestamp": "20250201195551",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 1574918,
+          "caracteres_texte_visible": 35635,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 14 and iPhone 14 Plus",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Buy iPhone 14 and iPhone 14 Plus - Apple Apple Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessor"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "\"price\":{\"fullPrice\":829.00},\"category\":\"iphone\",\"name\":\"iPhone 14 Plus 256GB Purple\"",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "hone\",\"name\":\"iPhone 14 Plus 256GB (PRODUCT)RED\"},{\"sku\":\"MQ403\",\"partNumber\":\"MQ403LL/A\",\"price\":{\"fullPrice\":829.00},\"category\":\"iphone\",\"name\":\"iPhone 14 Plus 256GB Purple\"},{\"sku\":\"MQ473\",\"partNumber\":\"MQ473LL/A\",\"price\":{\"fullPrice\":1029.00},\"category\":\"iphone"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 1er février 2025, cinq mois après la sortie de l'iPhone 16, la page d'achat existe toujours et la configuration visée y est encore chiffrée, à 829,00 $ contre 929,00 $ un an plus tôt."
+        },
+        {
+          "timestamp": "20250308094351",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "301",
+          "caracteres_html": 531806,
+          "caracteres_texte_visible": 54159,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Shop iPhone",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "o iPhone 16 iPhone 16e New iPhone 15 Compare AirPods AirTag Accessories Apple Card iOS 18 Shop iPhone Get credit toward iPhone 16 or iPhone 16 Pro when you trade in an eligible smartphone. Ge"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 16 Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "tore Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support 0 + iPhone 16 Pro iPhone 16 iPhone 16e New iPhone 15 Compare AirPods AirTag Accessories Apple Card iOS 18 S"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 14 Plus",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "iPhone 14 Plus",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 8 mars 2025, quatre mois avant le gel du patch-set, l'URL ne sert plus la page d'achat mais la page de catalogue iPhone, complète (54 159 caractères de texte visible, page close par </html>), où « iPhone 14 Plus » n'apparaît nulle part, ni en texte ni en HTML brut. La disparition est donc encadrée entre le 2025-02-01 et le 2025-03-08, soit 120 jours avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20260604015526",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "301",
+          "caracteres_html": 650933,
+          "caracteres_texte_visible": 71312,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Shop iPhone",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "oward iPhone 17, iPhone Air, or iPhone 17 Pro when you trade in an eligible smartphone. * Shop iPhone Get credit when you trade in your current smartphone Get credit toward iPhone 17, iPhone"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 14 Plus",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "iPhone 14 Plus",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 4 juin 2026, même redirection vers le catalogue, toujours sans aucune trace de l'iPhone 14 Plus."
+        }
+      ],
+      "notes": "Piège d'archivage rencontré, et ce n'est pas celui qu'on attendait : c'est l'instantané de PRÉSENCE qui est tronqué. Le corps servi pour 20240301072801 fait exactement 1 048 576 octets (2^20), soit 1 047 401 caractères après décodage ; il s'arrête au milieu d'un JSON, sans </body> ni </html>, et laisse une balise <script> ouverte (window.PRODUCT_SELECTION_BOOTSTRAP) qui gonfle artificiellement le texte visible à 282 520 caractères. La troncature est ici sans conséquence : elle ne porte que sur une preuve de présence, monotone par nature - une chaîne trouvée dans un corps tronqué y est réellement, et l'entrée de catalogue visée se situe à l'offset 21 099, très en amont de la coupure. Elle aurait été fatale sur un instantané d'absence. Les deux instantanés d'absence sont sains : 790 747 et 650 933 caractères de HTML, clos par </html>, avec canonical vers apple.com/iphone/. La date de bascule se lit dans l'inventaire : la page d'achat est servie en 200 jusqu'au 2025-02-01 et répond 301 à chaque passage ensuite (2025-03-08, 2025-04-21, 2025-05-12, 2025-06-10, 2025-07-07). Le premier instantané d'absence retenu était initialement celui du 2025-07-07, soit le lendemain du gel du patch-set : la fenêtre de disparition enjambait alors la date même qu'il s'agissait d'encadrer, et il a été remplacé par celui du 2025-03-08. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités.",
+      "inventaire_cdx": {
+        "echantillonnage": "un instantane par mois (collapse=timestamp:6)",
+        "nb_instantanes_echantillon": 39,
+        "premier": "20230101105335",
+        "dernier": "20260604015526",
+        "statuts": [
+          "200",
+          "301"
+        ],
+        "par_annee": {
+          "2023": 12,
+          "2024": 12,
+          "2025": 12,
+          "2026": 3
+        }
+      },
+      "statut_web_vivant_du_jour": "301",
+      "redirection_web_vivant": "https://www.apple.com/iphone",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240301, absent au 20250308, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Apple--41",
+      "site": "Apple",
+      "enonce": "How much does it cost to buy an ipad mini with 64GB storage and Wi-Fi + Cellular connectivity? (no engraving, no apple pencil, no smart folio, no apple trade-in).",
+      "motif_praticien": "These are no longer sold with 64GB of storage, 128 GB is the minimum",
+      "groupe": "A",
+      "url_canonique": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "comment_trouvee": "URL d'achat de l'iPad mini, inchangée sur toute la période : c'est le cas où l'objet qui disparaît n'est pas la page mais une option à l'intérieur de la page. L'URL n'a donc jamais eu à être cherchée ailleurs ; ce qui est testé, c'est son contenu.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240301073927",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 677616,
+          "caracteres_texte_visible": 18908,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "64 GB",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Footnote 1 Pink Wi-Fi Every iPad can connect to Wi‑Fi, so you can stay connected. $649.00 64 GB Footnote 1 Pink Wi-Fi Every iPad can connect to Wi‑Fi, so you can stay connected. $499.00"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "64GB",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "k\"},{\"sku\":\"MLWL3\",\"price\":{\"fullPrice\":499.00},\"category\":\"ipad\",\"name\":\"iPad mini Wi‑Fi 64GB - Pink\"},{\"sku\":\"MK7R3\",\"price\":{\"fullPrice\":499.00},\"category\":\"ipad\",\"name\":\"iPad mini"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "nnected. $649.00 Storage. Choose how much space you’ll need. 256 GB Footnote 1 Space Gray Wi-Fi + Cellular Wi-Fi + Cellular lets you connect when Wi-Fi isn’t available. $799.00 64 GB Footnote 1 Sp"
+            }
+          ],
+          "etat": "present",
+          "preuve": "La veille du gel du corpus, la page d'achat propose l'option « 64 GB » en texte visible et la porte 34 fois dans son HTML brut sous la forme collée, casse ignorée : 8 « 64GB » et 26 « 64gb », ces derniers étant des identifiants de configuration, avec la connectivité « Wi-Fi + Cellular » demandée par l'énoncé. Le texte de l'époque donne la réponse exacte attendue : 64 GB en Wi-Fi + Cellular à 649,00 $."
+        },
+        {
+          "timestamp": "20241203105450",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 709694,
+          "caracteres_texte_visible": 20630,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Entertainment Accessories Support 0 + New Buy iPad mini Finish. Pick your favorite color. 128 GB Footnote 1 Purple Wi-Fi Every iPad can connect to Wi‑Fi, so you can stay connected. $499."
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "y connected. $799.00 Storage. Choose how much space you’ll need. 512 GB Footnote 1 Purple Wi-Fi + Cellular Wi-Fi + Cellular lets you connect when Wi-Fi isn’t available. $949.00 128 GB Footnote 1 P"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 3 décembre 2024, après la sortie de l'iPad mini A17 Pro, la même page ne contient plus aucune occurrence de « 64 GB » ni de « 64GB », ni en texte visible ni en HTML brut, alors qu'elle propose « 128 GB » et « Wi-Fi + Cellular ». L'option a disparu, la page non."
+        },
+        {
+          "timestamp": "20250702035148",
+          "role": "proche_patch",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 707409,
+          "caracteres_texte_visible": 21261,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ome Entertainment Accessories Support 0 + Buy iPad mini Finish. Pick your favorite color. 128 GB Footnote 1 Purple Wi-Fi Every iPad can connect to Wi‑Fi, so you can stay connected. $499."
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "y connected. $799.00 Storage. Choose how much space you’ll need. 512 GB Footnote 1 Purple Wi-Fi + Cellular Wi-Fi + Cellular lets you connect when Wi-Fi isn’t available. $949.00 128 GB Footnote 1 P"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Quatre jours avant le gel du patch-set, même constat sur une page plus fournie encore que celle de 2024 (21 261 caractères de texte visible contre 18 908) : l'absence n'est pas un effet de couverture."
+        },
+        {
+          "timestamp": "20260801030851",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 1066574,
+          "caracteres_texte_visible": 37239,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "V & Home Entertainment Accessories Support 0 + Shop iPad mini Finish. Pick your favorite. 128 GB Footnote 2 Purple Wi-Fi Every iPad can connect to Wi‑Fi, so you can stay connected. Conne"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "rrier later. $899.00 Storage. Choose how much space you’ll need. 512 GB Footnote 2 Purple Wi-Fi + Cellular Wi-Fi + Cellular lets you connect when Wi-Fi isn’t available. Connect to any carrier late"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 1er août 2026, l'option n'est jamais revenue et le plancher reste 128 GB."
+        }
+      ],
+      "notes": "Le piège 3 est ici retourné en argument : les trois instantanés d'absence ont un texte visible PLUS fourni que l'instantané de présence (20 630, 21 261 et 37 239 caractères contre 18 908), tous clos par </html>. L'absence de l'option ne peut donc pas s'expliquer par une page mal archivée. Le contrôle typographique a été fait sur le HTML brut en couvrant les variantes 64GB, 64 GB, 64&nbsp;GB, 64&#160;GB, 64&#xa0;GB et 64-GB : zéro occurrence aux trois instantanés d'absence, 34 à l'instantané de présence, casse ignorée. Une observation initiale de l'explorateur, selon laquelle « la page écrit 64 GB avec une espace, jamais 64GB », est vraie du texte visible et fausse du HTML brut ; c'est la raison pour laquelle les deux portées sont testées. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités.",
+      "inventaire_cdx": {
+        "echantillonnage": "un instantane par mois (collapse=timestamp:6)",
+        "nb_instantanes_echantillon": 44,
+        "premier": "20230105015237",
+        "dernier": "20260801030851",
+        "statuts": [
+          "200"
+        ],
+        "par_annee": {
+          "2023": 12,
+          "2024": 12,
+          "2025": 12,
+          "2026": 8
+        }
+      },
+      "statut_web_vivant_du_jour": "200",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240301, absent au 20241203, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "GitHub--29",
+      "site": "GitHub",
+      "enonce": "Compare the maximum number of private repositories allowed in the Free and Pro plans in GitHub Pricing.",
+      "motif_praticien": "GitHub Pro does not exist anymore - only teams",
+      "groupe": "A",
+      "url_canonique": "https://github.com/pricing",
+      "comment_trouvee": "URL de la page de tarifs, citée telle quelle par l'énoncé et inchangée sur toute la période. Le regroupement de l'inventaire est mensuel et non par empreinte : la page change trop souvent, et un inventaire par empreinte sature son plafond dès février 2023, ce qui produirait un rapport où la couverture s'arrête avant les instantanés cités.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240302013458",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "statut_declare_non_confirme": true,
+          "caracteres_html": 503654,
+          "caracteres_texte_visible": 36493,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "more Frequently asked questions Subscriptions & Payments What are the differences between GitHub Free, GitHub Pro, GitHub Team, and GitHub Enterprise plans? GitHub Free is our basic plan created for individuals and s"
+            },
+            {
+              "type": "contient",
+              "chaine": "GitHub Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ly asked questions Subscriptions & Payments What are the differences between GitHub Free, GitHub Pro, GitHub Team, and GitHub Enterprise plans? GitHub Free is our basic plan created for indi"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "asics for individuals and organizations $ 0 per month $ 0 per month forever Join for free Unlimited public/private repositories Host open source projects in public GitHub repositories, accessible via web or command li"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le jour du gel du corpus, le nom « GitHub Pro » figure sur la page de tarifs, mais uniquement dans le bloc FAQ (3 occurrences en texte visible, 6 en HTML brut avec le JSON-LD FAQPage) : la page n'affiche que trois cartes, Free à 0 $, Team à 4 $ par utilisateur et par mois, Enterprise à 21 $."
+        },
+        {
+          "timestamp": "20250401000904",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 587662,
+          "caracteres_texte_visible": 36453,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "more Frequently asked questions Subscriptions & Payments What are the differences between GitHub Free, GitHub Pro, GitHub Team, and GitHub Enterprise plans? GitHub Free is our basic plan created for individuals and s"
+            },
+            {
+              "type": "contient",
+              "chaine": "GitHub Pro",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ly asked questions Subscriptions & Payments What are the differences between GitHub Free, GitHub Pro, GitHub Team, and GitHub Enterprise plans? GitHub Free is our basic plan created for indi"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r individuals and organizations $ 0 USD per month $ 0 USD per month forever Join for free Unlimited public/private repositories Host open source projects in public GitHub repositories, accessible via web or command li"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 1er avril 2025, le bloc FAQ est intact et « GitHub Pro » y figure encore trois fois dans un texte visible de 36 453 caractères."
+        },
+        {
+          "timestamp": "20250501001243",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 585786,
+          "caracteres_texte_visible": 25174,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "GitHub Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r individuals and organizations $ 0 USD per month $ 0 USD per month forever Join for free Unlimited public/private repositories Host open source projects in public GitHub repositories, accessible via web or command li"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Un mois plus tard, le bloc FAQ a disparu et le nom avec lui : zéro occurrence de « GitHub Pro » en texte visible comme en HTML brut, zéro JSON-LD FAQPage, texte visible tombé de 36 453 à 25 174 caractères, page close par </html> et pied de page complet. La disparition est donc encadrée entre le 2025-04-01 et le 2025-05-01, soit 66 jours avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20260801004222",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 720676,
+          "caracteres_texte_visible": 32589,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "GitHub Pro",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r individuals and organizations $ 0 USD per month $ 0 USD per month forever Join for free Unlimited public/private repositories Host open source projects in public GitHub repositories, accessible via web or command li"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 1er août 2026, le nom n'est jamais revenu sur la page de tarifs."
+        }
+      ],
+      "observation_remarquable": "La tâche demandait de comparer « the maximum number of private repositories allowed in the Free and Pro plans ». Or, dès le gel du corpus, la page de tarifs n'affichait ni carte ni colonne « Pro » : le nom n'y survivait que dans la FAQ, et la ligne « Private repositories » du tableau comparatif valait « Unlimited » pour les trois plans affichés. La comparaison demandée était donc déjà sans objet le 2024-03-02, avant même la disparition mesurée ici. Comme pour Apple--2, le motif du praticien vise juste sur le fond et date mal : ce qui a disparu en avril-mai 2025, c'est la dernière mention du nom, pas la comparabilité, qui manquait dès l'origine.",
+      "notes": "Contrôle anti-piège : les instantanés de 2025-07 et 2026-08 portent une centaine de marqueurs « Uh oh! There was an error while loading », signes de fragments chargés dynamiquement et non archivés ; le bloc FAQ n'en fait pas partie, puisque l'instantané du 2025-05-01 n'en porte aucun et que la FAQ y a déjà disparu. Les cinq instantanés se terminent par </html> avec un pied de page complet, contenu qui en 2024 venait après le bloc FAQ : une troncature est exclue. Un argument de datation fondé sur la chute de taille CDX (70 716 puis 61 459 octets) a été écarté parce qu'il était faux : ces nombres sont des longueurs d'enregistrement WARC compressé, et le HTML décompressé a en réalité augmenté sur la période (543 853 puis 585 786 caractères).",
+      "portee_de_la_preuve": "Ce qui est attesté est la disparition du nom de plan de la page de tarifs, non l'arrêt commercial du produit GitHub Pro.",
+      "inventaire_cdx": {
+        "echantillonnage": "un instantane par mois (collapse=timestamp:6)",
+        "nb_instantanes_echantillon": 44,
+        "premier": "20230101011634",
+        "dernier": "20260801004222",
+        "statuts": [
+          "200"
+        ],
+        "par_annee": {
+          "2023": 12,
+          "2024": 12,
+          "2025": 12,
+          "2026": 8
+        }
+      },
+      "statut_web_vivant_du_jour": "200",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240302, absent au 20250501, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Huggingface--10",
+      "site": "Huggingface",
+      "enonce": "Open space: argilla/notux-chat-ui and interact with it by asking it 'which team trained you'. What is its answer.",
+      "motif_praticien": "argilla/notux-chat-ui no longer exists",
+      "groupe": "A",
+      "url_canonique": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "comment_trouvee": "L'énoncé nomme l'espace, l'URL s'en déduit sans ambiguïté : c'est le seul cas du lot où l'objet et l'adresse coïncident exactement.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240109013001",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 30982,
+          "caracteres_texte_visible": 2595,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Notux Chat - a Hugging Face Space by argilla",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Notux Chat - a Hugging Face Space by argilla {{#each messages}}{{#ifUser}}[INST] {{#if @first}}{{#if @root.preprompt}}{{@root.prepromp"
+            },
+            {
+              "type": "contient",
+              "chaine": "Running on",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "er\"> Spaces Duplicated from huggingchat/chat-ui-template argilla / notux-chat-ui like 126 Running on cpu upgrade App Files Files Community 2"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 9 janvier 2024, l'espace est servi sous son titre « Notux Chat - a Hugging Face Space by argilla » et affiche son bandeau d'exécution « Running on » : il était là, et il tournait, sept semaines avant le gel du corpus."
+        },
+        {
+          "timestamp": "20241217044004",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "401",
+          "caracteres_html": 17221,
+          "caracteres_texte_visible": 383,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Sorry, we can't find the page you are looking for",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Face Hugging Face Models Datasets Spaces Posts Docs Enterprise Pricing Log In Sign Up 404 Sorry, we can't find the page you are looking for. Website Models Datasets Spaces Tasks Inference Endpoints HuggingChat Company About Brand"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Running on",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "a Hugging Face Space by argilla",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 17 décembre 2024, la même adresse renvoie une page 404 complète (en-tête, menu, message d'erreur, pied de page ; 17 221 caractères de HTML pour 383 de texte visible) : « Sorry, we can't find the page you are looking for ». Ni bandeau d'exécution ni en-tête d'espace. Le titre et l'adresse subsistent dans les balises canonical et og:url, d'où des assertions portant sur des marqueurs d'espace vivant et non sur le nom."
+        }
+      ],
+      "notes": "Contrôle du blocage-robot, indispensable pour ne pas confondre un refus de service avec une suppression : une requête CDX par préfixe sur huggingface.co/spaces/argilla* entre novembre 2024 et mars 2025 renvoie 28 captures, toutes en 200 (argilla-template-space, finepersonas, synthetic-data-generator, tulu3-awesome-datasets, argilla-theme) sauf notux-chat-ui, seule en 401 le 2024-12-17. Le robot obtenait donc des réponses normales sur le même domaine à 48 heures d'écart : le 401 est propre à cet espace. L'inventaire de l'URL ne compte que trois instantanés en tout (2024-01-03, 2024-01-09, 2024-12-17), ce qui interdit d'encadrer la disparition plus finement que « entre janvier et décembre 2024 » ; elle reste antérieure au gel du patch-set. Un chiffre de 6 362 octets avancé pour écarter le piège d'archivage a été corrigé : c'est la longueur de l'enregistrement WARC compressé, la page décompressée fait 17 221 caractères.",
+      "portee_de_la_preuve": "Hugging Face renvoie le même couple statut 401 et corps 404 pour un dépôt supprimé, rendu privé ou passé en accès restreint. Ce qui est attesté est que l'espace n'était plus accessible publiquement, pas qu'il a été effacé.",
+      "inventaire_cdx": {
+        "echantillonnage": "collapse=digest",
+        "nb_instantanes_echantillon": 3,
+        "premier": "20240103090604",
+        "dernier": "20241217044004",
+        "statuts": [
+          "200",
+          "401"
+        ],
+        "par_annee": {
+          "2024": 3
+        }
+      },
+      "statut_web_vivant_du_jour": "401",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240109, absent au 20241217, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Huggingface--21",
+      "site": "Huggingface",
+      "enonce": "Look up the tour about how to use the 'pipeline' feature in the Hugging Face Transformers library for sentiment analysis, and identify the default model it uses.",
+      "motif_praticien": "No longer exists in docs",
+      "groupe": "A",
+      "url_canonique": "https://huggingface.co/docs/transformers/quicktour",
+      "comment_trouvee": "Le « tour » de l'énoncé désigne la page Quick tour de la documentation Transformers, seule page de la doc à porter à la fois l'exemple pipeline(\"sentiment-analysis\") et le lien vers le modèle par défaut. Vérifiée sur l'instantané de janvier 2024 avant d'être retenue.",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240121123236",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 298501,
+          "caracteres_texte_visible": 24327,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "sentiment-analysis",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ntifier Text classification assign a label to a given sequence of text NLP pipeline(task=“sentiment-analysis”) Text generation generate text given a prompt NLP pipeline(task=“text-generation”) Summa"
+            },
+            {
+              "type": "contient",
+              "chaine": "Quick tour",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Quick tour Hugging Face Models Datasets Spaces Posts Docs Solutions Pricing Log In Sign Up Transform"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "s.pipeline\">pipeline()</a> downloads and caches a default <a href=\"https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english\" rel=\"nofollow\">pretrained model</a> and tokenizer for sentiment analysis. Now you can us"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Six semaines avant le gel du corpus, la page Quick tour porte l'exemple pipeline(\"sentiment-analysis\") et nomme le modèle par défaut : la phrase « The pipeline() downloads and caches a default pretrained model and tokenizer for sentiment analysis » lie « pretrained model » vers distilbert-base-uncased-finetuned-sst-2-english. Les deux moitiés de la tâche sont donc répondables."
+        },
+        {
+          "timestamp": "20250226174337",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 337173,
+          "caracteres_texte_visible": 26959,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "sentiment-analysis",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ntifier Text classification assign a label to a given sequence of text NLP pipeline(task=“sentiment-analysis”) Text generation generate text given a prompt NLP pipeline(task=“text-generation”) Summa"
+            },
+            {
+              "type": "contient",
+              "chaine": "default pretrained model",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "e >>> classifier = pipeline( \"sentiment-analysis\" ) The pipeline() downloads and caches a default pretrained model and tokenizer for sentiment analysis. Now you can use the classifier on your target text:"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": ">pipeline()</a> downloads and caches a default <a href=\"https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english\" rel=\"nofollow\">pretrained model</a> and tokenizer for sentiment analysis. Now you can us"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 26 février 2025, la page est inchangée sur ce point : même exemple, même lien vers le modèle par défaut, sous sa forme désormais nommée distilbert/distilbert-base-uncased-finetuned-sst-2-english."
+        },
+        {
+          "timestamp": "20250330001337",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 185143,
+          "caracteres_texte_visible": 11283,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment-analysis",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment analysis",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "from transformers import pipeline",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "automatic speech recognition Set device=\"cuda\" to accelerate inference with a GPU. Copied from transformers import pipeline pipeline = pipeline( \"text-generation\" , model= \"meta-llama/Llama-2-7b-hf\" , device= \"cud"
+            },
+            {
+              "type": "contient",
+              "chaine": "Update on GitHub",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "to train and inference with a model for a specific task? Check out the task recipes! < > Update on GitHub ← Installation Loading models → Quickstart Set up Pretrained models Pipeline Trainer Tens"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 30 mars 2025, plus de trois mois avant le gel du patch-set, la page a été réécrite sous le titre « Quickstart » : ni « sentiment-analysis », ni « sentiment analysis », ni le nom du modèle par défaut, y compris dans les liens du HTML brut. Les deux témoins montrent que la page est bien là et archivée jusqu'à son pied de page : pipeline y est toujours enseigné, mais plus pour l'analyse de sentiment."
+        },
+        {
+          "timestamp": "20260812050734",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 265505,
+          "caracteres_texte_visible": 11417,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment-analysis",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "from transformers import pipeline",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "on Use Accelerator to automatically detect an available accelerator for inference. Copied from transformers import pipeline from accelerate import Accelerator device = Accelerator().device pipeline = pipeline( \"te"
+            },
+            {
+              "type": "contient",
+              "chaine": "Transformers documentation",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "Enterprise Support Inference Providers Inference Endpoints Storage Buckets Log In Sign Up Transformers documentation Quickstart Transformers 🏡 View all docs AWS Trainium & Inferentia Accelerate Argilla Auto"
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 12 août 2026, l'état est stable : l'exemple et le modèle par défaut n'ont pas été rétablis."
+        }
+      ],
+      "notes": "Ce cas a produit le seul faux positif d'analyse de la campagne, et il a fallu la contre-expertise pour le voir. L'explorateur avait conclu que la page « n'avait jamais nommé » le modèle par défaut et en tirait un vice de conception d'origine ; c'était un artefact de l'outil, dont les assertions négatives portaient alors sur le texte visible, d'où les attributs href sont retirés. Le modèle était bien nommé, comme cible du lien « pretrained model ». L'outil a été corrigé (ajout d'un négatif sur le HTML brut) et l'affirmation supprimée : elle aurait été une erreur factuelle publiée. La réécriture est encadrée par l'inventaire entre le 2025-03-06 et le 2025-03-30, et l'instantané du 2025-03-30 la confirme par le contenu.",
+      "portee_de_la_preuve": "L'objet a disparu du chemin par défaut de la documentation. Hugging Face conserve des documentations versionnées figées (/docs/transformers/v4.37.0/en/quicktour), où l'ancien contenu subsiste : ce qui est attesté est la disparition de l'adresse que la tâche visait, pas du texte lui-même.",
+      "inventaire_cdx": {
+        "echantillonnage": "collapse=digest",
+        "nb_instantanes_echantillon": 80,
+        "premier": "20230131171210",
+        "dernier": "20260812050734",
+        "statuts": [
+          "200",
+          "301"
+        ],
+        "par_annee": {
+          "2023": 13,
+          "2024": 21,
+          "2025": 24,
+          "2026": 22
+        }
+      },
+      "statut_web_vivant_du_jour": "200",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240121, absent au 20250330, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Huggingface--22",
+      "site": "Huggingface",
+      "enonce": "Identify the steps to convert a PyTorch model to TensorFlow using the Hugging Face Transformers library as described in their documentation.",
+      "motif_praticien": "Does not exist in docs",
+      "groupe": "A",
+      "url_canonique": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "comment_trouvee": "La page de la documentation Transformers décrivant la conversion PyTorch vers TensorFlow a été identifiée depuis l'index de la doc dans un instantané de janvier 2024, et non devinée : c'est add_tensorflow_model, seule page à porter la phrase « the procedure to convert PyTorch into TensorFlow model weights ».",
+      "instantanes_cites": [
+        {
+          "timestamp": "20240121123213",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 192647,
+          "caracteres_texte_visible": 22840,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "“modeling_tf”, it means that it has a corresponding TensorFlow architecture ( example ). Step-by-step guide to add TensorFlow model architecture code There are many ways to design a large model architecture, and multiple ways of implementi"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r of this guide, you will learn what’s needed to add a new TensorFlow model architecture, the procedure to convert PyTorch into TensorFlow model weights, and how to efficiently debug mismatches across ML frameworks. Let’s get started! Are you"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Six semaines avant le gel du corpus, le guide est servi en entier (192 647 caractères de HTML, 22 840 de texte visible) et annonce « the procedure to convert PyTorch into TensorFlow model weights », exactement ce que l'énoncé demande d'identifier."
+        },
+        {
+          "timestamp": "20240504033534",
+          "role": "intermediaire",
+          "role_preuve": "presence",
+          "statut": "200",
+          "caracteres_html": 200074,
+          "caracteres_texte_visible": 23353,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "“modeling_tf”, it means that it has a corresponding TensorFlow architecture ( example ). Step-by-step guide to add TensorFlow model architecture code There are many ways to design a large model architecture, and multiple ways of implementi"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r of this guide, you will learn what’s needed to add a new TensorFlow model architecture, the procedure to convert PyTorch into TensorFlow model weights, and how to efficiently debug mismatches across ML frameworks. Let’s get started! Are you"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Le 4 mai 2024, le guide est toujours servi à la même adresse et dans le même état (200 074 caractères de HTML)."
+        },
+        {
+          "timestamp": "20250321001413",
+          "role": "contre_observation",
+          "role_preuve": "presence",
+          "url": "https://huggingface.co/docs/transformers/main/en/add_tensorflow_model",
+          "statut": "200",
+          "statut_declare_non_confirme": true,
+          "caracteres_html": 184556,
+          "caracteres_texte_visible": 21200,
+          "page_close": true,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "“modeling_tf”, it means that it has a corresponding TensorFlow architecture ( example ). Step-by-step guide to add TensorFlow model architecture code There are many ways to design a large model architecture, and multiple ways of implementi"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "r of this guide, you will learn what’s needed to add a new TensorFlow model architecture, the procedure to convert PyTorch into TensorFlow model weights, and how to efficiently debug mismatches across ML frameworks. Let’s get started! Are you"
+            }
+          ],
+          "etat": "present",
+          "preuve": "Observation citée parce qu'elle affaiblit le dossier : le 21 mars 2025, le guide était encore servi en entier sur le chemin /main/en/ de la documentation, celui-là même que la page de repli désigne. La disparition porte sur l'adresse visée par la tâche, pas sur le texte, qui vivait encore ailleurs dans la doc trois mois avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20250615095358",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 228,
+          "caracteres_texte_visible": 166,
+          "page_close": false,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "The documentation page ADD_TENSORFLOW_MODEL",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "The documentation page ADD_TENSORFLOW_MODEL doesn’t exist in v4.52.3, but exists on the main version. Click here to redirect to the m"
+            },
+            {
+              "type": "contient",
+              "chaine": "but exists on the main version",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "The documentation page ADD_TENSORFLOW_MODEL doesn’t exist in v4.52.3, but exists on the main version. Click here to redirect to the main version of the documentation."
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 15 juin 2025, trois semaines avant le gel du patch-set, l'adresse ne sert plus qu'une coquille de 228 caractères : « The documentation page ADD_TENSORFLOW_MODEL doesn't exist in v4.52.3, but exists on the main version. Click here to redirect to the main version of the documentation. » Le guide a quitté la version publiée par défaut."
+        },
+        {
+          "timestamp": "20260320083225",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "caracteres_html": 227,
+          "caracteres_texte_visible": 165,
+          "page_close": false,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "The documentation page ADD_TENSORFLOW_MODEL",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "The documentation page ADD_TENSORFLOW_MODEL doesn't exist in v5.3.0, but exists on the main version. Click here to redirect to the ma"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "etat": "absent",
+          "preuve": "Le 20 mars 2026, l'adresse sert toujours la même coquille de 227 caractères."
+        }
+      ],
+      "notes": "Les instantanés d'absence ne font que 228 et 227 caractères, ce qui ressemble à une capture ratée mais n'en est pas une : c'est la taille réelle d'une coquille de redirection côté client, dont le texte est intégral et explicite. La preuve est citée en entier, y compris sa seconde moitié, qui renvoie vers le chemin main - la couper aurait fait dire à la page l'inverse de ce qu'elle dit. Les tailles annoncées en première lecture (32 481 et 948 octets) étaient des longueurs d'enregistrement WARC compressé, remplacées ici par les tailles mesurées après décompression.",
+      "portee_de_la_preuve": "Ce qui est attesté est que l'adresse visée par la tâche ne sert plus le guide depuis au plus tard le 2025-06-15. Le texte lui-même était encore servi sur le chemin /main/en/ le 2025-03-21, et la couverture de l'URL canonique présente un trou de treize mois entre mai 2024 et juin 2025 : la disparition n'est donc datable qu'à l'intérieur de cet intervalle.",
+      "inventaire_cdx": {
+        "echantillonnage": "collapse=digest",
+        "nb_instantanes_echantillon": 15,
+        "premier": "20230131171234",
+        "dernier": "20260320083225",
+        "statuts": [
+          "200"
+        ],
+        "par_annee": {
+          "2023": 8,
+          "2024": 4,
+          "2025": 1,
+          "2026": 2
+        },
+        "instantanes_pris_sur_une_autre_url": [
+          "https://huggingface.co/docs/transformers/main/en/add_tensorflow_model"
+        ]
+      },
+      "statut_web_vivant_du_jour": "200",
+      "verdict": "CONFIRMEE",
+      "raison": "present au 20240504, absent au 20250615, et plus aucune presence observee ensuite"
+    },
+    {
+      "id": "Allrecipes--3",
+      "site": "Allrecipes",
+      "enonce": "Locate a recipe for vegan chocolate chip cookies with over 60 reviews and a rating of at least 4.5 stars on Allrecipes.",
+      "motif_praticien": "DNE",
+      "groupe": "B",
+      "url_canonique": null,
+      "comment_trouvee": null,
+      "instantanes_cites": [],
+      "raison_non_verifiable": "L'énoncé ne nomme aucune recette : il pose un prédicat (cookies végans aux pépites de chocolat, plus de 60 avis, au moins 4,5 étoiles) dont la solution est l'élément de l'index Allrecipes qui satisfait les seuils au moment de l'exécution, donc aucune URL ne peut la porter. La seule page à URL stable traitant exactement ce sujet, la galerie éditoriale /gallery/vegan-chocolate-chip-cookie-recipes/, n'a aucun instantané entre 2023 et 2026. Et la page de collection végane la mieux archivée (instantané 20240409034739, 385 784 caractères de HTML) n'encode la note que par des glyphes SVG icon-star et icon-star-half, sans aucune valeur numérique (zéro occurrence de ratingValue, zéro de aggregateRating) : une carte à quatre étoiles pleines et une demie ne distingue pas 4,3 de 4,7, et le compteur affiché à côté est libellé « Ratings », pas un nombre d'avis.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/gallery/vegan-chocolate-chip-cookie-recipes/ - galerie éditoriale existant sur le web vivant, 0 instantané au CDX 2023-2026 : l'objection tombe faute de couverture, et 0 instantané ne prouve pas l'absence de la page",
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - 27 instantanés de 2023-01 à 2026-02 ; instantané 20240409034739 : cartes avec étoiles en SVG et compteur « N Ratings », aucune valeur numérique de note, aucune durée, aucune liste d'ingrédients",
+        "https://www.allrecipes.com/recipes/17137/everyday-cooking/vegan/desserts/cookies/ - 0 instantané : URL construite par analogie qui n'existe pas, rappel du risque à fabriquer une adresse plausible"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "La page de collection végane la mieux archivée encode-t-elle la note sous une forme numérique exploitable ?",
+          "timestamp": "20240409034739",
+          "url": "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+          "caracteres_html": 385784,
+          "caracteres_texte_visible": 6160,
+          "assertions": [
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "ratingValue",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "aggregateRating",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient_html",
+              "chaine": "icon-star",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "42 4 12 4ZM12.5 17H11V11L16.25 7.85L17 9.08L12.5 11.75V17Z\"/></svg> </symbol>\n<symbol id=\"icon-star\">\n<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" c"
+            },
+            {
+              "type": "contient",
+              "chaine": "Ratings",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "runch Vegan Thanksgiving Vegetarian Recipes View Homemade Vegan Cheese with Cranberries 3 Ratings Cultured Cashew Cream Cheese Green Beans with Olives and Tomatoes 1 Rating What would you"
+            }
+          ],
+          "comptages": {
+            "liens_recette": {
+              "occurrences": 120,
+              "distincts": 60
+            },
+            "occurrences_ratingValue": {
+              "occurrences": 0,
+              "distincts": 0
+            }
+          }
+        }
+      ],
+      "verdict": "NON_VERIFIABLE",
+      "raison": "L'énoncé ne nomme aucune recette : il pose un prédicat (cookies végans aux pépites de chocolat, plus de 60 avis, au moins 4,5 étoiles) dont la solution est l'élément de l'index Allrecipes qui satisfait les seuils au moment de l'exécution, donc aucune URL ne peut la porter. La seule page à URL stable traitant exactement ce sujet, la galerie éditoriale /gallery/vegan-chocolate-chip-cookie-recipes/, n'a aucun instantané entre 2023 et 2026. Et la page de collection végane la mieux archivée (instantané 20240409034739, 385 784 caractères de HTML) n'encode la note que par des glyphes SVG icon-star et icon-star-half, sans aucune valeur numérique (zéro occurrence de ratingValue, zéro de aggregateRating) : une carte à quatre étoiles pleines et une demie ne distingue pas 4,3 de 4,7, et le compteur affiché à côté est libellé « Ratings », pas un nombre d'avis.",
+      "portee_du_verdict": "NON_VERIFIABLE qualifie l'enonce, il n'est pas derive d'une observation : aucune URL stable ne peut porter la reponse. Les observations d'appui ci-dessus sont rejouees par le script et etayent cette qualification sans la produire."
+    },
+    {
+      "id": "Allrecipes--16",
+      "site": "Allrecipes",
+      "enonce": "Find a five-star rated chocolate chip cookie recipe that takes less than 1 hour to make on Allrecipes. Note how many reviews the recipe has and the main ingredients required.",
+      "motif_praticien": "DNE",
+      "groupe": "B",
+      "url_canonique": null,
+      "comment_trouvee": null,
+      "instantanes_cites": [],
+      "raison_non_verifiable": "La tâche désigne un élément quelconque d'un ensemble filtré par note et par durée, jamais une page nommée. Les deux critères sont absents des seules pages à URL stable qui listent des candidats : dans l'instantané 20240205121204 de la collection végane, la chaîne « Prep Time » est absente du texte visible et aucune carte ne porte de durée ni de liste d'ingrédients, et la note n'existe qu'en glyphes, si bien que « five-star » ne se distingue pas de 4,75. La page de collection archivée n'expose par ailleurs que 60 cartes alors qu'elle annonce elle-même « more than 1,940 real-people-tested vegan recipes » : l'ensemble sur lequel porte le prédicat n'est même pas énuméré par l'archive.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantané 20240409034739 : 60 liens /recipe/ archivés pour une collection annoncée à plus de 1 940 recettes, le reste derrière une pagination côté client non archivée",
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - instantané 20240205121204 : « Prep Time » absent du texte visible, cartes limitées à un titre, des étoiles et « N Ratings »",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 (200, 170 437 caractères) : conteneur search-results présent, zéro lien de résultat, l'archive ne rejoue pas une recherche"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Les cartes d'une collection archivée portent-elles une durée de préparation ?",
+          "timestamp": "20240205121204",
+          "url": "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/",
+          "caracteres_html": 395545,
+          "caracteres_texte_visible": 5767,
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Prep Time",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "more than 580 trusted vegan main dish recipes",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "ryday Cooking Vegan Vegan Main Dishes Looking for vegan main dish recipes? Allrecipes has more than 580 trusted vegan main dish recipes complete with ratings, reviews and serving tips. Creamy Vegan Baked Pasta with Brussels S"
+            }
+          ],
+          "comptages": {
+            "liens_recette": {
+              "occurrences": 120,
+              "distincts": 60
+            }
+          }
+        }
+      ],
+      "verdict": "NON_VERIFIABLE",
+      "raison": "La tâche désigne un élément quelconque d'un ensemble filtré par note et par durée, jamais une page nommée. Les deux critères sont absents des seules pages à URL stable qui listent des candidats : dans l'instantané 20240205121204 de la collection végane, la chaîne « Prep Time » est absente du texte visible et aucune carte ne porte de durée ni de liste d'ingrédients, et la note n'existe qu'en glyphes, si bien que « five-star » ne se distingue pas de 4,75. La page de collection archivée n'expose par ailleurs que 60 cartes alors qu'elle annonce elle-même « more than 1,940 real-people-tested vegan recipes » : l'ensemble sur lequel porte le prédicat n'est même pas énuméré par l'archive.",
+      "portee_du_verdict": "NON_VERIFIABLE qualifie l'enonce, il n'est pas derive d'une observation : aucune URL stable ne peut porter la reponse. Les observations d'appui ci-dessus sont rejouees par le script et etayent cette qualification sans la produire."
+    },
+    {
+      "id": "Allrecipes--19",
+      "site": "Allrecipes",
+      "enonce": "Find a vegan lasagna recipe on Allrecipes that requires 10 ingredients or less and has feedback of more than 200 reviews. Provide a brief overview of the ingredient list and the total prep and cook time.",
+      "motif_praticien": "DNE",
+      "groupe": "B",
+      "url_canonique": null,
+      "comment_trouvee": null,
+      "instantanes_cites": [],
+      "raison_non_verifiable": "L'énoncé ne nomme pas de lasagne : il demande celle qui, dans l'index Allrecipes, tient sous dix ingrédients et dépasse 200 avis, quantités lisibles ni sur une page de collection ni à une date fixe. L'objection la plus sérieuse a été testée : la collection /recipes/1661/everyday-cooking/vegan/main-dishes/ est bien archivée et son instantané du 20240205121204, le plus proche du gel du corpus, contient exactement une lasagne, /recipe/14069/vegan-lasagna-i/, dont la carte porte quatre étoiles et une demie et « 193 Ratings » - ni nombre d'ingrédients, ni temps de préparation, ni nombre d'avis, qu'Allrecipes distingue explicitement des notes sur la page recette (194 notes pour 151 avis).",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - 18 instantanés ; 20240205121204 : 60 cartes pour « more than 580 trusted vegan main dish recipes », une seule lasagne",
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantanés 20240409034739 et 20250624230857 : compteurs dérivant d'un passage à l'autre (Vegan Brownies 961 puis 963, Arrabbiata Sauce 478 puis 482, Air Fryer Roasted Okra 25 puis 31)",
+        "https://www.allrecipes.com/recipe/14069/vegan-lasagna-i/ - page recette existante, mais que l'énoncé ne nomme pas : la désigner reviendrait à fabriquer la réponse"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "La carte de la seule lasagne végane archivée porte-t-elle un nombre d'avis, ou un nombre de notes ? Le mot « Reviews » figure ailleurs dans la page, dans la navigation du site : l'assertion porte donc sur le compteur de la carte.",
+          "timestamp": "20240205121204",
+          "url": "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/",
+          "caracteres_html": 395545,
+          "caracteres_texte_visible": 5767,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "193 Ratings",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "er Tabbouleh 110 Ratings Vegetable Masala 92 Ratings Aloo Gobi 68 Ratings Vegan Lasagna I 193 Ratings Air Fryer Falafel 5 Ratings Blueberry Smoothie Bowl 23 Ratings Reduced-Calorie Chocolate"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "/recipe/14069/vegan-lasagna-i/",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "/aloo-gobi/\"\n}\n,\n{\n\"@type\": \"ListItem\"\n,\"position\": 53\n,\"url\": \"https://www.allrecipes.com/recipe/14069/vegan-lasagna-i/\"\n}\n,\n{\n\"@type\": \"ListItem\"\n,\"position\": 54\n,\"url\": \"https://www.allrecipes.com/recipe/267"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "193 Reviews",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            },
+            {
+              "type": "contient",
+              "chaine": "Ratings",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "dish recipes? Allrecipes has more than 580 trusted vegan main dish recipes complete with ratings, reviews and serving tips. Creamy Vegan Baked Pasta with Brussels Sprouts 3 Ratings Cocon"
+            }
+          ],
+          "comptages": {
+            "occurrences_Ratings": {
+              "occurrences": 65,
+              "distincts": 2
+            },
+            "occurrences_Reviews": {
+              "occurrences": 13,
+              "distincts": 2
+            }
+          }
+        }
+      ],
+      "verdict": "NON_VERIFIABLE",
+      "raison": "L'énoncé ne nomme pas de lasagne : il demande celle qui, dans l'index Allrecipes, tient sous dix ingrédients et dépasse 200 avis, quantités lisibles ni sur une page de collection ni à une date fixe. L'objection la plus sérieuse a été testée : la collection /recipes/1661/everyday-cooking/vegan/main-dishes/ est bien archivée et son instantané du 20240205121204, le plus proche du gel du corpus, contient exactement une lasagne, /recipe/14069/vegan-lasagna-i/, dont la carte porte quatre étoiles et une demie et « 193 Ratings » - ni nombre d'ingrédients, ni temps de préparation, ni nombre d'avis, qu'Allrecipes distingue explicitement des notes sur la page recette (194 notes pour 151 avis).",
+      "portee_du_verdict": "NON_VERIFIABLE qualifie l'enonce, il n'est pas derive d'une observation : aucune URL stable ne peut porter la reponse. Les observations d'appui ci-dessus sont rejouees par le script et etayent cette qualification sans la produire."
+    },
+    {
+      "id": "Allrecipes--23",
+      "site": "Allrecipes",
+      "enonce": "Search Allrecipes for a baked lemon chicken recipe that has a prep time under 45 minutes, with at least a 4.5-star rating based on user reviews, and over 200 reviews. List the primary ingredients required.",
+      "motif_praticien": "DNE",
+      "groupe": "B",
+      "url_canonique": null,
+      "comment_trouvee": null,
+      "instantanes_cites": [],
+      "raison_non_verifiable": "Le prédicat croise cinq dimensions (cuisson au four, citron, poulet, préparation sous 45 minutes, note d'au moins 4,5, plus de 200 avis) qu'aucune page éditoriale d'Allrecipes ne réunit sous une URL : il ne se résout qu'en interrogeant le moteur du site, c'est-à-dire une fonctionnalité, et la Wayback Machine archive des pages. Observation directe : sur les URL de recherche, les instantanés 2023-2026 sont presque tous des requêtes de spam répondues en 404, les anciennes formes /search/default.aspx répondent 301 ou 405, et le seul instantané exploitable de la fenêtre, 20230731134054 (200, 170 437 caractères), contient bien le titre « Search Results For » et le conteneur search-results mais zéro lien de résultat - la liste est injectée côté client et n'a pas survécu à l'archivage.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/search* - requête CDX par préfixe : formes héritées /search/default.aspx en 301, 404 ou 405 ; un seul 200 sur /search nu (20230101102519)",
+        "https://www.allrecipes.com/search?q=* - requête CDX par préfixe : quasiment que des requêtes de spam en 404 en 2025-2026, aucune requête culinaire dans la fenêtre utile",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 : « Search Results For » présent, conteneur de résultats vide"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Une page de résultats de recherche archivée contient-elle ses résultats ?",
+          "timestamp": "20230731134054",
+          "url": "https://www.allrecipes.com/search?q=%22salt+water%22",
+          "caracteres_html": 170437,
+          "caracteres_texte_visible": 3761,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Search Results For",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "nner Fix Sweet Spot In the Kitchen About Us Allstars How to Add a Recipe GET THE MAGAZINE Search Results For Search Clear Search the site GO Please fill out this field. Saved! View All Saved Items H"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "search-results",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "er\" role=\"none\" tabindex=\"-1\" src=\"about:blank\" aria-hidden=\"true\"></iframe>\n<section id=\"search-results__hero-search_1-0\" class=\"comp search-results__hero-search hero-search\">\n<div class=\"hero-"
+            }
+          ],
+          "comptages": {
+            "liens_recette": {
+              "occurrences": 1,
+              "distincts": 1
+            }
+          }
+        }
+      ],
+      "verdict": "NON_VERIFIABLE",
+      "raison": "Le prédicat croise cinq dimensions (cuisson au four, citron, poulet, préparation sous 45 minutes, note d'au moins 4,5, plus de 200 avis) qu'aucune page éditoriale d'Allrecipes ne réunit sous une URL : il ne se résout qu'en interrogeant le moteur du site, c'est-à-dire une fonctionnalité, et la Wayback Machine archive des pages. Observation directe : sur les URL de recherche, les instantanés 2023-2026 sont presque tous des requêtes de spam répondues en 404, les anciennes formes /search/default.aspx répondent 301 ou 405, et le seul instantané exploitable de la fenêtre, 20230731134054 (200, 170 437 caractères), contient bien le titre « Search Results For » et le conteneur search-results mais zéro lien de résultat - la liste est injectée côté client et n'a pas survécu à l'archivage.",
+      "portee_du_verdict": "NON_VERIFIABLE qualifie l'enonce, il n'est pas derive d'une observation : aucune URL stable ne peut porter la reponse. Les observations d'appui ci-dessus sont rejouees par le script et etayent cette qualification sans la produire."
+    },
+    {
+      "id": "Allrecipes--30",
+      "site": "Allrecipes",
+      "enonce": "Find a recipe for a vegan smoothie bowl on Allrecipes that includes bananas and leaves, has more than 20 reviews, and a rating of at least 4 stars. Provide a list of ingredients, preparation time, and a summary of the recipe steps.",
+      "motif_praticien": "DNE",
+      "groupe": "B",
+      "url_canonique": null,
+      "comment_trouvee": null,
+      "instantanes_cites": [],
+      "raison_non_verifiable": "La réponse est une page recette que l'énoncé ne nomme pas et qui n'est désignable qu'après avoir filtré l'index sur des critères portant, pour deux d'entre eux, sur le contenu de la liste d'ingrédients. Or aucune carte de collection archivée ne porte d'ingrédients : dans l'instantané 20240409034739, la carte se réduit à un titre, une suite de glyphes d'étoiles et un compteur « N Ratings », et « Prep Time » est absent des pages de collection testées. Le seuil « plus de 20 avis » est de surcroît mobile : entre le 20240409 et le 20250624, les compteurs des mêmes cartes ont bougé (Air Fryer Roasted Okra 25 puis 31), donc un instantané ne date que lui-même.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantanés 20240409034739 et 20250624230857 : cartes sans ingrédients ni durée, note en glyphes SVG, compteur mobile",
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - instantané 20240205121204 : « Prep Time » absent, aucune liste d'ingrédients",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 : la seule page de recherche servie en 200 dans la fenêtre ne contient aucun résultat"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Le nombre d'avis affiché sur une carte est-il stable dans le temps ?",
+          "timestamp": "20250624230857",
+          "url": "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+          "caracteres_html": 492595,
+          "caracteres_texte_visible": 6346,
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "963 Ratings",
+              "trouve": true,
+              "satisfaite": true,
+              "extrait": "82 Ratings Quick Pasta Sauce 129 Ratings Air Fryer Roasted Okra 31 Ratings Vegan Brownies 963 Ratings World's Greatest Vegetable Broth 138 Ratings Easy Quinoa Salad 1,523 Ratings Bread and Bu"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "ratingValue",
+              "trouve": false,
+              "satisfaite": true,
+              "extrait": null
+            }
+          ],
+          "comptages": {
+            "liens_recette": {
+              "occurrences": 112,
+              "distincts": 58
+            }
+          }
+        }
+      ],
+      "verdict": "NON_VERIFIABLE",
+      "raison": "La réponse est une page recette que l'énoncé ne nomme pas et qui n'est désignable qu'après avoir filtré l'index sur des critères portant, pour deux d'entre eux, sur le contenu de la liste d'ingrédients. Or aucune carte de collection archivée ne porte d'ingrédients : dans l'instantané 20240409034739, la carte se réduit à un titre, une suite de glyphes d'étoiles et un compteur « N Ratings », et « Prep Time » est absent des pages de collection testées. Le seuil « plus de 20 avis » est de surcroît mobile : entre le 20240409 et le 20250624, les compteurs des mêmes cartes ont bougé (Air Fryer Roasted Okra 25 puis 31), donc un instantané ne date que lui-même.",
+      "portee_du_verdict": "NON_VERIFIABLE qualifie l'enonce, il n'est pas derive d'une observation : aucune URL stable ne peut porter la reponse. Les observations d'appui ci-dessus sont rejouees par le script et etayent cette qualification sans la produire."
+    }
+  ],
+  "journal_requetes": [
+    {
+      "t": "2026-08-18T19:04:45+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=github.com%2Fpricing&from=2024&to=2024&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=10&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1169,
+      "duree_s": 6.4,
+      "erreur": null,
+      "budget_apres": 1
+    },
+    {
+      "t": "2026-08-18T19:04:59+00:00",
+      "url": "https://web.archive.org/web/20240302000000id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 63351,
+      "duree_s": 10.61,
+      "erreur": null,
+      "budget_apres": 2
+    },
+    {
+      "t": "2026-08-18T19:09:35+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fargilla%2Fnotux-chat-ui&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 473,
+      "duree_s": 3.54,
+      "erreur": null,
+      "budget_apres": 3,
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:09:39+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgithub.com%2Fpricing&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 44069,
+      "duree_s": 3.64,
+      "erreur": null,
+      "budget_apres": 4,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:09:42+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftransformers%2Fquicktour&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 10765,
+      "duree_s": 1.35,
+      "erreur": null,
+      "budget_apres": 5,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:09:41+00:00",
+      "url": "https://www.allrecipes.com/recipes/1227/desserts/cookies/chocolate-chip-cookies/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:42+00:00",
+      "url": "https://www.allrecipes.com/recipes/17137/everyday-cooking/vegan/desserts/cookies/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:43+00:00",
+      "url": "https://www.allrecipes.com/recipes/16090/everyday-cooking/vegan/main-dishes/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:43+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:09:49+00:00",
+      "url": "https://www.allrecipes.com/recipes/1227/desserts/cookies/chocolate-chip-cookies",
+      "source": "web_vivant",
+      "statut": "404",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:49+00:00",
+      "url": "https://www.allrecipes.com/recipes/17137/everyday-cooking/vegan/desserts/cookies",
+      "source": "web_vivant",
+      "statut": "404",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:49+00:00",
+      "url": "https://www.allrecipes.com/recipes/16090/everyday-cooking/vegan/main-dishes",
+      "source": "web_vivant",
+      "statut": "404",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:50+00:00",
+      "url": "https://www.allrecipes.com/recipes/99999/this-does-not-exist",
+      "source": "web_vivant",
+      "statut": "404",
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:09:57+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-ipad%2Fipad-mini&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 51669,
+      "duree_s": 14.24,
+      "erreur": null,
+      "budget_apres": 6,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:10:00+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-14&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 52756,
+      "duree_s": 2.29,
+      "erreur": null,
+      "budget_apres": 7,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:10:09+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-15-pro&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 54423,
+      "duree_s": 7.71,
+      "erreur": null,
+      "budget_apres": 8,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:10:16+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftransformers%2Findex&from=2024&to=2024&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=12",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1624,
+      "duree_s": 6.44,
+      "erreur": null,
+      "budget_apres": 9,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:10:28+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fargilla%2Fnotux-chat-ui&from=2025&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 10.67,
+      "erreur": null,
+      "budget_apres": 10,
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:10:35+00:00",
+      "url": "https://web.archive.org/web/20240121123236id_/https://huggingface.co/docs/transformers/quicktour",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 298786,
+      "duree_s": 6.43,
+      "erreur": null,
+      "budget_apres": 11,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:11:21+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Frecipes%2F17137%2Feveryday-cooking%2Fvegan%2Fdesserts%2Fcookies%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 44.97,
+      "erreur": null,
+      "budget_apres": 12,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:11:51+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgithub.com%2Fpricing&from=20240201&to=20240331&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=40&collapse=timestamp%3A8",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4469,
+      "duree_s": 28.61,
+      "erreur": null,
+      "budget_apres": 13,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:12:04+00:00",
+      "url": "https://web.archive.org/web/20240125211946id_/https://huggingface.co/docs/transformers/index",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 193449,
+      "duree_s": 11.55,
+      "erreur": null,
+      "budget_apres": 14,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:12:10+00:00",
+      "url": "https://web.archive.org/web/20241217044004id_/https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "reseau",
+      "statut": 401,
+      "octets": 17227,
+      "duree_s": 5.97,
+      "erreur": null,
+      "budget_apres": 15,
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:12:18+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-ipad%2Fipad-mini&from=2024&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=200&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4213,
+      "duree_s": 6.64,
+      "erreur": null,
+      "budget_apres": 16,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:12:20+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-15-pro&from=2024&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=80",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 10942,
+      "duree_s": 1.16,
+      "erreur": null,
+      "budget_apres": 17,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:12:31+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-14&from=20240101&to=20261231&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=100&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3527,
+      "duree_s": 9.34,
+      "erreur": null,
+      "budget_apres": 18,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:12:38+00:00",
+      "url": "https://web.archive.org/web/20250725170506id_/https://huggingface.co/docs/transformers/quicktour",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 195605,
+      "duree_s": 6.31,
+      "erreur": null,
+      "budget_apres": 19,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:12:46+00:00",
+      "url": "https://web.archive.org/web/20240302013458id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 63351,
+      "duree_s": 7.34,
+      "erreur": null,
+      "budget_apres": 20,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:12:53+00:00",
+      "url": "https://web.archive.org/web/20240109013001id_/https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 30989,
+      "duree_s": 6.1,
+      "erreur": null,
+      "budget_apres": 21,
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:12:56+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftransformers%2Fadd_tensorflow_model&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 2238,
+      "duree_s": 1.77,
+      "erreur": null,
+      "budget_apres": 22,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:13:26+00:00",
+      "url": "https://web.archive.org/web/20240301073927id_/https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 89242,
+      "duree_s": 28.36,
+      "erreur": null,
+      "budget_apres": 23,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:13:32+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-15-pro&from=20240901&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=200&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3324,
+      "duree_s": 5.31,
+      "erreur": null,
+      "budget_apres": 24,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:13:42+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Frecipes%2F1227%2Feveryday-cooking%2Fvegan%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4025,
+      "duree_s": 9.04,
+      "erreur": null,
+      "budget_apres": 25,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:13:51+00:00",
+      "url": "https://web.archive.org/web/20250226174337id_/https://huggingface.co/docs/transformers/quicktour",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 337474,
+      "duree_s": 7.83,
+      "erreur": null,
+      "budget_apres": 26,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:13:59+00:00",
+      "url": "https://web.archive.org/web/20240301072801id_/https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1048576,
+      "duree_s": 7.14,
+      "erreur": null,
+      "budget_apres": 27,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:14:06+00:00",
+      "url": "https://web.archive.org/web/20250615095358id_/https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 230,
+      "duree_s": 6.17,
+      "erreur": null,
+      "budget_apres": 28,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:14:09+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgithub.com%2Fpricing&from=20240701&to=20260831&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 2929,
+      "duree_s": 1.5,
+      "erreur": null,
+      "budget_apres": 29,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:14:21+00:00",
+      "url": "https://web.archive.org/web/20240103090604id_/https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 30805,
+      "duree_s": 11.52,
+      "erreur": null,
+      "budget_apres": 30,
+      "agent": "Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:14:56+00:00",
+      "url": "https://web.archive.org/web/20250702035148id_/https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 101815,
+      "duree_s": 33.54,
+      "erreur": null,
+      "budget_apres": 31,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:15:08+00:00",
+      "url": "https://web.archive.org/web/20240409034739id_/https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 55333,
+      "duree_s": 11.09,
+      "erreur": null,
+      "budget_apres": 32,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:15:15+00:00",
+      "url": "https://web.archive.org/web/20260812050734id_/https://huggingface.co/docs/transformers/quicktour",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 59224,
+      "duree_s": 6.63,
+      "erreur": null,
+      "budget_apres": 33,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:15:20+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-14-pro&from=20231001&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=120&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 203,
+      "duree_s": 3.75,
+      "erreur": null,
+      "budget_apres": 34,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:15:28+00:00",
+      "url": "https://web.archive.org/web/20250701010907id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 62413,
+      "duree_s": 7.37,
+      "erreur": null,
+      "budget_apres": 35,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:15:40+00:00",
+      "url": "https://web.archive.org/web/20240121123213id_/https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 193046,
+      "duree_s": 10.87,
+      "erreur": null,
+      "budget_apres": 36,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:15:52+00:00",
+      "url": "https://web.archive.org/web/20250201195551id_/https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 120457,
+      "duree_s": 10.83,
+      "erreur": null,
+      "budget_apres": 37,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:16:08+00:00",
+      "url": "https://web.archive.org/web/20241203105450id_/https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 94311,
+      "duree_s": 14.54,
+      "erreur": null,
+      "budget_apres": 38,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:16:10+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-15-pro&from=20240220&to=20240305&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=30",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4148,
+      "duree_s": 1.74,
+      "erreur": null,
+      "budget_apres": 39,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:16:13+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftransformers%2Fpipeline_tutorial&from=2023&to=2025&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=25",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3615,
+      "duree_s": 1.21,
+      "erreur": null,
+      "budget_apres": 40,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:16:38+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:16:45+00:00",
+      "url": "https://web.archive.org/web/20260320083225id_/https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 227,
+      "duree_s": 31.09,
+      "erreur": null,
+      "budget_apres": 41,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:16:54+00:00",
+      "url": "https://web.archive.org/web/20250101011831id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 68674,
+      "duree_s": 7.93,
+      "erreur": null,
+      "budget_apres": 42,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:17:01+00:00",
+      "url": "https://web.archive.org/web/20250624230857id_/https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 66215,
+      "duree_s": 6.67,
+      "erreur": null,
+      "budget_apres": 43,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:17:52+00:00",
+      "url": "https://web.archive.org/web/20260801030851id_/https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 129919,
+      "duree_s": 49.12,
+      "erreur": null,
+      "budget_apres": 44,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:18:00+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:18:03+00:00",
+      "url": "https://web.archive.org/web/20240301020752id_/https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+      "source": "reseau",
+      "statut": 500,
+      "octets": 150554,
+      "duree_s": 10.57,
+      "erreur": null,
+      "budget_apres": 45,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:18:13+00:00",
+      "url": "https://web.archive.org/web/20240120111820id_/https://huggingface.co/docs/transformers/pipeline_tutorial",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 211727,
+      "duree_s": 9.32,
+      "erreur": null,
+      "budget_apres": 46,
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:18:20+00:00",
+      "url": "https://web.archive.org/web/20240504033534id_/https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 200484,
+      "duree_s": 5.6,
+      "erreur": null,
+      "budget_apres": 47,
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:18:33+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:18:33+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:18:35+00:00",
+      "url": "https://web.archive.org/web/20260801004222id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 68228,
+      "duree_s": 13.86,
+      "erreur": null,
+      "budget_apres": 48,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:18:45+00:00",
+      "url": "https://huggingface.co/docs/transformers/main/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:19:36+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Frecipes%2F1661%2Feveryday-cooking%2Fvegan%2Fmain-dishes%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 504,
+      "octets": 160,
+      "duree_s": 60.59,
+      "erreur": null,
+      "budget_apres": 49,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:19:55+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=huggingface.co%2Fspaces%2Fargilla%2A&from=20241101&to=20250301&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=200",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4295,
+      "duree_s": 17.62,
+      "erreur": null,
+      "budget_apres": 50,
+      "agent": "refute:Huggingface--10"
+    },
+    {
+      "t": "2026-08-18T19:20:14+00:00",
+      "url": "https://web.archive.org/web/20250707115314id_/https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 791331,
+      "duree_s": 17.96,
+      "erreur": null,
+      "budget_apres": 51,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:20:39+00:00",
+      "url": "https://web.archive.org/web/20241001222927id_/https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 673044,
+      "duree_s": 24.09,
+      "erreur": null,
+      "budget_apres": 52,
+      "agent": "Apple--41"
+    },
+    {
+      "t": "2026-08-18T19:21:07+00:00",
+      "url": "https://web.archive.org/web/20240229072955id_/https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+      "source": "reseau",
+      "statut": 500,
+      "octets": 150555,
+      "duree_s": 26.67,
+      "erreur": null,
+      "budget_apres": 53,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:21:16+00:00",
+      "url": "https://web.archive.org/web/20250501001243id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 59450,
+      "duree_s": 8.02,
+      "erreur": null,
+      "budget_apres": 54,
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:21:24+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Frecipes%2F1661%2Feveryday-cooking%2Fvegan%2Fmain-dishes%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 2925,
+      "duree_s": 6.92,
+      "erreur": null,
+      "budget_apres": 55,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:21:29+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:22:03+00:00",
+      "url": "https://web.archive.org/web/20260604015526id_/https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 651427,
+      "duree_s": 38.15,
+      "erreur": null,
+      "budget_apres": 56,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:22:10+00:00",
+      "url": "https://web.archive.org/web/20250330001337id_/https://huggingface.co/docs/transformers/quicktour",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 185191,
+      "duree_s": 6.01,
+      "erreur": null,
+      "budget_apres": 57,
+      "agent": "refute:Huggingface--21"
+    },
+    {
+      "t": "2026-08-18T19:22:16+00:00",
+      "url": "https://web.archive.org/web/20240205121204id_/https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 54601,
+      "duree_s": 4.79,
+      "erreur": null,
+      "budget_apres": 58,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:22:29+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14-plus",
+      "source": "web_vivant",
+      "statut": "404",
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:22:30+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:22:30+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-15-pro%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 47854,
+      "duree_s": 13.21,
+      "erreur": null,
+      "budget_apres": 59,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:22:45+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftransformers%2Fmain%2Fen%2Fadd_tensorflow_model&from=2024&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=40&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 375,
+      "duree_s": 14.3,
+      "erreur": null,
+      "budget_apres": 60,
+      "agent": "refute:Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:22:53+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-14-plus&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 6.27,
+      "erreur": null,
+      "budget_apres": 61,
+      "agent": "Apple--20"
+    },
+    {
+      "t": "2026-08-18T19:23:04+00:00",
+      "url": "https://web.archive.org/web/20240302082256id_/https://www.apple.com/iphone-15-pro/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 563859,
+      "duree_s": 10.92,
+      "erreur": null,
+      "budget_apres": 62,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:23:18+00:00",
+      "url": "https://web.archive.org/web/20250321001413id_/https://huggingface.co/docs/transformers/main/en/add_tensorflow_model",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 184862,
+      "duree_s": 6.47,
+      "erreur": null,
+      "budget_apres": 63,
+      "agent": "refute:Huggingface--22"
+    },
+    {
+      "t": "2026-08-18T19:23:25+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Fgallery%2Fvegan-chocolate-chip-cookie-recipes%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 6.11,
+      "erreur": null,
+      "budget_apres": 64,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:23:31+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-15-pro%2F&from=20240901&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=200&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 2085,
+      "duree_s": 4.85,
+      "erreur": null,
+      "budget_apres": 65,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:23:38+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Fsearch%2A&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=40&collapse=urlkey",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 6706,
+      "duree_s": 1.55,
+      "erreur": null,
+      "budget_apres": 66,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:23:42+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:23:42+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:23:43+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14-pro",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:23:54+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.allrecipes.com%2Fsearch%3Fq%3D%2A&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=40&collapse=urlkey",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 14170,
+      "duree_s": 2.03,
+      "erreur": null,
+      "budget_apres": 67,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:24:10+00:00",
+      "url": "https://web.archive.org/web/20230731134054id_/https://www.allrecipes.com/search?q=%22salt+water%22",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 170437,
+      "duree_s": 6.61,
+      "erreur": null,
+      "budget_apres": 68,
+      "agent": "Allrecipes"
+    },
+    {
+      "t": "2026-08-18T19:24:12+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=20231001&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 2043,
+      "duree_s": 1.16,
+      "erreur": null,
+      "budget_apres": 69,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:24:19+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&from=20250620&to=20250720&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=40",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4554,
+      "duree_s": 0.84,
+      "erreur": null,
+      "budget_apres": 70,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:24:41+00:00",
+      "url": "https://web.archive.org/web/20250627000930id_/https://www.apple.com/iphone/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 790329,
+      "duree_s": 13.42,
+      "erreur": null,
+      "budget_apres": 71,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:25:46+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&from=20260701&to=20260819&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=15",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1753,
+      "duree_s": 0.73,
+      "erreur": null,
+      "budget_apres": 72,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:25:58+00:00",
+      "url": "https://web.archive.org/web/20260702040507id_/https://www.apple.com/iphone/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 648233,
+      "duree_s": 7.89,
+      "erreur": null,
+      "budget_apres": 73,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:26:16+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&from=20240228&to=20240306&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=12",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1425,
+      "duree_s": 2.89,
+      "erreur": null,
+      "budget_apres": 74,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:26:27+00:00",
+      "url": "https://web.archive.org/web/20240228001447id_/https://www.apple.com/iphone/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 234568,
+      "duree_s": 6.68,
+      "erreur": null,
+      "budget_apres": 75,
+      "agent": "Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:27:24+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgithub.com%2Fpricing&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4909,
+      "duree_s": 4.22,
+      "erreur": null,
+      "budget_apres": 76,
+      "agent": "refute:GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:27:54+00:00",
+      "url": "https://web.archive.org/web/20250401000904id_/https://github.com/pricing",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 68642,
+      "duree_s": 10.91,
+      "erreur": null,
+      "budget_apres": 77,
+      "agent": "refute:GitHub--29"
+    },
+    {
+      "t": "2026-08-18T19:31:40+00:00",
+      "url": "https://web.archive.org/web/20240220001111id_/https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1269545,
+      "duree_s": 10.94,
+      "erreur": null,
+      "budget_apres": 78,
+      "agent": "refute:Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:32:44+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "refute:Apple--2"
+    },
+    {
+      "t": "2026-08-18T19:41:56+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:56+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:57+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:58+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:58+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:58+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:41:59+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:06+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:06+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:07+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:07+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:08+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:08+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:08+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:38+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-15-pro%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4594,
+      "duree_s": 5.85,
+      "erreur": null,
+      "budget_apres": 79,
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:38+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:49+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-iphone%2Fiphone-14&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 5109,
+      "duree_s": 9.65,
+      "erreur": null,
+      "budget_apres": 80,
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:43:49+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:25+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fshop%2Fbuy-ipad%2Fipad-mini&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 5761,
+      "duree_s": 35.48,
+      "erreur": null,
+      "budget_apres": 81,
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:25+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:26+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:26+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:26+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:44:27+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:48:23+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 47760,
+      "duree_s": 13.38,
+      "erreur": null,
+      "budget_apres": 82,
+      "agent": "-"
+    },
+    {
+      "t": "2026-08-18T19:48:36+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=2023&to=2025&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4357,
+      "duree_s": 1.36,
+      "erreur": null,
+      "budget_apres": 83,
+      "agent": "verif"
+    },
+    {
+      "t": "2026-08-18T19:48:52+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=20231001&to=20250101&output=json&fl=timestamp%2Cstatuscode&filter=statuscode%3A200&limit=200",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 5.37,
+      "erreur": null,
+      "budget_apres": 84,
+      "agent": "verif"
+    },
+    {
+      "t": "2026-08-18T19:56:42+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=20231001&to=20250101&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&filter=statuscode%3A200",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 3,
+      "duree_s": 1.27,
+      "erreur": null,
+      "budget_apres": 85,
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:42+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:42+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:42+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:43+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:43+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:43+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:56:44+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:31+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:31+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:32+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:32+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:33+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:33+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:33+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:52+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:52+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:52+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:52+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:52+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:53+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:57:53+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:53+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:54+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:54+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:55+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:55+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:55+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T19:59:56+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:01:28+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.booking.com%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 403,
+      "octets": 0,
+      "duree_s": 0.69,
+      "erreur": null,
+      "budget_apres": 86,
+      "agent": "captures"
+    },
+    {
+      "t": "2026-08-18T20:02:17+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2F&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 4720,
+      "duree_s": 47.91,
+      "erreur": null,
+      "budget_apres": 87,
+      "agent": "captures"
+    },
+    {
+      "t": "2026-08-18T20:02:22+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=booking.com&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=timestamp%3A6",
+      "source": "reseau",
+      "statut": 403,
+      "octets": 0,
+      "duree_s": 0.6,
+      "erreur": null,
+      "budget_apres": 88,
+      "agent": "captures"
+    },
+    {
+      "t": "2026-08-18T20:02:38+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.booking.com%2F&from=1996&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60&collapse=timestamp%3A4",
+      "source": "reseau",
+      "statut": 403,
+      "octets": 0,
+      "duree_s": 0.73,
+      "erreur": null,
+      "budget_apres": 89,
+      "agent": "captures"
+    },
+    {
+      "t": "2026-08-18T20:03:40+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=booking.com%2F%2A&from=1996&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=60&collapse=timestamp%3A4",
+      "source": "reseau",
+      "statut": 504,
+      "octets": 160,
+      "duree_s": 60.55,
+      "erreur": null,
+      "budget_apres": 90,
+      "agent": "captures"
+    },
+    {
+      "t": "2026-08-18T20:06:18+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2Fcompare%2F&from=20240201&to=20240401&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400&collapse=digest",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 5153,
+      "duree_s": 7.37,
+      "erreur": null,
+      "budget_apres": 91,
+      "agent": "refute:surinterpretation"
+    },
+    {
+      "t": "2026-08-18T20:06:30+00:00",
+      "url": "https://web.archive.org/web/20240229082121id_/https://www.apple.com/iphone/compare/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 1402388,
+      "duree_s": 6.97,
+      "erreur": null,
+      "budget_apres": 92,
+      "agent": "refute:surinterpretation"
+    },
+    {
+      "t": "2026-08-18T20:08:01+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fargilla%2Fnotux-chat-ui&from=2023&to=2026&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 473,
+      "duree_s": 11.62,
+      "erreur": null,
+      "budget_apres": 93,
+      "agent": "refute:chiffres"
+    },
+    {
+      "t": "2026-08-18T20:08:13+00:00",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.apple.com%2Fiphone-14-pro%2F&from=20231001&to=20250101&output=json&fl=timestamp%2Cstatuscode%2Coriginal%2Cdigest%2Cmimetype%2Clength&limit=400",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 18493,
+      "duree_s": 2.16,
+      "erreur": null,
+      "budget_apres": 94,
+      "agent": "refute:methode"
+    },
+    {
+      "t": "2026-08-18T20:11:15+00:00",
+      "url": "https://web.archive.org/web/20250627000000id_/https://www.apple.com/iphone-15-pro/",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 791331,
+      "duree_s": 24.35,
+      "erreur": null,
+      "budget_apres": 95,
+      "agent": "refute:methode"
+    },
+    {
+      "t": "2026-08-18T20:19:59+00:00",
+      "url": "https://web.archive.org/web/20250308094351id_/https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "reseau",
+      "statut": 200,
+      "octets": 532232,
+      "duree_s": 19.04,
+      "erreur": null,
+      "budget_apres": 96,
+      "agent": "verif2"
+    },
+    {
+      "t": "2026-08-18T20:20:35+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:35+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:35+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:36+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:36+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:37+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:20:37+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:11+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:11+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:12+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:12+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:12+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:12+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:21:13+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:28+00:00",
+      "url": "https://www.apple.com/iphone-15-pro/",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:28+00:00",
+      "url": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "source": "web_vivant",
+      "statut": "301",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:29+00:00",
+      "url": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:29+00:00",
+      "url": "https://github.com/pricing",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:30+00:00",
+      "url": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "source": "web_vivant",
+      "statut": "401",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:30+00:00",
+      "url": "https://huggingface.co/docs/transformers/quicktour",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    },
+    {
+      "t": "2026-08-18T20:24:31+00:00",
+      "url": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "source": "web_vivant",
+      "statut": "200",
+      "agent": "run"
+    }
+  ]
+}

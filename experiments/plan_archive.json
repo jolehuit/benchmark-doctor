@@ -1,0 +1,878 @@
+{
+  "campagne": "vérification par archive des motifs de disparition Magnitude",
+  "echantillon": "liste fermée de 12 tâches WebVoyager, choisies dans le patch-set Magnitude (2025-07-06) : 7 cas à URL stable, 5 quêtes Allrecipes",
+  "sources": {
+    "motifs": "data/raw/magnitude_patches.json (magnitudedev/webvoyager, commit 87009319e1a971e170a05d26ebffcba01a2fbcd2)",
+    "enonces": "data/raw/webvoyager_original.jsonl (MinorJerry/WebVoyager, commit 091544539eba485dbd74ef3742011ddeede37336)"
+  },
+  "cas": [
+    {
+      "id": "Apple--2",
+      "groupe": "A",
+      "enonce": "Compare the prices and chips for the iPhone 14 Pro and iPhone 15 Pro models directly from Apple's website.",
+      "motif_praticien": "These phones are no longer sold and don't have prices listed anymore, can't even compare 15 pro to 16 pro to modernize the example",
+      "url_canonique": "https://www.apple.com/iphone-15-pro/",
+      "url_vivante": "https://www.apple.com/iphone-15-pro/",
+      "collapse": "timestamp:6",
+      "comment_trouvee": "Deux familles d'URL testées par modèle : la fiche marketing (apple.com/iphone-15-pro/) et la fiche boutique (apple.com/shop/buy-iphone/iphone-15-pro). La fiche boutique porte le prix, la fiche marketing porte la puce ; l'énoncé demande les deux. La fiche marketing est retenue comme canonique parce qu'elle seule porte la chaîne de disparition jusqu'en 2026 : la fiche boutique n'a plus aucun instantané entre sa redirection du 2024-09-09 et 2026, elle ne peut donc porter aucune observation d'absence. Les deux sont citées, la boutique pour le prix, la marketing pour la puce et la disparition. Précision de traçabilité : les deux observations d'absence sont prises sur la page de gamme https://www.apple.com/iphone/, cible de la redirection, et non sur l'URL canonique elle-même, qui n'a pas été rouverte après le gel.",
+      "portee_de_la_preuve": "L'archive atteste que la fiche existait et annonçait sa puce, et que la page d'achat affichait le prix ; elle n'atteste pas que la page marketing affichait un prix, qui y est injecté en JavaScript et ne s'archive pas. Elle n'atteste pas non plus l'arrêt de la vente : ce qui est observé est l'arrêt du service de la page, pas une décision commerciale.",
+      "instantanes": [
+        {
+          "timestamp": "20240220001111",
+          "url": "https://www.apple.com/shop/buy-iphone/iphone-15-pro",
+          "role": "avant_gel_prix",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 15 Pro and iPhone 15 Pro Max"
+            },
+            {
+              "type": "contient",
+              "chaine": "$999.00"
+            },
+            {
+              "type": "contient",
+              "chaine": "A17 Pro chip with 6-core GPU"
+            }
+          ],
+          "preuve": "Onze jours avant le gel du corpus, la page d'achat de l'iPhone 15 Pro est servie complète et porte, dans son texte visible, le prix « $999.00 » et la puce « A17 Pro chip with 6-core GPU » : les deux grandeurs que l'énoncé demande de comparer sont bien affichées."
+        },
+        {
+          "timestamp": "20240302082256",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "A17 Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 15 Pro and iPhone 15 Pro Max - Apple"
+            }
+          ],
+          "preuve": "Le 2 mars 2024, jour même du gel du corpus WebVoyager, la fiche marketing est encore servie sous son titre « iPhone 15 Pro and iPhone 15 Pro Max - Apple » et annonce sa puce « A17 Pro »."
+        },
+        {
+          "timestamp": "20250627000930",
+          "url": "https://www.apple.com/iphone/",
+          "role": "proche_patch",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "A17 Pro"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "A17 Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 16 Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "A18 Pro"
+            }
+          ],
+          "preuve": "Neuf jours avant le gel du patch-set, la page vers laquelle l'URL de la fiche redirige depuis le 2024-09-10 présente la gamme iPhone 16 Pro et la puce A18 Pro, et ne contient plus la chaîne « A17 Pro » nulle part, ni dans le texte visible ni dans le HTML brut. Les deux assertions positives servent de témoin : la page est bien rendue, ce n'est pas un défaut d'archivage."
+        },
+        {
+          "timestamp": "20260702040507",
+          "url": "https://www.apple.com/iphone/",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "A17 Pro"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 15 Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 17 Pro"
+            }
+          ],
+          "preuve": "Le 2 juillet 2026, la même page cible affiche la gamme iPhone 17 Pro et ne contient ni « A17 Pro » ni « iPhone 15 Pro » : l'objet n'est jamais revenu."
+        }
+      ],
+      "observation_remarquable": "La moitié iPhone 14 Pro de la tâche avait déjà perdu sa page produit le jour du gel du corpus, mais l'archive ne permet pas d'aller jusqu'à dire que la tâche était irréalisable. Ce qui est mesuré : sur https://www.apple.com/iphone-14-pro/, la fenêtre du 2023-10-01 au 2025-01-01 ne contient aucun enregistrement servi en 200, uniquement des revisites et des redirections, alors que la page était capturée plusieurs fois par jour l'année précédente ; et l'instantané 20240228001447 de https://www.apple.com/iphone/, trois jours avant le gel, liste dans sa navigation « iPhone 15 Pro / iPhone 15 / iPhone 14 / iPhone 13 / iPhone SE / Compare » sans l'iPhone 14 Pro, dont le nom ne subsiste que dans une note technique sur les tailles d'écran. Ce qui l'empêche de conclure : le dernier élément de cette navigation, « Compare », mène à https://www.apple.com/iphone/compare/, dont l'instantané 20240229082121, trois jours avant le gel, contient encore quatre fois « iPhone 14 Pro », dont deux colonnes de comparaison. Le modèle restait donc comparable sur le site. Mais cette page n'expose ni prix ni puce dans son HTML archivé (zéro occurrence de « A16 Bionic », zéro de « $999 ») : les deux grandeurs que l'énoncé demande y sont injectées en JavaScript et ne s'archivent pas. L'archive établit donc que la fiche produit avait disparu six mois avant le gel du corpus, et laisse ouverte la question de savoir si la tâche restait exécutable par la page de comparaison.",
+      "notes": "La fiche boutique de l'iPhone 15 Pro compte 394 instantanés 200 de septembre 2023 au 2024-09-09 08:18, un 301 le 2024-09-09 22:33 (jour du keynote iPhone 16), puis plus aucun instantané jusqu'en 2026. Deux de ses instantanés (20240229072955 et 20240301020752) ne se rejouent pas : l'archive y sert sa propre page d'erreur (« This snapshot cannot be displayed due to an internal error »), désormais refusée par le cache de l'outil, défaut de rejeu et non disparition. La généralisation initiale de l'explorateur, selon laquelle aucune assertion ne serait opposable sur cette URL, était fausse : l'instantané 20240220001111 se rejoue parfaitement, et c'est elle qui porte le prix. La fiche marketing cesse d'être servie en 200 le 2024-09-09 et redirige à partir du 2024-09-10 (instantané 20240910112455, statut 301) : redirection citée ici comme signal daté, jamais comme preuve, conformément au protocole. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités.",
+      "controles_complementaires": [
+        {
+          "question": "L'iPhone 14 Pro, seconde moitié de la tâche, était-il encore vendu au gel du corpus ? Combien d'instantanés de sa fiche répondent 200 après octobre 2023 ?",
+          "url": "https://www.apple.com/iphone-14-pro/",
+          "from": "20231001",
+          "to": "20250101",
+          "filter": "statuscode:200"
+        }
+      ]
+    },
+    {
+      "id": "Apple--20",
+      "groupe": "A",
+      "enonce": "Check the price for an Apple iPhone 14 Plus with 256GB storage in Purple color.",
+      "motif_praticien": "This phone is no longer sold",
+      "url_canonique": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "url_vivante": "https://www.apple.com/shop/buy-iphone/iphone-14",
+      "collapse": "timestamp:6",
+      "comment_trouvee": "La page d'achat unique couvrait les deux tailles, iPhone 14 et iPhone 14 Plus : c'est la seule URL où la configuration exacte demandée par l'énoncé (6,7 pouces, 256 Go, violet) est sélectionnable et chiffrée. Vérifiée sur l'instantané du 2024-03-01, qui contient le lien de configuration /shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked.",
+      "instantanes": [
+        {
+          "timestamp": "20240301072801",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 14 and iPhone 14 Plus"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "/shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "<span class=\"current_price\">$929.00</span>"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "\"name\":\"iPhone 14 Plus 256GB Purple\""
+            }
+          ],
+          "preuve": "La veille du gel du corpus, la page d'achat porte la configuration exacte de l'énoncé : le lien /shop/buy-iphone/iphone-14/6.7-inch-display-256gb-purple-unlocked, le prix rendu côté serveur dans <span class=\"current_price\">$929.00</span>, et l'entrée de catalogue « iPhone 14 Plus 256GB Purple ». Les deux premières assertions sont indépendantes du bloc analytique, ce qui distingue un prix affiché d'une simple donnée de mesure d'audience."
+        },
+        {
+          "timestamp": "20250201195551",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Buy iPhone 14 and iPhone 14 Plus"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "\"price\":{\"fullPrice\":829.00},\"category\":\"iphone\",\"name\":\"iPhone 14 Plus 256GB Purple\""
+            }
+          ],
+          "preuve": "Le 1er février 2025, cinq mois après la sortie de l'iPhone 16, la page d'achat existe toujours et la configuration visée y est encore chiffrée, à 829,00 $ contre 929,00 $ un an plus tôt."
+        },
+        {
+          "timestamp": "20250308094351",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "301",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Shop iPhone"
+            },
+            {
+              "type": "contient",
+              "chaine": "iPhone 16 Pro"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 14 Plus"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "iPhone 14 Plus"
+            }
+          ],
+          "preuve": "Le 8 mars 2025, quatre mois avant le gel du patch-set, l'URL ne sert plus la page d'achat mais la page de catalogue iPhone, complète (54 159 caractères de texte visible, page close par </html>), où « iPhone 14 Plus » n'apparaît nulle part, ni en texte ni en HTML brut. La disparition est donc encadrée entre le 2025-02-01 et le 2025-03-08, soit 120 jours avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20260604015526",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "301",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Shop iPhone"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "iPhone 14 Plus"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "iPhone 14 Plus"
+            }
+          ],
+          "preuve": "Le 4 juin 2026, même redirection vers le catalogue, toujours sans aucune trace de l'iPhone 14 Plus."
+        }
+      ],
+      "notes": "Piège d'archivage rencontré, et ce n'est pas celui qu'on attendait : c'est l'instantané de PRÉSENCE qui est tronqué. Le corps servi pour 20240301072801 fait exactement 1 048 576 octets (2^20), soit 1 047 401 caractères après décodage ; il s'arrête au milieu d'un JSON, sans </body> ni </html>, et laisse une balise <script> ouverte (window.PRODUCT_SELECTION_BOOTSTRAP) qui gonfle artificiellement le texte visible à 282 520 caractères. La troncature est ici sans conséquence : elle ne porte que sur une preuve de présence, monotone par nature - une chaîne trouvée dans un corps tronqué y est réellement, et l'entrée de catalogue visée se situe à l'offset 21 099, très en amont de la coupure. Elle aurait été fatale sur un instantané d'absence. Les deux instantanés d'absence sont sains : 790 747 et 650 933 caractères de HTML, clos par </html>, avec canonical vers apple.com/iphone/. La date de bascule se lit dans l'inventaire : la page d'achat est servie en 200 jusqu'au 2025-02-01 et répond 301 à chaque passage ensuite (2025-03-08, 2025-04-21, 2025-05-12, 2025-06-10, 2025-07-07). Le premier instantané d'absence retenu était initialement celui du 2025-07-07, soit le lendemain du gel du patch-set : la fenêtre de disparition enjambait alors la date même qu'il s'agissait d'encadrer, et il a été remplacé par celui du 2025-03-08. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités."
+    },
+    {
+      "id": "Apple--41",
+      "groupe": "A",
+      "enonce": "How much does it cost to buy an ipad mini with 64GB storage and Wi-Fi + Cellular connectivity? (no engraving, no apple pencil, no smart folio, no apple trade-in).",
+      "motif_praticien": "These are no longer sold with 64GB of storage, 128 GB is the minimum",
+      "url_canonique": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "url_vivante": "https://www.apple.com/shop/buy-ipad/ipad-mini",
+      "collapse": "timestamp:6",
+      "comment_trouvee": "URL d'achat de l'iPad mini, inchangée sur toute la période : c'est le cas où l'objet qui disparaît n'est pas la page mais une option à l'intérieur de la page. L'URL n'a donc jamais eu à être cherchée ailleurs ; ce qui est testé, c'est son contenu.",
+      "instantanes": [
+        {
+          "timestamp": "20240301073927",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "64 GB"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "64GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular"
+            }
+          ],
+          "preuve": "La veille du gel du corpus, la page d'achat propose l'option « 64 GB » en texte visible et la porte 34 fois dans son HTML brut sous la forme collée, casse ignorée : 8 « 64GB » et 26 « 64gb », ces derniers étant des identifiants de configuration, avec la connectivité « Wi-Fi + Cellular » demandée par l'énoncé. Le texte de l'époque donne la réponse exacte attendue : 64 GB en Wi-Fi + Cellular à 649,00 $."
+        },
+        {
+          "timestamp": "20241203105450",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular"
+            }
+          ],
+          "preuve": "Le 3 décembre 2024, après la sortie de l'iPad mini A17 Pro, la même page ne contient plus aucune occurrence de « 64 GB » ni de « 64GB », ni en texte visible ni en HTML brut, alors qu'elle propose « 128 GB » et « Wi-Fi + Cellular ». L'option a disparu, la page non."
+        },
+        {
+          "timestamp": "20250702035148",
+          "role": "proche_patch",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular"
+            }
+          ],
+          "preuve": "Quatre jours avant le gel du patch-set, même constat sur une page plus fournie encore que celle de 2024 (21 261 caractères de texte visible contre 18 908) : l'absence n'est pas un effet de couverture."
+        },
+        {
+          "timestamp": "20260801030851",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "64 GB"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "64GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "128 GB"
+            },
+            {
+              "type": "contient",
+              "chaine": "Wi-Fi + Cellular"
+            }
+          ],
+          "preuve": "Le 1er août 2026, l'option n'est jamais revenue et le plancher reste 128 GB."
+        }
+      ],
+      "notes": "Le piège 3 est ici retourné en argument : les trois instantanés d'absence ont un texte visible PLUS fourni que l'instantané de présence (20 630, 21 261 et 37 239 caractères contre 18 908), tous clos par </html>. L'absence de l'option ne peut donc pas s'expliquer par une page mal archivée. Le contrôle typographique a été fait sur le HTML brut en couvrant les variantes 64GB, 64 GB, 64&nbsp;GB, 64&#160;GB, 64&#xa0;GB et 64-GB : zéro occurrence aux trois instantanés d'absence, 34 à l'instantané de présence, casse ignorée. Une observation initiale de l'explorateur, selon laquelle « la page écrit 64 GB avec une espace, jamais 64GB », est vraie du texte visible et fausse du HTML brut ; c'est la raison pour laquelle les deux portées sont testées. L'inventaire est échantillonné à un instantané par mois : ces pages sont capturées plusieurs fois par jour et un inventaire par empreinte sature son plafond dès 2023, ce qui donnerait une couverture apparente arrêtée avant les instantanés cités."
+    },
+    {
+      "id": "GitHub--29",
+      "groupe": "A",
+      "enonce": "Compare the maximum number of private repositories allowed in the Free and Pro plans in GitHub Pricing.",
+      "motif_praticien": "GitHub Pro does not exist anymore - only teams",
+      "url_canonique": "https://github.com/pricing",
+      "url_vivante": "https://github.com/pricing",
+      "collapse": "timestamp:6",
+      "comment_trouvee": "URL de la page de tarifs, citée telle quelle par l'énoncé et inchangée sur toute la période. Le regroupement de l'inventaire est mensuel et non par empreinte : la page change trop souvent, et un inventaire par empreinte sature son plafond dès février 2023, ce qui produirait un rapport où la couverture s'arrête avant les instantanés cités.",
+      "portee_de_la_preuve": "Ce qui est attesté est la disparition du nom de plan de la page de tarifs, non l'arrêt commercial du produit GitHub Pro.",
+      "instantanes": [
+        {
+          "timestamp": "20240302013458",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team"
+            },
+            {
+              "type": "contient",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories"
+            }
+          ],
+          "preuve": "Le jour du gel du corpus, le nom « GitHub Pro » figure sur la page de tarifs, mais uniquement dans le bloc FAQ (3 occurrences en texte visible, 6 en HTML brut avec le JSON-LD FAQPage) : la page n'affiche que trois cartes, Free à 0 $, Team à 4 $ par utilisateur et par mois, Enterprise à 21 $."
+        },
+        {
+          "timestamp": "20250401000904",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team"
+            },
+            {
+              "type": "contient",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories"
+            }
+          ],
+          "preuve": "Le 1er avril 2025, le bloc FAQ est intact et « GitHub Pro » y figure encore trois fois dans un texte visible de 36 453 caractères."
+        },
+        {
+          "timestamp": "20250501001243",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Free, GitHub Pro, GitHub Team"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories"
+            }
+          ],
+          "preuve": "Un mois plus tard, le bloc FAQ a disparu et le nom avec lui : zéro occurrence de « GitHub Pro » en texte visible comme en HTML brut, zéro JSON-LD FAQPage, texte visible tombé de 36 453 à 25 174 caractères, page close par </html> et pied de page complet. La disparition est donc encadrée entre le 2025-04-01 et le 2025-05-01, soit 66 jours avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20260801004222",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "GitHub Pro"
+            },
+            {
+              "type": "contient",
+              "chaine": "Unlimited public/private repositories"
+            }
+          ],
+          "preuve": "Le 1er août 2026, le nom n'est jamais revenu sur la page de tarifs."
+        }
+      ],
+      "observation_remarquable": "La tâche demandait de comparer « the maximum number of private repositories allowed in the Free and Pro plans ». Or, dès le gel du corpus, la page de tarifs n'affichait ni carte ni colonne « Pro » : le nom n'y survivait que dans la FAQ, et la ligne « Private repositories » du tableau comparatif valait « Unlimited » pour les trois plans affichés. La comparaison demandée était donc déjà sans objet le 2024-03-02, avant même la disparition mesurée ici. Comme pour Apple--2, le motif du praticien vise juste sur le fond et date mal : ce qui a disparu en avril-mai 2025, c'est la dernière mention du nom, pas la comparabilité, qui manquait dès l'origine.",
+      "notes": "Contrôle anti-piège : les instantanés de 2025-07 et 2026-08 portent une centaine de marqueurs « Uh oh! There was an error while loading », signes de fragments chargés dynamiquement et non archivés ; le bloc FAQ n'en fait pas partie, puisque l'instantané du 2025-05-01 n'en porte aucun et que la FAQ y a déjà disparu. Les cinq instantanés se terminent par </html> avec un pied de page complet, contenu qui en 2024 venait après le bloc FAQ : une troncature est exclue. Un argument de datation fondé sur la chute de taille CDX (70 716 puis 61 459 octets) a été écarté parce qu'il était faux : ces nombres sont des longueurs d'enregistrement WARC compressé, et le HTML décompressé a en réalité augmenté sur la période (543 853 puis 585 786 caractères)."
+    },
+    {
+      "id": "Huggingface--10",
+      "groupe": "A",
+      "enonce": "Open space: argilla/notux-chat-ui and interact with it by asking it 'which team trained you'. What is its answer.",
+      "motif_praticien": "argilla/notux-chat-ui no longer exists",
+      "url_canonique": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "url_vivante": "https://huggingface.co/spaces/argilla/notux-chat-ui",
+      "collapse": "digest",
+      "comment_trouvee": "L'énoncé nomme l'espace, l'URL s'en déduit sans ambiguïté : c'est le seul cas du lot où l'objet et l'adresse coïncident exactement.",
+      "portee_de_la_preuve": "Hugging Face renvoie le même couple statut 401 et corps 404 pour un dépôt supprimé, rendu privé ou passé en accès restreint. Ce qui est attesté est que l'espace n'était plus accessible publiquement, pas qu'il a été effacé.",
+      "instantanes": [
+        {
+          "timestamp": "20240109013001",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Notux Chat - a Hugging Face Space by argilla"
+            },
+            {
+              "type": "contient",
+              "chaine": "Running on"
+            }
+          ],
+          "preuve": "Le 9 janvier 2024, l'espace est servi sous son titre « Notux Chat - a Hugging Face Space by argilla » et affiche son bandeau d'exécution « Running on » : il était là, et il tournait, sept semaines avant le gel du corpus."
+        },
+        {
+          "timestamp": "20241217044004",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "401",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Sorry, we can't find the page you are looking for"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Running on"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "a Hugging Face Space by argilla"
+            }
+          ],
+          "preuve": "Le 17 décembre 2024, la même adresse renvoie une page 404 complète (en-tête, menu, message d'erreur, pied de page ; 17 221 caractères de HTML pour 383 de texte visible) : « Sorry, we can't find the page you are looking for ». Ni bandeau d'exécution ni en-tête d'espace. Le titre et l'adresse subsistent dans les balises canonical et og:url, d'où des assertions portant sur des marqueurs d'espace vivant et non sur le nom."
+        }
+      ],
+      "notes": "Contrôle du blocage-robot, indispensable pour ne pas confondre un refus de service avec une suppression : une requête CDX par préfixe sur huggingface.co/spaces/argilla* entre novembre 2024 et mars 2025 renvoie 28 captures, toutes en 200 (argilla-template-space, finepersonas, synthetic-data-generator, tulu3-awesome-datasets, argilla-theme) sauf notux-chat-ui, seule en 401 le 2024-12-17. Le robot obtenait donc des réponses normales sur le même domaine à 48 heures d'écart : le 401 est propre à cet espace. L'inventaire de l'URL ne compte que trois instantanés en tout (2024-01-03, 2024-01-09, 2024-12-17), ce qui interdit d'encadrer la disparition plus finement que « entre janvier et décembre 2024 » ; elle reste antérieure au gel du patch-set. Un chiffre de 6 362 octets avancé pour écarter le piège d'archivage a été corrigé : c'est la longueur de l'enregistrement WARC compressé, la page décompressée fait 17 221 caractères."
+    },
+    {
+      "id": "Huggingface--21",
+      "groupe": "A",
+      "enonce": "Look up the tour about how to use the 'pipeline' feature in the Hugging Face Transformers library for sentiment analysis, and identify the default model it uses.",
+      "motif_praticien": "No longer exists in docs",
+      "url_canonique": "https://huggingface.co/docs/transformers/quicktour",
+      "url_vivante": "https://huggingface.co/docs/transformers/quicktour",
+      "collapse": "digest",
+      "comment_trouvee": "Le « tour » de l'énoncé désigne la page Quick tour de la documentation Transformers, seule page de la doc à porter à la fois l'exemple pipeline(\"sentiment-analysis\") et le lien vers le modèle par défaut. Vérifiée sur l'instantané de janvier 2024 avant d'être retenue.",
+      "portee_de_la_preuve": "L'objet a disparu du chemin par défaut de la documentation. Hugging Face conserve des documentations versionnées figées (/docs/transformers/v4.37.0/en/quicktour), où l'ancien contenu subsiste : ce qui est attesté est la disparition de l'adresse que la tâche visait, pas du texte lui-même.",
+      "instantanes": [
+        {
+          "timestamp": "20240121123236",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "sentiment-analysis"
+            },
+            {
+              "type": "contient",
+              "chaine": "Quick tour"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english"
+            }
+          ],
+          "preuve": "Six semaines avant le gel du corpus, la page Quick tour porte l'exemple pipeline(\"sentiment-analysis\") et nomme le modèle par défaut : la phrase « The pipeline() downloads and caches a default pretrained model and tokenizer for sentiment analysis » lie « pretrained model » vers distilbert-base-uncased-finetuned-sst-2-english. Les deux moitiés de la tâche sont donc répondables."
+        },
+        {
+          "timestamp": "20250226174337",
+          "role": "dernier_present",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "sentiment-analysis"
+            },
+            {
+              "type": "contient",
+              "chaine": "default pretrained model"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english"
+            }
+          ],
+          "preuve": "Le 26 février 2025, la page est inchangée sur ce point : même exemple, même lien vers le modèle par défaut, sous sa forme désormais nommée distilbert/distilbert-base-uncased-finetuned-sst-2-english."
+        },
+        {
+          "timestamp": "20250330001337",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment-analysis"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment analysis"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english"
+            },
+            {
+              "type": "contient",
+              "chaine": "from transformers import pipeline"
+            },
+            {
+              "type": "contient",
+              "chaine": "Update on GitHub"
+            }
+          ],
+          "preuve": "Le 30 mars 2025, plus de trois mois avant le gel du patch-set, la page a été réécrite sous le titre « Quickstart » : ni « sentiment-analysis », ni « sentiment analysis », ni le nom du modèle par défaut, y compris dans les liens du HTML brut. Les deux témoins montrent que la page est bien là et archivée jusqu'à son pied de page : pipeline y est toujours enseigné, mais plus pour l'analyse de sentiment."
+        },
+        {
+          "timestamp": "20260812050734",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "sentiment-analysis"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "distilbert-base-uncased-finetuned-sst-2-english"
+            },
+            {
+              "type": "contient",
+              "chaine": "from transformers import pipeline"
+            },
+            {
+              "type": "contient",
+              "chaine": "Transformers documentation"
+            }
+          ],
+          "preuve": "Le 12 août 2026, l'état est stable : l'exemple et le modèle par défaut n'ont pas été rétablis."
+        }
+      ],
+      "notes": "Ce cas a produit le seul faux positif d'analyse de la campagne, et il a fallu la contre-expertise pour le voir. L'explorateur avait conclu que la page « n'avait jamais nommé » le modèle par défaut et en tirait un vice de conception d'origine ; c'était un artefact de l'outil, dont les assertions négatives portaient alors sur le texte visible, d'où les attributs href sont retirés. Le modèle était bien nommé, comme cible du lien « pretrained model ». L'outil a été corrigé (ajout d'un négatif sur le HTML brut) et l'affirmation supprimée : elle aurait été une erreur factuelle publiée. La réécriture est encadrée par l'inventaire entre le 2025-03-06 et le 2025-03-30, et l'instantané du 2025-03-30 la confirme par le contenu."
+    },
+    {
+      "id": "Huggingface--22",
+      "groupe": "A",
+      "enonce": "Identify the steps to convert a PyTorch model to TensorFlow using the Hugging Face Transformers library as described in their documentation.",
+      "motif_praticien": "Does not exist in docs",
+      "url_canonique": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "url_vivante": "https://huggingface.co/docs/transformers/add_tensorflow_model",
+      "collapse": "digest",
+      "comment_trouvee": "La page de la documentation Transformers décrivant la conversion PyTorch vers TensorFlow a été identifiée depuis l'index de la doc dans un instantané de janvier 2024, et non devinée : c'est add_tensorflow_model, seule page à porter la phrase « the procedure to convert PyTorch into TensorFlow model weights ».",
+      "instantanes": [
+        {
+          "timestamp": "20240121123213",
+          "role": "avant_gel",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights"
+            }
+          ],
+          "preuve": "Six semaines avant le gel du corpus, le guide est servi en entier (192 647 caractères de HTML, 22 840 de texte visible) et annonce « the procedure to convert PyTorch into TensorFlow model weights », exactement ce que l'énoncé demande d'identifier."
+        },
+        {
+          "timestamp": "20240504033534",
+          "role": "intermediaire",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights"
+            }
+          ],
+          "preuve": "Le 4 mai 2024, le guide est toujours servi à la même adresse et dans le même état (200 074 caractères de HTML)."
+        },
+        {
+          "timestamp": "20250321001413",
+          "url": "https://huggingface.co/docs/transformers/main/en/add_tensorflow_model",
+          "role": "contre_observation",
+          "role_preuve": "presence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code"
+            },
+            {
+              "type": "contient",
+              "chaine": "the procedure to convert PyTorch into TensorFlow model weights"
+            }
+          ],
+          "preuve": "Observation citée parce qu'elle affaiblit le dossier : le 21 mars 2025, le guide était encore servi en entier sur le chemin /main/en/ de la documentation, celui-là même que la page de repli désigne. La disparition porte sur l'adresse visée par la tâche, pas sur le texte, qui vivait encore ailleurs dans la doc trois mois avant le gel du patch-set."
+        },
+        {
+          "timestamp": "20250615095358",
+          "role": "premier_absent",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "The documentation page ADD_TENSORFLOW_MODEL"
+            },
+            {
+              "type": "contient",
+              "chaine": "but exists on the main version"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code"
+            }
+          ],
+          "preuve": "Le 15 juin 2025, trois semaines avant le gel du patch-set, l'adresse ne sert plus qu'une coquille de 228 caractères : « The documentation page ADD_TENSORFLOW_MODEL doesn't exist in v4.52.3, but exists on the main version. Click here to redirect to the main version of the documentation. » Le guide a quitté la version publiée par défaut."
+        },
+        {
+          "timestamp": "20260320083225",
+          "role": "apres",
+          "role_preuve": "absence",
+          "statut": "200",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "The documentation page ADD_TENSORFLOW_MODEL"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Step-by-step guide to add TensorFlow model architecture code"
+            }
+          ],
+          "preuve": "Le 20 mars 2026, l'adresse sert toujours la même coquille de 227 caractères."
+        }
+      ],
+      "portee_de_la_preuve": "Ce qui est attesté est que l'adresse visée par la tâche ne sert plus le guide depuis au plus tard le 2025-06-15. Le texte lui-même était encore servi sur le chemin /main/en/ le 2025-03-21, et la couverture de l'URL canonique présente un trou de treize mois entre mai 2024 et juin 2025 : la disparition n'est donc datable qu'à l'intérieur de cet intervalle.",
+      "notes": "Les instantanés d'absence ne font que 228 et 227 caractères, ce qui ressemble à une capture ratée mais n'en est pas une : c'est la taille réelle d'une coquille de redirection côté client, dont le texte est intégral et explicite. La preuve est citée en entier, y compris sa seconde moitié, qui renvoie vers le chemin main - la couper aurait fait dire à la page l'inverse de ce qu'elle dit. Les tailles annoncées en première lecture (32 481 et 948 octets) étaient des longueurs d'enregistrement WARC compressé, remplacées ici par les tailles mesurées après décompression."
+    },
+    {
+      "id": "Allrecipes--3",
+      "groupe": "B",
+      "enonce": "Locate a recipe for vegan chocolate chip cookies with over 60 reviews and a rating of at least 4.5 stars on Allrecipes.",
+      "motif_praticien": "DNE",
+      "raison_non_verifiable": "L'énoncé ne nomme aucune recette : il pose un prédicat (cookies végans aux pépites de chocolat, plus de 60 avis, au moins 4,5 étoiles) dont la solution est l'élément de l'index Allrecipes qui satisfait les seuils au moment de l'exécution, donc aucune URL ne peut la porter. La seule page à URL stable traitant exactement ce sujet, la galerie éditoriale /gallery/vegan-chocolate-chip-cookie-recipes/, n'a aucun instantané entre 2023 et 2026. Et la page de collection végane la mieux archivée (instantané 20240409034739, 385 784 caractères de HTML) n'encode la note que par des glyphes SVG icon-star et icon-star-half, sans aucune valeur numérique (zéro occurrence de ratingValue, zéro de aggregateRating) : une carte à quatre étoiles pleines et une demie ne distingue pas 4,3 de 4,7, et le compteur affiché à côté est libellé « Ratings », pas un nombre d'avis.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/gallery/vegan-chocolate-chip-cookie-recipes/ - galerie éditoriale existant sur le web vivant, 0 instantané au CDX 2023-2026 : l'objection tombe faute de couverture, et 0 instantané ne prouve pas l'absence de la page",
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - 27 instantanés de 2023-01 à 2026-02 ; instantané 20240409034739 : cartes avec étoiles en SVG et compteur « N Ratings », aucune valeur numérique de note, aucune durée, aucune liste d'ingrédients",
+        "https://www.allrecipes.com/recipes/17137/everyday-cooking/vegan/desserts/cookies/ - 0 instantané : URL construite par analogie qui n'existe pas, rappel du risque à fabriquer une adresse plausible"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "La page de collection végane la mieux archivée encode-t-elle la note sous une forme numérique exploitable ?",
+          "timestamp": "20240409034739",
+          "url": "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+          "assertions": [
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "ratingValue"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "aggregateRating"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "icon-star"
+            },
+            {
+              "type": "contient",
+              "chaine": "Ratings"
+            }
+          ],
+          "comptages": {
+            "liens_recette": "https://www\\.allrecipes\\.com/recipe/\\d+/[a-z0-9-]+",
+            "occurrences_ratingValue": "ratingValue"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Allrecipes--16",
+      "groupe": "B",
+      "enonce": "Find a five-star rated chocolate chip cookie recipe that takes less than 1 hour to make on Allrecipes. Note how many reviews the recipe has and the main ingredients required.",
+      "motif_praticien": "DNE",
+      "raison_non_verifiable": "La tâche désigne un élément quelconque d'un ensemble filtré par note et par durée, jamais une page nommée. Les deux critères sont absents des seules pages à URL stable qui listent des candidats : dans l'instantané 20240205121204 de la collection végane, la chaîne « Prep Time » est absente du texte visible et aucune carte ne porte de durée ni de liste d'ingrédients, et la note n'existe qu'en glyphes, si bien que « five-star » ne se distingue pas de 4,75. La page de collection archivée n'expose par ailleurs que 60 cartes alors qu'elle annonce elle-même « more than 1,940 real-people-tested vegan recipes » : l'ensemble sur lequel porte le prédicat n'est même pas énuméré par l'archive.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantané 20240409034739 : 60 liens /recipe/ archivés pour une collection annoncée à plus de 1 940 recettes, le reste derrière une pagination côté client non archivée",
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - instantané 20240205121204 : « Prep Time » absent du texte visible, cartes limitées à un titre, des étoiles et « N Ratings »",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 (200, 170 437 caractères) : conteneur search-results présent, zéro lien de résultat, l'archive ne rejoue pas une recherche"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Les cartes d'une collection archivée portent-elles une durée de préparation ?",
+          "timestamp": "20240205121204",
+          "url": "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/",
+          "assertions": [
+            {
+              "type": "ne_contient_pas",
+              "chaine": "Prep Time"
+            },
+            {
+              "type": "contient",
+              "chaine": "more than 580 trusted vegan main dish recipes"
+            }
+          ],
+          "comptages": {
+            "liens_recette": "https://www\\.allrecipes\\.com/recipe/\\d+/[a-z0-9-]+"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Allrecipes--19",
+      "groupe": "B",
+      "enonce": "Find a vegan lasagna recipe on Allrecipes that requires 10 ingredients or less and has feedback of more than 200 reviews. Provide a brief overview of the ingredient list and the total prep and cook time.",
+      "motif_praticien": "DNE",
+      "raison_non_verifiable": "L'énoncé ne nomme pas de lasagne : il demande celle qui, dans l'index Allrecipes, tient sous dix ingrédients et dépasse 200 avis, quantités lisibles ni sur une page de collection ni à une date fixe. L'objection la plus sérieuse a été testée : la collection /recipes/1661/everyday-cooking/vegan/main-dishes/ est bien archivée et son instantané du 20240205121204, le plus proche du gel du corpus, contient exactement une lasagne, /recipe/14069/vegan-lasagna-i/, dont la carte porte quatre étoiles et une demie et « 193 Ratings » - ni nombre d'ingrédients, ni temps de préparation, ni nombre d'avis, qu'Allrecipes distingue explicitement des notes sur la page recette (194 notes pour 151 avis).",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - 18 instantanés ; 20240205121204 : 60 cartes pour « more than 580 trusted vegan main dish recipes », une seule lasagne",
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantanés 20240409034739 et 20250624230857 : compteurs dérivant d'un passage à l'autre (Vegan Brownies 961 puis 963, Arrabbiata Sauce 478 puis 482, Air Fryer Roasted Okra 25 puis 31)",
+        "https://www.allrecipes.com/recipe/14069/vegan-lasagna-i/ - page recette existante, mais que l'énoncé ne nomme pas : la désigner reviendrait à fabriquer la réponse"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "La carte de la seule lasagne végane archivée porte-t-elle un nombre d'avis, ou un nombre de notes ? Le mot « Reviews » figure ailleurs dans la page, dans la navigation du site : l'assertion porte donc sur le compteur de la carte.",
+          "timestamp": "20240205121204",
+          "url": "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "193 Ratings"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "/recipe/14069/vegan-lasagna-i/"
+            },
+            {
+              "type": "ne_contient_pas",
+              "chaine": "193 Reviews"
+            },
+            {
+              "type": "contient",
+              "chaine": "Ratings"
+            }
+          ],
+          "comptages": {
+            "occurrences_Ratings": "\\bRatings\\b",
+            "occurrences_Reviews": "\\bReviews\\b"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Allrecipes--23",
+      "groupe": "B",
+      "enonce": "Search Allrecipes for a baked lemon chicken recipe that has a prep time under 45 minutes, with at least a 4.5-star rating based on user reviews, and over 200 reviews. List the primary ingredients required.",
+      "motif_praticien": "DNE",
+      "raison_non_verifiable": "Le prédicat croise cinq dimensions (cuisson au four, citron, poulet, préparation sous 45 minutes, note d'au moins 4,5, plus de 200 avis) qu'aucune page éditoriale d'Allrecipes ne réunit sous une URL : il ne se résout qu'en interrogeant le moteur du site, c'est-à-dire une fonctionnalité, et la Wayback Machine archive des pages. Observation directe : sur les URL de recherche, les instantanés 2023-2026 sont presque tous des requêtes de spam répondues en 404, les anciennes formes /search/default.aspx répondent 301 ou 405, et le seul instantané exploitable de la fenêtre, 20230731134054 (200, 170 437 caractères), contient bien le titre « Search Results For » et le conteneur search-results mais zéro lien de résultat - la liste est injectée côté client et n'a pas survécu à l'archivage.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/search* - requête CDX par préfixe : formes héritées /search/default.aspx en 301, 404 ou 405 ; un seul 200 sur /search nu (20230101102519)",
+        "https://www.allrecipes.com/search?q=* - requête CDX par préfixe : quasiment que des requêtes de spam en 404 en 2025-2026, aucune requête culinaire dans la fenêtre utile",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 : « Search Results For » présent, conteneur de résultats vide"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Une page de résultats de recherche archivée contient-elle ses résultats ?",
+          "timestamp": "20230731134054",
+          "url": "https://www.allrecipes.com/search?q=%22salt+water%22",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "Search Results For"
+            },
+            {
+              "type": "contient_html",
+              "chaine": "search-results"
+            }
+          ],
+          "comptages": {
+            "liens_recette": "/recipe/\\d+/[a-z0-9-]+"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Allrecipes--30",
+      "groupe": "B",
+      "enonce": "Find a recipe for a vegan smoothie bowl on Allrecipes that includes bananas and leaves, has more than 20 reviews, and a rating of at least 4 stars. Provide a list of ingredients, preparation time, and a summary of the recipe steps.",
+      "motif_praticien": "DNE",
+      "raison_non_verifiable": "La réponse est une page recette que l'énoncé ne nomme pas et qui n'est désignable qu'après avoir filtré l'index sur des critères portant, pour deux d'entre eux, sur le contenu de la liste d'ingrédients. Or aucune carte de collection archivée ne porte d'ingrédients : dans l'instantané 20240409034739, la carte se réduit à un titre, une suite de glyphes d'étoiles et un compteur « N Ratings », et « Prep Time » est absent des pages de collection testées. Le seuil « plus de 20 avis » est de surcroît mobile : entre le 20240409 et le 20250624, les compteurs des mêmes cartes ont bougé (Air Fryer Roasted Okra 25 puis 31), donc un instantané ne date que lui-même.",
+      "urls_examinees": [
+        "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/ - instantanés 20240409034739 et 20250624230857 : cartes sans ingrédients ni durée, note en glyphes SVG, compteur mobile",
+        "https://www.allrecipes.com/recipes/1661/everyday-cooking/vegan/main-dishes/ - instantané 20240205121204 : « Prep Time » absent, aucune liste d'ingrédients",
+        "https://www.allrecipes.com/search?q=%22salt+water%22 - instantané 20230731134054 : la seule page de recherche servie en 200 dans la fenêtre ne contient aucun résultat"
+      ],
+      "observations_d_appui": [
+        {
+          "question": "Le nombre d'avis affiché sur une carte est-il stable dans le temps ?",
+          "timestamp": "20250624230857",
+          "url": "https://www.allrecipes.com/recipes/1227/everyday-cooking/vegan/",
+          "assertions": [
+            {
+              "type": "contient",
+              "chaine": "963 Ratings"
+            },
+            {
+              "type": "ne_contient_pas_html",
+              "chaine": "ratingValue"
+            }
+          ],
+          "comptages": {
+            "liens_recette": "https://www\\.allrecipes\\.com/recipe/\\d+/[a-z0-9-]+"
+          }
+        }
+      ]
+    }
+  ]
+}

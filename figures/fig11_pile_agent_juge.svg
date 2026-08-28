@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 42 1120 340" width="1120" height="340">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111"/>
+    </marker>
+  </defs>
+  <style>
+    .bx { fill:#FFFFFF; stroke:#111111; stroke-width:1.6; }
+    .bxd { fill:#FFFFFF; stroke:#111111; stroke-width:1.6; stroke-dasharray:6 5; }
+    .t1 { font:600 20px 'DejaVu Sans',Arial,sans-serif; fill:#111111; }
+    .t2 { font:400 15px 'DejaVu Sans',Arial,sans-serif; fill:#444444; }
+    .t3 { font:600 15px 'DejaVu Sans',Arial,sans-serif; fill:#111111; }
+    .cap { font:400 14px 'DejaVu Sans',Arial,sans-serif; fill:#555555; }
+    .ln { stroke:#111111; stroke-width:1.6; fill:none; }
+    .lnd { stroke:#111111; stroke-width:1.6; fill:none; stroke-dasharray:7 5; }
+  </style>
+
+  <rect class="bx" x="18" y="60" width="196" height="104" rx="4"/>
+  <text class="t1" x="116" y="100" text-anchor="middle">Écran du site</text>
+  <text class="t2" x="116" y="126" text-anchor="middle">pixels rendus</text>
+  <text class="t2" x="116" y="147" text-anchor="middle">et arbre DOM</text>
+
+  <rect class="bx" x="286" y="60" width="248" height="104" rx="4"/>
+  <text class="t1" x="410" y="100" text-anchor="middle">Encodeur visuel</text>
+  <text class="t2" x="410" y="126" text-anchor="middle">2017 : réseau convolutif</text>
+  <text class="t2" x="410" y="147" text-anchor="middle">depuis 2020 : imagettes (ViT)</text>
+
+  <rect class="bx" x="606" y="60" width="248" height="104" rx="4"/>
+  <text class="t1" x="730" y="100" text-anchor="middle">Transformer</text>
+  <text class="t2" x="730" y="126" text-anchor="middle">attention sur la séquence</text>
+  <text class="t2" x="730" y="147" text-anchor="middle">texte et image confondus</text>
+
+  <rect class="bx" x="926" y="60" width="176" height="104" rx="4"/>
+  <text class="t1" x="1014" y="100" text-anchor="middle">Action</text>
+  <text class="t2" x="1014" y="126" text-anchor="middle">clic, saisie,</text>
+  <text class="t2" x="1014" y="147" text-anchor="middle">navigation</text>
+
+  <line class="ln" x1="214" y1="112" x2="278" y2="112" marker-end="url(#a)"/>
+  <line class="ln" x1="534" y1="112" x2="598" y2="112" marker-end="url(#a)"/>
+  <line class="ln" x1="854" y1="112" x2="918" y2="112" marker-end="url(#a)"/>
+  <path class="ln" d="M 1014 164 L 1014 212 L 116 212 L 116 172" marker-end="url(#a)"/>
+  <text class="cap" x="790" y="202" text-anchor="middle">la boucle se répète jusqu'à la réponse rendue</text>
+
+  <rect class="bxd" x="286" y="272" width="248" height="98" rx="4"/>
+  <text class="t1" x="410" y="309" text-anchor="middle">Juge automatique</text>
+  <text class="t2" x="410" y="335" text-anchor="middle">verdict de réussite</text>
+  <text class="t2" x="410" y="356" text-anchor="middle">rendu sur les captures</text>
+
+  <path class="lnd" d="M 410 272 L 410 172" marker-end="url(#a)"/>
+  <text class="t3" x="576" y="309">le juge lit l'écran avec le même encodeur</text>
+  <text class="cap" x="576" y="335">que l'agent qu'il note : leurs erreurs ne</text>
+  <text class="cap" x="576" y="356">peuvent pas être supposées indépendantes</text>
+</svg>

@@ -1,0 +1,741 @@
+{
+ "Allrecipes--19": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b87f88d30f4649b9c36e762842f24d9cd9ba1aaf",
+  "reason": "Remove impossible tasks for Allrecipes"
+ },
+ "Allrecipes--30": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b87f88d30f4649b9c36e762842f24d9cd9ba1aaf",
+  "reason": "Remove impossible tasks for Allrecipes"
+ },
+ "Allrecipes--3": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b87f88d30f4649b9c36e762842f24d9cd9ba1aaf",
+  "reason": "Remove impossible tasks for Allrecipes"
+ },
+ "Allrecipes--16": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b87f88d30f4649b9c36e762842f24d9cd9ba1aaf",
+  "reason": "Remove impossible tasks for Allrecipes"
+ },
+ "Amazon--19": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "c4dae8d944451ee076cc5640e4032c48086dcbe1",
+  "reason": "Remove/update impossible tasks for Amazon"
+ },
+ "Amazon--6": {
+  "action": "modify",
+  "date": "2026-03-16",
+  "commit": "c4dae8d944451ee076cc5640e4032c48086dcbe1",
+  "reason": "Remove/update impossible tasks for Amazon",
+  "new": "Browse black strollers within $100 to $200 on Amazon. Then find one Among these black strollers with over 2,000 reviews and a rating greater than 4 star."
+ },
+ "Apple--7": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "ce66d0300b92f6c23fae9b5897ac14d6ee211068",
+  "reason": "Remove impossible tasks for Apple"
+ },
+ "Apple--42": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "ce66d0300b92f6c23fae9b5897ac14d6ee211068",
+  "reason": "Remove impossible tasks for Apple"
+ },
+ "ArXiv--23": {
+  "action": "modify",
+  "date": "2026-03-16",
+  "commit": "d76d347cc95da3c2ff3707870b71aadb8356e730",
+  "reason": "Update impossible tasks for ArXiv",
+  "new": "Determine how many articles with the keyword 'autonomous vehicles' were published in the 'Electrical Engineering and Systems Science' section of ArXiv last week."
+ },
+ "ArXiv--26": {
+  "action": "modify",
+  "date": "2026-03-16",
+  "commit": "d76d347cc95da3c2ff3707870b71aadb8356e730",
+  "reason": "Update impossible tasks for ArXiv",
+  "new": "Search for papers related to 'climate change modeling' on ArXiv and find out how many have been published in the Earth and Planetary Astrophysics (astro-ph.EP) category in the last month."
+ },
+ "BBC News--37": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "eb833a8f458201095622648bddc685fd1e34740e",
+  "reason": "Remove impossible tasks for BBC News"
+ },
+ "BBC News--29": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "eb833a8f458201095622648bddc685fd1e34740e",
+  "reason": "Remove impossible tasks for BBC News"
+ },
+ "BBC News--18": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "eb833a8f458201095622648bddc685fd1e34740e",
+  "reason": "Remove impossible tasks for BBC News"
+ },
+ "Booking--6": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b77b778c71c1831177bce27445a261eb1b5be577",
+  "reason": "Remove impossible tasks for Booking"
+ },
+ "Booking--11": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b77b778c71c1831177bce27445a261eb1b5be577",
+  "reason": "Remove impossible tasks for Booking"
+ },
+ "Booking--14": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b77b778c71c1831177bce27445a261eb1b5be577",
+  "reason": "Remove impossible tasks for Booking"
+ },
+ "Booking--13": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "b77b778c71c1831177bce27445a261eb1b5be577",
+  "reason": "Remove impossible tasks for Booking"
+ },
+ "Cambridge Dictionary--41": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "d7db1c2482a5cb9de3b58b6ee5b19737b9fd985d",
+  "reason": "Remove impossible tasks for Cambridge Dictionary"
+ },
+ "Coursera--28": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "3229d28ca46a80c24cfa65cb63465116ae8383d8",
+  "reason": "Remove impossible tasks for Coursera"
+ },
+ "Coursera--17": {
+  "action": "remove",
+  "date": "2026-03-16",
+  "commit": "3229d28ca46a80c24cfa65cb63465116ae8383d8",
+  "reason": "Remove impossible tasks for Coursera"
+ },
+ "Google Flights--0": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "e1b47baa25d8ad14dc1aa5a506b502bbdaf047ab",
+  "reason": "Remove impossible tasks for Google Flights"
+ },
+ "Google Flights--20": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "e1b47baa25d8ad14dc1aa5a506b502bbdaf047ab",
+  "reason": "Remove impossible tasks for Google Flights"
+ },
+ "Google Map--13": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "a6dd339f4d514c28eb42e145e85250f1b5a8e6d2",
+  "reason": "Remove impossible tasks for Google Map"
+ },
+ "Google Search--22": {
+  "action": "remove",
+  "date": "2026-03-23",
+  "commit": "b02ce0e2e42031c8f7ceca369e4e4ae28a893073",
+  "reason": "Remove impossible tasks for Google Search"
+ },
+ "Huggingface--10": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "f7768819babe5dd4c82e4db09a52c495c25b77b3",
+  "reason": "Remove impossible tasks for Huggingface"
+ },
+ "Huggingface--6": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "f7768819babe5dd4c82e4db09a52c495c25b77b3",
+  "reason": "Remove impossible tasks for Huggingface"
+ },
+ "Huggingface--32": {
+  "action": "remove",
+  "date": "2026-03-17",
+  "commit": "f7768819babe5dd4c82e4db09a52c495c25b77b3",
+  "reason": "Remove impossible tasks for Huggingface"
+ },
+ "Amazon--30": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "14fd5b674a0e872f0bc03de1eac87b681571f332",
+  "reason": "Update dates for Amazon",
+  "new": "Locate the highest-rated fiction book released in 2026 on Amazon, with a minimum of 50 customer reviews."
+ },
+ "Apple--4": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "9dcbdd34df1ff27530ab66306c52f8dd2a7a9c13",
+  "reason": "Update outdated devices for Apple",
+  "new": "How much does it cost to buy a Macbook pro, 16-inch, Apple M4 Max chip with 16-core CPU, 40-core GPU, 64GB unified memory, 1TB SSD."
+ },
+ "Apple--20": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "9dcbdd34df1ff27530ab66306c52f8dd2a7a9c13",
+  "reason": "Update outdated devices for Apple",
+  "new": "Check the price for an Apple iPhone 17 with 256GB storage in Purple color."
+ },
+ "Apple--22": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "9dcbdd34df1ff27530ab66306c52f8dd2a7a9c13",
+  "reason": "Update outdated devices for Apple",
+  "new": "Find out the trade-in value for an iPhone 15 Pro Max in good condition on the Apple website."
+ },
+ "Apple--32": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "9dcbdd34df1ff27530ab66306c52f8dd2a7a9c13",
+  "reason": "Update outdated devices for Apple",
+  "new": "Investigate the trade-in value for an iPhone 13 Pro Max on Apple's website."
+ },
+ "Apple--41": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "9dcbdd34df1ff27530ab66306c52f8dd2a7a9c13",
+  "reason": "Update outdated devices for Apple",
+  "new": "How much does it cost to buy an ipad mini with 128GB storage and Wi-Fi + Cellular connectivity? (no engraving, no apple pencil, no smart folio, no apple trade-in)."
+ },
+ "Booking--0": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a Mexico hotel with deals for December 25-26, 2026."
+ },
+ "Booking--1": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find the cheapest available hotel room for a three night stay from 1st Jun in Jakarta. The room is for 2 adults, just answer the cheapest hotel room and the price."
+ },
+ "Booking--2": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Ohio From December 20th to December 23th, 2026 for 3 adults and 2 rooms."
+ },
+ "Booking--3": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel with 4 star and above rating in Los Angeles for 3 days from Jul 18th."
+ },
+ "Booking--4": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for the cheapest Hotel near Kashi Vishwanath Temple that offer breakfast from Dec 25th - Dec 26th, 2026."
+ },
+ "Booking--5": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search a hotel with free WiFi and air conditioning in Bali from Jun 1 to Jun 4, 2026."
+ },
+ "Booking--8": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Get the hotel with highest review score and free cancelation in Chennai for 20/12/2026 - 21/12/2026."
+ },
+ "Booking--10": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a well-reviewed hotel in Paris with available bookings suitable for a couple (2 adults) on Valentine's Day week, February 14-21, 2027, that offers free cancellation options."
+ },
+ "Booking--12": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Paris with a customer review score of 8 or higher, free Wi-Fi, and available for a 5-night stay starting on January 5th, 2027."
+ },
+ "Booking--15": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find the highest-rated luxury hotel in Rome available for booking from January 10, 2027, to January 20, 2027, for 2 adults. Include the cost, amenities offered, and customer rating."
+ },
+ "Booking--16": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Look for a hotel in Paris with a user rating of 9 or higher and available for a 5-night stay starting January 15, 2027. The hotel should also offer free Wi-Fi and breakfast included in the price. Provide the name, location, and price per night."
+ },
+ "Booking--17": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Paris with a fitness center and a rating of 8 or higher available for a 5-night stay starting from February 14, 2027, and sort the results by best reviewed."
+ },
+ "Booking--18": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search a hotel in London with a user rating of 8 or higher for a stay between February 14th, 2027, and February 21st, 2027, suitable for a couple. Provide the name and a short description of the hotel."
+ },
+ "Booking--19": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Look for a hotel with customer ratings above an 8.0 in Paris, France for a weekend stay from March 18, 2026, to March 20, 2026, and list top three suggestions based on user reviews."
+ },
+ "Booking--20": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Locate a hotel in Rome with a good rating (7 or above) that offers free cancellation and breakfast included, for a three-night stay from February 28 to March 2, 2027, for two adults."
+ },
+ "Booking--21": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Sydney with a rating of 8 or higher, providing free Wi-Fi and parking, available for a four-night stay starting on July 10, 2026."
+ },
+ "Booking--22": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a hotel in Amsterdam with a customer review score of 9 or higher, offering bicycle rentals, for a week-long stay from June 15 to June 22, 2026, for two adults."
+ },
+ "Booking--23": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Identify a hotel in Tokyo with a spa and wellness center, rated 9 or above, with availability for a five-night stay starting on June 20, 2026. Check if free cancellation is offered."
+ },
+ "Booking--24": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Barcelona for a stay from February 25-28, 2027. Please sort the results by distance from the beach and make sure they offer free Wi-Fi and breakfast."
+ },
+ "Booking--25": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a hotel in Lisbon with airport shuttle, rated 8.5 or above, available for a six-night stay from June 1 to June 7, 2026, for two adults, breakfast included."
+ },
+ "Booking--26": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Check Booking.com for a 3-star hotel or higher in Paris with a guest rating above 8.0 and available parking for dates July 20-23, 2026."
+ },
+ "Booking--27": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Locate a hotel in Melbourne offering free parking and free WiFi, for a stay from June 28 to July 4, 2026."
+ },
+ "Booking--28": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a hotel in Dubai with a swimming pool, for a week-long stay from June 22 to June 29, 2026."
+ },
+ "Booking--29": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a hotel in Toronto with a fitness center and a rating of 8+, available for a two-night stay from July 5 to July 7, 2026."
+ },
+ "Booking--30": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for hotels in London from July 20 to July 23, 2026, on Booking. How many hotels are left after applying the Breakfast included and Fitness center filters?"
+ },
+ "Booking--31": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for hotels in Rio de Janeiro from July 1-7, 2026, check the Brands filter to see which brand has the most hotels and which brand has the fewest."
+ },
+ "Booking--32": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Look for hotels in Sydney from February 24 to February 27, 2027, on Booking. Once the Swimming Pool and Airport Shuttle filters are applied, what is the total number of hotels available?"
+ },
+ "Booking--34": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a hotel in Berlin available for a three-night stay from July 15 to July 18, 2026, for one adult. Tell me the price in USD and CNY for the three-night stay."
+ },
+ "Booking--36": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a budget hotel in Rome under $100 per night for one adult from July 20 to July 23, 2026. Sort the results by price, identify if any of top three results offer breakfast."
+ },
+ "Booking--37": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a resort (not hotel) in Bali, detailing the available dates between July 20, 2026, and July 25, 2026, and checking any provided tour or cultural experiences."
+ },
+ "Booking--38": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Look up Vienna hotel options with availability for a 4-night stay from June 28 to July 2, 2026, with amenities that include a Parking, breakfast included, and a rating of 8+ on Booking.com."
+ },
+ "Booking--39": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Find a pet-friendly hotel with parking available in downtown Toronto for the stay of July 24-26, 2026."
+ },
+ "Booking--40": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "I need to choose a hotel in Shenzhen, please select date (6 July to 8 July 2026) and click the search button. How much it costs when convert the price to Chinese Yuan on the page."
+ },
+ "Booking--42": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "678e576d78db56b27c5484782cb73ce6beef783f",
+  "reason": "Updates dates for Booking",
+  "new": "Search for a hotel in Hokkaido for the period July 1 to July 7, 2026, with a rating of 9+, check out its user reviews, which categories are greater than 9 and which are less than 9?"
+ },
+ "ESPN--15": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Check the scores of the NBA games played on February 25, 2026."
+ },
+ "ESPN--16": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Check the schedule for the NBA game on February 25, 2026, and provide the teams that are playing and their current standings in their respective conferences."
+ },
+ "ESPN--17": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Check out the NBA Basketball Power Index 2025-26 to see which teams are in first place and which are in last place."
+ },
+ "ESPN--30": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Check out the NHL Standings 2025-26 on ESPN to see which teams are at the top and which are at the bottom in Eastern and Western Conference. What about the situation in Division."
+ },
+ "ESPN--31": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Who has the heaviest weight among infielders in the New York Yankees Roster 2026?"
+ },
+ "ESPN--33": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "0ef08f7ea1eea636801eef4d1d9586c896db5c4f",
+  "reason": "Update dates for ESPN",
+  "new": "Locate the latest ESPN articles discussing potential MVP candidates in the NFL for 2025 season."
+ },
+ "Google Flights--1": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Show me the list of one-way flights on June 17, 2026 from Chicago to Paris."
+ },
+ "Google Flights--2": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the lowest fare from all eligible one-way flights for 1 adult from JFK to Heathrow on Jun. 22."
+ },
+ "Google Flights--7": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a round trip from Phoenix to Miami (Jul. 7th - Jul. 10th), show the First Class plane tickets for me that do not exceed $1320.."
+ },
+ "Google Flights--10": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Locate the cheapest round-trip flights from New York to Tokyo leaving on April 25, 2026, and returning on May 15, 2026."
+ },
+ "Google Flights--11": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare the prices for round-trip flights from New York to Tokyo for a departure on July 10, 2026, and a return on July 24, 2026, and select the option with the least number of stops."
+ },
+ "Google Flights--12": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the best-priced round-trip flight from New York to London leaving on June 25, 2026, and returning on July 5, 2026, with one stop or fewer."
+ },
+ "Google Flights--13": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the cheapest round-trip flight option from New York City to Tokyo for a departure on July 10, 2026, and a return on July 24, 2026."
+ },
+ "Google Flights--14": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare flight options and find the lowest round trip fare from New York to London departing on July 10, 2026, and returning on July 17, 2026."
+ },
+ "Google Flights--15": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare the prices and total duration of non-stop flights from New York to Tokyo Narita Airport departing on July 12th, 2026, and returning on July 26th, 2026."
+ },
+ "Google Flights--16": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the cheapest one-way flight from New York to Tokyo departing on January 15, 2027, and provide the airline and total flight duration."
+ },
+ "Google Flights--17": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the cheapest round-trip flight from New York to Paris leaving on June 27, 2026, and returning on July 10, 2026."
+ },
+ "Google Flights--18": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare flight options from New York to Tokyo for a round trip leaving on June 25, 2026, and returning on July 15, 2026, for one adult. Prioritize the comparisons by the shortest travel time."
+ },
+ "Google Flights--19": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the cheapest one-way flight from London to Paris, departing on July 25, 2026. Include the airline, total travel time, and layovers for the chosen flight."
+ },
+ "Google Flights--21": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Locate the lowest-priced one-way flight from Tokyo to Sydney for an adult, departing o6 July 25, 2026, and include the flight duration and number of layovers."
+ },
+ "Google Flights--22": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a round-trip flight from Rio de Janeiro to Los Angeles, leaving on June 15, 2026, and returning on June 22, 2026, and select the option with the least carbon dioxide emissions."
+ },
+ "Google Flights--23": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Search for a one-way flight from Mumbai to Vancouver on July 28, 2026, filtering the results to show only 1-stop flights."
+ },
+ "Google Flights--24": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare prices for economy class round-trip flights from Dubai to Rome, departing on July 1, 2026, and returning on July 8, 2026, and select the option with the fewest stops."
+ },
+ "Google Flights--25": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a one-way business class flight from Buenos Aires to Amsterdam on July 10, 2026, and provide the details of the flight with the shortest duration."
+ },
+ "Google Flights--26": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Search for the cheapest round-trip flights from Bangkok to Madrid, leaving on July 26, 2026, and returning on July 28, 2026, and provide options under $1000."
+ },
+ "Google Flights--27": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Locate a one-way flight from Johannesburg to Toronto on July 30, 2026, for one adult, and analyze the price trends for the following month."
+ },
+ "Google Flights--28": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the best-priced round-trip flight from Seattle to Paris, departing on July 27, 2026, and returning on August 1, 2026, with a maximum of one stop."
+ },
+ "Google Flights--29": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare the prices and total travel time of non-stop flights from Mexico City to Frankfurt, departing on July 5, 2026, and returning on July 15, 2026."
+ },
+ "Google Flights--30": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the most affordable one-way flight from Cape Town to Singapore, departing on July 20, 2026, and include the airline and total number of layovers."
+ },
+ "Google Flights--31": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a one-way economy flight from Auckland to Honolulu on July 25, 2026, browse the full page and display a flight option with the most stops."
+ },
+ "Google Flights--32": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Search for round-trip flights from Stockholm to Toronto, departing on July 3, 2026, and returning on July 10, 2026, and sort the results to find the shortest total travel time."
+ },
+ "Google Flights--33": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a one-way flight from Shanghai to Vancouver on July 27, 2026, and compare the options based on carbon dioxide emissions."
+ },
+ "Google Flights--34": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare business class flight options from Lisbon to Singapore for a one-way trip on July 15, 2026, select one of the flights and see which websites offer its booking options. Which one is the cheapest."
+ },
+ "Google Flights--35": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find the lowest-priced one-way flight from Cairo to Montreal on July 21, 2026, including the total travel time and number of stops."
+ },
+ "Google Flights--36": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Search for round-trip flights from Helsinki to New Delhi, departing on July 28, 2026, and returning on August 4, 2026, and filter the results to show only flights under $1000."
+ },
+ "Google Flights--37": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Locate a round-trip flight from Buenos Aires to Beijing, leaving on June 28, 2026, and returning on July 3, 2026, check out one of the options and tell me if the airline for my return flight is the same as my departure flight."
+ },
+ "Google Flights--38": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Compare the prices and flight durations for economy class flights from Oslo to Dubai, departing on July 8, 2026, and show the options with no more than two layovers."
+ },
+ "Google Flights--39": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Find a one-way flight from Prague to a city in Japan on July 20, 2026, which city in Japan is cheaper to go to, Tokyo or a certain city in Hokkaido?"
+ },
+ "Google Flights--41": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "442470da0a47dd0f17b8591ed7ce7c0ac6cad5e7",
+  "reason": "Update dates for Google Flights",
+  "new": "Choose one way business class ticket from Hong Kong to Glacier National Park on 6 July 2026, offering a 1 stop ticket."
+ },
+ "Google Search--39": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "2b935a32f4816065698671ba7a018dfe2ad80ee1",
+  "reason": "Update dates for Google Search",
+  "new": "Identify the top-10 trending travel destination for 2026 through a blog, how many of them are in Asian."
+ },
+ "Huggingface--20": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "5d7aa5a3c19431a005e3a57d487c78d7eaf865b7",
+  "reason": "Update dates for Huggingface",
+  "new": "Locate a pre-trained natural language processing model on Hugging Face that specializes in named entity recognition (NER), confirm that the model was last updated in 2024 and has 1M+ downloads."
+ },
+ "Wolfram Alpha--33": {
+  "action": "modify",
+  "date": "2026-03-17",
+  "commit": "e73fddd2a804309486ea3253949edbfb790fa2a4",
+  "reason": "Update dates for Wolfram Alpha",
+  "new": "Identify the electrical energy output of a hydroelectric power plant named Itaipu Dam in 2024 using Wolfram Alpha."
+ }
+}

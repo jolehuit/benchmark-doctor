@@ -1,0 +1,710 @@
+<!doctype html>
+<!--
+  benchmark-doctor — gabarit de la carte de santé d'un benchmark.
+
+  Le gabarit ne contient que la coquille : en-tête, encadré terminologique, pied de page
+  et emplacements. Les sections sont produites par `benchmark_doctor.report`, qui échappe
+  tout contenu variable. Le fichier produit est autonome : la feuille de style est inlinée
+  à la génération (marqueur /* benchmark-doctor — feuille de style de la carte de santé.
+   Contrainte : le rapport HTML doit être autonome (aucune requête réseau, aucune
+   police distante, aucun script). Cette feuille est donc inlinée à la génération.
+   Elle est écrite pour trois usages : lecture à l'écran, mode sombre du système, et
+   capture d'écran pour le mémoire (d'où les bordures nettes et l'absence d'ombres). */
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #55555a;
+  --ink-faint: #85858c;
+  --line: #dededa;
+  --line-strong: #bfbfba;
+  --accent: #1f4e79;
+  --grade-a: #2f7d4f;
+  --grade-b: #8a7218;
+  --grade-c: #b25f16;
+  --grade-d: #a32c2c;
+  --grade-a-bg: #e7f2eb;
+  --grade-b-bg: #f7f1dc;
+  --grade-c-bg: #fbeddf;
+  --grade-d-bg: #f8e4e4;
+  --mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171a;
+    --surface: #1f1f23;
+    --ink: #ececec;
+    --ink-soft: #b6b6bd;
+    --ink-faint: #85858c;
+    --line: #34343a;
+    --line-strong: #4a4a52;
+    --accent: #7fb0dd;
+    --grade-a: #6cc08c;
+    --grade-b: #d6bb5c;
+    --grade-c: #e0955a;
+    --grade-d: #e07a7a;
+    --grade-a-bg: #1e2f24;
+    --grade-b-bg: #2f2b1c;
+    --grade-c-bg: #33251a;
+    --grade-d-bg: #331e1e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem 1.25rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+main { max-width: 66rem; margin: 0 auto; }
+
+/* ---- en-tête -------------------------------------------------------------------- */
+
+header.card-head {
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+header.card-head h1 {
+  margin: 0 0 .25rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+header.card-head .subtitle { margin: 0 0 1rem; color: var(--ink-soft); }
+
+dl.provenance {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: .2rem 1rem;
+  margin: 0;
+  font-size: .86rem;
+}
+dl.provenance dt { color: var(--ink-faint); }
+dl.provenance dd { margin: 0; font-family: var(--mono); font-size: .82rem; word-break: break-word; }
+
+/* ---- sections ------------------------------------------------------------------- */
+
+section { margin-bottom: 2rem; }
+
+h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .35rem;
+  margin: 0 0 .9rem;
+}
+
+h3 { font-size: .95rem; margin: 1.2rem 0 .5rem; }
+
+p.note {
+  color: var(--ink-soft);
+  font-size: .86rem;
+  margin: .5rem 0 0;
+  border-left: 2px solid var(--line-strong);
+  padding-left: .75rem;
+}
+
+/* ---- indicateurs ---------------------------------------------------------------- */
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: .75rem;
+}
+
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: .8rem .9rem;
+}
+.kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .label { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); margin-top: .25rem; }
+.kpi .sub { font-size: .78rem; color: var(--ink-soft); margin-top: .2rem; }
+
+/* ---- barre de notes -------------------------------------------------------------- */
+
+.grade-bar { display: flex; height: 2.2rem; border: 1px solid var(--line-strong); overflow: hidden; }
+.grade-bar.compact { height: .75rem; border-color: var(--line); margin-top: .25rem; }
+.grade-bar span {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden;
+}
+.grade-bar .g-A { background: var(--grade-a); }
+.grade-bar .g-B { background: var(--grade-b); }
+.grade-bar .g-C { background: var(--grade-c); }
+.grade-bar .g-D { background: var(--grade-d); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .8rem; color: var(--ink-soft); margin-top: .5rem; }
+.legend b { font-weight: 600; }
+
+/* ---- tableaux -------------------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { padding: .45rem .7rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--bg); font-weight: 600; font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); position: sticky; top: 0; }
+tbody tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .82rem; }
+td.id { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+td.why { color: var(--ink-soft); font-size: .8rem; }
+td.quote { font-style: italic; }
+
+/* ---- pastilles ------------------------------------------------------------------- */
+
+.badge {
+  display: inline-block; padding: .05rem .4rem; border-radius: 2px;
+  font-family: var(--mono); font-size: .74rem; font-weight: 600; white-space: nowrap;
+}
+.badge.g-A { background: var(--grade-a-bg); color: var(--grade-a); }
+.badge.g-B { background: var(--grade-b-bg); color: var(--grade-b); }
+.badge.g-C { background: var(--grade-c-bg); color: var(--grade-c); }
+.badge.g-D { background: var(--grade-d-bg); color: var(--grade-d); }
+.badge.neutral { background: var(--bg); color: var(--ink-soft); border: 1px solid var(--line); }
+
+.bar { display: block; height: .55rem; background: var(--accent); min-width: 1px; }
+.bar-track { background: var(--line); width: 100%; display: block; }
+
+/* ---- deltas (rapport de comparaison) ---------------------------------------------- */
+
+.delta-neg { color: var(--grade-d); font-weight: 600; }
+.delta-pos { color: var(--grade-a); font-weight: 600; }
+.delta-nil { color: var(--ink-faint); }
+
+/* ---- encadré terminologique -------------------------------------------------------- */
+
+aside.terminology {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  padding: 1rem 1.25rem;
+  font-size: .86rem;
+}
+aside.terminology h2 { border: none; margin-bottom: .5rem; padding: 0; }
+aside.terminology table { font-size: .82rem; }
+
+/* ---- pied ------------------------------------------------------------------------- */
+
+footer {
+  margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .78rem; color: var(--ink-faint);
+}
+footer code { font-family: var(--mono); }
+
+ul.limits { font-size: .85rem; color: var(--ink-soft); padding-left: 1.1rem; }
+ul.limits li { margin-bottom: .35rem; }
+
+@media print {
+  body { background: #fff; padding: 0; font-size: 11pt; }
+  section { break-inside: avoid; }
+  .table-wrap { overflow: visible; }
+}
+), aucune ressource externe n'est référencée, aucun
+  script n'est exécuté.
+
+  Marqueurs disponibles : Carte de santé — webvoyager — 2026-08-16 /* benchmark-doctor — feuille de style de la carte de santé.
+   Contrainte : le rapport HTML doit être autonome (aucune requête réseau, aucune
+   police distante, aucun script). Cette feuille est donc inlinée à la génération.
+   Elle est écrite pour trois usages : lecture à l'écran, mode sombre du système, et
+   capture d'écran pour le mémoire (d'où les bordures nettes et l'absence d'ombres). */
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #55555a;
+  --ink-faint: #85858c;
+  --line: #dededa;
+  --line-strong: #bfbfba;
+  --accent: #1f4e79;
+  --grade-a: #2f7d4f;
+  --grade-b: #8a7218;
+  --grade-c: #b25f16;
+  --grade-d: #a32c2c;
+  --grade-a-bg: #e7f2eb;
+  --grade-b-bg: #f7f1dc;
+  --grade-c-bg: #fbeddf;
+  --grade-d-bg: #f8e4e4;
+  --mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171a;
+    --surface: #1f1f23;
+    --ink: #ececec;
+    --ink-soft: #b6b6bd;
+    --ink-faint: #85858c;
+    --line: #34343a;
+    --line-strong: #4a4a52;
+    --accent: #7fb0dd;
+    --grade-a: #6cc08c;
+    --grade-b: #d6bb5c;
+    --grade-c: #e0955a;
+    --grade-d: #e07a7a;
+    --grade-a-bg: #1e2f24;
+    --grade-b-bg: #2f2b1c;
+    --grade-c-bg: #33251a;
+    --grade-d-bg: #331e1e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem 1.25rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+main { max-width: 66rem; margin: 0 auto; }
+
+/* ---- en-tête -------------------------------------------------------------------- */
+
+header.card-head {
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+header.card-head h1 {
+  margin: 0 0 .25rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+header.card-head .subtitle { margin: 0 0 1rem; color: var(--ink-soft); }
+
+dl.provenance {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: .2rem 1rem;
+  margin: 0;
+  font-size: .86rem;
+}
+dl.provenance dt { color: var(--ink-faint); }
+dl.provenance dd { margin: 0; font-family: var(--mono); font-size: .82rem; word-break: break-word; }
+
+/* ---- sections ------------------------------------------------------------------- */
+
+section { margin-bottom: 2rem; }
+
+h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .35rem;
+  margin: 0 0 .9rem;
+}
+
+h3 { font-size: .95rem; margin: 1.2rem 0 .5rem; }
+
+p.note {
+  color: var(--ink-soft);
+  font-size: .86rem;
+  margin: .5rem 0 0;
+  border-left: 2px solid var(--line-strong);
+  padding-left: .75rem;
+}
+
+/* ---- indicateurs ---------------------------------------------------------------- */
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: .75rem;
+}
+
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: .8rem .9rem;
+}
+.kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .label { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); margin-top: .25rem; }
+.kpi .sub { font-size: .78rem; color: var(--ink-soft); margin-top: .2rem; }
+
+/* ---- barre de notes -------------------------------------------------------------- */
+
+.grade-bar { display: flex; height: 2.2rem; border: 1px solid var(--line-strong); overflow: hidden; }
+.grade-bar.compact { height: .75rem; border-color: var(--line); margin-top: .25rem; }
+.grade-bar span {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden;
+}
+.grade-bar .g-A { background: var(--grade-a); }
+.grade-bar .g-B { background: var(--grade-b); }
+.grade-bar .g-C { background: var(--grade-c); }
+.grade-bar .g-D { background: var(--grade-d); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .8rem; color: var(--ink-soft); margin-top: .5rem; }
+.legend b { font-weight: 600; }
+
+/* ---- tableaux -------------------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { padding: .45rem .7rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--bg); font-weight: 600; font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); position: sticky; top: 0; }
+tbody tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .82rem; }
+td.id { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+td.why { color: var(--ink-soft); font-size: .8rem; }
+td.quote { font-style: italic; }
+
+/* ---- pastilles ------------------------------------------------------------------- */
+
+.badge {
+  display: inline-block; padding: .05rem .4rem; border-radius: 2px;
+  font-family: var(--mono); font-size: .74rem; font-weight: 600; white-space: nowrap;
+}
+.badge.g-A { background: var(--grade-a-bg); color: var(--grade-a); }
+.badge.g-B { background: var(--grade-b-bg); color: var(--grade-b); }
+.badge.g-C { background: var(--grade-c-bg); color: var(--grade-c); }
+.badge.g-D { background: var(--grade-d-bg); color: var(--grade-d); }
+.badge.neutral { background: var(--bg); color: var(--ink-soft); border: 1px solid var(--line); }
+
+.bar { display: block; height: .55rem; background: var(--accent); min-width: 1px; }
+.bar-track { background: var(--line); width: 100%; display: block; }
+
+/* ---- deltas (rapport de comparaison) ---------------------------------------------- */
+
+.delta-neg { color: var(--grade-d); font-weight: 600; }
+.delta-pos { color: var(--grade-a); font-weight: 600; }
+.delta-nil { color: var(--ink-faint); }
+
+/* ---- encadré terminologique -------------------------------------------------------- */
+
+aside.terminology {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  padding: 1rem 1.25rem;
+  font-size: .86rem;
+}
+aside.terminology h2 { border: none; margin-bottom: .5rem; padding: 0; }
+aside.terminology table { font-size: .82rem; }
+
+/* ---- pied ------------------------------------------------------------------------- */
+
+footer {
+  margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .78rem; color: var(--ink-faint);
+}
+footer code { font-family: var(--mono); }
+
+ul.limits { font-size: .85rem; color: var(--ink-soft); padding-left: 1.1rem; }
+ul.limits li { margin-bottom: .35rem; }
+
+@media print {
+  body { background: #fff; padding: 0; font-size: 11pt; }
+  section { break-inside: avoid; }
+  .table-wrap { overflow: visible; }
+}
+ Carte de santé — webvoyager 643 tâches · mesure du 2026-08-16 · couches L1+L2+L3 · stabilité moyenne 0.638     <dt>Date de la mesure</dt><dd>2026-08-16</dd>
+    <dt>Corpus</dt><dd>data/raw/webvoyager_original.jsonl</dd>
+    <dt>Empreinte SHA-256</dt><dd>69b19fd86c23f1a500244a3724e039aa7ca6a1223d03e11eb10e308d4f11c488</dd>
+    <dt>Tâches</dt><dd>643</dd>
+    <dt>Couches exécutées</dt><dd>L1, L2, L3</dd>
+    <dt>Canaux d&#x27;accès</dt><dd>static, http_datacenter, llm</dd>
+    <dt>A priori praticiens</dt><dd>169 tâches signalées par ≥1 annotateur sur 643</dd>
+    <dt>Outil</dt><dd>benchmark-doctor 0.1.0</dd>
+
+  <section><h2>Vue d&#x27;ensemble</h2><div class="kpi-row"><div class="kpi"><div class="value">0.638</div><div class="label">stabilité moyenne</div><div class="sub">médiane 0.650</div></div><div class="kpi"><div class="value">62.8 %</div><div class="label">tâches sous la note A</div><div class="sub">404 / 643</div></div><div class="kpi"><div class="value">69</div><div class="label">tâches en note D</div><div class="sub">à ne pas publier sans revue</div></div><div class="kpi"><div class="value">0.1318 $</div><div class="label">coût de la mesure</div><div class="sub">688 appels · 39 s</div></div></div><div style="margin-top:1rem"><div class="grade-bar" title="A 239 B 155 C 180 D 69"><span class="g-A" style="width:37.170%">A 239</span><span class="g-B" style="width:24.106%">B 155</span><span class="g-C" style="width:27.994%">C 180</span><span class="g-D" style="width:10.731%">D 69</span></div><div class="legend"><span><b>A</b> S ≥ 0.75 — 239 tâches (37.2 %)</span><span><b>B</b> S ≥ 0.50 — 155 tâches (24.1 %)</span><span><b>C</b> S ≥ 0.25 — 180 tâches (28.0 %)</span><span><b>D</b> S ≥ 0.00 — 69 tâches (10.7 %)</span></div></div><p class="note">Le score global est la moyenne des scores de tâches, jamais leur produit : un benchmark n'est pas cassé parce qu'une tâche l'est, il est dégradé en proportion. La moyenne masque la queue de distribution, d'où la barre de notes.</p></section>
+<section><h2>Répartition par catégorie de la taxonomie</h2><div class="table-wrap"><table><thead><tr><th class="">Code</th><th class="">Mode de décadence</th><th class="num">Tâches</th><th class="num">Part</th><th class="num">Risque moyen</th><th class=""></th><th class="">Origine du constat</th></tr></thead><tbody><tr><td class="id">T1</td><td>Dérive temporelle</td><td class="num">102</td><td class="num">15.9 %</td><td class="num">0.545</td><td><span class="bar-track"><span class="bar" style="width:42.50%"></span></span></td><td class="why">détecteurs 32 · praticiens 5 · les deux 65</td></tr><tr><td class="id">T2</td><td>Dérive de contenu ou d&#x27;URL</td><td class="num">143</td><td class="num">22.2 %</td><td class="num">0.212</td><td><span class="bar-track"><span class="bar" style="width:59.58%"></span></span></td><td class="why">détecteurs 122 · praticiens 13 · les deux 8</td></tr><tr><td class="id">T3</td><td>Accès refusé et effets de bord</td><td class="num">183</td><td class="num">28.5 %</td><td class="num">0.301</td><td><span class="bar-track"><span class="bar" style="width:76.25%"></span></span></td><td class="why">détecteurs 172 · praticiens 0 · les deux 11</td></tr><tr><td class="id">T4</td><td>Instabilité d&#x27;interface</td><td class="num">7</td><td class="num">1.1 %</td><td class="num">0.631</td><td><span class="bar-track"><span class="bar" style="width:2.92%"></span></span></td><td class="why">détecteurs 0 · praticiens 7 · les deux 0</td></tr><tr><td class="id">T5</td><td>Ambiguïté de l&#x27;énoncé</td><td class="num">240</td><td class="num">37.3 %</td><td class="num">0.413</td><td><span class="bar-track"><span class="bar" style="width:100.00%"></span></span></td><td class="why">détecteurs 235 · praticiens 2 · les deux 3</td></tr><tr><td class="id">T7</td><td>Fragilité de l&#x27;évaluation</td><td class="num">163</td><td class="num">25.4 %</td><td class="num">0.143</td><td><span class="bar-track"><span class="bar" style="width:67.92%"></span></span></td><td class="why">détecteurs 163 · praticiens 0 · les deux 0</td></tr><tr><td class="id">T8</td><td>Dépendance de timing</td><td class="num">7</td><td class="num">1.1 %</td><td class="num">0.631</td><td><span class="bar-track"><span class="bar" style="width:2.92%"></span></span></td><td class="why">détecteurs 0 · praticiens 7 · les deux 0</td></tr></tbody></table></div><p class="note">Une tâche peut relever de plusieurs catégories : la somme des effectifs dépasse le nombre de tâches. La colonne « origine » distingue ce que les détecteurs ont vu de ce que les praticiens avaient déjà signalé — c'est la mesure de ce que l'outil apporte au-delà de la vérité terrain.</p></section>
+<section><h2>Par site</h2><div class="table-wrap"><table><thead><tr><th class="">Site</th><th class="num">n</th><th class="num">Stabilité ⌀</th><th class="num">min</th><th class="num">Sous A</th><th class="">Notes</th><th class="">Catégorie dominante</th></tr></thead><tbody><tr><td>Booking</td><td class="num">44</td><td class="num">0.223</td><td class="num">0.024</td><td class="num">44 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 6 C 5 D 33"><span class="g-B" style="width:13.636%"></span><span class="g-C" style="width:11.364%"></span><span class="g-D" style="width:75.000%"></span></div></td><td class="why">T1_temporal</td></tr><tr><td>Google Flights</td><td class="num">42</td><td class="num">0.333</td><td class="num">0.048</td><td class="num">42 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 6 C 29 D 7"><span class="g-B" style="width:14.286%"></span><span class="g-C" style="width:69.048%"></span><span class="g-D" style="width:16.667%"></span></div></td><td class="why">T1_temporal</td></tr><tr><td>Allrecipes</td><td class="num">45</td><td class="num">0.476</td><td class="num">0.061</td><td class="num">45 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 20 C 20 D 5"><span class="g-B" style="width:44.444%"></span><span class="g-C" style="width:44.444%"></span><span class="g-D" style="width:11.111%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Amazon</td><td class="num">41</td><td class="num">0.496</td><td class="num">0.225</td><td class="num">41 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 16 C 23 D 2"><span class="g-B" style="width:39.024%"></span><span class="g-C" style="width:56.098%"></span><span class="g-D" style="width:4.878%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Apple</td><td class="num">43</td><td class="num">0.569</td><td class="num">0.054</td><td class="num">36 (84 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 7 B 18 C 12 D 6"><span class="g-A" style="width:16.279%"></span><span class="g-B" style="width:41.860%"></span><span class="g-C" style="width:27.907%"></span><span class="g-D" style="width:13.953%"></span></div></td><td class="why">T2_content_drift</td></tr><tr><td>ESPN</td><td class="num">44</td><td class="num">0.578</td><td class="num">0.138</td><td class="num">44 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 32 C 8 D 4"><span class="g-B" style="width:72.727%"></span><span class="g-C" style="width:18.182%"></span><span class="g-D" style="width:9.091%"></span></div></td><td class="why">T3_access_denied</td></tr><tr><td>BBC News</td><td class="num">42</td><td class="num">0.630</td><td class="num">0.146</td><td class="num">26 (62 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 16 B 12 C 11 D 3"><span class="g-A" style="width:38.095%"></span><span class="g-B" style="width:28.571%"></span><span class="g-C" style="width:26.190%"></span><span class="g-D" style="width:7.143%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Huggingface</td><td class="num">43</td><td class="num">0.667</td><td class="num">0.000</td><td class="num">23 (53 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 20 B 4 C 15 D 4"><span class="g-A" style="width:46.512%"></span><span class="g-B" style="width:9.302%"></span><span class="g-C" style="width:34.884%"></span><span class="g-D" style="width:9.302%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Coursera</td><td class="num">42</td><td class="num">0.692</td><td class="num">0.083</td><td class="num">30 (71 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 12 B 21 C 7 D 2"><span class="g-A" style="width:28.571%"></span><span class="g-B" style="width:50.000%"></span><span class="g-C" style="width:16.667%"></span><span class="g-D" style="width:4.762%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>GitHub</td><td class="num">41</td><td class="num">0.722</td><td class="num">0.219</td><td class="num">19 (46 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 22 B 5 C 13 D 1"><span class="g-A" style="width:53.659%"></span><span class="g-B" style="width:12.195%"></span><span class="g-C" style="width:31.707%"></span><span class="g-D" style="width:2.439%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Google Map</td><td class="num">41</td><td class="num">0.728</td><td class="num">0.167</td><td class="num">22 (54 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 19 B 2 C 18 D 2"><span class="g-A" style="width:46.341%"></span><span class="g-B" style="width:4.878%"></span><span class="g-C" style="width:43.902%"></span><span class="g-D" style="width:4.878%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Google Search</td><td class="num">43</td><td class="num">0.803</td><td class="num">0.292</td><td class="num">12 (28 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 31 B 3 C 9 D 0"><span class="g-A" style="width:72.093%"></span><span class="g-B" style="width:6.977%"></span><span class="g-C" style="width:20.930%"></span></div></td><td class="why">T7_eval_brittleness</td></tr><tr><td>ArXiv</td><td class="num">43</td><td class="num">0.836</td><td class="num">0.438</td><td class="num">8 (19 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 35 B 6 C 2 D 0"><span class="g-A" style="width:81.395%"></span><span class="g-B" style="width:13.953%"></span><span class="g-C" style="width:4.651%"></span></div></td><td class="why">T7_eval_brittleness</td></tr><tr><td>Cambridge Dictionary</td><td class="num">43</td><td class="num">0.891</td><td class="num">0.500</td><td class="num">7 (16 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 36 B 4 C 3 D 0"><span class="g-A" style="width:83.721%"></span><span class="g-B" style="width:9.302%"></span><span class="g-C" style="width:6.977%"></span></div></td><td class="why">T2_content_drift</td></tr><tr><td>Wolfram Alpha</td><td class="num">46</td><td class="num">0.915</td><td class="num">0.438</td><td class="num">5 (11 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 41 B 0 C 5 D 0"><span class="g-A" style="width:89.130%"></span><span class="g-C" style="width:10.870%"></span></div></td><td class="why">T1_temporal</td></tr></tbody></table></div><p class="note">Trié par stabilité croissante. Un site entier en bas de tableau signale un sous-ensemble à retirer plutôt que des tâches à réparer une à une.</p></section>
+<section><h2>Les 30 tâches les plus dégradées</h2><div class="table-wrap"><table><thead><tr><th class="">Tâche</th><th class="">Note</th><th class="num">Score</th><th class="num">Score détecteurs seuls</th><th class="">Cat.</th><th class="">Ce qui porte le risque</th></tr></thead><tbody><tr><td class="id">Huggingface--10</td><td><span class="badge g-D">D</span></td><td class="num">0.000</td><td class="num">0.100</td><td class="id">T2</td><td class="why">a priori praticiens : 6/6 praticiens l&#x27;ont supprimée → risque 1.000</td></tr><tr><td class="id">Booking--11</td><td><span class="badge g-D">D</span></td><td class="num">0.024</td><td class="num">0.068</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Huggingface--20</td><td><span class="badge g-D">D</span></td><td class="num">0.029</td><td class="num">0.350</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Booking--13</td><td><span class="badge g-D">D</span></td><td class="num">0.031</td><td class="num">0.089</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Booking--14</td><td><span class="badge g-D">D</span></td><td class="num">0.031</td><td class="num">0.089</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Google Flights--20</td><td><span class="badge g-D">D</span></td><td class="num">0.048</td><td class="num">0.137</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Apple--9</td><td><span class="badge g-D">D</span></td><td class="num">0.054</td><td class="num">0.164</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712</td></tr><tr><td class="id">Allrecipes--16</td><td><span class="badge g-D">D</span></td><td class="num">0.061</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Allrecipes--19</td><td><span class="badge g-D">D</span></td><td class="num">0.061</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Coursera--17</td><td><span class="badge g-D">D</span></td><td class="num">0.083</td><td class="num">1.000</td><td class="id">T4</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Booking--12</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--18</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--19</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--20</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--21</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--22</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--26</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--27</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--28</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--29</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--5</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 5/6 l&#x27;ont réécrite → risque 0.417</td></tr><tr><td class="id">Coursera--28</td><td><span class="badge g-D">D</span></td><td class="num">0.108</td><td class="num">0.601</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Apple--7</td><td><span class="badge g-D">D</span></td><td class="num">0.121</td><td class="num">0.725</td><td class="id">T1</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Allrecipes--30</td><td><span class="badge g-D">D</span></td><td class="num">0.122</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Huggingface--6</td><td><span class="badge g-D">D</span></td><td class="num">0.135</td><td class="num">0.809</td><td class="id">T4</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Booking--10</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 1/6 praticiens l&#x27;ont supprimée, 5/6 l&#x27;ont réécrite → risque 0.583</td></tr><tr><td class="id">Booking--16</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--34</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--37</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">ESPN--26</td><td><span class="badge g-D">D</span></td><td class="num">0.138</td><td class="num">0.415</td><td class="id">T8</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.667</td></tr></tbody></table></div><p class="note">« Score détecteurs seuls » exclut l'a priori des praticiens : c'est le chiffre que l'outil produirait sur un benchmark sans vérité terrain, donc le seul transposable. L'écart entre les deux colonnes mesure ce que l'outil doit encore à des annotateurs humains.</p></section>
+<section><h2>Paramètres du score et leur provenance</h2><p>S(τ,t) = ∏<sub>g∈T1..T8</sub> (1 − ρ<sub>g</sub>) &nbsp;·&nbsp; ρ<sub>g</sub> = max( max<sub>f∈g</sub> w(σ<sub>f</sub>)·c<sub>f</sub>·κ(γ<sub>f</sub>)·φ(t−t<sub>f</sub>) , π<sub>g</sub> )</p><div class="table-wrap"><table><thead><tr><th class="">Paramètre</th><th class="num">Valeur</th><th class="">Provenance</th></tr></thead><tbody><tr><td>κ (crédibilité du canal)</td><td class="num">0.40</td><td class="why">runs/l2_probe_20260815.json — 3 URL bloquées en HTTP direct disposant d&#x27;un canal navigateur, 1 blocage confirmé ; Laplace (k+1)/(n+2) = 0,40</td></tr><tr><td>λ (décadence d'une observation)</td><td class="num">0.0143/mois</td><td class="why">journal Online-Mind2Web : 52/300 tâches remplacées en 13,35 mois → λ = 0,0143/mois (demi-vie 48 mois) ; contre-vérification WebVoyager 169/643 en 17 mois → λ = 0,0180 (demi-vie 39 mois)</td></tr><tr><td>λ (constats d'accès)</td><td class="num">0.0000/mois</td><td class="why">aucune mesure disponible de la volatilité hebdomadaire des signatures anti-bot (répétabilité mesurée sur 3 minutes seulement) : λ = 0 et l&#x27;âge de l&#x27;observation est affiché au lieu d&#x27;être décoté</td></tr><tr><td>Poids des praticiens</td><td class="num">suppr. 1.00 · réécr. 0.50</td><td class="why">suppression = irrécupérable (poids critical) ; réécriture = poids medium car Magnitude re-date par précaution des tâches encore valides, ce qui confond « cassée » et « rafraîchie »</td></tr><tr><td>Seuils de note</td><td class="num">A≥0.75 · B≥0.50 · C≥0.25</td><td class="why">1 − w(σ) : chaque frontière est « un constat de cette sévérité tenu pour certain » ; aucun ajustement sur les données</td></tr><tr><td>Agrégation</td><td class="num">noisy_or</td><td class="why">OU bruité entre catégories (modes de défaillance indépendants), maximum à l'intérieur d'une catégorie (pas de double comptage d'une même preuve)</td></tr></tbody></table></div><p class="note">Aucune de ces valeurs n'est un réglage : chacune est recalculable par une fonction du module <code>scoring</code> à partir des mesures citées.</p></section>
+<section><h2>Coût de la mesure</h2><div class="table-wrap"><table><thead><tr><th class="">Couche</th><th class="num">Coût</th><th class="num">Appels</th><th class="num">Temps</th></tr></thead><tbody><tr><td>L1</td><td class="num">0.00000 $</td><td class="num">0</td><td class="num">0.1 s</td></tr><tr><td>L2</td><td class="num">0.00000 $</td><td class="num">45</td><td class="num">38.9 s</td></tr><tr><td>L3</td><td class="num">0.13177 $</td><td class="num">643</td><td class="num">0.3 s</td></tr></tbody></table></div><p class="note">Total 0.13177 $ pour 643 tâches, soit 2.05e-04 $ par tâche. L2 : 45 requêtes HTTP réelles pour 643 tâches (629 réponses mémoïsées) — coût en argent nul, coût en requêtes borné par le nombre d&#x27;URL distinctes du corpus. L3 ambiguïté : 643 appels servis par le cache (coût évité 0.13177 $) : le coût publié est celui d&#x27;une première exécution, pas d&#x27;une relecture.</p></section> <h2>Stabilité task-side ≠ fiabilité agent-side</h2><p>Le score de cette carte porte sur la <b>tâche</b>, pas sur l'agent. Il mesure si l'item de benchmark mesure encore, à la date indiquée, ce qu'il mesurait à sa publication. Il ne faut pas le confondre avec la <i>reliability</i> agent-side de HAL / Rabanser et al. (ICML 2026), qui mesure la variance du résultat d'un même agent entre plusieurs exécutions de la même tâche. Les deux dimensions sont orthogonales et se composent : un agent parfaitement reproductible sur une tâche périmée produit un chiffre parfaitement reproductible et parfaitement faux.</p><div class="table-wrap"><table><thead><tr><th></th><th>Fiabilité agent-side (HAL, Rabanser)</th><th>Validité task-side (cette carte)</th></tr></thead><tbody><tr><td>Objet mesuré</td><td>l&#x27;agent</td><td>la tâche (l&#x27;item de benchmark)</td></tr><tr><td>Ce qui varie</td><td>l&#x27;exécution (décodage, harnais)</td><td>le monde (le web vivant)</td></tr><tr><td>Protocole</td><td>k exécutions de la même tâche</td><td>1 mesure datée, répétée dans le temps</td></tr><tr><td>Échelle de temps</td><td>minutes à heures</td><td>mois à années</td></tr><tr><td>Symptôme</td><td>variance du score entre exécutions</td><td>le score reste stable et ne veut plus rien dire</td></tr><tr><td>Remède</td><td>répéter, publier un intervalle</td><td>re-dater, réparer ou retirer la tâche</td></tr></tbody></table></div>     <li>Les sondes réseau sont parties d&#x27;une IP de datacenter. Sur les trois sites bloqués que nous avons pu recouper avec un navigateur, deux répondaient normalement à celui-ci : les constats d&#x27;accès refusé sont donc pondérés par κ = 0,40 et ne doivent pas être lus comme des tâches mortes.</li>
+    <li>Les sondes ne portent que sur l&#x27;URL de départ de chaque tâche — WebVoyager n&#x27;en fournit pas d&#x27;autre. Rien n&#x27;est dit de l&#x27;état du site après navigation : les taux publiés bornent la décadence par le bas.</li>
+    <li>Le score est ordinal avant d&#x27;être cardinal : les confiances des détecteurs ne sont pas calibrées. Comparer deux tâches est légitime, lire un score comme une probabilité ne l&#x27;est pas.</li>
+ Généré par benchmark-doctor 0.1.0 le 2026-08-16. Page autonome : aucune ressource externe, aucun script. Le score mesure la validité <b>task-side</b> de chaque tâche, pas la performance d'un agent.
+-->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="benchmark-doctor">
+<title>Carte de santé — webvoyager — 2026-08-16</title>
+<style>
+/* benchmark-doctor — feuille de style de la carte de santé.
+   Contrainte : le rapport HTML doit être autonome (aucune requête réseau, aucune
+   police distante, aucun script). Cette feuille est donc inlinée à la génération.
+   Elle est écrite pour trois usages : lecture à l'écran, mode sombre du système, et
+   capture d'écran pour le mémoire (d'où les bordures nettes et l'absence d'ombres). */
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #55555a;
+  --ink-faint: #85858c;
+  --line: #dededa;
+  --line-strong: #bfbfba;
+  --accent: #1f4e79;
+  --grade-a: #2f7d4f;
+  --grade-b: #8a7218;
+  --grade-c: #b25f16;
+  --grade-d: #a32c2c;
+  --grade-a-bg: #e7f2eb;
+  --grade-b-bg: #f7f1dc;
+  --grade-c-bg: #fbeddf;
+  --grade-d-bg: #f8e4e4;
+  --mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171a;
+    --surface: #1f1f23;
+    --ink: #ececec;
+    --ink-soft: #b6b6bd;
+    --ink-faint: #85858c;
+    --line: #34343a;
+    --line-strong: #4a4a52;
+    --accent: #7fb0dd;
+    --grade-a: #6cc08c;
+    --grade-b: #d6bb5c;
+    --grade-c: #e0955a;
+    --grade-d: #e07a7a;
+    --grade-a-bg: #1e2f24;
+    --grade-b-bg: #2f2b1c;
+    --grade-c-bg: #33251a;
+    --grade-d-bg: #331e1e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem 1.25rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+main { max-width: 66rem; margin: 0 auto; }
+
+/* ---- en-tête -------------------------------------------------------------------- */
+
+header.card-head {
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+header.card-head h1 {
+  margin: 0 0 .25rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+header.card-head .subtitle { margin: 0 0 1rem; color: var(--ink-soft); }
+
+dl.provenance {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: .2rem 1rem;
+  margin: 0;
+  font-size: .86rem;
+}
+dl.provenance dt { color: var(--ink-faint); }
+dl.provenance dd { margin: 0; font-family: var(--mono); font-size: .82rem; word-break: break-word; }
+
+/* ---- sections ------------------------------------------------------------------- */
+
+section { margin-bottom: 2rem; }
+
+h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .35rem;
+  margin: 0 0 .9rem;
+}
+
+h3 { font-size: .95rem; margin: 1.2rem 0 .5rem; }
+
+p.note {
+  color: var(--ink-soft);
+  font-size: .86rem;
+  margin: .5rem 0 0;
+  border-left: 2px solid var(--line-strong);
+  padding-left: .75rem;
+}
+
+/* ---- indicateurs ---------------------------------------------------------------- */
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: .75rem;
+}
+
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: .8rem .9rem;
+}
+.kpi .value { font-size: 1.7rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .label { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); margin-top: .25rem; }
+.kpi .sub { font-size: .78rem; color: var(--ink-soft); margin-top: .2rem; }
+
+/* ---- barre de notes -------------------------------------------------------------- */
+
+.grade-bar { display: flex; height: 2.2rem; border: 1px solid var(--line-strong); overflow: hidden; }
+.grade-bar.compact { height: .75rem; border-color: var(--line); margin-top: .25rem; }
+.grade-bar span {
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden;
+}
+.grade-bar .g-A { background: var(--grade-a); }
+.grade-bar .g-B { background: var(--grade-b); }
+.grade-bar .g-C { background: var(--grade-c); }
+.grade-bar .g-D { background: var(--grade-d); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .8rem; color: var(--ink-soft); margin-top: .5rem; }
+.legend b { font-weight: 600; }
+
+/* ---- tableaux -------------------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { padding: .45rem .7rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--bg); font-weight: 600; font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); position: sticky; top: 0; }
+tbody tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .82rem; }
+td.id { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+td.why { color: var(--ink-soft); font-size: .8rem; }
+td.quote { font-style: italic; }
+
+/* ---- pastilles ------------------------------------------------------------------- */
+
+.badge {
+  display: inline-block; padding: .05rem .4rem; border-radius: 2px;
+  font-family: var(--mono); font-size: .74rem; font-weight: 600; white-space: nowrap;
+}
+.badge.g-A { background: var(--grade-a-bg); color: var(--grade-a); }
+.badge.g-B { background: var(--grade-b-bg); color: var(--grade-b); }
+.badge.g-C { background: var(--grade-c-bg); color: var(--grade-c); }
+.badge.g-D { background: var(--grade-d-bg); color: var(--grade-d); }
+.badge.neutral { background: var(--bg); color: var(--ink-soft); border: 1px solid var(--line); }
+
+.bar { display: block; height: .55rem; background: var(--accent); min-width: 1px; }
+.bar-track { background: var(--line); width: 100%; display: block; }
+
+/* ---- deltas (rapport de comparaison) ---------------------------------------------- */
+
+.delta-neg { color: var(--grade-d); font-weight: 600; }
+.delta-pos { color: var(--grade-a); font-weight: 600; }
+.delta-nil { color: var(--ink-faint); }
+
+/* ---- encadré terminologique -------------------------------------------------------- */
+
+aside.terminology {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  padding: 1rem 1.25rem;
+  font-size: .86rem;
+}
+aside.terminology h2 { border: none; margin-bottom: .5rem; padding: 0; }
+aside.terminology table { font-size: .82rem; }
+
+/* ---- pied ------------------------------------------------------------------------- */
+
+footer {
+  margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .78rem; color: var(--ink-faint);
+}
+footer code { font-family: var(--mono); }
+
+ul.limits { font-size: .85rem; color: var(--ink-soft); padding-left: 1.1rem; }
+ul.limits li { margin-bottom: .35rem; }
+
+@media print {
+  body { background: #fff; padding: 0; font-size: 11pt; }
+  section { break-inside: avoid; }
+  .table-wrap { overflow: visible; }
+}
+
+</style>
+</head>
+<body>
+<main>
+
+<header class="card-head">
+  <h1>Carte de santé — webvoyager</h1>
+  <p class="subtitle">643 tâches · mesure du 2026-08-16 · couches L1+L2+L3 · stabilité moyenne 0.638</p>
+  <dl class="provenance">
+    <dt>Date de la mesure</dt><dd>2026-08-16</dd>
+    <dt>Corpus</dt><dd>data/raw/webvoyager_original.jsonl</dd>
+    <dt>Empreinte SHA-256</dt><dd>69b19fd86c23f1a500244a3724e039aa7ca6a1223d03e11eb10e308d4f11c488</dd>
+    <dt>Tâches</dt><dd>643</dd>
+    <dt>Couches exécutées</dt><dd>L1, L2, L3</dd>
+    <dt>Canaux d&#x27;accès</dt><dd>static, http_datacenter, llm</dd>
+    <dt>A priori praticiens</dt><dd>169 tâches signalées par ≥1 annotateur sur 643</dd>
+    <dt>Outil</dt><dd>benchmark-doctor 0.1.0</dd>
+
+  </dl>
+</header>
+
+<section><h2>Vue d&#x27;ensemble</h2><div class="kpi-row"><div class="kpi"><div class="value">0.638</div><div class="label">stabilité moyenne</div><div class="sub">médiane 0.650</div></div><div class="kpi"><div class="value">62.8 %</div><div class="label">tâches sous la note A</div><div class="sub">404 / 643</div></div><div class="kpi"><div class="value">69</div><div class="label">tâches en note D</div><div class="sub">à ne pas publier sans revue</div></div><div class="kpi"><div class="value">0.1318 $</div><div class="label">coût de la mesure</div><div class="sub">688 appels · 39 s</div></div></div><div style="margin-top:1rem"><div class="grade-bar" title="A 239 B 155 C 180 D 69"><span class="g-A" style="width:37.170%">A 239</span><span class="g-B" style="width:24.106%">B 155</span><span class="g-C" style="width:27.994%">C 180</span><span class="g-D" style="width:10.731%">D 69</span></div><div class="legend"><span><b>A</b> S ≥ 0.75 — 239 tâches (37.2 %)</span><span><b>B</b> S ≥ 0.50 — 155 tâches (24.1 %)</span><span><b>C</b> S ≥ 0.25 — 180 tâches (28.0 %)</span><span><b>D</b> S ≥ 0.00 — 69 tâches (10.7 %)</span></div></div><p class="note">Le score global est la moyenne des scores de tâches, jamais leur produit : un benchmark n'est pas cassé parce qu'une tâche l'est, il est dégradé en proportion. La moyenne masque la queue de distribution, d'où la barre de notes.</p></section>
+<section><h2>Répartition par catégorie de la taxonomie</h2><div class="table-wrap"><table><thead><tr><th class="">Code</th><th class="">Mode de décadence</th><th class="num">Tâches</th><th class="num">Part</th><th class="num">Risque moyen</th><th class=""></th><th class="">Origine du constat</th></tr></thead><tbody><tr><td class="id">T1</td><td>Dérive temporelle</td><td class="num">102</td><td class="num">15.9 %</td><td class="num">0.545</td><td><span class="bar-track"><span class="bar" style="width:42.50%"></span></span></td><td class="why">détecteurs 32 · praticiens 5 · les deux 65</td></tr><tr><td class="id">T2</td><td>Dérive de contenu ou d&#x27;URL</td><td class="num">143</td><td class="num">22.2 %</td><td class="num">0.212</td><td><span class="bar-track"><span class="bar" style="width:59.58%"></span></span></td><td class="why">détecteurs 122 · praticiens 13 · les deux 8</td></tr><tr><td class="id">T3</td><td>Accès refusé et effets de bord</td><td class="num">183</td><td class="num">28.5 %</td><td class="num">0.301</td><td><span class="bar-track"><span class="bar" style="width:76.25%"></span></span></td><td class="why">détecteurs 172 · praticiens 0 · les deux 11</td></tr><tr><td class="id">T4</td><td>Instabilité d&#x27;interface</td><td class="num">7</td><td class="num">1.1 %</td><td class="num">0.631</td><td><span class="bar-track"><span class="bar" style="width:2.92%"></span></span></td><td class="why">détecteurs 0 · praticiens 7 · les deux 0</td></tr><tr><td class="id">T5</td><td>Ambiguïté de l&#x27;énoncé</td><td class="num">240</td><td class="num">37.3 %</td><td class="num">0.413</td><td><span class="bar-track"><span class="bar" style="width:100.00%"></span></span></td><td class="why">détecteurs 235 · praticiens 2 · les deux 3</td></tr><tr><td class="id">T7</td><td>Fragilité de l&#x27;évaluation</td><td class="num">163</td><td class="num">25.4 %</td><td class="num">0.143</td><td><span class="bar-track"><span class="bar" style="width:67.92%"></span></span></td><td class="why">détecteurs 163 · praticiens 0 · les deux 0</td></tr><tr><td class="id">T8</td><td>Dépendance de timing</td><td class="num">7</td><td class="num">1.1 %</td><td class="num">0.631</td><td><span class="bar-track"><span class="bar" style="width:2.92%"></span></span></td><td class="why">détecteurs 0 · praticiens 7 · les deux 0</td></tr></tbody></table></div><p class="note">Une tâche peut relever de plusieurs catégories : la somme des effectifs dépasse le nombre de tâches. La colonne « origine » distingue ce que les détecteurs ont vu de ce que les praticiens avaient déjà signalé — c'est la mesure de ce que l'outil apporte au-delà de la vérité terrain.</p></section>
+<section><h2>Par site</h2><div class="table-wrap"><table><thead><tr><th class="">Site</th><th class="num">n</th><th class="num">Stabilité ⌀</th><th class="num">min</th><th class="num">Sous A</th><th class="">Notes</th><th class="">Catégorie dominante</th></tr></thead><tbody><tr><td>Booking</td><td class="num">44</td><td class="num">0.223</td><td class="num">0.024</td><td class="num">44 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 6 C 5 D 33"><span class="g-B" style="width:13.636%"></span><span class="g-C" style="width:11.364%"></span><span class="g-D" style="width:75.000%"></span></div></td><td class="why">T1_temporal</td></tr><tr><td>Google Flights</td><td class="num">42</td><td class="num">0.333</td><td class="num">0.048</td><td class="num">42 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 6 C 29 D 7"><span class="g-B" style="width:14.286%"></span><span class="g-C" style="width:69.048%"></span><span class="g-D" style="width:16.667%"></span></div></td><td class="why">T1_temporal</td></tr><tr><td>Allrecipes</td><td class="num">45</td><td class="num">0.476</td><td class="num">0.061</td><td class="num">45 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 20 C 20 D 5"><span class="g-B" style="width:44.444%"></span><span class="g-C" style="width:44.444%"></span><span class="g-D" style="width:11.111%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Amazon</td><td class="num">41</td><td class="num">0.496</td><td class="num">0.225</td><td class="num">41 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 16 C 23 D 2"><span class="g-B" style="width:39.024%"></span><span class="g-C" style="width:56.098%"></span><span class="g-D" style="width:4.878%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Apple</td><td class="num">43</td><td class="num">0.569</td><td class="num">0.054</td><td class="num">36 (84 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 7 B 18 C 12 D 6"><span class="g-A" style="width:16.279%"></span><span class="g-B" style="width:41.860%"></span><span class="g-C" style="width:27.907%"></span><span class="g-D" style="width:13.953%"></span></div></td><td class="why">T2_content_drift</td></tr><tr><td>ESPN</td><td class="num">44</td><td class="num">0.578</td><td class="num">0.138</td><td class="num">44 (100 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 0 B 32 C 8 D 4"><span class="g-B" style="width:72.727%"></span><span class="g-C" style="width:18.182%"></span><span class="g-D" style="width:9.091%"></span></div></td><td class="why">T3_access_denied</td></tr><tr><td>BBC News</td><td class="num">42</td><td class="num">0.630</td><td class="num">0.146</td><td class="num">26 (62 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 16 B 12 C 11 D 3"><span class="g-A" style="width:38.095%"></span><span class="g-B" style="width:28.571%"></span><span class="g-C" style="width:26.190%"></span><span class="g-D" style="width:7.143%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Huggingface</td><td class="num">43</td><td class="num">0.667</td><td class="num">0.000</td><td class="num">23 (53 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 20 B 4 C 15 D 4"><span class="g-A" style="width:46.512%"></span><span class="g-B" style="width:9.302%"></span><span class="g-C" style="width:34.884%"></span><span class="g-D" style="width:9.302%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Coursera</td><td class="num">42</td><td class="num">0.692</td><td class="num">0.083</td><td class="num">30 (71 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 12 B 21 C 7 D 2"><span class="g-A" style="width:28.571%"></span><span class="g-B" style="width:50.000%"></span><span class="g-C" style="width:16.667%"></span><span class="g-D" style="width:4.762%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>GitHub</td><td class="num">41</td><td class="num">0.722</td><td class="num">0.219</td><td class="num">19 (46 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 22 B 5 C 13 D 1"><span class="g-A" style="width:53.659%"></span><span class="g-B" style="width:12.195%"></span><span class="g-C" style="width:31.707%"></span><span class="g-D" style="width:2.439%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Google Map</td><td class="num">41</td><td class="num">0.728</td><td class="num">0.167</td><td class="num">22 (54 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 19 B 2 C 18 D 2"><span class="g-A" style="width:46.341%"></span><span class="g-B" style="width:4.878%"></span><span class="g-C" style="width:43.902%"></span><span class="g-D" style="width:4.878%"></span></div></td><td class="why">T5_ambiguity</td></tr><tr><td>Google Search</td><td class="num">43</td><td class="num">0.803</td><td class="num">0.292</td><td class="num">12 (28 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 31 B 3 C 9 D 0"><span class="g-A" style="width:72.093%"></span><span class="g-B" style="width:6.977%"></span><span class="g-C" style="width:20.930%"></span></div></td><td class="why">T7_eval_brittleness</td></tr><tr><td>ArXiv</td><td class="num">43</td><td class="num">0.836</td><td class="num">0.438</td><td class="num">8 (19 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 35 B 6 C 2 D 0"><span class="g-A" style="width:81.395%"></span><span class="g-B" style="width:13.953%"></span><span class="g-C" style="width:4.651%"></span></div></td><td class="why">T7_eval_brittleness</td></tr><tr><td>Cambridge Dictionary</td><td class="num">43</td><td class="num">0.891</td><td class="num">0.500</td><td class="num">7 (16 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 36 B 4 C 3 D 0"><span class="g-A" style="width:83.721%"></span><span class="g-B" style="width:9.302%"></span><span class="g-C" style="width:6.977%"></span></div></td><td class="why">T2_content_drift</td></tr><tr><td>Wolfram Alpha</td><td class="num">46</td><td class="num">0.915</td><td class="num">0.438</td><td class="num">5 (11 %)</td><td style="min-width:9rem"><div class="grade-bar compact" title="A 41 B 0 C 5 D 0"><span class="g-A" style="width:89.130%"></span><span class="g-C" style="width:10.870%"></span></div></td><td class="why">T1_temporal</td></tr></tbody></table></div><p class="note">Trié par stabilité croissante. Un site entier en bas de tableau signale un sous-ensemble à retirer plutôt que des tâches à réparer une à une.</p></section>
+<section><h2>Les 30 tâches les plus dégradées</h2><div class="table-wrap"><table><thead><tr><th class="">Tâche</th><th class="">Note</th><th class="num">Score</th><th class="num">Score détecteurs seuls</th><th class="">Cat.</th><th class="">Ce qui porte le risque</th></tr></thead><tbody><tr><td class="id">Huggingface--10</td><td><span class="badge g-D">D</span></td><td class="num">0.000</td><td class="num">0.100</td><td class="id">T2</td><td class="why">a priori praticiens : 6/6 praticiens l&#x27;ont supprimée → risque 1.000</td></tr><tr><td class="id">Booking--11</td><td><span class="badge g-D">D</span></td><td class="num">0.024</td><td class="num">0.068</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Huggingface--20</td><td><span class="badge g-D">D</span></td><td class="num">0.029</td><td class="num">0.350</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Booking--13</td><td><span class="badge g-D">D</span></td><td class="num">0.031</td><td class="num">0.089</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Booking--14</td><td><span class="badge g-D">D</span></td><td class="num">0.031</td><td class="num">0.089</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Google Flights--20</td><td><span class="badge g-D">D</span></td><td class="num">0.048</td><td class="num">0.137</td><td class="id">T3</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée, 2/6 l&#x27;ont réécrite → risque 0.833</td></tr><tr><td class="id">Apple--9</td><td><span class="badge g-D">D</span></td><td class="num">0.054</td><td class="num">0.164</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712</td></tr><tr><td class="id">Allrecipes--16</td><td><span class="badge g-D">D</span></td><td class="num">0.061</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Allrecipes--19</td><td><span class="badge g-D">D</span></td><td class="num">0.061</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Coursera--17</td><td><span class="badge g-D">D</span></td><td class="num">0.083</td><td class="num">1.000</td><td class="id">T4</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée, 1/6 l&#x27;ont réécrite → risque 0.917</td></tr><tr><td class="id">Booking--12</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--18</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--19</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--20</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--21</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--22</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--26</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--27</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--28</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--29</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--5</td><td><span class="badge g-D">D</span></td><td class="num">0.105</td><td class="num">0.105</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 5/6 l&#x27;ont réécrite → risque 0.417</td></tr><tr><td class="id">Coursera--28</td><td><span class="badge g-D">D</span></td><td class="num">0.108</td><td class="num">0.601</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Apple--7</td><td><span class="badge g-D">D</span></td><td class="num">0.121</td><td class="num">0.725</td><td class="id">T1</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Allrecipes--30</td><td><span class="badge g-D">D</span></td><td class="num">0.122</td><td class="num">0.730</td><td class="id">T2</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Huggingface--6</td><td><span class="badge g-D">D</span></td><td class="num">0.135</td><td class="num">0.809</td><td class="id">T4</td><td class="why">a priori praticiens : 5/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.833</td></tr><tr><td class="id">Booking--10</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 1/6 praticiens l&#x27;ont supprimée, 5/6 l&#x27;ont réécrite → risque 0.583</td></tr><tr><td class="id">Booking--16</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--34</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">Booking--37</td><td><span class="badge g-D">D</span></td><td class="num">0.136</td><td class="num">0.136</td><td class="id">T1</td><td class="why">l1_temporal (past_date_transactional) × sévérité high (w=0.75) × confiance 0.95 → risque 0.712 — a priori praticiens : 6/6 l&#x27;ont réécrite → risque 0.500</td></tr><tr><td class="id">ESPN--26</td><td><span class="badge g-D">D</span></td><td class="num">0.138</td><td class="num">0.415</td><td class="id">T8</td><td class="why">a priori praticiens : 4/6 praticiens l&#x27;ont supprimée (désaccord dur : supprimée par au moins un, conservée intacte par un autre) → risque 0.667</td></tr></tbody></table></div><p class="note">« Score détecteurs seuls » exclut l'a priori des praticiens : c'est le chiffre que l'outil produirait sur un benchmark sans vérité terrain, donc le seul transposable. L'écart entre les deux colonnes mesure ce que l'outil doit encore à des annotateurs humains.</p></section>
+<section><h2>Paramètres du score et leur provenance</h2><p>S(τ,t) = ∏<sub>g∈T1..T8</sub> (1 − ρ<sub>g</sub>) &nbsp;·&nbsp; ρ<sub>g</sub> = max( max<sub>f∈g</sub> w(σ<sub>f</sub>)·c<sub>f</sub>·κ(γ<sub>f</sub>)·φ(t−t<sub>f</sub>) , π<sub>g</sub> )</p><div class="table-wrap"><table><thead><tr><th class="">Paramètre</th><th class="num">Valeur</th><th class="">Provenance</th></tr></thead><tbody><tr><td>κ (crédibilité du canal)</td><td class="num">0.40</td><td class="why">runs/l2_probe_20260815.json — 3 URL bloquées en HTTP direct disposant d&#x27;un canal navigateur, 1 blocage confirmé ; Laplace (k+1)/(n+2) = 0,40</td></tr><tr><td>λ (décadence d'une observation)</td><td class="num">0.0143/mois</td><td class="why">journal Online-Mind2Web : 52/300 tâches remplacées en 13,35 mois → λ = 0,0143/mois (demi-vie 48 mois) ; contre-vérification WebVoyager 169/643 en 17 mois → λ = 0,0180 (demi-vie 39 mois)</td></tr><tr><td>λ (constats d'accès)</td><td class="num">0.0000/mois</td><td class="why">aucune mesure disponible de la volatilité hebdomadaire des signatures anti-bot (répétabilité mesurée sur 3 minutes seulement) : λ = 0 et l&#x27;âge de l&#x27;observation est affiché au lieu d&#x27;être décoté</td></tr><tr><td>Poids des praticiens</td><td class="num">suppr. 1.00 · réécr. 0.50</td><td class="why">suppression = irrécupérable (poids critical) ; réécriture = poids medium car Magnitude re-date par précaution des tâches encore valides, ce qui confond « cassée » et « rafraîchie »</td></tr><tr><td>Seuils de note</td><td class="num">A≥0.75 · B≥0.50 · C≥0.25</td><td class="why">1 − w(σ) : chaque frontière est « un constat de cette sévérité tenu pour certain » ; aucun ajustement sur les données</td></tr><tr><td>Agrégation</td><td class="num">noisy_or</td><td class="why">OU bruité entre catégories (modes de défaillance indépendants), maximum à l'intérieur d'une catégorie (pas de double comptage d'une même preuve)</td></tr></tbody></table></div><p class="note">Aucune de ces valeurs n'est un réglage : chacune est recalculable par une fonction du module <code>scoring</code> à partir des mesures citées.</p></section>
+<section><h2>Coût de la mesure</h2><div class="table-wrap"><table><thead><tr><th class="">Couche</th><th class="num">Coût</th><th class="num">Appels</th><th class="num">Temps</th></tr></thead><tbody><tr><td>L1</td><td class="num">0.00000 $</td><td class="num">0</td><td class="num">0.1 s</td></tr><tr><td>L2</td><td class="num">0.00000 $</td><td class="num">45</td><td class="num">38.9 s</td></tr><tr><td>L3</td><td class="num">0.13177 $</td><td class="num">643</td><td class="num">0.3 s</td></tr></tbody></table></div><p class="note">Total 0.13177 $ pour 643 tâches, soit 2.05e-04 $ par tâche. L2 : 45 requêtes HTTP réelles pour 643 tâches (629 réponses mémoïsées) — coût en argent nul, coût en requêtes borné par le nombre d&#x27;URL distinctes du corpus. L3 ambiguïté : 643 appels servis par le cache (coût évité 0.13177 $) : le coût publié est celui d&#x27;une première exécution, pas d&#x27;une relecture.</p></section>
+
+<aside class="terminology">
+<h2>Stabilité task-side ≠ fiabilité agent-side</h2><p>Le score de cette carte porte sur la <b>tâche</b>, pas sur l'agent. Il mesure si l'item de benchmark mesure encore, à la date indiquée, ce qu'il mesurait à sa publication. Il ne faut pas le confondre avec la <i>reliability</i> agent-side de HAL / Rabanser et al. (ICML 2026), qui mesure la variance du résultat d'un même agent entre plusieurs exécutions de la même tâche. Les deux dimensions sont orthogonales et se composent : un agent parfaitement reproductible sur une tâche périmée produit un chiffre parfaitement reproductible et parfaitement faux.</p><div class="table-wrap"><table><thead><tr><th></th><th>Fiabilité agent-side (HAL, Rabanser)</th><th>Validité task-side (cette carte)</th></tr></thead><tbody><tr><td>Objet mesuré</td><td>l&#x27;agent</td><td>la tâche (l&#x27;item de benchmark)</td></tr><tr><td>Ce qui varie</td><td>l&#x27;exécution (décodage, harnais)</td><td>le monde (le web vivant)</td></tr><tr><td>Protocole</td><td>k exécutions de la même tâche</td><td>1 mesure datée, répétée dans le temps</td></tr><tr><td>Échelle de temps</td><td>minutes à heures</td><td>mois à années</td></tr><tr><td>Symptôme</td><td>variance du score entre exécutions</td><td>le score reste stable et ne veut plus rien dire</td></tr><tr><td>Remède</td><td>répéter, publier un intervalle</td><td>re-dater, réparer ou retirer la tâche</td></tr></tbody></table></div>
+</aside>
+
+<section>
+  <h2>Limites de cette mesure</h2>
+  <ul class="limits">
+    <li>Les sondes réseau sont parties d&#x27;une IP de datacenter. Sur les trois sites bloqués que nous avons pu recouper avec un navigateur, deux répondaient normalement à celui-ci : les constats d&#x27;accès refusé sont donc pondérés par κ = 0,40 et ne doivent pas être lus comme des tâches mortes.</li>
+    <li>Les sondes ne portent que sur l&#x27;URL de départ de chaque tâche — WebVoyager n&#x27;en fournit pas d&#x27;autre. Rien n&#x27;est dit de l&#x27;état du site après navigation : les taux publiés bornent la décadence par le bas.</li>
+    <li>Le score est ordinal avant d&#x27;être cardinal : les confiances des détecteurs ne sont pas calibrées. Comparer deux tâches est légitime, lire un score comme une probabilité ne l&#x27;est pas.</li>
+
+  </ul>
+</section>
+
+<footer>
+Généré par benchmark-doctor 0.1.0 le 2026-08-16. Page autonome : aucune ressource externe, aucun script. Le score mesure la validité <b>task-side</b> de chaque tâche, pas la performance d'un agent.
+</footer>
+
+</main>
+</body>
+</html>

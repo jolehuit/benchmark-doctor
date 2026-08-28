@@ -1,0 +1,346 @@
+{
+ "schema": "bdoctor-health-diff/1",
+ "before": {
+  "generated_at": "2024-03-02",
+  "benchmark": "webvoyager",
+  "n_tasks": 643,
+  "layers": [
+   "L1"
+  ],
+  "mean_stability": 0.8771
+ },
+ "after": {
+  "generated_at": "2026-08-16",
+  "benchmark": "webvoyager",
+  "n_tasks": 643,
+  "layers": [
+   "L1"
+  ],
+  "mean_stability": 0.85
+ },
+ "comparability": {
+  "comparable": true,
+  "warnings": [],
+  "days_elapsed": 897
+ },
+ "headline": {
+  "days_elapsed": 897,
+  "mean_stability_delta": -0.0271,
+  "n_degraded": 37,
+  "n_improved": 0,
+  "n_unchanged": 606,
+  "rate_degraded": 0.0575,
+  "degradation_per_100_tasks_per_month": 0.195,
+  "n_new_D": 3,
+  "n_left_A": 16,
+  "n_appeared": 0,
+  "n_disappeared": 0
+ },
+ "grade_migration": {
+  "A->C": 15,
+  "B->C": 11,
+  "C->D": 3,
+  "A->B": 1
+ },
+ "grades_before": {
+  "A": 525,
+  "B": 71,
+  "C": 46,
+  "D": 1
+ },
+ "grades_after": {
+  "A": 509,
+  "B": 61,
+  "C": 69,
+  "D": 4
+ },
+ "degraded": [
+  {
+   "task_id": "Booking--19",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--21",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--37",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--22",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--25",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--27",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--29",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--30",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--31",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--32",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--34",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--36",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--38",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--39",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Google Flights--41",
+   "site": "Google Flights",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  }
+ ],
+ "improved": [],
+ "appeared": [],
+ "disappeared": [],
+ "by_category_delta": {
+  "T1_temporal": {
+   "before": 60,
+   "after": 97,
+   "delta": 37
+  },
+  "T2_content_drift": {
+   "before": 130,
+   "after": 130,
+   "delta": 0
+  },
+  "T3_access_denied": {
+   "before": 13,
+   "after": 13,
+   "delta": 0
+  },
+  "T7_eval_brittleness": {
+   "before": 174,
+   "after": 163,
+   "delta": -11
+  }
+ },
+ "by_site_delta": {
+  "Google Flights": {
+   "before": 0.5913,
+   "after": 0.3797,
+   "delta": -0.2116,
+   "n": 42
+  },
+  "Booking": {
+   "before": 0.574,
+   "after": 0.4069,
+   "delta": -0.1671,
+   "n": 44
+  },
+  "ESPN": {
+   "before": 0.9234,
+   "after": 0.9092,
+   "delta": -0.0142,
+   "n": 44
+  },
+  "Google Search": {
+   "before": 0.9069,
+   "after": 0.8999,
+   "delta": -0.007,
+   "n": 43
+  },
+  "Amazon": {
+   "before": 0.9601,
+   "after": 0.954,
+   "delta": -0.0061,
+   "n": 41
+  },
+  "ArXiv": {
+   "before": 0.8846,
+   "after": 0.8846,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Wolfram Alpha": {
+   "before": 0.9739,
+   "after": 0.9739,
+   "delta": 0.0,
+   "n": 46
+  },
+  "Apple": {
+   "before": 0.7331,
+   "after": 0.7331,
+   "delta": 0.0,
+   "n": 43
+  },
+  "BBC News": {
+   "before": 0.9092,
+   "after": 0.9092,
+   "delta": 0.0,
+   "n": 42
+  },
+  "Google Map": {
+   "before": 0.9616,
+   "after": 0.9616,
+   "delta": 0.0,
+   "n": 41
+  },
+  "Allrecipes": {
+   "before": 0.9956,
+   "after": 0.9956,
+   "delta": 0.0,
+   "n": 45
+  },
+  "Huggingface": {
+   "before": 0.9351,
+   "after": 0.9351,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Cambridge Dictionary": {
+   "before": 0.9529,
+   "after": 0.9529,
+   "delta": 0.0,
+   "n": 43
+  },
+  "GitHub": {
+   "before": 0.894,
+   "after": 0.894,
+   "delta": 0.0,
+   "n": 41
+  },
+  "Coursera": {
+   "before": 0.9589,
+   "after": 0.9589,
+   "delta": 0.0,
+   "n": 42
+  }
+ },
+ "cost": {
+  "before": 0.0,
+  "after": 0.0
+ },
+ "reading": "Une dégradation ne prouve pas que le site a changé : elle peut venir du canal, de l'ajout d'une couche ou d'une observation périmée. Le bloc « comparability » liste ce qui a bougé dans le protocole, à lire avant d'interpréter le moindre écart."
+}

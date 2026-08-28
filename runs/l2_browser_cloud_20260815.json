@@ -1,0 +1,113 @@
+{
+  "channel": "browser_cloud",
+  "channel_name": "browser_cloud:browserbase",
+  "collected_at": "2026-08-15T23:11:52Z",
+  "collector": "Browserbase (Chromium piloté par CDP, session bd3ae7de-b201-4ce0-8a5c-a8c4b5b11b6a)",
+  "method": "navigation réelle ; statut, en-têtes et taille repris de la réponse CDP du document principal, titre et nature de la page repris de l'extraction DOM effectuée juste après le chargement",
+  "limits": [
+    "Le corps HTML complet n'a pas été rapatrié : `excerpt` contient le titre du document et l'observation faite sur le DOM, pas le HTML brut. La classification de ces observations repose donc sur le statut, les en-têtes et la taille, pas sur des marqueurs de corps.",
+    "`body_size` est la longueur ENCODÉE (gzip) annoncée par le protocole, non la taille décodée. Elle sous-estime donc la taille réelle des pages : c'est conservateur pour la détection d'interstitiel (une vraie page risque d'être prise pour un interstitiel, jamais l'inverse).",
+    "GitHub a été mesuré sur une page de dépôt (`/openai/openai-python`) et non sur la racine : la comparaison avec le canal HTTP direct porte donc sur l'hôte, pas sur l'URL exacte.",
+    "Quatre URL seulement ont été mesurées sur ce canal, faute d'accès programmatique : les onze autres sites du corpus n'ont pas de contrepartie navigateur cloud dans cette campagne."
+  ],
+  "observations": [
+    {
+      "url": "https://www.allrecipes.com/",
+      "channel": "browser_cloud",
+      "channel_name": "browser_cloud:browserbase",
+      "status": 200,
+      "final_url": "https://www.allrecipes.com/",
+      "body_size": 16994,
+      "headers": {
+        "server": "cloudflare",
+        "cf-ray": "a2bbe17f28f2de1d-PDX",
+        "cf-cache-status": "DYNAMIC",
+        "content-type": "text/html;charset=utf-8",
+        "via": "1.1 google",
+        "set-cookie": "__cf_bm=ldJ_B.Dhb.s6SyOwhrLS_4A5G5Lv7MiFA8dYnQEzAzM-1786835512...; HttpOnly; SameSite=None; Secure; Domain=allrecipes.com"
+      },
+      "excerpt": "<title>Allrecipes | Recipes, How-Tos, Videos and More</title> — page de contenu rendue, titre de section : \"America's #1 Trusted Recipe Resource since 1997\" ; aucun interstitiel de vérification.",
+      "redirect_chain": [],
+      "observed_at": "2026-08-15T23:11:52+00:00",
+      "meta": {
+        "rendered": true,
+        "title": "Allrecipes | Recipes, How-Tos, Videos and More",
+        "is_challenge_page": false,
+        "cf_pop": "PDX",
+        "body_size_kind": "encoded_gzip",
+        "note": "Même URL renvoyée en 402 Payment Required par le canal HTTP direct à 23:10:45Z, soit 67 secondes plus tôt."
+      }
+    },
+    {
+      "url": "https://www.booking.com/",
+      "channel": "browser_cloud",
+      "channel_name": "browser_cloud:browserbase",
+      "status": 202,
+      "final_url": "https://www.booking.com/",
+      "body_size": 2008,
+      "headers": {
+        "server": "CloudFront",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "2008",
+        "x-amzn-waf-action": "challenge",
+        "x-amz-cf-pop": "HIO52-P5",
+        "x-cache": "Error from cloudfront",
+        "via": "1.1 6daec11ce051cffaa3e440291c9bdce2.cloudfront.net (CloudFront)"
+      },
+      "excerpt": "Réponse initiale : interstitiel AWS WAF de 2 008 octets (x-amzn-waf-action: challenge). Le navigateur a exécuté le challenge JavaScript et la page réelle a ensuite été rendue.",
+      "redirect_chain": [],
+      "observed_at": "2026-08-15T23:12:32+00:00",
+      "meta": {
+        "rendered": true,
+        "title": "Booking.com | Official site | The best hotels, flights, car rentals & accommodations",
+        "challenge_resolved_by_browser": true,
+        "body_size_kind": "declared_content_length",
+        "note": "Le document initial est le MÊME interstitiel que sur le canal HTTP direct (202, x-amzn-waf-action: challenge) ; la différence de verdict ne vient pas du filtrage mais de la capacité du canal à exécuter le challenge."
+      }
+    },
+    {
+      "url": "https://www.espn.com/",
+      "channel": "browser_cloud",
+      "channel_name": "browser_cloud:browserbase",
+      "status": 200,
+      "final_url": "https://www.espn.com/",
+      "body_size": 59726,
+      "headers": {
+        "content-type": "text/html;charset=UTF-8",
+        "content-length": "59726",
+        "x-amz-cf-pop": "HIO52-P3",
+        "x-cache": "Miss from cloudfront",
+        "via": "1.1 82db75c54bc1 (Varnish/7.5), 1.1 1dec60e7743931415d677a5c5573774e.cloudfront.net (CloudFront)"
+      },
+      "excerpt": "Document ESPN complet servi par l'origine (Varnish) via CloudFront ; cookies applicatifs posés (edition, region, SWID) — aucun interstitiel.",
+      "redirect_chain": [],
+      "observed_at": "2026-08-15T23:12:56+00:00",
+      "meta": {
+        "rendered": true,
+        "body_size_kind": "declared_content_length",
+        "note": "Même URL renvoyée en 202 (interstitiel AWS WAF de 1 987 octets) par le canal HTTP direct à 23:10:47Z."
+      }
+    },
+    {
+      "url": "https://github.com/openai/openai-python",
+      "channel": "browser_cloud",
+      "channel_name": "browser_cloud:browserbase",
+      "status": 200,
+      "final_url": "https://github.com/openai/openai-python",
+      "body_size": 11126,
+      "headers": {
+        "server": "github.com",
+        "content-type": "text/html; charset=utf-8",
+        "set-cookie": "_gh_sess=...; _octo=GH1.1.1142591372.1786835584; logged_in=no"
+      },
+      "excerpt": "Page de dépôt GitHub servie par l'origine (server: github.com, x-github-request-id présent) — le site est vivant et public.",
+      "redirect_chain": [],
+      "observed_at": "2026-08-15T23:13:05+00:00",
+      "meta": {
+        "rendered": true,
+        "body_size_kind": "encoded_gzip",
+        "note": "Le canal HTTP direct ne peut pas atteindre github.com depuis cet environnement : il reçoit 400/403 avec un corps JSON produit par le proxy d'egress. Cette mesure établit que le blocage est imputable au canal, pas au site."
+      }
+    }
+  ]
+}

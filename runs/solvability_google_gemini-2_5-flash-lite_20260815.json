@@ -1,0 +1,990 @@
+{
+  "generated_at": "2026-08-15",
+  "reference_date": "2026-08-15",
+  "model": "google/gemini-2.5-flash-lite",
+  "sample": {
+    "n": 60,
+    "per_site": 4,
+    "seed": 20260816,
+    "task_ids": [
+      "Allrecipes--4",
+      "Allrecipes--13",
+      "Allrecipes--15",
+      "Allrecipes--39",
+      "Amazon--8",
+      "Amazon--13",
+      "Amazon--14",
+      "Amazon--40",
+      "Apple--3",
+      "Apple--10",
+      "Apple--25",
+      "Apple--40",
+      "ArXiv--0",
+      "ArXiv--7",
+      "ArXiv--37",
+      "ArXiv--39",
+      "BBC News--6",
+      "BBC News--24",
+      "BBC News--28",
+      "BBC News--39",
+      "Booking--6",
+      "Booking--26",
+      "Booking--30",
+      "Booking--38",
+      "Cambridge Dictionary--15",
+      "Cambridge Dictionary--28",
+      "Cambridge Dictionary--33",
+      "Cambridge Dictionary--40",
+      "Coursera--27",
+      "Coursera--35",
+      "Coursera--37",
+      "Coursera--41",
+      "ESPN--3",
+      "ESPN--9",
+      "ESPN--12",
+      "ESPN--16",
+      "GitHub--4",
+      "GitHub--8",
+      "GitHub--14",
+      "GitHub--33",
+      "Google Flights--7",
+      "Google Flights--29",
+      "Google Flights--32",
+      "Google Flights--36",
+      "Google Map--7",
+      "Google Map--9",
+      "Google Map--12",
+      "Google Map--36",
+      "Google Search--19",
+      "Google Search--20",
+      "Google Search--22",
+      "Google Search--24",
+      "Huggingface--1",
+      "Huggingface--18",
+      "Huggingface--19",
+      "Huggingface--26",
+      "Wolfram Alpha--7",
+      "Wolfram Alpha--15",
+      "Wolfram Alpha--22",
+      "Wolfram Alpha--40"
+    ]
+  },
+  "ground_truth": {
+    "definition": "substitut : union des 53 suppressions de Magnitude et des 55 identifiants de WebVoyagerImpossibleTasks.json (browser-use) — 59 tâches, 49 en commun",
+    "n_union": 59,
+    "n_in_sample": 4,
+    "limits": [
+      "un retrait de praticien n'est pas toujours une infaisabilité de principe : certaines tâches ont été retirées pour dérive de contenu ou date périmée",
+      "les deux listes se recouvrent à 49/59 : ce sont deux annotateurs très corrélés, pas deux mesures indépendantes",
+      "le modèle juge sans consulter le site : le verdict est un a priori daté de sa coupure d'entraînement, à confirmer par une sonde L2"
+    ]
+  },
+  "verdicts": [
+    {
+      "task_id": "Allrecipes--4",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Website allows filtering by prep time and rating."
+    },
+    {
+      "task_id": "Allrecipes--13",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Recipe search and nutrition info are standard site features."
+    },
+    {
+      "task_id": "Allrecipes--15",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website allows filtering by prep time, ingredients, and ratings."
+    },
+    {
+      "task_id": "Allrecipes--39",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Recipe search, nutrition, ingredients, and storage info are standard website features."
+    },
+    {
+      "task_id": "Amazon--8",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Agent can filter by brand, screen size, and sort by price."
+    },
+    {
+      "task_id": "Amazon--13",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Agent can filter by category, color, size, and price range."
+    },
+    {
+      "task_id": "Amazon--14",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "All filters are available on Amazon and no temporal constraints apply."
+    },
+    {
+      "task_id": "Amazon--40",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "All information is available on the website and does not require special capabilities."
+    },
+    {
+      "task_id": "Apple--3",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website allows browsing and comparing product specifications and prices."
+    },
+    {
+      "task_id": "Apple--10",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website should have information on current MacBook models."
+    },
+    {
+      "task_id": "Apple--25",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The Apple TV is a product, and its specifications are publicly available on their website."
+    },
+    {
+      "task_id": "Apple--40",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Website has product information and app lists. No auth or payment needed."
+    },
+    {
+      "task_id": "ArXiv--0",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "ArXiv allows searching for preprints by keyword."
+    },
+    {
+      "task_id": "ArXiv--7",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "ArXiv allows browsing recent submissions by category."
+    },
+    {
+      "task_id": "ArXiv--37",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Leadership team information is typically available on organizational websites."
+    },
+    {
+      "task_id": "ArXiv--39",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The paper exists and is accessible via HTML on ArXiv."
+    },
+    {
+      "task_id": "BBC News--6",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website has a technology section and displays top stories."
+    },
+    {
+      "task_id": "BBC News--24",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website has a search function and news articles are available."
+    },
+    {
+      "task_id": "BBC News--28",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Market data is a standard feature on news sites."
+    },
+    {
+      "task_id": "BBC News--39",
+      "solvable": "no",
+      "blocker": "content_missing",
+      "confidence": 1.0,
+      "reason": "BBC News does not have a dedicated horse racing section or results."
+    },
+    {
+      "task_id": "Booking--6",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task is feasible, requiring standard booking actions on the website."
+    },
+    {
+      "task_id": "Booking--26",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task involves searching for hotels with specific criteria, which is a standard website functionality."
+    },
+    {
+      "task_id": "Booking--30",
+      "solvable": "no",
+      "blocker": "temporal",
+      "confidence": 1.0,
+      "reason": "The search dates are in the past."
+    },
+    {
+      "task_id": "Booking--38",
+      "solvable": "no",
+      "blocker": "temporal",
+      "confidence": 1.0,
+      "reason": "The specified dates (Feb 28 - Mar 4, 2024) are in the past."
+    },
+    {
+      "task_id": "Cambridge Dictionary--15",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website provides definitions, pronunciations, and example sentences for words."
+    },
+    {
+      "task_id": "Cambridge Dictionary--28",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website provides a thesaurus feature for searching synonyms."
+    },
+    {
+      "task_id": "Cambridge Dictionary--33",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website has a dedicated grammar section with relevant information."
+    },
+    {
+      "task_id": "Cambridge Dictionary--40",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website provides definitions and pronunciations for words."
+    },
+    {
+      "task_id": "Coursera--27",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Coursera allows searching for Specializations with specific criteria."
+    },
+    {
+      "task_id": "Coursera--35",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website allows searching for courses and viewing their details, including instructor information."
+    },
+    {
+      "task_id": "Coursera--37",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Coursera offers many free courses, and the homepage is accessible."
+    },
+    {
+      "task_id": "Coursera--41",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website allows browsing online degrees and Bachelor's programs."
+    },
+    {
+      "task_id": "ESPN--3",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "ESPN displays live scores and past game results prominently."
+    },
+    {
+      "task_id": "ESPN--9",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The website allows searching for teams and filtering by league."
+    },
+    {
+      "task_id": "ESPN--12",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task requires reading headlines and identifying associated sports leagues, which is feasible on the ESPN homepage."
+    },
+    {
+      "task_id": "ESPN--16",
+      "solvable": "no",
+      "blocker": "temporal",
+      "confidence": 1.0,
+      "reason": "The requested date (December 25, 2023) is in the past."
+    },
+    {
+      "task_id": "GitHub--4",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "GitHub allows searching for repositories by creation date and filtering by presence of Readme."
+    },
+    {
+      "task_id": "GitHub--8",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "GitHub hosts release information for projects, including version and publication date."
+    },
+    {
+      "task_id": "GitHub--14",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "GitHub is a public site and the repository and contributors are visible."
+    },
+    {
+      "task_id": "GitHub--33",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Customer stories are a standard content type on company websites."
+    },
+    {
+      "task_id": "Google Flights--7",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task is feasible as it involves searching for flights with specific criteria."
+    },
+    {
+      "task_id": "Google Flights--29",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task involves searching for flights, which is a core functionality of Google Flights."
+    },
+    {
+      "task_id": "Google Flights--32",
+      "solvable": "no",
+      "blocker": "temporal",
+      "confidence": 1.0,
+      "reason": "The specified dates (March 2024) are in the past."
+    },
+    {
+      "task_id": "Google Flights--36",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task is a standard flight search and filtering operation."
+    },
+    {
+      "task_id": "Google Map--7",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Bus stops are a standard feature on Google Maps."
+    },
+    {
+      "task_id": "Google Map--9",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "The task is to find a nearest art gallery, which is a standard search function on Google Maps."
+    },
+    {
+      "task_id": "Google Map--12",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Agent can search for burgers, filter by zip code, and sort by rating."
+    },
+    {
+      "task_id": "Google Map--36",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Agent can search for restaurants and filter by rating."
+    },
+    {
+      "task_id": "Google Search--19",
+      "solvable": "no",
+      "blocker": "content_missing",
+      "confidence": 1.0,
+      "reason": "Cannot determine 'Bert's latest commit' without more context."
+    },
+    {
+      "task_id": "Google Search--20",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Search engines can find release dates for movies."
+    },
+    {
+      "task_id": "Google Search--22",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Google Trends can be used to find trending topics by location and time."
+    },
+    {
+      "task_id": "Google Search--24",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Information is publicly available via search engine."
+    },
+    {
+      "task_id": "Huggingface--1",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Huggingface Inference API is available and can generate text."
+    },
+    {
+      "task_id": "Huggingface--18",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Documentation exists and is accessible without login."
+    },
+    {
+      "task_id": "Huggingface--19",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Hugging Face hosts many NLP models, and filtering by task and recency is possible."
+    },
+    {
+      "task_id": "Huggingface--26",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Hugging Face hosts many models; searching and filtering is feasible."
+    },
+    {
+      "task_id": "Wolfram Alpha--7",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Wolfram Alpha can solve physics problems with given parameters."
+    },
+    {
+      "task_id": "Wolfram Alpha--15",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Wolfram Alpha can compute complex relationships and kinship."
+    },
+    {
+      "task_id": "Wolfram Alpha--22",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Wolfram Alpha can compute geometric properties like the area of a hexagon."
+    },
+    {
+      "task_id": "Wolfram Alpha--40",
+      "solvable": "yes",
+      "blocker": "none",
+      "confidence": 1.0,
+      "reason": "Wolfram Alpha can compute this based on user-provided parameters."
+    }
+  ],
+  "distribution": {
+    "solvable": {
+      "yes": 54,
+      "no": 6
+    },
+    "blockers": {
+      "content_missing": 2,
+      "temporal": 4
+    }
+  },
+  "agreement_with_any_practitioner_edit": {
+    "definition": "retraits ∪ corrections (127 tâches sur 643)",
+    "n_in_sample": 10,
+    "strict_no_only": {
+      "precision": 0.5,
+      "recall": 0.3,
+      "f1": 0.37499999999999994,
+      "tp": 3,
+      "fp": 3,
+      "fn": 7
+    }
+  },
+  "agreement_with_removals": {
+    "strict_no_only": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 6,
+      "fn": 4
+    },
+    "lenient_no_or_unclear": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 6,
+      "fn": 4
+    },
+    "false_alarm_rate_on_kept_tasks": 0.1071
+  },
+  "recall_on_removed_tasks": {
+    "n": 59,
+    "audited": true,
+    "flagged_no": 11,
+    "flagged_no_or_unclear": 11,
+    "recall": 0.1864,
+    "blockers": {
+      "temporal": 5,
+      "content_missing": 3,
+      "site_capability": 2,
+      "auth": 1
+    },
+    "verdicts": [
+      {
+        "task_id": "Allrecipes--3",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows searching and filtering recipes by dietary needs, reviews, and ratings."
+      },
+      {
+        "task_id": "Allrecipes--7",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows searching for recipes and displaying ingredients and steps."
+      },
+      {
+        "task_id": "Allrecipes--16",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows filtering by rating and preparation time."
+      },
+      {
+        "task_id": "Allrecipes--19",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows filtering by dietary restrictions, number of ingredients, and review count."
+      },
+      {
+        "task_id": "Allrecipes--23",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows filtering by prep time, rating, and number of reviews."
+      },
+      {
+        "task_id": "Allrecipes--30",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows searching and filtering recipes based on the given criteria."
+      },
+      {
+        "task_id": "Amazon--4",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Agent can search and filter for used items on Amazon."
+      },
+      {
+        "task_id": "Amazon--6",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves browsing and filtering products, which is a standard e-commerce website capability."
+      },
+      {
+        "task_id": "Amazon--16",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Return policy is generally available on product pages or help sections."
+      },
+      {
+        "task_id": "Amazon--19",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task is feasible as it involves searching and filtering on Amazon."
+      },
+      {
+        "task_id": "Apple--1",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves researching features and compatibility, which is feasible on the Apple website."
+      },
+      {
+        "task_id": "Apple--2",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Product pages for both models should be available for comparison."
+      },
+      {
+        "task_id": "Apple--7",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Information about product release dates and locations is typically available on company websites."
+      },
+      {
+        "task_id": "Apple--9",
+        "solvable": "no",
+        "blocker": "temporal",
+        "confidence": 1.0,
+        "reason": "The requested pickup date (January 10, 2024) is in the past."
+      },
+      {
+        "task_id": "Apple--14",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Agent can navigate to product page and check upgrade options and prices."
+      },
+      {
+        "task_id": "Apple--16",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website should list available AirPods models and their prices."
+      },
+      {
+        "task_id": "Apple--20",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Product and configuration are standard and likely available."
+      },
+      {
+        "task_id": "Apple--37",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Product pages should list color options for comparison."
+      },
+      {
+        "task_id": "Apple--41",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows browsing and purchasing products with specified configurations."
+      },
+      {
+        "task_id": "Apple--42",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website should still list product information and updates for these models."
+      },
+      {
+        "task_id": "ArXiv--11",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website provides submission guidelines that can be accessed and read."
+      },
+      {
+        "task_id": "BBC News--2",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows browsing news articles by date and topic."
+      },
+      {
+        "task_id": "BBC News--14",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves finding and summarizing publicly available news content."
+      },
+      {
+        "task_id": "BBC News--16",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Brexit is an ongoing topic, and news reports are available."
+      },
+      {
+        "task_id": "BBC News--18",
+        "solvable": "no",
+        "blocker": "content_missing",
+        "confidence": 1.0,
+        "reason": "The task asks for 2023 podcasts, but the current date is 2026. Content from 2023 may no longer be readily available or relevant."
+      },
+      {
+        "task_id": "BBC News--21",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task is to identify a headline, which is a standard website feature."
+      },
+      {
+        "task_id": "BBC News--29",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website structure allows navigation to audio content and identification of new releases."
+      },
+      {
+        "task_id": "BBC News--33",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website provides news articles, including world news and Middle East conflicts."
+      },
+      {
+        "task_id": "BBC News--37",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website has a Culture section that likely features book reviews."
+      },
+      {
+        "task_id": "Booking--11",
+        "solvable": "no",
+        "blocker": "temporal",
+        "confidence": 1.0,
+        "reason": "The requested dates (March 20-27, 2024) are in the past."
+      },
+      {
+        "task_id": "Booking--13",
+        "solvable": "no",
+        "blocker": "temporal",
+        "confidence": 1.0,
+        "reason": "The specified dates (February 14-21, 2024) are in the past."
+      },
+      {
+        "task_id": "Booking--14",
+        "solvable": "no",
+        "blocker": "temporal",
+        "confidence": 1.0,
+        "reason": "The specified dates (March 3-5, 2024) are in the past."
+      },
+      {
+        "task_id": "Coursera--17",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows searching and filtering, so the task is feasible."
+      },
+      {
+        "task_id": "Coursera--28",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Coursera allows searching for courses and viewing their details."
+      },
+      {
+        "task_id": "ESPN--2",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website allows browsing past game scores and highlights."
+      },
+      {
+        "task_id": "ESPN--19",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Roster and salary information is typically available on sports team pages."
+      },
+      {
+        "task_id": "ESPN--21",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "ESPN provides scores and highlights for recent games."
+      },
+      {
+        "task_id": "ESPN--26",
+        "solvable": "no",
+        "blocker": "content_missing",
+        "confidence": 1.0,
+        "reason": "Historical game data, especially with specific win/loss score comparisons, is not readily available on ESPN's current site."
+      },
+      {
+        "task_id": "GitHub--22",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "GitHub allows searching for repositories by language and update time."
+      },
+      {
+        "task_id": "GitHub--29",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves comparing pricing information, which is publicly available on the website."
+      },
+      {
+        "task_id": "Google Flights--0",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task is feasible as it involves searching for flights and identifying the lowest price."
+      },
+      {
+        "task_id": "Google Flights--20",
+        "solvable": "no",
+        "blocker": "temporal",
+        "confidence": 1.0,
+        "reason": "The specified dates are in the past."
+      },
+      {
+        "task_id": "Google Map--13",
+        "solvable": "no",
+        "blocker": "site_capability",
+        "confidence": 1.0,
+        "reason": "Google Maps does not offer ride booking functionality."
+      },
+      {
+        "task_id": "Google Map--18",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Route finding is a core feature of Google Maps."
+      },
+      {
+        "task_id": "Google Map--26",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves searching, viewing, and printing a map, all standard browser functionalities."
+      },
+      {
+        "task_id": "Google Search--6",
+        "solvable": "no",
+        "blocker": "site_capability",
+        "confidence": 1.0,
+        "reason": "Google Search does not offer monthly trending searches by city."
+      },
+      {
+        "task_id": "Google Search--15",
+        "solvable": "no",
+        "blocker": "auth",
+        "confidence": 1.0,
+        "reason": "Requires login credentials for Twitter, which are not provided or accessible."
+      },
+      {
+        "task_id": "Google Search--16",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Agent can search Reddit via Google and find community size and recent news."
+      },
+      {
+        "task_id": "Huggingface--6",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The model and Inference API are available on Hugging Face."
+      },
+      {
+        "task_id": "Huggingface--10",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task involves interacting with a public model on Hugging Face, which is feasible."
+      },
+      {
+        "task_id": "Huggingface--20",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Models are searchable and filterable by downloads and last updated date."
+      },
+      {
+        "task_id": "Huggingface--21",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The website is a platform for ML models and documentation, likely to contain this information."
+      },
+      {
+        "task_id": "Huggingface--22",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Documentation on model conversion is likely available on the website."
+      },
+      {
+        "task_id": "Huggingface--23",
+        "solvable": "no",
+        "blocker": "content_missing",
+        "confidence": 1.0,
+        "reason": "Cannot determine 'past month' releases without specific date filters."
+      },
+      {
+        "task_id": "Huggingface--32",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Model pages on Hugging Face are static and accessible without login."
+      },
+      {
+        "task_id": "Booking--6",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task is feasible, requiring standard booking actions on the website."
+      },
+      {
+        "task_id": "Google Flights--7",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "The task is feasible as it involves searching for flights with specific criteria."
+      },
+      {
+        "task_id": "Google Search--22",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Google Trends can be used to find trending topics by location and time."
+      },
+      {
+        "task_id": "Huggingface--1",
+        "solvable": "yes",
+        "blocker": "none",
+        "confidence": 1.0,
+        "reason": "Huggingface Inference API is available and can generate text."
+      }
+    ]
+  },
+  "cost": {
+    "label": "solvability-gemini-2.5-flash-lite",
+    "calls": 0,
+    "cached_calls": 115,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "cost_usd": 0.0,
+    "avoided_cost_usd": 0.006226,
+    "first_run_cost_usd": 0.006226,
+    "wall_time_s": 0.226,
+    "avoided_time_s": 75.822,
+    "model_time_s": 76.048,
+    "errors": 0
+  },
+  "wall_time_s": 0.02,
+  "findings_emitted": 6
+}

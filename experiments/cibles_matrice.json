@@ -1,0 +1,21 @@
+{
+  "_note": "Les 15 URL de la matrice des canaux. Colonne `reference_http_datacenter` = signature relevee le 15/08/2026 par le canal direct_http:browser de runs/l2_probe_20260815.json. C'est une ligne de comparaison, pas une verite.",
+  "_hotes_distincts": 13,
+  "cibles": [
+    {"site": "Allrecipes", "hote": "www.allrecipes.com", "url": "https://www.allrecipes.com/", "reference_http_datacenter": "paywall_402"},
+    {"site": "Amazon", "hote": "www.amazon.com", "url": "https://www.amazon.com/", "reference_http_datacenter": "antibot_challenge"},
+    {"site": "Apple", "hote": "www.apple.com", "url": "https://www.apple.com/", "reference_http_datacenter": "ok"},
+    {"site": "ArXiv", "hote": "arxiv.org", "url": "https://arxiv.org/", "reference_http_datacenter": "ok"},
+    {"site": "BBC News", "hote": "www.bbc.com", "url": "https://www.bbc.com/news/", "reference_http_datacenter": "ok"},
+    {"site": "Booking", "hote": "www.booking.com", "url": "https://www.booking.com/", "reference_http_datacenter": "antibot_challenge"},
+    {"site": "Cambridge Dictionary", "hote": "dictionary.cambridge.org", "url": "https://dictionary.cambridge.org/", "reference_http_datacenter": "ok"},
+    {"site": "Coursera", "hote": "www.coursera.org", "url": "https://www.coursera.org/", "reference_http_datacenter": "ok"},
+    {"site": "ESPN", "hote": "www.espn.com", "url": "https://www.espn.com/", "reference_http_datacenter": "antibot_challenge"},
+    {"site": "GitHub", "hote": "github.com", "url": "https://github.com/", "reference_http_datacenter": "channel_blocked"},
+    {"site": "Google Flights", "hote": "www.google.com", "url": "https://www.google.com/travel/flights/", "reference_http_datacenter": "ok"},
+    {"site": "Google Map", "hote": "www.google.com", "url": "https://www.google.com/maps/", "reference_http_datacenter": "ok"},
+    {"site": "Google Search", "hote": "www.google.com", "url": "https://www.google.com/", "reference_http_datacenter": "ok"},
+    {"site": "Huggingface", "hote": "huggingface.co", "url": "https://huggingface.co/", "reference_http_datacenter": "ok"},
+    {"site": "Wolfram Alpha", "hote": "www.wolframalpha.com", "url": "https://www.wolframalpha.com/", "reference_http_datacenter": "ok"}
+  ]
+}

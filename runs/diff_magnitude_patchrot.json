@@ -1,0 +1,345 @@
+{
+ "schema": "bdoctor-health-diff/1",
+ "before": {
+  "generated_at": "2025-07-06",
+  "benchmark": "webvoyager-magnitude-2025-07",
+  "n_tasks": 590,
+  "layers": [
+   "L1"
+  ],
+  "mean_stability": 0.9244
+ },
+ "after": {
+  "generated_at": "2026-08-16",
+  "benchmark": "webvoyager-magnitude-2025-07",
+  "n_tasks": 590,
+  "layers": [
+   "L1"
+  ],
+  "mean_stability": 0.8579
+ },
+ "comparability": {
+  "comparable": true,
+  "warnings": [],
+  "days_elapsed": 406
+ },
+ "headline": {
+  "days_elapsed": 406,
+  "mean_stability_delta": -0.0665,
+  "n_degraded": 64,
+  "n_improved": 0,
+  "n_unchanged": 526,
+  "rate_degraded": 0.1085,
+  "degradation_per_100_tasks_per_month": 0.813,
+  "n_new_D": 0,
+  "n_left_A": 47,
+  "n_appeared": 0,
+  "n_disappeared": 0
+ },
+ "grade_migration": {
+  "A->C": 46,
+  "B->C": 14,
+  "A->B": 1
+ },
+ "grades_before": {
+  "A": 524,
+  "B": 64,
+  "C": 2,
+  "D": 0
+ },
+ "grades_after": {
+  "A": 477,
+  "B": 51,
+  "C": 62,
+  "D": 0
+ },
+ "degraded": [
+  {
+   "task_id": "Booking--10",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--12",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--15",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--16",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--17",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--18",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--19",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--21",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--23",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--24",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--26",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--31",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--37",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--39",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--8",
+   "site": "Booking",
+   "score_before": 1.0,
+   "score_after": 0.2875,
+   "delta": -0.7125,
+   "grade_before": "A",
+   "grade_after": "C",
+   "top_category_before": null,
+   "top_category_after": "T1_temporal"
+  }
+ ],
+ "improved": [],
+ "appeared": [],
+ "disappeared": [],
+ "by_category_delta": {
+  "T1_temporal": {
+   "before": 26,
+   "after": 90,
+   "delta": 64
+  },
+  "T2_content_drift": {
+   "before": 115,
+   "after": 115,
+   "delta": 0
+  },
+  "T3_access_denied": {
+   "before": 3,
+   "after": 3,
+   "delta": 0
+  },
+  "T7_eval_brittleness": {
+   "before": 161,
+   "after": 147,
+   "delta": -14
+  }
+ },
+ "by_site_delta": {
+  "Google Flights": {
+   "before": 0.9462,
+   "after": 0.3798,
+   "delta": -0.5664,
+   "n": 39
+  },
+  "Booking": {
+   "before": 0.8406,
+   "after": 0.4291,
+   "delta": -0.4115,
+   "n": 40
+  },
+  "ESPN": {
+   "before": 0.9148,
+   "after": 0.9056,
+   "delta": -0.0092,
+   "n": 41
+  },
+  "Google Search": {
+   "before": 0.919,
+   "after": 0.9115,
+   "delta": -0.0075,
+   "n": 40
+  },
+  "Allrecipes": {
+   "before": 0.995,
+   "after": 0.995,
+   "delta": 0.0,
+   "n": 40
+  },
+  "ArXiv": {
+   "before": 0.8819,
+   "after": 0.8819,
+   "delta": 0.0,
+   "n": 42
+  },
+  "Huggingface": {
+   "before": 0.9458,
+   "after": 0.9458,
+   "delta": 0.0,
+   "n": 36
+  },
+  "GitHub": {
+   "before": 0.8918,
+   "after": 0.8918,
+   "delta": 0.0,
+   "n": 39
+  },
+  "Amazon": {
+   "before": 0.9523,
+   "after": 0.9523,
+   "delta": 0.0,
+   "n": 38
+  },
+  "Google Map": {
+   "before": 1.0,
+   "after": 1.0,
+   "delta": 0.0,
+   "n": 38
+  },
+  "Coursera": {
+   "before": 0.9588,
+   "after": 0.9588,
+   "delta": 0.0,
+   "n": 40
+  },
+  "BBC News": {
+   "before": 0.9154,
+   "after": 0.9154,
+   "delta": 0.0,
+   "n": 34
+  },
+  "Wolfram Alpha": {
+   "before": 0.9739,
+   "after": 0.9739,
+   "delta": 0.0,
+   "n": 46
+  },
+  "Cambridge Dictionary": {
+   "before": 0.9529,
+   "after": 0.9529,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Apple": {
+   "before": 0.7492,
+   "after": 0.7492,
+   "delta": 0.0,
+   "n": 34
+  }
+ },
+ "cost": {
+  "before": 0.0,
+  "after": 0.0
+ },
+ "reading": "Une dégradation ne prouve pas que le site a changé : elle peut venir du canal, de l'ajout d'une couche ou d'une observation périmée. Le bloc « comparability » liste ce qui a bougé dans le protocole, à lire avant d'interpréter le moindre écart."
+}

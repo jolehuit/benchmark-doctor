@@ -1,0 +1,534 @@
+{
+ "schema": "bdoctor-health-diff/1",
+ "before": {
+  "generated_at": "2026-08-15",
+  "benchmark": "webvoyager",
+  "n_tasks": 643,
+  "layers": [
+   "L1",
+   "L2"
+  ],
+  "mean_stability": 0.784
+ },
+ "after": {
+  "generated_at": "2026-08-16",
+  "benchmark": "webvoyager",
+  "n_tasks": 643,
+  "layers": [
+   "L1",
+   "L2"
+  ],
+  "mean_stability": 0.7487
+ },
+ "comparability": {
+  "comparable": false,
+  "warnings": [
+   "Canaux d'accès différents (['static', 'browser_cloud'] vs ['static', 'http_datacenter']) : nous avons mesuré qu'une même URL change de verdict selon le canal.",
+   "Configuration de détecteur différente (l2_channel : 'recorded' vs 'direct_http:browser') : l'écart de score mesure un changement d'outil autant qu'un changement du benchmark.",
+   "Configuration de détecteur différente (l2_channel_kind : 'browser_cloud' vs 'http_datacenter') : l'écart de score mesure un changement d'outil autant qu'un changement du benchmark."
+  ],
+  "days_elapsed": 1
+ },
+ "headline": {
+  "days_elapsed": 1,
+  "mean_stability_delta": -0.0353,
+  "n_degraded": 127,
+  "n_improved": 40,
+  "n_unchanged": 476,
+  "rate_degraded": 0.1975,
+  "degradation_per_100_tasks_per_month": 601.226,
+  "n_new_D": 7,
+  "n_left_A": 106,
+  "n_appeared": 0,
+  "n_disappeared": 0
+ },
+ "grade_migration": {
+  "A->B": 106,
+  "C->D": 7,
+  "D->B": 7,
+  "C->B": 4,
+  "B->C": 3
+ },
+ "grades_before": {
+  "A": 465,
+  "B": 49,
+  "C": 69,
+  "D": 60
+ },
+ "grades_after": {
+  "A": 359,
+  "B": 163,
+  "C": 61,
+  "D": 60
+ },
+ "degraded": [
+  {
+   "task_id": "Allrecipes--0",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--1",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--10",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--11",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--12",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--13",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--15",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--18",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--2",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--20",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--21",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--22",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--24",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--25",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Allrecipes--26",
+   "site": "Allrecipes",
+   "score_before": 1.0,
+   "score_after": 0.73,
+   "delta": -0.27,
+   "grade_before": "A",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  }
+ ],
+ "improved": [
+  {
+   "task_id": "Booking--35",
+   "site": "Booking",
+   "score_before": 0.325,
+   "score_after": 0.73,
+   "delta": 0.405,
+   "grade_before": "C",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Booking--41",
+   "site": "Booking",
+   "score_before": 0.325,
+   "score_after": 0.73,
+   "delta": 0.405,
+   "grade_before": "C",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Booking--43",
+   "site": "Booking",
+   "score_before": 0.325,
+   "score_after": 0.73,
+   "delta": 0.405,
+   "grade_before": "C",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Booking--33",
+   "site": "Booking",
+   "score_before": 0.3006,
+   "score_after": 0.6753,
+   "delta": 0.3747,
+   "grade_before": "C",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T3_access_denied"
+  },
+  {
+   "task_id": "Booking--0",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--1",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--2",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--3",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--4",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--7",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--9",
+   "site": "Booking",
+   "score_before": 0.2275,
+   "score_after": 0.511,
+   "delta": 0.2835,
+   "grade_before": "D",
+   "grade_after": "B",
+   "top_category_before": "T3_access_denied",
+   "top_category_after": "T7_eval_brittleness"
+  },
+  {
+   "task_id": "Booking--10",
+   "site": "Booking",
+   "score_before": 0.0934,
+   "score_after": 0.2099,
+   "delta": 0.1165,
+   "grade_before": "D",
+   "grade_after": "D",
+   "top_category_before": "T1_temporal",
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--12",
+   "site": "Booking",
+   "score_before": 0.0934,
+   "score_after": 0.2099,
+   "delta": 0.1165,
+   "grade_before": "D",
+   "grade_after": "D",
+   "top_category_before": "T1_temporal",
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--15",
+   "site": "Booking",
+   "score_before": 0.0934,
+   "score_after": 0.2099,
+   "delta": 0.1165,
+   "grade_before": "D",
+   "grade_after": "D",
+   "top_category_before": "T1_temporal",
+   "top_category_after": "T1_temporal"
+  },
+  {
+   "task_id": "Booking--16",
+   "site": "Booking",
+   "score_before": 0.0934,
+   "score_after": 0.2099,
+   "delta": 0.1165,
+   "grade_before": "D",
+   "grade_after": "D",
+   "top_category_before": "T1_temporal",
+   "top_category_after": "T1_temporal"
+  }
+ ],
+ "appeared": [],
+ "disappeared": [],
+ "by_category_delta": {
+  "T3_access_denied": {
+   "before": 54,
+   "after": 183,
+   "delta": 129
+  },
+  "T5_ambiguity": {
+   "before": 5,
+   "after": 5,
+   "delta": 0
+  },
+  "T7_eval_brittleness": {
+   "before": 163,
+   "after": 163,
+   "delta": 0
+  },
+  "T8_timing": {
+   "before": 7,
+   "after": 7,
+   "delta": 0
+  },
+  "T2_content_drift": {
+   "before": 143,
+   "after": 143,
+   "delta": 0
+  },
+  "T1_temporal": {
+   "before": 102,
+   "after": 102,
+   "delta": 0
+  },
+  "T4_ui_instability": {
+   "before": 7,
+   "after": 7,
+   "delta": 0
+  }
+ },
+ "by_site_delta": {
+  "Allrecipes": {
+   "before": 0.9011,
+   "after": 0.6619,
+   "delta": -0.2392,
+   "n": 45
+  },
+  "Amazon": {
+   "before": 0.9074,
+   "after": 0.6693,
+   "delta": -0.2381,
+   "n": 41
+  },
+  "ESPN": {
+   "before": 0.8162,
+   "after": 0.6088,
+   "delta": -0.2074,
+   "n": 44
+  },
+  "Google Search": {
+   "before": 0.8815,
+   "after": 0.8815,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Google Flights": {
+   "before": 0.3627,
+   "after": 0.3627,
+   "delta": 0.0,
+   "n": 42
+  },
+  "GitHub": {
+   "before": 0.8793,
+   "after": 0.8793,
+   "delta": 0.0,
+   "n": 41
+  },
+  "Huggingface": {
+   "before": 0.8145,
+   "after": 0.8145,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Apple": {
+   "before": 0.6166,
+   "after": 0.6166,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Coursera": {
+   "before": 0.919,
+   "after": 0.919,
+   "delta": 0.0,
+   "n": 42
+  },
+  "Cambridge Dictionary": {
+   "before": 0.949,
+   "after": 0.949,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Google Map": {
+   "before": 0.9547,
+   "after": 0.9547,
+   "delta": 0.0,
+   "n": 41
+  },
+  "BBC News": {
+   "before": 0.7889,
+   "after": 0.7889,
+   "delta": 0.0,
+   "n": 42
+  },
+  "Wolfram Alpha": {
+   "before": 0.9685,
+   "after": 0.9685,
+   "delta": 0.0,
+   "n": 46
+  },
+  "ArXiv": {
+   "before": 0.873,
+   "after": 0.873,
+   "delta": 0.0,
+   "n": 43
+  },
+  "Booking": {
+   "before": 0.1352,
+   "after": 0.2933,
+   "delta": 0.1581,
+   "n": 44
+  }
+ },
+ "cost": {
+  "before": 0.0,
+  "after": 0.0
+ },
+ "reading": "Une dégradation ne prouve pas que le site a changé : elle peut venir du canal, de l'ajout d'une couche ou d'une observation périmée. Le bloc « comparability » liste ce qui a bougé dans le protocole, à lire avant d'interpréter le moindre écart."
+}

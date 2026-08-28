@@ -1,0 +1,941 @@
+{
+  "cellules_mesurees": [
+    "http_datacenter",
+    "http_residential",
+    "browser_residential",
+    "browser_datacenter"
+  ],
+  "passes": [
+    1,
+    2
+  ],
+  "sites_exclus": [],
+  "n_sites_analyses": 15,
+  "tableau_sites": {
+    "Allrecipes": {
+      "http_datacenter": {
+        "passe1": "forbidden_403",
+        "passe2": "forbidden_403"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "forbidden_403"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "antibot_challenge",
+        "passe2": "forbidden_403"
+      }
+    },
+    "Amazon": {
+      "http_datacenter": {
+        "passe1": "antibot_challenge",
+        "passe2": "antibot_challenge"
+      },
+      "http_residential": {
+        "passe1": "antibot_challenge",
+        "passe2": "antibot_challenge"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Apple": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "ArXiv": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "BBC News": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Booking": {
+      "http_datacenter": {
+        "passe1": "antibot_challenge",
+        "passe2": "antibot_challenge"
+      },
+      "http_residential": {
+        "passe1": "antibot_challenge",
+        "passe2": "antibot_challenge"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Cambridge Dictionary": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Coursera": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "ESPN": {
+      "http_datacenter": {
+        "passe1": "forbidden_403",
+        "passe2": "forbidden_403"
+      },
+      "http_residential": {
+        "passe1": "antibot_challenge",
+        "passe2": "antibot_challenge"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "forbidden_403",
+        "passe2": "forbidden_403"
+      }
+    },
+    "GitHub": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Google Flights": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Google Map": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Google Search": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Huggingface": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      }
+    },
+    "Wolfram Alpha": {
+      "http_datacenter": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "http_residential": {
+        "passe1": "ok",
+        "passe2": "ok"
+      },
+      "browser_residential": {
+        "passe1": "captcha",
+        "passe2": "captcha"
+      },
+      "browser_datacenter": {
+        "passe1": "captcha",
+        "passe2": "captcha"
+      }
+    }
+  },
+  "kappa_cohen": {
+    "p1:http_datacenter|http_residential": {
+      "kappa": 0.8148,
+      "n": 15,
+      "accord_observe": 0.9333,
+      "accord_attendu": 0.64,
+      "table": {
+        "acc_acc": 11,
+        "acc_ref": 0,
+        "ref_acc": 1,
+        "ref_ref": 3
+      },
+      "desaccords": 1,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.0091
+    },
+    "p1:http_datacenter|browser_residential": {
+      "kappa": -0.1194,
+      "n": 15,
+      "accord_observe": 0.6667,
+      "accord_attendu": 0.7022,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 4,
+        "ref_ref": 0
+      },
+      "desaccords": 5,
+      "exclus_non_imputables": [],
+      "p_permutation": 1.0
+    },
+    "p1:http_datacenter|browser_datacenter": {
+      "kappa": 0.4444,
+      "n": 15,
+      "accord_observe": 0.8,
+      "accord_attendu": 0.64,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 2,
+        "ref_ref": 2
+      },
+      "desaccords": 3,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.153
+    },
+    "p1:http_residential|browser_residential": {
+      "kappa": -0.1111,
+      "n": 15,
+      "accord_observe": 0.7333,
+      "accord_attendu": 0.76,
+      "table": {
+        "acc_acc": 11,
+        "acc_ref": 1,
+        "ref_acc": 3,
+        "ref_ref": 0
+      },
+      "desaccords": 4,
+      "exclus_non_imputables": [],
+      "p_permutation": 1.0
+    },
+    "p1:http_residential|browser_datacenter": {
+      "kappa": 0.1667,
+      "n": 15,
+      "accord_observe": 0.7333,
+      "accord_attendu": 0.68,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 2,
+        "ref_acc": 2,
+        "ref_ref": 1
+      },
+      "desaccords": 4,
+      "exclus_non_imputables": [],
+      "p_permutation": 1.0
+    },
+    "p1:browser_residential|browser_datacenter": {
+      "kappa": 0.4444,
+      "n": 15,
+      "accord_observe": 0.8667,
+      "accord_attendu": 0.76,
+      "table": {
+        "acc_acc": 12,
+        "acc_ref": 2,
+        "ref_acc": 0,
+        "ref_ref": 1
+      },
+      "desaccords": 2,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.1999
+    },
+    "p2:http_datacenter|http_residential": {
+      "kappa": 1.0,
+      "n": 15,
+      "accord_observe": 1.0,
+      "accord_attendu": 0.6089,
+      "table": {
+        "acc_acc": 11,
+        "acc_ref": 0,
+        "ref_acc": 0,
+        "ref_ref": 4
+      },
+      "desaccords": 0,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.0006
+    },
+    "p2:http_datacenter|browser_residential": {
+      "kappa": -0.1194,
+      "n": 15,
+      "accord_observe": 0.6667,
+      "accord_attendu": 0.7022,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 4,
+        "ref_ref": 0
+      },
+      "desaccords": 5,
+      "exclus_non_imputables": [],
+      "p_permutation": 1.0
+    },
+    "p2:http_datacenter|browser_datacenter": {
+      "kappa": 0.4444,
+      "n": 15,
+      "accord_observe": 0.8,
+      "accord_attendu": 0.64,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 2,
+        "ref_ref": 2
+      },
+      "desaccords": 3,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.153
+    },
+    "p2:http_residential|browser_residential": {
+      "kappa": -0.1194,
+      "n": 15,
+      "accord_observe": 0.6667,
+      "accord_attendu": 0.7022,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 4,
+        "ref_ref": 0
+      },
+      "desaccords": 5,
+      "exclus_non_imputables": [],
+      "p_permutation": 1.0
+    },
+    "p2:http_residential|browser_datacenter": {
+      "kappa": 0.4444,
+      "n": 15,
+      "accord_observe": 0.8,
+      "accord_attendu": 0.64,
+      "table": {
+        "acc_acc": 10,
+        "acc_ref": 1,
+        "ref_acc": 2,
+        "ref_ref": 2
+      },
+      "desaccords": 3,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.153
+    },
+    "p2:browser_residential|browser_datacenter": {
+      "kappa": 0.4444,
+      "n": 15,
+      "accord_observe": 0.8667,
+      "accord_attendu": 0.76,
+      "table": {
+        "acc_acc": 12,
+        "acc_ref": 2,
+        "ref_acc": 0,
+        "ref_ref": 1
+      },
+      "desaccords": 2,
+      "exclus_non_imputables": [],
+      "p_permutation": 0.1999
+    }
+  },
+  "facteurs_isoles": {
+    "p1:moteur_a_origine_datacenter": {
+      "gauche": "http_datacenter",
+      "droite": "browser_datacenter",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 3,
+      "sites_qui_changent": [
+        {
+          "site": "Amazon",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Booking",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Wolfram Alpha",
+          "de": "ok",
+          "vers": "captcha"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p2:moteur_a_origine_datacenter": {
+      "gauche": "http_datacenter",
+      "droite": "browser_datacenter",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 3,
+      "sites_qui_changent": [
+        {
+          "site": "Amazon",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Booking",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Wolfram Alpha",
+          "de": "ok",
+          "vers": "captcha"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p1:moteur_a_origine_residentielle": {
+      "gauche": "http_residential",
+      "droite": "browser_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 4,
+      "sites_qui_changent": [
+        {
+          "site": "Amazon",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Booking",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "ESPN",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Wolfram Alpha",
+          "de": "ok",
+          "vers": "captcha"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p2:moteur_a_origine_residentielle": {
+      "gauche": "http_residential",
+      "droite": "browser_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 5,
+      "sites_qui_changent": [
+        {
+          "site": "Allrecipes",
+          "de": "forbidden_403",
+          "vers": "ok"
+        },
+        {
+          "site": "Amazon",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Booking",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "ESPN",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "Wolfram Alpha",
+          "de": "ok",
+          "vers": "captcha"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p1:origine_a_moteur_http": {
+      "gauche": "http_datacenter",
+      "droite": "http_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 1,
+      "sites_qui_changent": [
+        {
+          "site": "Allrecipes",
+          "de": "forbidden_403",
+          "vers": "ok"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p2:origine_a_moteur_http": {
+      "gauche": "http_datacenter",
+      "droite": "http_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 0,
+      "sites_qui_changent": [],
+      "exclus_non_imputables": []
+    },
+    "p1:origine_a_moteur_navigateur": {
+      "gauche": "browser_datacenter",
+      "droite": "browser_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 2,
+      "sites_qui_changent": [
+        {
+          "site": "Allrecipes",
+          "de": "antibot_challenge",
+          "vers": "ok"
+        },
+        {
+          "site": "ESPN",
+          "de": "forbidden_403",
+          "vers": "ok"
+        }
+      ],
+      "exclus_non_imputables": []
+    },
+    "p2:origine_a_moteur_navigateur": {
+      "gauche": "browser_datacenter",
+      "droite": "browser_residential",
+      "n_comparables": 15,
+      "n_changent_de_verdict": 2,
+      "sites_qui_changent": [
+        {
+          "site": "Allrecipes",
+          "de": "forbidden_403",
+          "vers": "ok"
+        },
+        {
+          "site": "ESPN",
+          "de": "forbidden_403",
+          "vers": "ok"
+        }
+      ],
+      "exclus_non_imputables": []
+    }
+  },
+  "comparaison_facteurs": {
+    "p1": {
+      "sites_sensibles_au_moteur": [
+        "Amazon",
+        "Booking",
+        "ESPN",
+        "Wolfram Alpha"
+      ],
+      "sites_sensibles_a_l_origine": [
+        "Allrecipes",
+        "ESPN"
+      ],
+      "sensibles_aux_deux": [
+        "ESPN"
+      ],
+      "n_moteur": 4,
+      "n_origine": 2,
+      "n_sites": 15,
+      "fisher_p_bilateral": 0.6513,
+      "lecture": "p élevé : à cet effectif, l'écart entre les deux facteurs n'est pas distinguable du hasard. Ce que la campagne établit est que les deux facteurs existent et portent sur des sites différents, pas leur poids relatif."
+    },
+    "p2": {
+      "sites_sensibles_au_moteur": [
+        "Allrecipes",
+        "Amazon",
+        "Booking",
+        "ESPN",
+        "Wolfram Alpha"
+      ],
+      "sites_sensibles_a_l_origine": [
+        "Allrecipes",
+        "ESPN"
+      ],
+      "sensibles_aux_deux": [
+        "Allrecipes",
+        "ESPN"
+      ],
+      "n_moteur": 5,
+      "n_origine": 2,
+      "n_sites": 15,
+      "fisher_p_bilateral": 0.3898,
+      "lecture": "p élevé : à cet effectif, l'écart entre les deux facteurs n'est pas distinguable du hasard. Ce que la campagne établit est que les deux facteurs existent et portent sur des sites différents, pas leur poids relatif."
+    }
+  },
+  "kappa_credibilite": {
+    "p1:juge=http_residential": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 3,
+      "kappa_laplace": 0.6667,
+      "proportion_brute": 0.75,
+      "ic95_proportion": [
+        0.2838,
+        0.9715
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        }
+      ]
+    },
+    "p1:juge=browser_residential": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 0,
+      "kappa_laplace": 0.1667,
+      "proportion_brute": 0.0,
+      "ic95_proportion": [
+        0.0001,
+        0.4448
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        }
+      ]
+    },
+    "p1:juge=browser_datacenter": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 2,
+      "kappa_laplace": 0.5,
+      "proportion_brute": 0.5,
+      "ic95_proportion": [
+        0.1228,
+        0.8772
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "forbidden_403",
+          "blocage_confirme": true
+        }
+      ]
+    },
+    "p2:juge=http_residential": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 4,
+      "kappa_laplace": 0.8333,
+      "proportion_brute": 1.0,
+      "ic95_proportion": [
+        0.5552,
+        0.9999
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "forbidden_403",
+          "blocage_confirme": true
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "antibot_challenge",
+          "blocage_confirme": true
+        }
+      ]
+    },
+    "p2:juge=browser_residential": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 0,
+      "kappa_laplace": 0.1667,
+      "proportion_brute": 0.0,
+      "ic95_proportion": [
+        0.0001,
+        0.4448
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        }
+      ]
+    },
+    "p2:juge=browser_datacenter": {
+      "n_refus_annonces": 4,
+      "k_refus_confirmes": 2,
+      "kappa_laplace": 0.5,
+      "proportion_brute": 0.5,
+      "ic95_proportion": [
+        0.1228,
+        0.8772
+      ],
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "forbidden_403",
+          "blocage_confirme": true
+        },
+        {
+          "site": "Amazon",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "Booking",
+          "signature_accuse": "antibot_challenge",
+          "signature_juge": "ok",
+          "blocage_confirme": false
+        },
+        {
+          "site": "ESPN",
+          "signature_accuse": "forbidden_403",
+          "signature_juge": "forbidden_403",
+          "blocage_confirme": true
+        }
+      ]
+    }
+  },
+  "repetabilite": {
+    "http_datacenter": {
+      "n_sites": 15,
+      "n_signatures_changees": 0,
+      "taux": 0.0,
+      "detail": []
+    },
+    "http_residential": {
+      "n_sites": 15,
+      "n_signatures_changees": 1,
+      "taux": 0.0667,
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "passe1": "ok",
+          "passe2": "forbidden_403"
+        }
+      ]
+    },
+    "browser_residential": {
+      "n_sites": 15,
+      "n_signatures_changees": 0,
+      "taux": 0.0,
+      "detail": []
+    },
+    "browser_datacenter": {
+      "n_sites": 15,
+      "n_signatures_changees": 1,
+      "taux": 0.0667,
+      "detail": [
+        {
+          "site": "Allrecipes",
+          "passe1": "antibot_challenge",
+          "passe2": "forbidden_403"
+        }
+      ]
+    }
+  }
+}

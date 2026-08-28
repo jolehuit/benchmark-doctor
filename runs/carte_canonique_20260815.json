@@ -1,0 +1,292 @@
+{
+ "statut_editorial": {
+  "statut": "canonique",
+  "mention": "carte de référence du mémoire — seule carte citable",
+  "raison": "Rejeu hors ligne de la carte canonique et ses tables de sensibilité, produites dans la configuration canonique et dans elle seule. 0 appel réseau, 0,00 $.",
+  "carte_de_reference": "runs/health_20260815.json",
+  "index": "runs/CARTES.md",
+  "pose_le": "2026-08-16"
+ },
+ "schema": "benchmark-doctor/carte-canonique/1",
+ "genere_par": "experiments/carte_canonique.py (benchmark-doctor 0.1.0)",
+ "genere_le": "2026-08-16",
+ "configuration_canonique": {
+  "nom": "canonique-20260815",
+  "corpus": "data/raw/webvoyager_original.jsonl",
+  "corpus_sha256": "69b19fd86c23f1a500244a3724e039aa7ca6a1223d03e11eb10e308d4f11c488",
+  "n_tasks": 643,
+  "date_de_reference": "2026-08-15",
+  "couches": [
+   "L1",
+   "L2",
+   "L3"
+  ],
+  "l3_solvabilite": true,
+  "l2_canal": "direct_http:browser",
+  "l2_canal_kind": "http_datacenter",
+  "l2_content_checks": true,
+  "l3_ambiguity_backend": "llm-judge:gemini-2.5-flash:rubric",
+  "l3_ambiguity_threshold": 0.5,
+  "l3_solvability_model": "google/gemini-2.5-flash",
+  "a_priori_praticiens": "data/ground_truth.json",
+  "echelle_de_notes": {
+   "A": 0.75,
+   "B": 0.5,
+   "C": 0.25,
+   "D": 0.0
+  },
+  "kappa": 0.4,
+  "commande_de_production": "python3 run_all.py --phase audit --l3-backend llm   # 15/08/2026, 0,26 $ (servi par runs/l3_cache ensuite)",
+  "commande_de_rejeu": "python3 experiments/carte_canonique.py --check"
+ },
+ "source_de_verite": {
+  "journal_de_constats": "runs/health_20260815_findings.json",
+  "carte_publiee": "runs/health_20260815.json",
+  "appels_reseau": 0,
+  "cout_usd": 0.0
+ },
+ "controle_de_rejeu": {
+  "carte_publiee": {
+   "grades": {
+    "A": 210,
+    "B": 138,
+    "C": 185,
+    "D": 110
+   },
+   "mean_stability": 0.5851
+  },
+  "rejeu_hors_ligne": {
+   "grades": {
+    "A": 210,
+    "B": 138,
+    "C": 185,
+    "D": 110
+   },
+   "mean_stability": 0.5851
+  },
+  "ecarts_de_notes": {},
+  "identique": true
+ },
+ "resume": {
+  "n_tasks": 643,
+  "stabilite_moyenne": 0.5851,
+  "notes": {
+   "A": 210,
+   "B": 138,
+   "C": 185,
+   "D": 110
+  },
+  "taux_sous_A": 0.6734
+ },
+ "sensibilite_kappa": [
+  {
+   "kappa": 0.0,
+   "stabilite_moyenne": 0.624,
+   "note_A": 251,
+   "note_B": 120,
+   "note_C": 189,
+   "note_D": 83,
+   "retenu": false
+  },
+  {
+   "kappa": 0.2,
+   "stabilite_moyenne": 0.6048,
+   "note_A": 251,
+   "note_B": 117,
+   "note_C": 175,
+   "note_D": 100,
+   "retenu": false
+  },
+  {
+   "kappa": 0.4,
+   "stabilite_moyenne": 0.5851,
+   "note_A": 210,
+   "note_B": 138,
+   "note_C": 185,
+   "note_D": 110,
+   "retenu": true
+  },
+  {
+   "kappa": 0.6,
+   "stabilite_moyenne": 0.5652,
+   "note_A": 210,
+   "note_B": 119,
+   "note_C": 201,
+   "note_D": 113,
+   "retenu": false
+  },
+  {
+   "kappa": 0.8,
+   "stabilite_moyenne": 0.545,
+   "note_A": 210,
+   "note_B": 75,
+   "note_C": 222,
+   "note_D": 136,
+   "retenu": false
+  },
+  {
+   "kappa": 1.0,
+   "stabilite_moyenne": 0.5248,
+   "note_A": 210,
+   "note_B": 75,
+   "note_C": 181,
+   "note_D": 177,
+   "retenu": false
+  }
+ ],
+ "sensibilite_agregation": {
+  "n_taches_multi_categories": 510,
+  "taux_multi_categories": 0.7932,
+  "n_changements_de_note": 122,
+  "distribution_ou_bruite": {
+   "A": 210,
+   "B": 138,
+   "C": 185,
+   "D": 110
+  },
+  "distribution_maximum": {
+   "A": 210,
+   "B": 170,
+   "C": 243,
+   "D": 20
+  },
+  "exemples": [
+   {
+    "task_id": "Allrecipes--1",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--3",
+    "ou_bruite": "D",
+    "maximum": "C"
+   },
+   {
+    "task_id": "Allrecipes--9",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--10",
+    "ou_bruite": "D",
+    "maximum": "C"
+   },
+   {
+    "task_id": "Allrecipes--11",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--21",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--22",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--23",
+    "ou_bruite": "D",
+    "maximum": "C"
+   },
+   {
+    "task_id": "Allrecipes--26",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--28",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--32",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Allrecipes--35",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Amazon--2",
+    "ou_bruite": "C",
+    "maximum": "B"
+   },
+   {
+    "task_id": "Amazon--4",
+    "ou_bruite": "D",
+    "maximum": "C"
+   },
+   {
+    "task_id": "Amazon--5",
+    "ou_bruite": "D",
+    "maximum": "C"
+   }
+  ]
+ },
+ "sensibilite_echelle_de_notes": {
+  "seuils_retenus": {
+   "A": 0.75,
+   "B": 0.5,
+   "C": 0.25,
+   "D": 0.0
+  },
+  "seuils_herites_abandonnes": {
+   "A": 0.85,
+   "B": 0.6,
+   "C": 0.35,
+   "D": 0.0
+  },
+  "distribution_retenue": {
+   "A": 210,
+   "B": 138,
+   "C": 185,
+   "D": 110
+  },
+  "distribution_heritee": {
+   "A": 193,
+   "B": 124,
+   "C": 146,
+   "D": 180
+  },
+  "migrations": {
+   "D->C": 70,
+   "C->B": 31,
+   "B->A": 17
+  }
+ },
+ "sensibilite_couches": {
+  "L1": {
+   "stabilite_moyenne": 0.802,
+   "A": 469,
+   "B": 56,
+   "C": 94,
+   "D": 24
+  },
+  "L1+L2": {
+   "stabilite_moyenne": 0.7487,
+   "A": 359,
+   "B": 163,
+   "C": 61,
+   "D": 60
+  },
+  "L1+L3": {
+   "stabilite_moyenne": 0.624,
+   "A": 251,
+   "B": 120,
+   "C": 189,
+   "D": 83
+  },
+  "L1+L2+L3 (canonique)": {
+   "stabilite_moyenne": 0.5851,
+   "A": 210,
+   "B": 138,
+   "C": 185,
+   "D": 110
+  }
+ }
+}

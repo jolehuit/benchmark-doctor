@@ -1,0 +1,970 @@
+{
+ "Apple--4": {
+  "action": "modify",
+  "raison_publiee": "The M3 Max chip, current in March 2024, will be superseded by June 2025. To maintain the task's focus on a high-end, current-generation product, the chip is updated to its plausible successor, the M4 Max.",
+  "categorie": "T1",
+  "categorie_secondaire": "T2",
+  "limite": false,
+  "commentaire": "Génération de puce dépassée : la raison invoque explicitement le passage du temps (« current in March 2024, will be superseded »)."
+ },
+ "Apple--22": {
+  "action": "modify",
+  "raison_publiee": "The original task (Mar 2024) queries the trade-in for a ~2.5-year-old phone (iPhone 13 Pro Max). To preserve this relative age, the task is updated to query the iPhone 14 Pro Max, which will be a similarly aged model in June 2025.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Modèle de téléphone re-daté pour préserver l'âge relatif de l'appareil interrogé."
+ },
+ "Apple--32": {
+  "action": "modify",
+  "raison_publiee": "The original task (Mar 2024) queries the trade-in for a ~4.5-year-old phone (iPhone 11 Pro Max). To preserve this relative age, the task is updated to query the iPhone 12 Pro Max, which will be a similarly aged model in June 2025.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Modèle de téléphone re-daté pour préserver l'âge relatif de l'appareil interrogé."
+ },
+ "Booking--5": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'Jan 1 to Jan 4, 2024' is explicitly in the past, making the task impossible. The year is updated to make it feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--8": {
+  "action": "modify",
+  "raison_publiee": "The booking date '20/12/2023' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--10": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'February 14-21, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--12": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'January 5th, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--15": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'January 10, 2024, to January 20, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--16": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'January 15, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--17": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'February 14, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--18": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 14th, 2024, and February 21st, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--19": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 18, 2024, to March 20, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--20": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 28 to March 2, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--21": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'March 10, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--22": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 15 to March 22, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--23": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'February 20, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--24": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 25-28, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--25": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 1 to March 7, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--26": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 20-23, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--27": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 28 to March 4, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--28": {
+  "action": "modify",
+  "raison_publiee": "The booking date 'February 22 to February 29, 2024' is in the past. The year is updated to 2026, and the end date is adjusted to 'February 28' as 2026 is not a leap year, preserving the week-long stay.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--29": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 5 to March 7, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--30": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 20 to March 23, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--31": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 1-7, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--32": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 24 to February 27, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--34": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 15 to March 18, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--36": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 20 to March 23, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--37": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 20, 2024, and March 25, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--38": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 28 to March 4, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--39": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'February 24-26, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--40": {
+  "action": "modify",
+  "raison_publiee": "The booking dates '6 March to 8 March 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Booking--42": {
+  "action": "modify",
+  "raison_publiee": "The booking dates 'March 1 to March 7, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de séjour codée en dur et désormais passée : réservation impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "ESPN--17": {
+  "action": "modify",
+  "raison_publiee": "The '2023-24' season is over. To find current-season information as intended, the season is updated to '2024-25'.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Saison 2023-24 close : la requête reste exécutable mais ne porte plus sur la saison en cours (dérive temporelle archivistique)."
+ },
+ "ESPN--30": {
+  "action": "modify",
+  "raison_publiee": "The '2023-24' season is over. To find current-season information as intended, the season is updated to '2024-25'.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Saison 2023-24 close : la requête reste exécutable mais ne porte plus sur la saison en cours (dérive temporelle archivistique)."
+ },
+ "ESPN--31": {
+  "action": "modify",
+  "raison_publiee": "The '2023-24' season is over. The year is updated to '2025' to query the current season's roster.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Saison 2023-24 close : la requête reste exécutable mais ne porte plus sur la saison en cours (dérive temporelle archivistique)."
+ },
+ "ESPN--33": {
+  "action": "modify",
+  "raison_publiee": "The '2023 season' is over. The year is updated to '2024' to find candidates for the most recently completed season.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Saison 2023 close : re-datée vers la dernière saison achevée."
+ },
+ "Google Flights--1": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'February 17, 2024' is explicitly in the past, making the task impossible. The year is updated to make it feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--10": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'January 25, 2024, and returning on February 15, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--11": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'February 10, 2024, and a return on February 24, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--12": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'December 25, 2023' and 'January 5, 2024' are explicitly in the past. The years are updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--13": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'January 10, 2024, and a return on January 24, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--14": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'January 10, 2024, and returning on January 17, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--15": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'February 12th, 2024, and returning on February 26th, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--16": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'January 15, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--17": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'December 27, 2023, and returning on January 10, 2024' are explicitly in the past. The years are updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--18": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'January 25, 2024, and returning on February 15, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--19": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'January 25, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--21": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'February 25, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--22": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'March 15, 2024, and returning on March 22, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--23": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'February 28, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--24": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'March 1, 2024, and returning on March 8, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--25": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 10, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--26": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'February 26, 2024, and returning on February 28, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--27": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 30, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--28": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'February 27, 2024, and returning on March 1, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--29": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'March 5, 2024, and returning on March 15, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--30": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 20, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--31": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 25, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--32": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'March 3, 2024, and returning on March 10, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--33": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'February 27, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--34": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 15, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--35": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'February 21, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--36": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'March 28, 2024, and returning on April 4, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--37": {
+  "action": "modify",
+  "raison_publiee": "The flight dates 'February 28, 2024, and returning on March 3, 2024' are explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--38": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 8, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--39": {
+  "action": "modify",
+  "raison_publiee": "The flight date 'March 20, 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Flights--41": {
+  "action": "modify",
+  "raison_publiee": "The flight date '8 March 2024' is explicitly in the past. The year is updated to make the task feasible.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Date de vol codée en dur et désormais passée : recherche impossible dans le passé (dérive temporelle transactionnelle)."
+ },
+ "Google Search--39": {
+  "action": "modify",
+  "raison_publiee": "Asking for '2024' travel trends is a historical query in mid-2025. The year is updated to '2025' to preserve the original intent of finding current/future trends.",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Requête sur les tendances « 2024 » devenue historique : re-datée pour préserver l'intention (tendance courante)."
+ },
+ "Allrecipes--16": {
+  "action": "remove",
+  "raison_publiee": "DNE",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison laconique (« DNE »). Lecture de l'énoncé : recherche sur-contrainte (note, nombre d'avis, durée) dont plus aucune recette du catalogue ne satisfait les seuils — dérive du contenu indexé."
+ },
+ "Allrecipes--19": {
+  "action": "remove",
+  "raison_publiee": "DNE",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison laconique (« DNE »). Lecture de l'énoncé : recherche sur-contrainte (note, nombre d'avis, durée) dont plus aucune recette du catalogue ne satisfait les seuils — dérive du contenu indexé."
+ },
+ "Allrecipes--23": {
+  "action": "remove",
+  "raison_publiee": "DNE",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison laconique (« DNE »). Lecture de l'énoncé : recherche sur-contrainte (note, nombre d'avis, durée) dont plus aucune recette du catalogue ne satisfait les seuils — dérive du contenu indexé."
+ },
+ "Allrecipes--3": {
+  "action": "remove",
+  "raison_publiee": "DNE",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison laconique (« DNE »). Lecture de l'énoncé : recherche sur-contrainte (note, nombre d'avis, durée) dont plus aucune recette du catalogue ne satisfait les seuils — dérive du contenu indexé."
+ },
+ "Allrecipes--30": {
+  "action": "remove",
+  "raison_publiee": "DNE",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison laconique (« DNE »). Lecture de l'énoncé : recherche sur-contrainte (note, nombre d'avis, durée) dont plus aucune recette du catalogue ne satisfait les seuils — dérive du contenu indexé."
+ },
+ "Amazon--6": {
+  "action": "remove",
+  "raison_publiee": "No stroller meeting all requirements exists",
+  "categorie": "T2",
+  "categorie_secondaire": "T5",
+  "limite": true,
+  "commentaire": "« No stroller meeting all requirements exists » : le catalogue ne contient plus d'article satisfaisant la conjonction de contraintes ; part d'ambiguïté sur le caractère sur-contraint de l'énoncé d'origine."
+ },
+ "Amazon--19": {
+  "action": "remove",
+  "raison_publiee": "No books on this topic being released within a month",
+  "categorie": "T8",
+  "categorie_secondaire": "T2",
+  "limite": false,
+  "commentaire": "« released within a month » : fenêtre glissante, la validité dépend de la date d'exécution."
+ },
+ "Amazon--4": {
+  "action": "remove",
+  "raison_publiee": "Can't filter by 'Used - Good' from the search results page, only once you click into a specific item",
+  "categorie": "T4",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Le filtre « Used - Good » n'est plus accessible depuis la page de résultats : l'affordance supposée par la tâche a disparu de l'interface."
+ },
+ "Apple--1": {
+  "action": "remove",
+  "raison_publiee": "No reasonable way to find this information, no search queries on support page even return it",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": true,
+  "commentaire": "La documentation iOS 17 / iPhone 12 n'est plus servie par la recherche du support : contenu retiré, sous l'effet du vieillissement des versions."
+ },
+ "Apple--14": {
+  "action": "remove",
+  "raison_publiee": "Ambiguous task, multiple M4 chip models exist, and also no concept of 'base' model on the site",
+  "categorie": "T5",
+  "categorie_secondaire": "T2",
+  "limite": false,
+  "commentaire": "« multiple M4 chip models exist, no concept of base model » : spécification devenue ambiguë après refonte de la gamme."
+ },
+ "Apple--16": {
+  "action": "remove",
+  "raison_publiee": "3rd generation airpods are buried in the compare page and don't even list price",
+  "categorie": "T4",
+  "categorie_secondaire": "T2",
+  "limite": true,
+  "commentaire": "Les AirPods 3e génération ne sont plus qu'accessibles via la page de comparaison et sans prix affiché : l'information existe encore mais l'interface ne l'expose plus."
+ },
+ "Apple--2": {
+  "action": "remove",
+  "raison_publiee": "These phones are no longer sold and don't have prices listed anymore, can't even compare 15 pro to 16 pro to modernize the example",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": false,
+  "commentaire": "Modèle ou configuration retiré de la vente : l'entité nommée par la tâche n'existe plus sur le site."
+ },
+ "Apple--20": {
+  "action": "remove",
+  "raison_publiee": "This phone is no longer sold",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": false,
+  "commentaire": "Modèle ou configuration retiré de la vente : l'entité nommée par la tâche n'existe plus sur le site."
+ },
+ "Apple--41": {
+  "action": "remove",
+  "raison_publiee": "These are no longer sold with 64GB of storage, 128 GB is the minimum",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": false,
+  "commentaire": "Modèle ou configuration retiré de la vente : l'entité nommée par la tâche n'existe plus sur le site."
+ },
+ "Apple--42": {
+  "action": "remove",
+  "raison_publiee": "It's very ambiguous what 'updates' means here",
+  "categorie": "T5",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« updates » non défini : l'énoncé n'admet pas de réponse vérifiable."
+ },
+ "Apple--7": {
+  "action": "remove",
+  "raison_publiee": "It's already released",
+  "categorie": "T1",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« When and where the Apple Vision Pro will be released » : la sortie a eu lieu, la prémisse prospective de la tâche est périmée."
+ },
+ "Apple--9": {
+  "action": "remove",
+  "raison_publiee": "Cannot schedule actual, in-store pickup",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Retrait en boutique : action à effet réel, non réalisable par un agent évalué (accès / effet de bord)."
+ },
+ "ArXiv--11": {
+  "action": "remove",
+  "raison_publiee": "No way to specifically filter for non-english submissions, even in advanced search",
+  "categorie": "T4",
+  "categorie_secondaire": "T5",
+  "limite": true,
+  "commentaire": "Magnitude motive la suppression par l'absence de filtre « non-english » en recherche avancée, alors que l'énoncé porte sur la politique de soumission : la raison publiée ne décrit pas exactement le défaut."
+ },
+ "BBC News--14": {
+  "action": "remove",
+  "raison_publiee": "There are no recent tech industry layoffs in the news",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« recent tech industry layoffs » : dépend du cycle de l'actualité au moment de l'exécution."
+ },
+ "BBC News--16": {
+  "action": "remove",
+  "raison_publiee": "Brexit already happened, it's not in the news",
+  "categorie": "T1",
+  "categorie_secondaire": "T8",
+  "limite": true,
+  "commentaire": "« Brexit negotiations » : l'événement est clos, il ne fait plus l'actualité — le monde a changé, pas seulement le site."
+ },
+ "BBC News--18": {
+  "action": "remove",
+  "raison_publiee": "There's no way to get the 'best' podcasts of the year",
+  "categorie": "T5",
+  "categorie_secondaire": "T1",
+  "limite": false,
+  "commentaire": "« best podcasts of 2023 » : aucun classement « best » n'existe sur le site, et le millésime est daté."
+ },
+ "BBC News--2": {
+  "action": "remove",
+  "raison_publiee": "There are no articles regarding the environmental impacts of deforestation published within the last two days",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« published within the last two days » : fenêtre glissante de deux jours."
+ },
+ "BBC News--21": {
+  "action": "remove",
+  "raison_publiee": "There no longer seems to be an explicit 'World News' section",
+  "categorie": "T2",
+  "categorie_secondaire": "T4",
+  "limite": false,
+  "commentaire": "La rubrique « World News » nommée par la tâche n'existe plus dans la navigation du site."
+ },
+ "BBC News--29": {
+  "action": "remove",
+  "raison_publiee": "No 'New Releases' section",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "La rubrique « New Releases » de BBC News Audio n'existe plus."
+ },
+ "BBC News--33": {
+  "action": "remove",
+  "raison_publiee": "There no longer seems to be an explicit 'World News' section",
+  "categorie": "T2",
+  "categorie_secondaire": "T4",
+  "limite": false,
+  "commentaire": "La rubrique « World News » nommée par la tâche n'existe plus dans la navigation du site."
+ },
+ "BBC News--37": {
+  "action": "remove",
+  "raison_publiee": "There are no book reviews featured in the Culture section",
+  "categorie": "T2",
+  "categorie_secondaire": "T8",
+  "limite": true,
+  "commentaire": "Plus de critique de livre mise en avant dans la rubrique Culture : contenu éditorial disparu, avec une part de dépendance au moment d'exécution."
+ },
+ "Booking--6": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually reserve a hotel",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot actually reserve a hotel » : réservation réelle, action à effet de bord irréversible exclue de l'évaluation."
+ },
+ "Booking--11": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually reserve a hotel",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot actually reserve a hotel » : réservation réelle, action à effet de bord irréversible exclue de l'évaluation."
+ },
+ "Booking--13": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually reserve a hotel",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot actually reserve a hotel » : réservation réelle, action à effet de bord irréversible exclue de l'évaluation."
+ },
+ "Booking--14": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually reserve a hotel",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot actually reserve a hotel » : réservation réelle, action à effet de bord irréversible exclue de l'évaluation."
+ },
+ "Coursera--17": {
+  "action": "remove",
+  "raison_publiee": "There's no 'Credit Eligible' filter",
+  "categorie": "T4",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Le filtre « Credit Eligible » n'existe plus dans l'interface de recherche."
+ },
+ "Coursera--28": {
+  "action": "remove",
+  "raison_publiee": "There are no 'guided projects' related to 'astrophysics'",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Plus de « guided project » en astrophysique au catalogue : l'offre référencée a disparu."
+ },
+ "ESPN--2": {
+  "action": "remove",
+  "raison_publiee": "It is not the NBA season, there is no Bucks game in the last 2 days",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« It is not the NBA season » : validité conditionnée au calendrier sportif — l'exemple canonique de la dépendance de timing."
+ },
+ "ESPN--21": {
+  "action": "remove",
+  "raison_publiee": "It is not the NBA season, there is no Nuggets game in the last 3 days",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« It is not the NBA season » : validité conditionnée au calendrier sportif — l'exemple canonique de la dépendance de timing."
+ },
+ "ESPN--26": {
+  "action": "remove",
+  "raison_publiee": "It is not the NBA season, there were no matchups yesterday (also what the heck is a loser high and a winner high)",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« It is not the NBA season » : validité conditionnée au calendrier sportif — l'exemple canonique de la dépendance de timing."
+ },
+ "GitHub--22": {
+  "action": "remove",
+  "raison_publiee": "There are no repos that are focused on natural language processing in Ruby updated within the last week",
+  "categorie": "T8",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« updated within the last week » : fenêtre glissante d'une semaine sur un corpus mouvant."
+ },
+ "GitHub--29": {
+  "action": "remove",
+  "raison_publiee": "GitHub Pro does not exist anymore - only teams",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« GitHub Pro does not exist anymore - only teams » : l'offre commerciale nommée a disparu du site."
+ },
+ "Google Flights--0": {
+  "action": "remove",
+  "raison_publiee": "Cannot book an actual flight",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot book an actual flight » : réservation réelle, effet de bord exclu de l'évaluation."
+ },
+ "Google Flights--20": {
+  "action": "remove",
+  "raison_publiee": "Cannot book an actual flight",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot book an actual flight » : réservation réelle, effet de bord exclu de l'évaluation."
+ },
+ "Google Flights--7": {
+  "action": "remove",
+  "raison_publiee": "There are no flights from Phoenix to Miami (Dec. 25th - Dec. 28th) that have first class tickets for under $1320",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": true,
+  "commentaire": "Plus de première classe sous 1 320 $ sur la liaison demandée : dérive des prix et de l'offre, sur des dates par ailleurs passées."
+ },
+ "Google Map--13": {
+  "action": "remove",
+  "raison_publiee": "Cannot book a ride",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "« Cannot book a ride » : réservation réelle chez un tiers."
+ },
+ "Google Map--18": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually print something",
+  "categorie": "T3",
+  "categorie_secondaire": "T4",
+  "limite": true,
+  "commentaire": "« Cannot actually print » : l'action suppose une capacité absente de l'environnement d'évaluation ; classé en effet de bord faute de catégorie « capacité d'environnement » distincte."
+ },
+ "Google Map--26": {
+  "action": "remove",
+  "raison_publiee": "Cannot actually print something",
+  "categorie": "T3",
+  "categorie_secondaire": "T4",
+  "limite": true,
+  "commentaire": "« Cannot actually print » : l'action suppose une capacité absente de l'environnement d'évaluation ; classé en effet de bord faute de catégorie « capacité d'environnement » distincte."
+ },
+ "Google Search--6": {
+  "action": "remove",
+  "raison_publiee": "Not possible to filter trends by monthly, 7 days is maximum",
+  "categorie": "T4",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Google Trends ne propose plus de fenêtre mensuelle (7 jours au maximum) : l'affordance supposée a disparu."
+ },
+ "Google Search--15": {
+  "action": "remove",
+  "raison_publiee": "Wtf",
+  "categorie": "T3",
+  "categorie_secondaire": null,
+  "limite": true,
+  "commentaire": "Raison publiée : « Wtf ». Lecture de l'énoncé : connexion à Twitter avec des identifiants factices — authentification sur un site tiers, hors du périmètre évaluable. La relecture manuelle corrige ici une raison inexploitable."
+ },
+ "Google Search--22": {
+  "action": "remove",
+  "raison_publiee": "How are you supposed to discern what the 'top three trending topics this month in New York City' are from a google search",
+  "categorie": "T5",
+  "categorie_secondaire": "T7",
+  "limite": false,
+  "commentaire": "« top three trending topics this month in New York City » : aucun critère vérifiable, donc aucun attendu jugeable."
+ },
+ "Huggingface--10": {
+  "action": "remove",
+  "raison_publiee": "argilla/notux-chat-ui no longer exists",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "L'espace « argilla/notux-chat-ui » n'existe plus."
+ },
+ "Huggingface--20": {
+  "action": "remove",
+  "raison_publiee": "No NER model last updated in 2022 with 1M+ downloads",
+  "categorie": "T2",
+  "categorie_secondaire": "T1",
+  "limite": false,
+  "commentaire": "Plus de modèle NER « last updated in 2022 » avec 1M+ téléchargements : le catalogue a bougé sous une contrainte pourtant archivistique."
+ },
+ "Huggingface--21": {
+  "action": "remove",
+  "raison_publiee": "No longer exists in docs",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "La page de documentation nommée n'existe plus."
+ },
+ "Huggingface--22": {
+  "action": "remove",
+  "raison_publiee": "Does not exist in docs",
+  "categorie": "T2",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "La page de documentation nommée n'existe plus."
+ },
+ "Huggingface--23": {
+  "action": "remove",
+  "raison_publiee": "Extremely vague and hard to judge",
+  "categorie": "T5",
+  "categorie_secondaire": "T8",
+  "limite": false,
+  "commentaire": "« innovative and widely recognized » sur « the past month » : critère non vérifiable et fenêtre glissante."
+ },
+ "Huggingface--32": {
+  "action": "remove",
+  "raison_publiee": "No settings area",
+  "categorie": "T4",
+  "categorie_secondaire": "T2",
+  "limite": true,
+  "commentaire": "Plus de zone « settings » exposant le paramètre `temperature` sur la page du modèle : l'interface a changé."
+ },
+ "Huggingface--6": {
+  "action": "remove",
+  "raison_publiee": "Need at least 3 sentences to try the inference demo",
+  "categorie": "T4",
+  "categorie_secondaire": null,
+  "limite": false,
+  "commentaire": "Le widget d'inférence exige désormais au moins trois phrases : le contrat d'interaction supposé par la tâche a changé."
+ }
+}

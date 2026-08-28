@@ -1,0 +1,1493 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-08-15",
+  "benchmark": "webvoyager",
+  "source_corpus": "data/raw/webvoyager_original.jsonl",
+  "task": "T5_ambiguity — étiquetage binaire de l'ambiguïté d'un énoncé de tâche",
+  "label_definition": "label=1 si, à la seule lecture de l'énoncé, deux réponses différentes peuvent être également correctes, faute d'un critère de départage donné par l'énoncé ou imposé de façon déterministe par le site ; label=0 sinon.",
+  "criteria": {
+    "A1": "multiple_valid — plusieurs candidats satisfont également les contraintes, sans critère de départage",
+    "A2": "subjective_criterion — critère de sélection non vérifiable (« best », « popular », « renowned »…)",
+    "A3": "underspecified_referent — le référent ou la catégorie visée n'est pas déterminé par le site",
+    "A4": "unspecified_output — la nature ou le volume de la réponse attendue n'est pas déterminé"
+  },
+  "decision_rules": [
+    "Un ordre déterministe fourni par le site ou l'énoncé (le moins cher, le plus étoilé, le plus récent, une rubrique nommée) détermine la réponse — ou son préfixe quand l'énoncé est au pluriel : label=0.",
+    "Un superlatif numérique explicite compte comme ordre déterministe, SAUF s'il produit massivement des ex æquo (« le moins d'escales » : tous les vols directs).",
+    "L'ambiguïté porte sur la CIBLE de la réponse, pas sur sa FORME : « résume cet article » vise une cible unique (label=0) ; « génère une histoire » n'a pas de cible (label=1).",
+    "La formulation de la requête de recherche n'est pas comptée comme une ambiguïté : sinon toute tâche de recherche serait positive.",
+    "L'étiquetage se fait sur le seul énoncé, sans consulter le site : « plusieurs candidats » signifie « l'énoncé n'impose pas l'unicité », pas « nous avons vérifié qu'il y en a plusieurs »."
+  ],
+  "sampling": {
+    "method": "échantillon aléatoire stratifié par site : 9 tâches tirées sans remise dans chacun des 15 sites de WebVoyager (graine random.Random(f'{seed}:{site}')), plus les tâches dont la raison de patch Magnitude invoque explicitement l'ambiguïté.",
+    "seed": 20260815,
+    "per_site": 9,
+    "forced_ids": [
+      "Apple--14",
+      "Apple--42",
+      "Google Search--15",
+      "Huggingface--23"
+    ],
+    "forced_reason": "Apple--14 « Ambiguous task, multiple M4 chip models exist », Apple--42 « It's very ambiguous what 'updates' means here », Huggingface--23 « Extremely vague and hard to judge », Google Search--15 « Wtf ». Les trois premières sont des positifs certains ; la quatrième est conservée dans le jeu mais étiquetée 0 (voir sa justification)."
+  },
+  "annotator": {
+    "count": 1,
+    "identity": "l'agent rédacteur (Claude Opus 5), annotateur unique",
+    "protocol": "rubrique écrite AVANT l'étiquetage, puis passage unique sur les 139 énoncés dans l'ordre site/identifiant ; chaque positif porte au moins un code de critère et une justification en une phrase."
+  },
+  "limits": [
+    "Annotateur unique : aucun accord inter-annotateurs (kappa) n'est mesurable. Les frontières arbitrées par les règles de décision (superlatifs, préfixes, requêtes libres) sont défendables mais non validées par un second annotateur.",
+    "L'annotateur est un modèle de langage, comme l'une des quatre approches comparées (juge LLM). Même si le modèle diffère (Claude Opus 5 pour l'étiquetage, gemini-2.5-flash-lite pour le juge évalué), le biais de famille n'est pas nul : les scores du juge LLM sont à lire comme une borne haute optimiste.",
+    "L'étiquetage est statique : il ne vérifie pas sur le site combien de réponses satisfont réellement l'énoncé. Une tâche « find a X with filters » dont un seul produit satisfait réellement les filtres est ici comptée ambiguë.",
+    "Les catégories T5 (ambiguïté) et T6 (solutions valides multiples) de la taxonomie sont fusionnées dans ce label : elles sont indiscernables depuis le seul énoncé.",
+    "Fort effet de site : Allrecipes, Amazon et Coursera concentrent les positifs, ArXiv, Cambridge Dictionary, ESPN et Wolfram Alpha n'en ont aucun. La ligne de base « site majoritaire » de l'ablation mesure la part de signal qui n'est que l'identité du site."
+  ],
+  "counts": {
+    "n": 139,
+    "n_positive": 55,
+    "n_negative": 84,
+    "positive_rate": 0.3957,
+    "by_site": {
+      "Allrecipes": {
+        "n": 9,
+        "positive": 8
+      },
+      "Amazon": {
+        "n": 9,
+        "positive": 8
+      },
+      "Apple": {
+        "n": 11,
+        "positive": 5
+      },
+      "ArXiv": {
+        "n": 9,
+        "positive": 0
+      },
+      "BBC News": {
+        "n": 9,
+        "positive": 5
+      },
+      "Booking": {
+        "n": 9,
+        "positive": 5
+      },
+      "Cambridge Dictionary": {
+        "n": 9,
+        "positive": 0
+      },
+      "Coursera": {
+        "n": 9,
+        "positive": 7
+      },
+      "ESPN": {
+        "n": 9,
+        "positive": 0
+      },
+      "GitHub": {
+        "n": 9,
+        "positive": 3
+      },
+      "Google Flights": {
+        "n": 9,
+        "positive": 3
+      },
+      "Google Map": {
+        "n": 9,
+        "positive": 5
+      },
+      "Google Search": {
+        "n": 10,
+        "positive": 1
+      },
+      "Huggingface": {
+        "n": 10,
+        "positive": 4
+      },
+      "Wolfram Alpha": {
+        "n": 9,
+        "positive": 1
+      }
+    },
+    "by_criterion": {
+      "A1": 38,
+      "A2": 9,
+      "A3": 10,
+      "A4": 9
+    }
+  },
+  "items": [
+    {
+      "task_id": "Allrecipes--0",
+      "site": "Allrecipes",
+      "question": "Provide a recipe for vegetarian lasagna with more than 100 reviews and a rating of at least 4.5 stars suitable for 6 people.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs lasagnes végétariennes satisfont « >100 avis et ≥4,5 » ; aucun départage.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--8",
+      "site": "Allrecipes",
+      "question": "Search for a recipe for Beef Wellington on Allrecipes that has at least 200 reviews and an average rating of 4.5 stars or higher. List the main ingredients required for the dish.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs Beef Wellington peuvent passer les seuils ; l'énoncé n'impose pas l'unicité.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--12",
+      "site": "Allrecipes",
+      "question": "Search for a popular cookie recipe on Allrecipes with more than 1000 reviews and a rating of 4.5 stars or better. Provide the list of ingredients needed.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A2"
+      ],
+      "rationale": "« popular » n'est pas un critère du site, et plusieurs recettes passent les seuils.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--13",
+      "site": "Allrecipes",
+      "question": "Find a recipe with over 100 reviews for Fried Fish on Allrecipes, list the Full Nutrition Label and tell me the amount of Iron per Serving.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "La valeur en fer demandée dépend de la recette choisie parmi plusieurs éligibles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--20",
+      "site": "Allrecipes",
+      "question": "Find a recipe for a cauliflower pizza crust that has a preparation time of under 30 minutes and a rating of at least 4 stars on Allrecipes. Include the number of calories per serving.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs pâtes à pizza au chou-fleur satisfont durée et note.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--28",
+      "site": "Allrecipes",
+      "question": "On Allrecipes, find a vegan brownie recipe that has at least 40 reviews and a rating of 4.5 or higher. Include the list of ingredients, total prep and cook time, and a brief overview of the preparation steps.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs brownies vegans satisfont les seuils d'avis et de note.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--29",
+      "site": "Allrecipes",
+      "question": "Search for a Mediterranean-style grilled fish recipe on Allrecipes that includes ingredients like olives, has at least a 4-star rating, and more than 25 reviews. Detail the ingredients, cooking method, and total time required for preparation and cooking.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A2"
+      ],
+      "rationale": "« Mediterranean-style » n'est pas une catégorie du site ; plusieurs recettes éligibles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--40",
+      "site": "Allrecipes",
+      "question": "Browse the about us section of Allrecipes for a brief introduction to The Allrecipes Allstars.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible unique : la rubrique « About Us » et sa présentation des Allstars.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Allrecipes--42",
+      "site": "Allrecipes",
+      "question": "Find a recipe for banana bread with more than 200 reviews and a rating of at least 4.0 stars on Allrecipes.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs banana breads satisfont « >200 avis et ≥4,0 ».",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--3",
+      "site": "Amazon",
+      "question": "Find climbing gears and sort the results by price high to low. Answer the first 3 results after sorting.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Procédure explicite : requête donnée, tri imposé, trois premiers résultats.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--6",
+      "site": "Amazon",
+      "question": "Browse black strollers within $100 to $200 on Amazon. Then find one Among these black strollers with over 20,000 reviews and a rating greater than 4 star.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "« find one among these » : plusieurs poussettes satisfont les filtres.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--7",
+      "site": "Amazon",
+      "question": "Browse the women's hiking boots on Amazon and filter the results to show only those that are waterproof and have a rating of at least 4 stars and size 6.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A4"
+      ],
+      "rationale": "Aucun objet ni volume de réponse n'est déterminé après filtrage.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--17",
+      "site": "Amazon",
+      "question": "Show me the list of baby products that are on sale and under 10 dollars on Amazon. Provide at least 2 on sale products",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A4"
+      ],
+      "rationale": "« at least 2 » parmi de nombreux produits éligibles, sans ordre imposé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--25",
+      "site": "Amazon",
+      "question": "Search for a queen-sized, hypoallergenic mattress topper on Amazon. It should have a memory foam material and be priced between $50 to $100.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs sur-matelas satisfont taille, matière et tranche de prix.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--28",
+      "site": "Amazon",
+      "question": "Search for a yoga mat on Amazon that is at least 6mm thick, non-slip, and eco-friendly. The price should be under $50.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A2"
+      ],
+      "rationale": "« eco-friendly » n'est pas un filtre vérifiable ; plusieurs tapis éligibles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--29",
+      "site": "Amazon",
+      "question": "Find a set of solar-powered garden lights on Amazon with a minimum pack of 10 lights. They should be LED and priced under $50.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs lots de lampes solaires satisfont les contraintes.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--31",
+      "site": "Amazon",
+      "question": "Find a compact digital camera on Amazon with a zoom capability of at least 10x, rated 4 stars or higher, and priced between $100 to $300.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs appareils photo satisfont zoom, note et tranche de prix.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Amazon--35",
+      "site": "Amazon",
+      "question": "Find a men's leather wallet on Amazon with RFID blocking, at least 6 card slots, and priced below $50. Check if it's available for FREE delivery.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs portefeuilles satisfont RFID, nombre d'emplacements et prix.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--0",
+      "site": "Apple",
+      "question": "Compare the prices of the latest models of MacBook Air available on Apple's website.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible déterminée : la page MacBook Air et les modèles qu'elle affiche.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--4",
+      "site": "Apple",
+      "question": "How much does it cost to buy a Macbook pro, 16-inch, Apple M3 Max chip with 16-core CPU, 40-core GPU, 64GB unified memory, 1TB SSD.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Configuration entièrement spécifiée : un seul prix possible.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--6",
+      "site": "Apple",
+      "question": "Find AirPods on Apple and how many types are currently available.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Le nombre de modèles d'AirPods affichés est une valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--9",
+      "site": "Apple",
+      "question": "Check the Apple Store for the availability of the latest iPhone model and schedule an in-store pickup at the nearest Apple Store for January 10, 2024.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "« the nearest Apple Store » sans point de référence : magasin indéterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--11",
+      "site": "Apple",
+      "question": "Get information about the latest iPad model released by Apple, including its release date, base storage capacity, and starting price available on Apple's official website.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "« the latest iPad model » : plusieurs gammes (Pro, Air, mini) coexistent.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--14",
+      "site": "Apple",
+      "question": "Identify the upgrade options available for the cheapest base model of the MacBook Pro 14-inch with M3 chip, and calculate the total price difference from the base model to the maximum upgrade (no Pre-Installed Software) offered by Apple.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "Ground truth Magnitude : « multiple M4 chip models exist, no concept of base model ».",
+      "label_source": "magnitude_reason+author"
+    },
+    {
+      "task_id": "Apple--25",
+      "site": "Apple",
+      "question": "On the Apple website, look up the processor for the latest model of the Apple TV.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Un seul modèle d'Apple TV courant : processeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--32",
+      "site": "Apple",
+      "question": "Investigate the trade-in value for an iPhone 11 Pro Max on Apple's website.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "La page de reprise affiche une valeur maximale unique pour ce modèle.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--39",
+      "site": "Apple",
+      "question": "Find solutions on Apple's website if you forgot your Apple ID password.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible unique : la page d'assistance « mot de passe oublié ».",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--40",
+      "site": "Apple",
+      "question": "Find information on Apple website, and tell me the device weight of Apple Vision Pro and list 5 Built-in Apps it supports.",
+      "label": 1,
+      "criteria": [
+        "A4"
+      ],
+      "rationale": "« list 5 built-in apps » : cinq parmi une vingtaine, sans ordre imposé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Apple--42",
+      "site": "Apple",
+      "question": "Find updates for Apple Watch Series 7,8,9 on Apple's website.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "Ground truth Magnitude : « It's very ambiguous what 'updates' means here ».",
+      "label_source": "magnitude_reason+author"
+    },
+    {
+      "task_id": "ArXiv--0",
+      "site": "ArXiv",
+      "question": "Search for the latest preprints about 'quantum computing'.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Le tri chronologique du site détermine la réponse (préfixe de la liste).",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--7",
+      "site": "ArXiv",
+      "question": "Find the most recent paper submitted on machine learning in the Computer Science category posted on ArXiv.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Singulier + ordre chronologique déterministe.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--11",
+      "site": "ArXiv",
+      "question": "For Non-English submissions, do I need to provide a multi-language abstract, if need, answer the separator between the multiple abstracts.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Réponse factuelle unique dans la documentation.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--12",
+      "site": "ArXiv",
+      "question": "Find store in arXiv Help, tell me how many styles of arXiv Logo Shirt are available?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Nombre unique affiché par la boutique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--13",
+      "site": "ArXiv",
+      "question": "How many articles on ArXiv with 'SimCSE' in the title?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Compte unique renvoyé par la recherche.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--21",
+      "site": "ArXiv",
+      "question": "Search for papers on 'neural networks for image processing' in the Computer Science category on ArXiv and report how many were submitted in the last week.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Compte renvoyé par la recherche ; la variabilité vient de la requête, pas de l'énoncé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--29",
+      "site": "ArXiv",
+      "question": "On ArXiv, search for papers with 'Neural Network Optimization' in the title published in 2023, and provide the number of such papers.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Compte unique pour un titre et une année donnés.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--37",
+      "site": "ArXiv",
+      "question": "Find the names of people in ArXiv's Leadership Team.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Liste unique publiée par le site.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ArXiv--38",
+      "site": "ArXiv",
+      "question": "Find the ArXiv Blog on the ArXiv website and summarize the content of its latest article.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible unique (dernier billet) ; seule la forme du résumé varie.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--10",
+      "site": "BBC News",
+      "question": "Identify the main headlines covering the UK's plan to tackle climate change on BBC News.",
+      "label": 1,
+      "criteria": [
+        "A2",
+        "A4"
+      ],
+      "rationale": "« main headlines » : ni critère de sélection ni nombre déterminés.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--16",
+      "site": "BBC News",
+      "question": "Identify the most recent development or update in Brexit negotiations as reported on BBC News and report the key points and any stated impacts on European economies.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "« development in Brexit negotiations » ne correspond à aucune rubrique ordonnée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--18",
+      "site": "BBC News",
+      "question": "Visit BBC News Audio, What are the best PodCasts for 2023? List 2 of them.",
+      "label": 1,
+      "criteria": [
+        "A2",
+        "A4"
+      ],
+      "rationale": "« best podcasts » est subjectif et « list 2 » laisse le choix libre.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--20",
+      "site": "BBC News",
+      "question": "Find the latest article in the Green Living section on BBC News and provide a summary of its main points.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Rubrique nommée + « latest » : article déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--23",
+      "site": "BBC News",
+      "question": "Identify the latest health-related news on BBC News and summarize the main findings or recommendations.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Rubrique Health + « latest » : article déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--25",
+      "site": "BBC News",
+      "question": "Find the most recent sports analysis article on BBC News related to the English Premier League and summarize its key insights.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "« sports analysis article » n'est pas une rubrique du site : sélection libre.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--29",
+      "site": "BBC News",
+      "question": "Visit BBC News Audio and find out which podcast episode is currently featured as the \"New Releases\".",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Rubrique nommée « New Releases » : contenu déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--35",
+      "site": "BBC News",
+      "question": "In the Asia section, browse and identify the most recent report about technological advancements and summarize its content.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "« report about technological advancements » dans la section Asia : filtre non défini.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "BBC News--39",
+      "site": "BBC News",
+      "question": "Check the Horse Racing results in Sport section, browse all the games that took place yesterday and see which one had the highest number of runners.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif numérique (plus grand nombre de partants) sur une liste fermée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--3",
+      "site": "Booking",
+      "question": "Find a hotel with 4 star and above rating in Los Angeles for 3 days from Dec 18th.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "De nombreux hôtels 4 étoiles et plus satisfont ces dates à Los Angeles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--11",
+      "site": "Booking",
+      "question": "Reserve a hotel in downtown Chicago with a rating of 9 or higher for a stay from March 20-27, 2024, which offers free cancellation and includes a fitness center.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs hôtels satisfont note, annulation gratuite et salle de sport.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--19",
+      "site": "Booking",
+      "question": "Look for a hotel with customer ratings above an 8.0 in Paris, France for a weekend stay from March 18, 2024, to March 20, 2024, and list top three suggestions based on user reviews.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "« top three based on user reviews » : le tri par avis du site détermine le préfixe.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--25",
+      "site": "Booking",
+      "question": "Search for a hotel in Lisbon with airport shuttle, rated 8.5 or above, available for a six-night stay from March 1 to March 7, 2024, for two adults, breakfast included.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs hôtels de Lisbonne satisfont navette, note et petit-déjeuner.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--26",
+      "site": "Booking",
+      "question": "Check Booking.com for a 3-star hotel or higher in Paris with a guest rating above 8.0 and available parking for dates February 20-23, 2024.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs hôtels parisiens satisfont étoiles, note et parking.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--30",
+      "site": "Booking",
+      "question": "Search for hotels in London from March 20 to March 23, 2024, on Booking. How many hotels are left after applying the Breakfast included and Fitness center filters?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Le nombre d'hôtels restants après filtres est une valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--31",
+      "site": "Booking",
+      "question": "Search for hotels in Rio de Janeiro from March 1-7, 2024, check the Brands filter to see which brand has the most hotels and which brand has the fewest.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Marque la plus/moins représentée : superlatif déterministe.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--33",
+      "site": "Booking",
+      "question": "Find the Customer Service on the Booking website, browse the questions about cancellation, and tell me 'how do I know whether my booking has been cancelled'.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Question d'aide nommée mot pour mot : réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Booking--38",
+      "site": "Booking",
+      "question": "Look up Vienna hotel options with availability for a 4-night stay from February 28 to March 4, 2024, with amenities that include a Parking, breakfast included, and a rating of 8+ on Booking.com.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs hôtels viennois satisfont parking, petit-déjeuner et note.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--3",
+      "site": "Cambridge Dictionary",
+      "question": "Look up the definition, pronunciation, and examples of the word \"zeitgeist.\"",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Entrée de dictionnaire unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--14",
+      "site": "Cambridge Dictionary",
+      "question": "Use the Cambridge Dictionary to find the pronunciation, definition, and one example sentence for the word \"concatenate\".",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Entrée de dictionnaire unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--22",
+      "site": "Cambridge Dictionary",
+      "question": "Use the Cambridge Dictionary to find the definition, UK pronunciation, and an example sentence for the word \"quintessential.\"",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Entrée de dictionnaire unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--23",
+      "site": "Cambridge Dictionary",
+      "question": "Find the US English pronunciation of the word \"meticulous\" using the Cambridge Dictionary and note the International Phonetic Alphabet (IPA) notation, then find one example sentence provided in the dictionary using this word.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Prononciation US et exemple fournis par la fiche du mot.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--24",
+      "site": "Cambridge Dictionary",
+      "question": "Look up the definition and both UK and US pronunciation of the word \"reverie,\" and provide an example sentence using the word from Cambridge Dictionary.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Entrée de dictionnaire unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--27",
+      "site": "Cambridge Dictionary",
+      "question": "Look up the meaning, pronunciation, and an example sentence of the word \"solitude\" using the Cambridge Dictionary.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Entrée de dictionnaire unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--28",
+      "site": "Cambridge Dictionary",
+      "question": "Search for \"feel giddy\" in Cambridge Dictionary's Thesaurus and list the synonyms the dictionary provides.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "La liste de synonymes est celle que le site publie.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--30",
+      "site": "Cambridge Dictionary",
+      "question": "Find the grammar for present perfect simple uses in English, including examples of affirmative, negative, and interrogative sentences, on the Cambridge Dictionary website.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Page de grammaire unique ; seuls les exemples cités varient.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Cambridge Dictionary--32",
+      "site": "Cambridge Dictionary",
+      "question": "Search for the differences between \"fewer\" and \"less\" in grammar section, and provide examples illustrating their correct usage from the Cambridge Dictionary.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Page de grammaire unique sur « fewer » vs « less ».",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--0",
+      "site": "Coursera",
+      "question": "Find a beginner-level online course about '3d printing' which lasts 1-3 months, and is provided by a renowned university.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A2"
+      ],
+      "rationale": "« renowned university » est subjectif et plusieurs cours satisfont durée et niveau.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--1",
+      "site": "Coursera",
+      "question": "Search for a beginner-level online course about Python programming, suitable for someone who has no programming experience on Coursera.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "De nombreux cours Python débutants satisfont l'énoncé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--2",
+      "site": "Coursera",
+      "question": "Find a Beginner's Spanish Specialization on Coursera and show all the courses in this Specialization.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs spécialisations d'espagnol débutant existent.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--4",
+      "site": "Coursera",
+      "question": "Identify a course or Specialization on Coursera that helps business process management with with a rating 4.7.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs cours de BPM peuvent afficher la note demandée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--15",
+      "site": "Coursera",
+      "question": "Find a course on Coursera named 'Introduction to Mathematical Thinking' offered by Stanford, what is the percentage (rounded) of 5 star ratings in reviews and which level has the least percentage?.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cours nommé et établissement nommé : statistiques uniques.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--17",
+      "site": "Coursera",
+      "question": "How many results are there for a search on Coursera for Machine Learning, then filtered by Credit Eligible and 1-4 Years duration?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Nombre de résultats après filtres : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--19",
+      "site": "Coursera",
+      "question": "Identify a course on Coursera that provides an introduction to Psychology, list the instructor's name, the institution offering it, and how many hours it will approximately take to complete.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "« a course that provides an introduction to Psychology » : plusieurs candidats.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--24",
+      "site": "Coursera",
+      "question": "Locate an online course on Coursera related to 'Sustainability' that belongs to Physical Science and Engineering subject. The course should include a module on Measuring Sustainability. Note the course duration and the offering institution.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Contraintes serrées mais l'énoncé n'impose pas l'unicité du cours.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Coursera--35",
+      "site": "Coursera",
+      "question": "Find a Coursera course on Sustainable Agriculture practices, and detail the course's objectives and the background of the lead instructor.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs cours d'agriculture durable satisfont l'énoncé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--6",
+      "site": "ESPN",
+      "question": "Find the result of the latest basketball game between the Los Angeles Lakers and the Boston Celtics, including the final score and top scorer from the match.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Dernière confrontation entre deux équipes nommées : match unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--7",
+      "site": "ESPN",
+      "question": "Retrieve the final score and a brief summary of the latest NBA game played by the Los Angeles Lakers as reported on ESPN.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Dernier match d'une équipe nommée : unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--11",
+      "site": "ESPN",
+      "question": "How many NBA teams are there and list all the teams with 'New' in their name.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Compte et liste déterminés par les données du site.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--15",
+      "site": "ESPN",
+      "question": "Check the scores of the NBA games played on December 25, 2023.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Scores d'une date donnée : ensemble unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--18",
+      "site": "ESPN",
+      "question": "How many sports leagues can you choose from on the ESPN home page?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Nombre de ligues proposées en page d'accueil : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--26",
+      "site": "ESPN",
+      "question": "Find information on ESPN NBA schedule. Tell me yesterday's matchups in which the loser high was higher than the winner high.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Condition numérique explicite sur les matchs de la veille.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--36",
+      "site": "ESPN",
+      "question": "Search for Lionel Messi's last 5 games, which teams has he played for, and what are the results?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cinq derniers matchs d'un joueur nommé : ensemble déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--38",
+      "site": "ESPN",
+      "question": "Check Los Angeles Lakers Stats 2023-24, calculate Anthony Davis' games played (GP) percentage, tell me if there are other players with the same games played percentage as Anthony Davis.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Calcul explicite sur une page de statistiques nommée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "ESPN--39",
+      "site": "ESPN",
+      "question": "Check the New York Jets Depth Chart in the NFL section of ESPN and identify the players listed as injured in the 2ND position.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Position nommée dans un depth chart nommé : réponse déterminée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--5",
+      "site": "GitHub",
+      "question": "Find a Python repository on GitHub that has been updated in the past 2 days and has at least 500 stars.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "De nombreux dépôts Python satisfont « mis à jour < 2 jours et ≥500 étoiles ».",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--13",
+      "site": "GitHub",
+      "question": "Identify the latest top-trending open-source project in the category of 'Machine Learning' on GitHub, and check the number of stars it has received.",
+      "label": 1,
+      "criteria": [
+        "A3"
+      ],
+      "rationale": "GitHub Trending ne propose pas de catégorie « Machine Learning » ; « latest top-trending » n'est pas un ordre.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--15",
+      "site": "GitHub",
+      "question": "Locate a repository on GitHub related to 'quantum computing' that has been updated within the last week and has at least 50 stars. Provide a brief description of the project.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs dépôts « quantum computing » satisfont fraîcheur et étoiles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--18",
+      "site": "GitHub",
+      "question": "Identify and report the most popular (in terms of stars) open-source image processing tool on GitHub.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif numérique explicite (étoiles) sur une requête dérivable de l'énoncé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--24",
+      "site": "GitHub",
+      "question": "Locate the GitHub repository for the open-source project \"angular\" and identify the last three issues closed.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Dépôt nommé + trois dernières issues fermées : ensemble déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--26",
+      "site": "GitHub",
+      "question": "Find the Resolve merge conflicts course in GitHub Skills and what actions learners will perform in this course.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cours nommé de GitHub Skills : contenu unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--28",
+      "site": "GitHub",
+      "question": "Identify the most starred JavaScript repositories on GitHub that were created after 2023-12-29.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Tri par étoiles + date de création : préfixe déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--34",
+      "site": "GitHub",
+      "question": "Search for an open-source project on GitHub related to 'Protein prediction' and identify the project with the highest number of forks.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif numérique explicite (forks) sur une requête citée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "GitHub--40",
+      "site": "GitHub",
+      "question": "Select Sign up on the GitHub homepage to see if email 'test123@gmail.com' already exists.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Réponse binaire : l'adresse existe ou non.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--4",
+      "site": "Google Flights",
+      "question": "Search for one-way flights from New York to London on Dec. 26th and filter the results to show only non-stop flights.",
+      "label": 1,
+      "criteria": [
+        "A4"
+      ],
+      "rationale": "Après filtrage, ni le vol ni le volume de réponse ne sont déterminés.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--7",
+      "site": "Google Flights",
+      "question": "Find a round trip from Phoenix to Miami (Dec. 25th - Dec. 28th), show the First Class plane tickets for me that do not exceed $1320..",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs billets première classe peuvent rester sous le plafond de prix.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--8",
+      "site": "Google Flights",
+      "question": "Search a one-way filght from Dublin To Athens Greece for 1 Adult that leaves on December 30 and analyse the price graph for the next 2 months.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible unique (le graphe de prix) ; seule la forme de l'analyse varie.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--11",
+      "site": "Google Flights",
+      "question": "Compare the prices for round-trip flights from New York to Tokyo for a departure on February 10, 2024, and a return on February 24, 2024, and select the option with the least number of stops.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "« least number of stops » : les vols directs sont nombreux et ex æquo.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--17",
+      "site": "Google Flights",
+      "question": "Find the cheapest round-trip flight from New York to Paris leaving on December 27, 2023, and returning on January 10, 2024.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif de prix : ordre total, réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--19",
+      "site": "Google Flights",
+      "question": "Find the cheapest one-way flight from London to Paris, departing on January 25, 2024. Include the airline, total travel time, and layovers for the chosen flight.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif de prix : ordre total, réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--22",
+      "site": "Google Flights",
+      "question": "Find a round-trip flight from Rio de Janeiro to Los Angeles, leaving on March 15, 2024, and returning on March 22, 2024, and select the option with the least carbon dioxide emissions.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif d'émissions de CO2 : valeurs distinctes, réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--33",
+      "site": "Google Flights",
+      "question": "Find a one-way flight from Shanghai to Vancouver on February 27, 2024, and compare the options based on carbon dioxide emissions.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Comparaison ordonnée par émissions : préfixe déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Flights--35",
+      "site": "Google Flights",
+      "question": "Find the lowest-priced one-way flight from Cairo to Montreal on February 21, 2024, including the total travel time and number of stops.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif de prix : réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--0",
+      "site": "Google Map",
+      "question": "Find 5 beauty salons with ratings greater than 4.8 in Seattle, WA.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Bien plus de cinq salons dépassent 4,8 à Seattle ; aucun départage.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--5",
+      "site": "Google Map",
+      "question": "Search for a parking garage near Thalia Hall in Chicago that isn't open 24 hours.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs parkings proches ne sont pas ouverts 24 h/24.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--8",
+      "site": "Google Map",
+      "question": "Find a place to climb within 2 miles of zip code 90028.",
+      "label": 1,
+      "criteria": [
+        "A1",
+        "A3"
+      ],
+      "rationale": "« a place to climb » (salle ? falaise ?) et plusieurs résultats dans le rayon.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--10",
+      "site": "Google Map",
+      "question": "Search for a park in the state of California called Castle Mountains National Monument and find out it's Basic Information.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Lieu nommé : fiche unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--13",
+      "site": "Google Map",
+      "question": "Find a parking lot in Gloucester and book a ride from there to North Plymouth, view the map to understand the route better.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs parkings à Gloucester peuvent servir de point de départ.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--20",
+      "site": "Google Map",
+      "question": "Find Tesla Destination Charger closest to the National Air and Space Museum.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Superlatif de distance : borne unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--22",
+      "site": "Google Map",
+      "question": "Find a Best Buy store near zip code 33139.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Enseigne nommée + tri par distance : premier résultat déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--34",
+      "site": "Google Map",
+      "question": "Find a hiking trail within 2 miles of zip code 80202.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "Plusieurs sentiers dans un rayon de deux miles, sans critère de choix.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Map--39",
+      "site": "Google Map",
+      "question": "Find a route from Miami to New Orleans, and provide the detailed route information.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Itinéraire par défaut entre deux villes nommées.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--9",
+      "site": "Google Search",
+      "question": "Show the rating of Prometheus movie on IMDb and Rotten Tomatoes.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Film nommé, deux notes publiées : réponse unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--15",
+      "site": "Google Search",
+      "question": "Please try to log in to twitter with email: webagenttest@testmail.com and password: test123456. Let me know if the login was successful.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Énoncé parfaitement déterminé (identifiants fournis, réponse binaire) : la tâche est infaisable (T3), pas ambiguë — désaccord assumé avec la raison « Wtf » de Magnitude.",
+      "label_source": "magnitude_reason+author"
+    },
+    {
+      "task_id": "Google Search--16",
+      "site": "Google Search",
+      "question": "How many members are there in the OpenAI community on Reddit, and what is the hottest news right now?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Compte de membres + onglet « Hot » de Reddit : cible déterminée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--20",
+      "site": "Google Search",
+      "question": "Find the release date for the latest \"Fast & Furious\" movie.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Dernier film d'une franchise nommée : date unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--23",
+      "site": "Google Search",
+      "question": "Retrieve a short biography of LeBron James.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Cible unique ; seule la forme de la biographie varie.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--26",
+      "site": "Google Search",
+      "question": "Identify the hardware requirements for using the latest version of Adobe Photoshop on a Mac.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Page de configuration requise unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--27",
+      "site": "Google Search",
+      "question": "Check the current air quality index in Paris.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Encart d'indice de qualité de l'air : valeur unique affichée.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--35",
+      "site": "Google Search",
+      "question": "Look up the latest research paper related to black holes published in the journal \"Nature Astronomy\".",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Revue nommée + ordre chronologique : article déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--37",
+      "site": "Google Search",
+      "question": "Find the current top 3 super-earth planets and give a brief introduction to them.",
+      "label": 1,
+      "criteria": [
+        "A2"
+      ],
+      "rationale": "« top 3 super-earth planets » : aucun classement de référence n'existe.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Google Search--38",
+      "site": "Google Search",
+      "question": "Search for the next visible solar eclipse in North America and its expected date, and what about the one after that.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Éclipses futures : dates uniques et vérifiables.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--1",
+      "site": "Huggingface",
+      "question": "Use the Huggingface Inference API to generate a short story about a dragon and a wizard.",
+      "label": 1,
+      "criteria": [
+        "A4"
+      ],
+      "rationale": "Sortie générative libre : toute histoire convient, aucune réponse de référence.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--8",
+      "site": "Huggingface",
+      "question": "Retrieve an example of a pre-trained language model in natural language processing and identify the tasks it is specifically designed for, like translation or text summarization.",
+      "label": 1,
+      "criteria": [
+        "A1"
+      ],
+      "rationale": "« an example of a pre-trained language model » : des milliers de candidats.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--14",
+      "site": "Huggingface",
+      "question": "How much is the Pro account of Hugging face for a month and what are the features?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Tarif et fonctionnalités du compte Pro : page unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--16",
+      "site": "Huggingface",
+      "question": "Find information on the latest (as of today's date) pre-trained language model on Huggingface suitable for text classification and briefly describe its intended use case and architecture.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Filtre de tâche du site + tri par date : modèle déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--21",
+      "site": "Huggingface",
+      "question": "Look up the tour about how to use the 'pipeline' feature in the Hugging Face Transformers library for sentiment analysis, and identify the default model it uses.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Page de documentation nommée ; modèle par défaut unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--22",
+      "site": "Huggingface",
+      "question": "Identify the steps to convert a PyTorch model to TensorFlow using the Hugging Face Transformers library as described in their documentation.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Procédure documentée unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--23",
+      "site": "Huggingface",
+      "question": "Identify three innovative and widely recognized open-source NLP models for automatic speech recognition released in the past month on Huggingface.",
+      "label": 1,
+      "criteria": [
+        "A2",
+        "A4"
+      ],
+      "rationale": "Ground truth Magnitude : « Extremely vague and hard to judge » (« innovative and widely recognized », trois parmi N).",
+      "label_source": "magnitude_reason+author"
+    },
+    {
+      "task_id": "Huggingface--31",
+      "site": "Huggingface",
+      "question": "Identify the latest machine learning model on Huggingface that specializes in detecting fake news, including the date of its last update.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Recherche + tri par date de mise à jour : modèle déterminé.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--32",
+      "site": "Huggingface",
+      "question": "On the Hugging Face website, search for the model 'GPT-J-6B' and find the 'temperature' parameter in its settings. What is the default value of this parameter?",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Modèle nommé, paramètre nommé : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Huggingface--33",
+      "site": "Huggingface",
+      "question": "List three hugging face docs. How many GitHub stars have they earned so far?",
+      "label": 1,
+      "criteria": [
+        "A3",
+        "A4"
+      ],
+      "rationale": "« three hugging face docs » : ni le référent (docs ? bibliothèques ?) ni le choix ne sont déterminés.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--3",
+      "site": "Wolfram Alpha",
+      "question": "Let g(x) be the integral of x^2 cos(2x). Write the expression of g(x).",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Primitive unique (à la constante près).",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--9",
+      "site": "Wolfram Alpha",
+      "question": "Annual energy production of Diablo Canyon 2 in 2010.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Grandeur physique datée : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--11",
+      "site": "Wolfram Alpha",
+      "question": "Show the electrical resistivity of UNS A92024 and UNS G10800 at 20 degrees Celsius.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Deux matériaux nommés, une température : valeurs uniques.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--12",
+      "site": "Wolfram Alpha",
+      "question": "Which character in unicode 8900 to 8920 looks like a snowflake",
+      "label": 1,
+      "criteria": [
+        "A2"
+      ],
+      "rationale": "« looks like a snowflake » : jugement visuel, plusieurs caractères plausibles.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--15",
+      "site": "Wolfram Alpha",
+      "question": "Show the blood relationship fraction between you and your father's mother's sister's son.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Fraction de parenté : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--20",
+      "site": "Wolfram Alpha",
+      "question": "Compute the integral of 3e^(2x) from x=0 to x=5.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Intégrale définie : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--26",
+      "site": "Wolfram Alpha",
+      "question": "Convert 15 kilograms of sulfuric acid to moles and display the percentage composition of H, S, and O by weight.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Conversion et composition massique : valeurs uniques.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--38",
+      "site": "Wolfram Alpha",
+      "question": "Compute the length of a curve defined by y = 2x^3 - 3x^2 + 4x - 5 from x = 0 to x = 3.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Longueur d'arc : valeur unique.",
+      "label_source": "author"
+    },
+    {
+      "task_id": "Wolfram Alpha--40",
+      "site": "Wolfram Alpha",
+      "question": "Approximate amount of fat burned by a 28yo, 172cm tall, 70kg woman running for 30min at a pace of 6min/mile.",
+      "label": 0,
+      "criteria": [],
+      "rationale": "Wolfram Alpha renvoie une estimation unique pour ces paramètres.",
+      "label_source": "author"
+    }
+  ]
+}

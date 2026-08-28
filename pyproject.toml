@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "benchmark-doctor"
+version = "0.1.0"
+description = "Health monitoring for web-live agent benchmarks: detects benchmark decay (temporal, content drift, access, ambiguity) task by task."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Mémoire M2 MIAGE — Université Paris Cité" }]
+keywords = ["benchmark", "web agents", "evaluation", "decay", "webvoyager"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+# La couche L1 (détection statique) ne dépend que de la bibliothèque standard :
+# c'est délibéré — un health-check qui coûte 0 $ doit aussi s'installer sans friction.
+dependencies = []
+
+[project.optional-dependencies]
+# L2 : sondes web (liveness, anti-bot). L3 : sondes LLM.
+probe = ["httpx>=0.27", "playwright>=1.44"]
+llm = ["httpx>=0.27"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+bdoctor = "benchmark_doctor.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/"
+
+[tool.setuptools.packages.find]
+include = ["benchmark_doctor*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,512 @@
+{
+  "collected_at": "2026-08-16T20:42:55+00:00",
+  "channel": "http_residential",
+  "collector": "benchmark_doctor.channels.DirectHTTPChannel (profil « browser », requests/2.34.2) — exécuté depuis la machine personnelle",
+  "method": "requête HTTP GET unique par URL, en-têtes du profil « browser » du paquet (Chrome 128 de bureau), redirections suivies, corps lu puis décodé (Accept-Encoding sans Brotli), statut et en-têtes discriminants pris sur la réponse finale ; classification par benchmark_doctor.detectors.l2_liveness.classify, le même code que la campagne du 15/08.",
+  "environnement": {
+    "systeme": "Darwin 25.5.0 (arm64)",
+    "python": "3.11.14",
+    "origine_reseau": {
+      "asn_org": "AS51207 Free Mobile SAS",
+      "pays": "FR",
+      "region": "Rhône-Alpes",
+      "ip_prefixe": "78.242.x.x",
+      "hebergeur_declare": false
+    },
+    "proxy_egress": false,
+    "commit": "613857d"
+  },
+  "parametres": {
+    "excerpt_chars": 4000,
+    "min_interval_s": 2.0,
+    "timeout_s": 25.0,
+    "retries_reseau": 1,
+    "retries_sur_code_http": 0
+  },
+  "limits": [
+    "Une seule requête par URL et par passe : aucune moyenne, aucun vote. Un site qui alterne ses réponses est vu une fois, pas caractérisé.",
+    "Le canal ne rend pas le JavaScript. Un site qui ne sert son contenu qu'après exécution apparaît vide ou en interstitiel — c'est la définition de la cellule, pas un défaut de la mesure, mais cela interdit d'en tirer un verdict sur ce que verrait un agent.",
+    "`body_size` est la taille du corps décodé, plafonnée à 500 000 octets par le canal du paquet ; au-delà, la valeur déclarée par Content-Length est reprise."
+  ],
+  "passe": 1,
+  "n_observations": 15,
+  "observations": [
+    {
+      "url": "https://www.allrecipes.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.allrecipes.com/",
+      "body_size": 473223,
+      "headers": {
+        "content-type": "text/html;charset=utf-8",
+        "cf-ray": "a2c344089e8502b9-CDG",
+        "cf-cache-status": "DYNAMIC",
+        "server": "cloudflare",
+        "set-cookie": "TMog=n788f9eb16b184dabbe2e7c4181a0f4e720; Path=/; Domain=.allrecipes.com; Expires=Fri, 3 Sep 2094 23:56:35 GMT; Max-Age=2147483647; Secure, globalTI_SID=2d9cb995-8275-4c46-97cf-ed9256fcebd1; Path=/; Domain=.allrecipes.com; Expires=Tue, 15 Aug 2028 20:42:28 GMT; Max-Age=63072000; Secure, Mint=n788f9eb16b184dabbe2e7c4181a0f4e720; Path=/; Domain=.allrecipes.com; Secure, CSRFToken=33354a1544d64dac80dfdb65cd4acfb7; Path=/; Domain=.allrecipes.com; Secure, __cf_bm=rG_f2qT9yRzlC6c1rDYlXo1Mgo2MGecA50qFx5HGo_0-1786912948.5802653-1.0.1.1-7QV4rIQQBAaenBdGgKZvB76WbnTTtweUbNeTnT3DZjJU2dcR_H6y_na1jiFWugzHwPgxdmuwvLiXzObUNjoLStat9tanF7AxLuYfg_3ctikEh1nZdjQZ6huHJPfgomZz; HttpOnly; SameSite=None; Secure; Path=/; Domain=allrecipes.com; Expires=Sun, 16 Aug 2026 21:12:28 GMT"
+      },
+      "excerpt": "<!DOCTYPE html> <html id=\"homeTemplate_1-0\" class=\"comp homeTemplate html mntl-html no-js taxlevel-0 \" data-mm-ads-resource-version=\"2.3.105\" data-ddm-standard-video=\"true\" data-mm-video-resource-version=\"4.0.37\" data-mm-myrecipes-resource-version=\"4.1.29\" data-mantle-resource-version=\"4.3.385\" data-allrecipes-resource-version=\"5.114.0\" data-ab=\"99,99,99,99,99,99,99,99,99,99,99,99,99,99,62,99,99,99,99,99,99,77,99,99,99,99,58,78,64\" data-mm-transactional-resource-version=\"4.1.9\" data-mm-digital-issues-resource-version=\"4.0.19\" lang=\"en\" data-tracking-container=\"true\" data-resource-version=\"5.114.0\" data-mm-recipes-resource-version=\"4.0.29\"><!-- <globe-environment environment=\"k8s-prod\" application=\"allrecipes\" dataCenter=\"us-east-1\"/> --> <head class=\"loc head\"> <script type=\"text/javascript\"> (function () { 'use strict'; var COOKIE_NAME = 'OTGPPConsent'; try { function getCookie(name) { try { if (typeof document === 'undefined' || !document.cookie) { return ''; } var re = new RegExp('(?:^|;\\\\s*)' + name.replace(/[.*+?^\\x24{}()|[\\]\\\\]/g, '\\\\$&') + '=([^;]*)'); var match = document.cookie.match(re); if (!match) { return ''; } return decodeURIComponent(match[1]); } catch (e) { return ''; } } function parseApplicableSectionsFromGppString(gppString) { if (!gppString || typeof gppString !== 'string') { return null; } var trimmed = gppString.replace(/^[ \\t\\r\\n\\f\\v]+|[ \\t\\r\\n\\f\\v]+$/g, ''); if (!trimmed) { return null; } var headerEnc = trimmed.indexOf('~') === -1 ? trimmed : trimmed.split('~')[0]; if (!headerEnc) { return null; } function headerCharValue(ch) { if (ch >= 'A' && ch <= 'Z') { return ch.charCodeAt(0) - 65; } if (ch >= 'a' && ch <= 'z') { return ch.charCodeAt(0) - 71; } if (ch >= '0' && ch <= '9') { return ch.charCodeAt(0) + 4; } if (ch === '+' || ch === '-') { return 62; } if (ch === '/' || ch === '_') { return 63; } return -1; } var bits = []; var ci; for (ci = 0; ci < headerEnc.length; ci++) { var v = headerCharValue(headerEnc.charAt(ci)); if (v === -1) { return null; } var b; for (b = 32; b >= 1; b >>= 1) { bits.push((v & b) ? 1 : 0); } } var pos = 0; function readBits(n) { if (pos + n > bits.length) { throw new Error('eof'); } var acc = 0; var i; for (i = 0; i < n; i++) { acc = (acc << 1) | bits[pos++]; } return acc; } function readFibonacciInt() { var codeword = []; while (true) { codeword.push(readBits(1)); var len = codeword.length; if (len >= 2 && codeword[len - 2] === 1 && codeword[len - 1] === 1) { codeword.pop(); break; } if (len > 48) { throw new Error('fib'); } } var weights = [1, 2]; while (weights.length < codeword.length) { var wl = weights.length; weights.push(weights[wl - 1] + weights[wl - 2]); } var sum = 0; var j; for (j = 0; j < codeword.length; j++) { if (codeword[j] === 1) { sum += weights[j]; } } return sum; } try { var MAX_APPLICABLE_IDS = 256; var MAX_GROUP_SPAN = 255; var type = readBits(6); if (type !== 3) { return null; } readBits(6); var itemCount = readBits(12); if (itemCount < 0 || itemCount > 64) { return null; } var lastId = 0; var out = []; var idx; for (idx = 0; idx < itemCount; idx++) { var isGroup = readBits(1) === 1; if (!isGroup) { var delta = readFibonacciInt(); var sid = lastId + delta; if (out.length >= MAX_APPLICABLE_IDS) { return null; } out.push(sid); lastId = sid; } else { var startOff = readFibonacciInt(); var span = readFibonacciInt(); var startId = lastId + startOff; var encodedEndId = startId + span; if (!Number.isFinite(startId) || !Number.isFinite(encodedEndId) || encodedEndId < startId) { return null; } var spanUse = span > MAX_GROUP_SPAN ? MAX_GROUP_SPAN : span; var endId = startId + spanUse; var rangeLen = endId - startId + 1; if (out.length + rangeLen > MAX_APPLICABLE_IDS) { return null; } var s; for (s = startId; s <= endId; s++) { out.push(s); } lastId = encodedEndId; } } return out; } catch (e2) { return null; } } (()=>{var a=(e=>(e.CPRA=\"usca\",e.CCPA=\"usca\",e.CDPA=\"usva\",e.OREGON=\"usor\",e.USNATIONAL=\"usnat\",e.COLORADO=\"usco\",e.FLORIDA=\"usfl\",e.CTDPA=\"usct\",e.MO",
+      "redirect_chain": [],
+      "elapsed_ms": 2053.3,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:29.384212+00:00",
+      "meta": {
+        "site": "Allrecipes",
+        "hote": "www.allrecipes.com",
+        "signature": "ok",
+        "vendor": "cloudflare",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 473223 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.amazon.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 202,
+      "final_url": "https://www.amazon.com/",
+      "body_size": 2007,
+      "headers": {
+        "server": "CloudFront",
+        "content-length": "2007",
+        "x-amzn-waf-action": "challenge",
+        "content-type": "text/html; charset=UTF-8",
+        "x-cache": "Error from cloudfront",
+        "via": "1.1 7d935e83126b0b85ded112b940f9c85c.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "CDG52-P1"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <title></title> <style> body { font-family: \"Arial\"; } </style> <script type=\"text/javascript\"> window.awsWafCookieDomainList = []; window.gokuProps = { \"key\":\"AQIDAHjcYu/GjX+QlghicBgQ/7bFaQZ+m5FKCMDnO+vTbNg96AFK6UyNHVyITyQGsdaTVkd5AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMirlYjnO4PH8Xj1vFAgEQgDtd4FK2eTpipREZtmFmNLoWRCZnoHOzvDnzX4D4oADpsO6ziXJ3c12u+riLB42aVceetsvlOU033PbHfQ==\", \"iv\":\"grC6JwEXJgAACpF6\", \"context\":\"aZoMM5myKeEYL9oJ8y3OoOpAaWr68yNQq0mY5ifJ6c+DGvL9dorX3E8NnZUnLLGv7R5DO9z2h0s2G7kkmKWRURhIO/dYzp/jvLdrYB0HFC9oMS5DAWjTCH6iylqfjHc8nibAuPT0sWElqZB6JXs+512KBxdO9XyojypXFthwxZrj+0C+5OTKIlO3Z2IXeQQW2N12DtJrVzblhPQWCDHOl3QfFEDt9g/OoDRKsfUtVa7I9fJFr5VwgAL9dEDPmbT4HiMgWd/6KIgHMIqJETeKhuylKSjRMwarzqDOeVcm2zA7kxQqYnKbOYMxL/M+EF5l/sPG2iI5h8I5RxwZkU1LuuwAZ898DIE4c5K/asW/j3l+HpCXVjTWDLq4paOJxYD5jjcEnNvi\" }; </script> <script src=\"https://1c5c1ecf7303.742a0c6e.eu-west-3.token.awswaf.com/1c5c1ecf7303/d6a7a58005ec/04c5ab18cd2d/challenge.js\"></script> </head> <body> <div id=\"challenge-container\"></div> <script type=\"text/javascript\"> AwsWafIntegration.saveReferrer(); AwsWafIntegration.checkForceRefresh().then((forceRefresh) => { if (forceRefresh) { AwsWafIntegration.forceRefreshToken().then(() => { window.location.reload(true); }); } else { AwsWafIntegration.getToken().then(() => { window.location.reload(true); }); } }); </script> <noscript> <h1>JavaScript is disabled</h1> In order to continue, we need to verify that you're not a robot. This requires JavaScript. Enable JavaScript and then reload the page. </noscript> </body> </html>",
+      "redirect_chain": [],
+      "elapsed_ms": 1365.5,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:30.752401+00:00",
+      "meta": {
+        "site": "Amazon",
+        "hote": "www.amazon.com",
+        "signature": "antibot_challenge",
+        "vendor": "aws_waf",
+        "confidence": 0.9,
+        "rationale": "202 Accepted sur une requête de document (2007 o, éditeur : aws_waf) : un site ne sert pas une page en 202 — réponse d'interstitiel",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.apple.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.apple.com/",
+      "body_size": 254290,
+      "headers": {
+        "server": "Apple",
+        "content-type": "text/html; charset=utf-8",
+        "set-cookie": "geo=FR; path=/; domain=.apple.com"
+      },
+      "excerpt": "<!DOCTYPE html> <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en-US\" lang=\"en-US\" prefix=\"og: http://ogp.me/ns#\" class=\"no-js\" dir=\"ltr\"> <head> <meta charset=\"utf-8\" /> <link rel=\"canonical\" href=\"https://www.apple.com/\" /> <link rel=\"alternate\" href=\"https://www.apple.com/\" hreflang=\"en-US\" /><link rel=\"alternate\" href=\"https://www.apple.com/ae-ar/\" hreflang=\"ar-AE\" /><link rel=\"alternate\" href=\"https://www.apple.com/ae/\" hreflang=\"en-AE\" /><link rel=\"alternate\" href=\"https://www.apple.com/am/\" hreflang=\"en-AM\" /><link rel=\"alternate\" href=\"https://www.apple.com/at/\" hreflang=\"de-AT\" /><link rel=\"alternate\" href=\"https://www.apple.com/au/\" hreflang=\"en-AU\" /><link rel=\"alternate\" href=\"https://www.apple.com/az/\" hreflang=\"en-AZ\" /><link rel=\"alternate\" href=\"https://www.apple.com/befr/\" hreflang=\"fr-BE\" /><link rel=\"alternate\" href=\"https://www.apple.com/benl/\" hreflang=\"nl-BE\" /><link rel=\"alternate\" href=\"https://www.apple.com/bg/\" hreflang=\"bg-BG\" /><link rel=\"alternate\" href=\"https://www.apple.com/bh-ar/\" hreflang=\"ar-BH\" /><link rel=\"alternate\" href=\"https://www.apple.com/bh/\" hreflang=\"en-BH\" /><link rel=\"alternate\" href=\"https://www.apple.com/br/\" hreflang=\"pt-BR\" /><link rel=\"alternate\" href=\"https://www.apple.com/bw/\" hreflang=\"en-BW\" /><link rel=\"alternate\" href=\"https://www.apple.com/ca/\" hreflang=\"en-CA\" /><link rel=\"alternate\" href=\"https://www.apple.com/ca/fr/\" hreflang=\"fr-CA\" /><link rel=\"alternate\" href=\"https://www.apple.com/cf/\" hreflang=\"fr-CF\" /><link rel=\"alternate\" href=\"https://www.apple.com/chde/\" hreflang=\"de-CH\" /><link rel=\"alternate\" href=\"https://www.apple.com/chfr/\" hreflang=\"fr-CH\" /><link rel=\"alternate\" href=\"https://www.apple.com/ci/\" hreflang=\"fr-CI\" /><link rel=\"alternate\" href=\"https://www.apple.com/cl/\" hreflang=\"es-CL\" /><link rel=\"alternate\" href=\"https://www.apple.com/cm/\" hreflang=\"fr-CM\" /><link rel=\"alternate\" href=\"https://www.apple.com/co/\" hreflang=\"es-CO\" /><link rel=\"alternate\" href=\"https://www.apple.com/cz/\" hreflang=\"cs-CZ\" /><link rel=\"alternate\" href=\"https://www.apple.com/de/\" hreflang=\"de-DE\" /><link rel=\"alternate\" href=\"https://www.apple.com/dk/\" hreflang=\"da-DK\" /><link rel=\"alternate\" href=\"https://www.apple.com/ee/\" hreflang=\"et-EE\" /><link rel=\"alternate\" href=\"https://www.apple.com/eg-ar/\" hreflang=\"ar-EG\" /><link rel=\"alternate\" href=\"https://www.apple.com/eg/\" hreflang=\"en-EG\" /><link rel=\"alternate\" href=\"https://www.apple.com/es/\" hreflang=\"es-ES\" /><link rel=\"alternate\" href=\"https://www.apple.com/fi/\" hreflang=\"fi-FI\" /><link rel=\"alternate\" href=\"https://www.apple.com/fr/\" hreflang=\"fr-FR\" /><link rel=\"alternate\" href=\"https://www.apple.com/ge/\" hreflang=\"en-GE\" /><link rel=\"alternate\" href=\"https://www.apple.com/gn/\" hreflang=\"fr-GN\" /><link rel=\"alternate\" href=\"https://www.apple.com/gq/\" hreflang=\"fr-GQ\" /><link rel=\"alternate\" href=\"https://www.apple.com/gr/\" hreflang=\"el-GR\" /><link rel=\"alternate\" href=\"https://www.apple.com/gw/\" hreflang=\"en-GW\" /><link rel=\"alternate\" href=\"https://www.apple.com/hk/\" hreflang=\"zh-HK\" /><link rel=\"alternate\" href=\"https://www.apple.com/hk/en/\" hreflang=\"en-HK\" /><link rel=\"alternate\" href=\"https://www.apple.com/hr/\" hreflang=\"hr-HR\" /><link rel=\"alternate\" href=\"https://www.apple.com/hu/\" hreflang=\"hu-HU\" /><link rel=\"alternate\" href=\"https://www.apple.com/id/\" hreflang=\"en-ID\" /><link rel=\"alternate\" href=\"https://www.apple.com/ie/\" hreflang=\"en-IE\" /><link rel=\"alternate\" href=\"https://www.apple.com/il/\" hreflang=\"en-IL\" /><link rel=\"alternate\" href=\"https://www.apple.com/in/\" hreflang=\"en-IN\" /><link rel=\"alternate\" href=\"https://www.apple.com/it/\" hreflang=\"it-IT\" /><link rel=\"alternate\" href=\"https://www.apple.com/jo-ar/\" hreflang=\"ar-JO\" /><link rel=\"alternate\" href=\"https://www.apple.com/jo/\" hreflang=\"en-JO\" /><link rel=\"alternate\" href=\"https://www.apple.com/jp/\" hreflang=\"ja-JP\" /><link rel=\"alternate\" href=\"https://www.apple.com/ke/\" hreflang=\"en-KE\" /><link rel=\"alternate\" href=\"https://www.apple",
+      "redirect_chain": [],
+      "elapsed_ms": 2506.6,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:33.259875+00:00",
+      "meta": {
+        "site": "Apple",
+        "hote": "www.apple.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 254290 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://arxiv.org/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://arxiv.org/",
+      "body_size": 38051,
+      "headers": {
+        "content-length": "38051",
+        "server": "Google Frontend",
+        "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+        "content-type": "text/html; charset=utf-8",
+        "x-cache": "MISS, HIT, HIT"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\"> <head><script>document.documentElement.classList.add('js');</script> <title>arXiv.org e-Print archive</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/browse/0.3.4/images/icons/apple-touch-icon.png\"> <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/browse/0.3.4/images/icons/favicon-32x32.png\"> <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/browse/0.3.4/images/icons/favicon-16x16.png\"> <link rel=\"manifest\" href=\"/static/browse/0.3.4/images/icons/site.webmanifest\"> <link rel=\"mask-icon\" href=\"/static/browse/0.3.4/images/icons/safari-pinned-tab.svg\" color=\"#5bbad5\"> <meta name=\"msapplication-TileColor\" content=\"#da532c\"> <meta name=\"theme-color\" content=\"#ffffff\"> <link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/static/browse/0.3.4/css/arXiv.css?v=20260318\" /> <link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/static/browse/0.3.4/css/arXiv-print.css?v=20200611\" /> <link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/static/browse/0.3.4/css/browse_search.css\" /> <link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/static/base/1.0.1/css/arxiv-header-footer.css?v=20260626\" /> <script language=\"javascript\" src=\"/static/browse/0.3.4/js/accordion.js\" ></script> <script language=\"javascript\" src=\"/static/browse/0.3.4/js/optin-modal.js?v=20250819\"></script> </head> <body id=\"front\"><div class=\"flex-wrap-footer\"> <a href=\"#content\" class=\"ds-skip-link\">Skip to main content</a> <header class=\"ds-site-header\"> <a aria-hidden=\"true\" tabindex=\"-1\" href=\"https://arxiv.org/IgnoreMe\" class=\"is-sr-only\"></a> <a href=\"https://arxiv.org/\" class=\"ds-site-header-logo\" aria-label=\"archive home\"> <img src=\"/static/base/1.0.1/images/arxiv-logo-primary-light.svg\" alt=\"archive\"> </a> <button type=\"button\" id=\"ds-nav-toggle\" class=\"ds-site-header-nav-toggle\" aria-label=\"Open menu\" aria-controls=\"ds-site-header-nav\" aria-expanded=\"false\"> <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"> <line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\"/> <line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\"/> <line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\"/> </svg> </button> <nav class=\"ds-site-header-nav\" id=\"ds-site-header-nav\" aria-label=\"Main navigation\"><a id=\"arxiv-search-toggle\" href=\"https://arxiv.org/search\" aria-controls=\"arxiv-search-overlay\" aria-expanded=\"false\"> <svg class=\"ds-nav-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"> <circle cx=\"11\" cy=\"11\" r=\"8\"/> <line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/> </svg> Search </a> <a href=\"https://arxiv.org/user/create\">Submit</a> <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a> <span class=\"ds-site-header-divider\" aria-hidden=\"true\"></span> <a href=\"https://arxiv.org/login\" class=\"ds-site-header-login\">Log in</a> </nav> </header> <div class=\"arxiv-search-overlay\" id=\"arxiv-search-overlay\" hidden> <div class=\"arxiv-search-panel\" role=\"search\"> <form method=\"GET\" action=\"https://arxiv.org/search\"> <label for=\"arxiv-search-input\" class=\"is-sr-only\">Search arXiv</label> <input type=\"text\" name=\"query\" id=\"arxiv-search-input\" autocomplete=\"off\" placeholder=\"Search papers by title, author, abstract, or ID...\"> <input type=\"hidden\" name=\"searchtype\" value=\"all\"> <input type=\"hidden\" name=\"source\" value=\"header\"> </form> <div class=\"arxiv-search-hint\"> Press Enter to search &middot; <a href=\"https://arxiv.org/search/advanced\">Advanced search</a> </div> </div> </div> <main> <div id=\"content\"> <div class=\"columns\"> <div class=\"column intro-and-news is-half-desktop\"> <p class=\"tagline\">arXiv is a free distribution service and an open-access archive for nearly 2.4 million scholarly articles in the fields of physics, mathematics, computer science, quantita",
+      "redirect_chain": [],
+      "elapsed_ms": 1634.5,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:34.896224+00:00",
+      "meta": {
+        "site": "ArXiv",
+        "hote": "arxiv.org",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 38051 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.bbc.com/news/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.bbc.com/news",
+      "body_size": 376499,
+      "headers": {
+        "content-length": "63212",
+        "content-type": "text/html; charset=utf-8",
+        "via": "1.1 BBC-GTM, 1.1 Belfrage, 1.1 varnish",
+        "server": "BBC-GTM",
+        "x-cache": "HIT"
+      },
+      "excerpt": "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" data-next-head=\"\"/><title data-next-head=\"\">BBC News - Breaking news, video and the latest top stories from the U.S. and around the world</title><meta name=\"description\" content=\"Visit BBC News for the latest news, breaking news, video, audio and analysis. BBC News provides trusted World, U.S. and U.K. news as well as local and regional perspectives. Also entertainment, climate, business, science, technology and health news.\" data-next-head=\"\"/><link rel=\"canonical\" href=\"https://www.bbc.com/news\" data-next-head=\"\"/><meta name=\"pagetype\" content=\"frontpage\" data-next-head=\"\"/><meta name=\"page.section\" content=\"News\" data-next-head=\"\"/><meta property=\"og:title\" content=\"BBC News - Breaking news, video and the latest top stories from the U.S. and around the world\" data-next-head=\"\"/><meta property=\"og:type\" content=\"website\" data-next-head=\"\"/><meta property=\"og:url\" content=\"https://www.bbc.com/news\" data-next-head=\"\"/><meta name=\"twitter:title\" content=\"BBC News - Breaking news, video and the latest top stories from the U.S. and around the world\" data-next-head=\"\"/><meta property=\"og:description\" content=\"Visit BBC News for the latest news, breaking news, video, audio and analysis. BBC News provides trusted World, U.S. and U.K. news as well as local and regional perspectives. Also entertainment, climate, business, science, technology and health news.\" data-next-head=\"\"/><meta name=\"twitter:description\" content=\"Visit BBC News for the latest news, breaking news, video, audio and analysis. BBC News provides trusted World, U.S. and U.K. news as well as local and regional perspectives. Also entertainment, climate, business, science, technology and health news.\" data-next-head=\"\"/><meta name=\"msapplication-TileColor\" content=\"#da532c\" data-next-head=\"\"/><meta name=\"theme-color\" content=\"#ffffff\" data-next-head=\"\"/><meta name=\"robots\" content=\"NOODP, NOYDIR\" data-next-head=\"\"/><meta name=\"apple-itunes-app\" content=\"app-id=364147881, app-argument=https://www.bbc.com/news\" data-next-head=\"\"/><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/apple-touch-icon.png\" data-next-head=\"\"/><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/favicon-32x32.png\" data-next-head=\"\"/><link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/favicon-16x16.png\" data-next-head=\"\"/><link rel=\"alternate icon\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/favicon.ico\" data-next-head=\"\"/><link rel=\"manifest\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/site.webmanifest\" data-next-head=\"\"/><link rel=\"mask-icon\" href=\"https://static.files.bbci.co.uk/bbcdotcom/web/20260729-174851-148577b706-web-3.17.0-2/safari-pinned-tab.svg\" color=\"#000000\" data-next-head=\"\"/><link rel=\"canonical\" href=\"https://www.bbc.com/news\" data-next-head=\"\"/><link data-testid=\"en-hreflang-tag\" rel=\"alternate\" hrefLang=\"en\" href=\"https://www.bbc.com/news\" data-next-head=\"\"/><link data-testid=\"en-gb-hreflang-tag\" rel=\"alternate\" hrefLang=\"en-gb\" href=\"https://www.bbc.co.uk/news\" data-next-head=\"\"/><meta name=\"version\" content=\"web-3.17.0-2\" data-next-head=\"\"/><script type=\"application/ld+json\" data-next-head=\"\">{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\",\"description\":\"Visit BBC News for the latest news, breaking news, video, audio and analysis. BBC News provides trusted World, U.S. and U.K. news as well as local and regional perspectives. Also entertainment, climate, business, science, technology and health news.\",\"url\":\"https://www.bbc.com/news\",\"mainEntityOfPage\":\"https://www.bbc.com/news",
+      "redirect_chain": [
+        301
+      ],
+      "elapsed_ms": 1942.5,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:36.843608+00:00",
+      "meta": {
+        "site": "BBC News",
+        "hote": "www.bbc.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 376499 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.booking.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 202,
+      "final_url": "https://www.booking.com/",
+      "body_size": 3962,
+      "headers": {
+        "content-type": "text/html",
+        "content-length": "3962",
+        "server": "istio-envoy",
+        "set-cookie": "bkng=11UmFuZG9tSVYkc2RlIyh9Yaa29%2F3xUOLblgO%2Fz4BDP5s5eM5sjHaynuSsF6Yxs1kuuzF%2Fq1MLNM0OgjiWnegZc5gxlsZwdcZ1RY6%2Bhnapp63cYIGZZsJX97QYcRgt9AzNUIoCts1DFYaP%2BgSXezGx0k9dqDb8GRLHe1RU7%2FXijEOKF8v12MMr9cQR8MYul5M9GnGjcN4fYIY%3D; domain=.booking.com; path=/; expires=Fri, 15-Aug-2031 20:42:38 GMT; Secure; HTTPOnly; SameSite=None, bkng_sso_auth=CAIQ1pmYlQYaZgwdFL1HiTTq00M1D//ZmhcHl7adQbHOQ/KddjybuUOYRir+mGzl0ENnBOX/ZZq6DnQyXS5fFHnxexP45Ehp2+/m1IPYH0Nsub33PW8d9ZwbITKKz2Ki1GEqjEGy5hmJDv+SpJ3qcQ==; Domain=.booking.com; Path=/; Expires=Tue, 15 Aug 2028 20:42:38 GMT; HttpOnly; Secure; SameSite=Lax, pcm_consent=analytical%3Dfalse%26countryCode%3DFR%26consentId%3D856394cb-d524-4e96-8143-cb8fcf9a1e03%26consentedAt%3D2026-08-16T20%3A42%3A38.070Z%26expiresAt%3D2027-02-12T20%3A42%3A38.070Z%26implicit%3Dtrue%26marketing%3Dfalse%26regionCode%3DIDF%26regulation%3Dgdpr%26legacyRegulation%3Dgdpr; Domain=.booking.com; Path=/; Expires=Mon, 16 Aug 2027 20:42:38 GMT; HttpOnly; Secure; SameSite=Lax",
+        "x-cache": "Miss from cloudfront",
+        "via": "1.1 aca12b6f838410f4b92b0d9603907f30.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "CDG50-P1"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <title></title> <style> body { font-family: \"Arial\"; } </style> <script type=\"text/javascript\" nonce=\"mRnMA4VYYrdoyQf\"> function reportChallengeError(log, challengeError) { return; } </script> <script type=\"text/javascript\" nonce=\"mRnMA4VYYrdoyQf\"> window.awsWafCookieDomainList = ['booking.com']; </script> <script type=\"text/javascript\" src=\"https://www.booking.com/__challenge_h78IRKX3kpQxScCExxShBNwRUlb/d8c14d4960ca/a18a4859af9c/challenge.js\" nonce=\"mRnMA4VYYrdoyQf\"></script> <script type=\"text/javascript\" nonce=\"mRnMA4VYYrdoyQf\"> const maxLocationLength = 2047 - \"&chal_t=1760623098515&force_referer=\".length; function searchStringWithNewParam(search, key, value) { value = encodeURIComponent(value); if (!search.startsWith('?')) { return search + `?${key}=${value}`; } else if (search.endsWith('&')) { return search + `${key}=${value}`; } else { return search + `&${key}=${value}`; } } function getNewUrlWithAddedParameter(location, parameters) { let newSearch = location.search; for (let parameterName of Object.keys(parameters)) { if (!newSearch.includes(`${parameterName}=`)) { newSearch = searchStringWithNewParam(newSearch, parameterName, parameters[parameterName]); } } let newHref = `${location.pathname}${newSearch}${location.hash}`; if (newHref.length < maxLocationLength) { return newHref; } return null; } </script> </head> <body> <div id=\"challenge-container\"></div> <script type=\"text/javascript\" nonce=\"mRnMA4VYYrdoyQf\"> let newHref; try { setTimeout(() => { try { reportChallengeError(\"Reloaded without updating url\", new Error(\"\")); } catch (e) {} document.location.reload(); }, 20000); let referrer = document.referrer; let availableLength = maxLocationLength - document.location.href.length; if (encodeURIComponent(referrer).length > availableLength) { let parsedReferrer = new URL(referrer); referrer = parsedReferrer.origin; if (encodeURIComponent(referrer + parsedReferrer.pathname).length < availableLength) { referrer = referrer + parsedReferrer.pathname; } } let parameters = { chal_t: 1786912958121, force_referer: referrer, }; newHref = getNewUrlWithAddedParameter(document.location, parameters); } catch (e) { reportChallengeError(\"Failed while getting new href\", e); } newHref = newHref || document.location.href; AwsWafIntegration.saveReferrer(); AwsWafIntegration.checkForceRefresh().then((forceRefresh) => { if (forceRefresh) { AwsWafIntegration.forceRefreshToken().then(() => { window.location.href = newHref; }); } else { AwsWafIntegration.getToken().then(() => { window.location.href = newHref; }); } }); </script> <noscript> <h1>JavaScript is disabled</h1> In order to continue, we need to verify that you're not a robot. This requires JavaScript. Enable JavaScript and then reload the page. </noscript> </body> </html>",
+      "redirect_chain": [],
+      "elapsed_ms": 1388.6,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:38.237223+00:00",
+      "meta": {
+        "site": "Booking",
+        "hote": "www.booking.com",
+        "signature": "antibot_challenge",
+        "vendor": "aws_waf",
+        "confidence": 0.9,
+        "rationale": "202 Accepted sur une requête de document (3962 o, éditeur : aws_waf) : un site ne sert pas une page en 202 — réponse d'interstitiel",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://dictionary.cambridge.org/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://dictionary.cambridge.org/",
+      "body_size": 265107,
+      "headers": {
+        "content-type": "text/html;charset=UTF-8",
+        "server": "cloudflare",
+        "set-cookie": "XSRF-TOKEN=0fc2014a-4206-4bab-a44b-743f66354ae8; Path=/; Secure, preferredDictionaries=\"english-french,french-english,english,british-grammar\"; Version=1; Max-Age=30672000; Expires=Fri, 06-Aug-2027 20:42:39 GMT; Path=/, __cflb=0pg1PQjiHJybbiQZU72D5b841BXf7PiRbSjcWPbu; HttpOnly; SameSite=None; Secure; Path=/; Expires=Sun, 16 Aug 2026 22:42:39 GMT",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a2c3444e7acb1661-CDG"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\" > <head> <title>Cambridge Dictionary | English Dictionary, Translations &amp; Thesaurus</title> <meta charset=\"utf-8\"> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"> <meta name=\"description\" content=\"The most popular dictionary and thesaurus for learners of English. Meanings and definitions of words with pronunciations and translations.\"> <meta name=\"keywords\" content=\"free dictionary online, english, thesaurus, business, british, uk, american, us, spanish, turkish, definition, define, meaning, spelling, translate, translation, pronounce, pronunciation, pronounciation, audio, conjugation, inflection\"> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"> <meta name='viewport' content=\"width=device-width,minimum-scale=1,initial-scale=1\"> <meta name=\"google\" content=\"notranslate\"> <script src=\"https://cdn.cookielaw.org/consent/tcf.stub.js\" type=\"text/javascript\" charset=\"UTF-8\"></script> <script type=\"text/javascript\" charset=\"UTF-8\"> window.isGDPRMode = function() { return true; }; </script> <script async src=\"https://cdn.cookielaw.org/scripttemplates/otSDKStub.js\" type=\"text/javascript\" charset=\"UTF-8\" data-domain-script=\"1be0fc8f-627a-4f3a-a13f-a4d11e467d2a\"></script> <meta property=\"og:url\" content=\"https://dictionary.cambridge.org/\" /> <link rel=\"canonical\" href=\"https://dictionary.cambridge.org/\" /> <link rel=\"alternate\" hreflang=\"en\" href=\"https://dictionary.cambridge.org/\"/> <link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://dictionary.cambridge.org/\"/> <link rel=\"alternate\" hreflang=\"en-US\" href=\"https://dictionary.cambridge.org/us/\"/> <link rel=\"alternate\" hreflang=\"en-MX\" href=\"https://dictionary.cambridge.org/us/\"/> <link rel=\"alternate\" hreflang=\"en-PH\" href=\"https://dictionary.cambridge.org/us/\"/> <link rel=\"alternate\" hreflang=\"en-BR\" href=\"https://dictionary.cambridge.org/us/\"/> <link rel=\"alternate\" hreflang=\"en-CO\" href=\"https://dictionary.cambridge.org/us/\"/> <link rel=\"alternate\" hreflang=\"es\" href=\"https://dictionary.cambridge.org/es/\"/> <link rel=\"alternate\" hreflang=\"es-ES\" href=\"https://dictionary.cambridge.org/es/\"/> <link rel=\"alternate\" hreflang=\"pt\" href=\"https://dictionary.cambridge.org/pt/\"/> <link rel=\"alternate\" hreflang=\"pt-BR\" href=\"https://dictionary.cambridge.org/pt/\"/> <link rel=\"alternate\" hreflang=\"zh-Hans\" href=\"https://dictionary.cambridge.org/zhs/\"/> <link rel=\"alternate\" hreflang=\"zh-Hant\" href=\"https://dictionary.cambridge.org/zht/\"/> <link rel=\"alternate\" hreflang=\"da\" href=\"https://dictionary.cambridge.org/da/\"/> <link rel=\"alternate\" hreflang=\"de\" href=\"https://dictionary.cambridge.org/de/\"/> <link rel=\"alternate\" hreflang=\"fr\" href=\"https://dictionary.cambridge.org/fr/\"/> <link rel=\"alternate\" hreflang=\"it\" href=\"https://dictionary.cambridge.org/it/\"/> <link rel=\"alternate\" hreflang=\"nl\" href=\"https://dictionary.cambridge.org/nl/\"/> <link rel=\"alternate\" hreflang=\"no\" href=\"https://dictionary.cambridge.org/no/\"/> <link rel=\"alternate\" hreflang=\"pl\" href=\"https://dictionary.cambridge.org/pl/\"/> <link rel=\"alternate\" hreflang=\"ru\" href=\"https://dictionary.cambridge.org/ru/\"/> <link rel=\"alternate\" hreflang=\"tr\" href=\"https://dictionary.cambridge.org/tr/\"/> <link rel=\"alternate\" hreflang=\"vi\" href=\"https://dictionary.cambridge.org/vi/\"/> <link rel=\"alternate\" hreflang=\"sv\" href=\"https://dictionary.cambridge.org/sv/\"/> <link rel=\"alternate\" hreflang=\"uk\" href=\"https://dictionary.cambridge.org/uk/\"/> <link rel=\"alternate\" hreflang=\"ja\" href=\"https://dictionary.cambridge.org/ja/\"/> <link rel=\"alternate\" hreflang=\"ko\" href=\"https://dictionary.cambridge.org/ko/\"/> <link rel=\"alternate\" hreflang=\"gu\" href=\"https://dictionary.cambridge.org/gu/\"/> <link rel=\"alternate\" hreflang=\"ta\" href=\"https://dictionary.cambridge.org/ta/\"/> <link rel=\"alternate\" hreflang=\"te\" href=\"https://dictionary.cambridge.org/te/\"/> <link rel=\"alternate\" hreflang=\"bn\" href=\"https://dictionary.cambridge.org/bn/\"/> <link rel=\"alternate\" hreflang=\"mr\" href=\"https://",
+      "redirect_chain": [],
+      "elapsed_ms": 1775.3,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:40.015655+00:00",
+      "meta": {
+        "site": "Cambridge Dictionary",
+        "hote": "dictionary.cambridge.org",
+        "signature": "ok",
+        "vendor": "cloudflare",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 265107 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.coursera.org/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.coursera.org/",
+      "body_size": 500000,
+      "headers": {
+        "content-type": "text/html",
+        "server": "envoy",
+        "set-cookie": "CSRF3-Token=1787776961.SHIPINBkNmgbmmCm; Max-Age=864000; Expires=Wed, 26 Aug 2026 20:42:41 GMT; SameSite=None; Path=/; Domain=.coursera.org; Secure; Partitioned, __204u=5147051969-1786912961410; Max-Age=31536000; Expires=Mon, 16 Aug 2027 20:42:41 GMT; Path=/; Domain=.coursera.org",
+        "x-cache": "Miss from cloudfront",
+        "via": "1.1 a5d054ec657be0f6c3a94aea7a055e24.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "CDG50-P2"
+      },
+      "excerpt": "<!DOCTYPE html><html xmlns:fb=\"http://ogp.me/ns/fb#\" itemtype=\"http://schema.org\" lang=\"en\" dir=\"ltr\" data-color-theme=\"{{{colorTheme}}}\"><head><link rel=\"preconnect\" href=\"https://d3njjcbhbojbot.cloudfront.net\" crossorigin><link rel=\"preconnect\" href=\"https://browser.sentry-cdn.com\" crossorigin><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=IE7\"><meta charset=\"utf-8\"><meta property=\"og:site_name\" content=\"Coursera\"><meta property=\"fb:admins\" content=\"727836538,4807654\"><meta property=\"fb:app_id\" content=\"823425307723964\"><meta name=\"twitter:site\" content=\"Coursera\"><meta name=\"twitter:app:name:iphone\" content=\"Coursera\"><meta name=\"twitter:app:name:ipad\" content=\"Coursera\"><meta name=\"twitter:app:name:googleplay\" content=\"Coursera\"><meta name=\"twitter:app:id:iphone\" content=\"id736535961\"><meta name=\"twitter:app:id:ipad\" content=\"id736535961\"><meta name=\"twitter:app:id:googleplay\" content=\"org.coursera.android\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-57x57.png\"><link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-60x60.png\"><link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-72x72.png\"><link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-76x76.png\"><link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-114x114.png\"><link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-120x120.png\"><link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-144x144.png\"><link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-152x152.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-180x180.png\"><link rel=\"icon\" type=\"image/png\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/favicon-v2-194x194.png\" sizes=\"194x194\"><link rel=\"icon\" type=\"image/png\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/android-chrome-v2-192x192.png\" sizes=\"192x192\"><link rel=\"icon\" type=\"image/png\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/favicon-v2-96x96.png\" sizes=\"96x96\"><link rel=\"icon\" type=\"image/png\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/favicon-v2-16x16.png\" sizes=\"16x16\"><link rel=\"icon\" type=\"image/png\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/favicon-v2-32x32.png\" sizes=\"32x32\"><meta name=\"msapplication-TileColor\" content=\"#2d89ef\"><meta name=\"msapplication-TileImage\" content=\"https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/mstile-v2-144x144.png\"><meta name=\"theme-color\" content=\"#0056D2\"><meta property=\"qc:admins\" content=\"366737676376375235216727\"><!-- Verification for Yandex--><meta property=\"yandex-verification\" content=\"4970cfdb825622c7\"><link rel=\"preload\" href=\"https://d3njjcbhbojbot.cloudfront.net/web/type/source-sans-3-optimized/ss3-latin-normal.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><style>@font-face { font-family: 'coursera-iconfont'; src: url(\"https://d3njjcbhbojbot.cloudfront.net/web/bundles/styleguide/icons/fonts/coursera.v26.eot\"); src: url(\"https://d3njjcbhbojbot.cloudfront.net/web/bundles/styleguide/icons/fonts/coursera.v26.eot?#iefix\") format('embedded-opentype'), url(\"https://d3njjcbhbojbot.cloudfront.net/web/bundles/styleguide/icons/fonts/coursera.v26.woff\") format('woff'), url(\"https://d3njjcbhbojbot.cloudfront.net/web/bundles/styleguide/icons/fonts/coursera.v26.ttf\")",
+      "redirect_chain": [],
+      "elapsed_ms": 2508.5,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:42.525575+00:00",
+      "meta": {
+        "site": "Coursera",
+        "hote": "www.coursera.org",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 500000 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.espn.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 202,
+      "final_url": "https://www.espn.com/",
+      "body_size": 1987,
+      "headers": {
+        "server": "CloudFront",
+        "content-length": "1987",
+        "x-amzn-waf-action": "challenge",
+        "content-type": "text/html; charset=UTF-8",
+        "x-cache": "Error from cloudfront",
+        "via": "1.1 63e0124d7d1d0d75f17b34bf9198138a.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "CDG55-P3"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <title></title> <style> body { font-family: \"Arial\"; } </style> <script type=\"text/javascript\"> window.awsWafCookieDomainList = []; window.gokuProps = { \"key\":\"AQIDAHjcYu/GjX+QlghicBgQ/7bFaQZ+m5FKCMDnO+vTbNg96AFK6UyNHVyITyQGsdaTVkd5AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMirlYjnO4PH8Xj1vFAgEQgDtd4FK2eTpipREZtmFmNLoWRCZnoHOzvDnzX4D4oADpsO6ziXJ3c12u+riLB42aVceetsvlOU033PbHfQ==\", \"iv\":\"EkQylQEYhwAAA3Yu\", \"context\":\"ddyj2fRIHUVf294+FWMiHW4HBf6ut9wqOe4k4UeNFfuN0jKy9VsHhN9Fc7R7qj219/HwjlMcZh4RoP+phzE118ogHtSI8M3CtWBd6J/Ez1OtZYAmOhGCGZ6dIhJHwIX9we6C2NYU7N8WkKHAGSqscPYxXIjS6VKsIJDBKSIqdHd2pGuanPoDg7qYc6BCh+5BJPUbimH8cZFfGVMYrNefioDshk8FY4gZZ8eia7YJtq0J44bbKG+EKpB5PIhsku+gKfi4NnLHbzE/YA1cyfzHmtyaTO69WYtU+0yxipcTwXMR5ngd4JcbYV25d4asELuq+KOsim/OS1NZHnMIAS3pSpqOtTibL5JoQHaId7GuPZz/ddPidtzW\" }; </script> <script src=\"https://c07df3ce4b34.5a90c8d7.eu-west-3.token.awswaf.com/c07df3ce4b34/ab77e8f35082/374cb277fce0/challenge.js\"></script> </head> <body> <div id=\"challenge-container\"></div> <script type=\"text/javascript\"> AwsWafIntegration.saveReferrer(); AwsWafIntegration.checkForceRefresh().then((forceRefresh) => { if (forceRefresh) { AwsWafIntegration.forceRefreshToken().then(() => { window.location.reload(true); }); } else { AwsWafIntegration.getToken().then(() => { window.location.reload(true); }); } }); </script> <noscript> <h1>JavaScript is disabled</h1> In order to continue, we need to verify that you're not a robot. This requires JavaScript. Enable JavaScript and then reload the page. </noscript> </body> </html>",
+      "redirect_chain": [],
+      "elapsed_ms": 1541.8,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:44.069012+00:00",
+      "meta": {
+        "site": "ESPN",
+        "hote": "www.espn.com",
+        "signature": "antibot_challenge",
+        "vendor": "aws_waf",
+        "confidence": 0.9,
+        "rationale": "202 Accepted sur une requête de document (1987 o, éditeur : aws_waf) : un site ne sert pas une page en 202 — réponse d'interstitiel",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://github.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://github.com/",
+      "body_size": 500000,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "server": "github.com",
+        "set-cookie": "_gh_sess=zMoVsbT3lqA8pVBnuXuiqA0FZ9L%2BFGyzEmsQTzVcS2kmKqoK%2Fp2A5%2FkkJH4u80NTI%2FVR1qmaRAx7MP2ZZoww6K8ryXygdN2%2B1YtRrlHM8mRKu8MMTajMAQsjrhl%2B6UrjaJyjPmgKLsTjSipgyNwkzUodlNc46sQc3lAWn6HwHFlCAeixdui79mvCyDWO9X20skTFVZ9%2FkUI8VlbPI4XRUwtPWJGxMGU7rJhrnVbSdwzCva4mXo6YiP87IrIMKNYvzABFiUGnOwy0%2BNhCAT6zOw%3D%3D--3WrLosjyLtuMhYSe--GIZ970NfGzUljodFjYCoLg%3D%3D; path=/; HttpOnly; secure; SameSite=Lax, _octo=GH1.1.1400915704.1786912965; expires=Mon, 16 Aug 2027 20:42:45 GMT; domain=.github.com; path=/; secure; SameSite=Lax, logged_in=no; expires=Mon, 16 Aug 2027 20:42:45 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax"
+      },
+      "excerpt": "<!DOCTYPE html> <html lang=\"en\" data-color-mode=\"dark\" data-dark-theme=\"dark\" data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"dark\" data-a11y-animated-images=\"system\" data-a11y-link-underlines=\"true\" > <head> <meta charset=\"utf-8\"> <link rel=\"dns-prefetch\" href=\"https://github.githubassets.com\"> <link rel=\"dns-prefetch\" href=\"https://avatars.githubusercontent.com\"> <link rel=\"dns-prefetch\" href=\"https://github-cloud.s3.amazonaws.com\"> <link rel=\"dns-prefetch\" href=\"https://user-images.githubusercontent.com/\"> <link rel=\"preconnect\" href=\"https://github.githubassets.com\" crossorigin> <link rel=\"preconnect\" href=\"https://avatars.githubusercontent.com\"> <link crossorigin=\"anonymous\" rel=\"preload\" as=\"script\" href=\"https://github.githubassets.com/assets/global-banner-disable-73a00a8b4809c098.js\" /> <link rel=\"preload\" href=\"https://github.githubassets.com/assets/MonaSansVF-wdth-wght-opsz-7a868ff47c93bd97.woff2\" as=\"font\" type=\"font/woff2\" crossorigin> <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/light-707b19cf061aa459.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/light_high_contrast-fc4b867e16562d12.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/dark-93f3c6b445d800ff.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/dark_high_contrast-49511e11e3ed53a8.css\" /><link data-color-theme=\"light\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light-707b19cf061aa459.css\" /><link data-color-theme=\"light_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_high_contrast-fc4b867e16562d12.css\" /><link data-color-theme=\"light_colorblind\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_colorblind-2db8d59cbe087225.css\" /><link data-color-theme=\"light_colorblind_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_colorblind_high_contrast-791e59a1f8b634e0.css\" /><link data-color-theme=\"light_tritanopia\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_tritanopia-a08991540f7253d8.css\" /><link data-color-theme=\"light_tritanopia_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_tritanopia_high_contrast-aeaea6b5f1a1a577.css\" /><link data-color-theme=\"dark\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark-93f3c6b445d800ff.css\" /><link data-color-theme=\"dark_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_high_contrast-49511e11e3ed53a8.css\" /><link data-color-theme=\"dark_colorblind\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_colorblind-507c9f8797b64d1c.css\" /><link data-color-theme=\"dark_colorblind_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_colorblind_high_contrast-f74ce15fe4370f96.css\" /><link data-color-theme=\"dark_tritanopia\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_tritanopia-77e8f27cae657ef7.css\" /><link data-color-theme=\"dark_tritanopia_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_tritanopia_high_contrast-95c6d23fc206d719.css\" /><link data-color-theme=\"dark_dimmed\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_dimmed-61d370",
+      "redirect_chain": [],
+      "elapsed_ms": 1642.6,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:45.712656+00:00",
+      "meta": {
+        "site": "GitHub",
+        "hote": "github.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 500000 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.google.com/travel/flights/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://consent.google.com/m?continue=https://www.google.com/travel/flights/&gl=FR&m=0&pc=flt&cm=2&hl=en-US&src=1",
+      "body_size": 500000,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "server": "ESF",
+        "set-cookie": "__Secure-ENID=35.SE=VLZgQOKDzv2Cgt5ppSFrbQWmEe6LgZ13X8pxoKU7T0CJqYoxAhjZZ5G__nDTJxOEHxX3mBLf0rrz3k_UOIgLN9rOgSmY9NxLgOzrvinQ6A33iYkxov1NB_mr4XCPZJTMlHDO-uH-woDjWLDTxAdJip5JSowMO9rURbXrmOR32U1YVB9b4WIdvTvs0nhqvOGvldBrbmeym5wEtwjuROBP0IHDXHIInALtQaJZ0Re3R7nR; expires=Thu, 16-Sep-2027 13:01:04 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax"
+      },
+      "excerpt": "<!doctype html><html lang=\"en-US\" dir=\"ltr\"><head><base href=\"https://consent.google.com/\"><link rel=\"preconnect\" href=\"//www.gstatic.com\"><meta name=\"referrer\" content=\"origin\"><script nonce=\"70lyyX6BZbFwLGN-y2QqVw\">window['ppConfig'] = {productName: 'ConsentUi', deleteIsEnforced: true , sealIsEnforced: true , heartbeatRate: 0.5 , periodicReportingRateMillis: 60000.0 , disableAllReporting: false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a}; function n(a){a=[\"object\"==typeof globalThis&&globalThis,a,\"object\"==typeof window&&window,\"object\"==typeof self&&self,\"object\"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error(\"Cannot find global object\");}var p=n(this);function q(a,b){if(b)a:{var c=p;a=a.split(\".\");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&b!=null&&m(c,a,{configurable:!0,writable:!0,value:b})}} q(\"Object.is\",function(a){return a?a:function(b,c){return b===c?b!==0||1/b===1/c:b!==b&&c!==c}});q(\"Array.prototype.includes\",function(a){return a?a:function(b,c){var d=this;d instanceof String&&(d=String(d));var e=d.length;c=c||0;for(c<0&&(c=Math.max(c+e,0));c<e;c++){var f=d[c];if(f===b||Object.is(f,b))return!0}return!1}}); q(\"String.prototype.includes\",function(a){return a?a:function(b,c){if(this==null)throw new TypeError(\"The 'this' value for String.prototype.includes must not be null or undefined\");if(b instanceof RegExp)throw new TypeError(\"First argument to String.prototype.includes must not be a regular expression\");return this.indexOf(b,c||0)!==-1}});function r(a,b,c){a(\"https://csp.withgoogle.com/csp/proto/\"+encodeURIComponent(b),JSON.stringify(c))}function t(){var a;if((a=window.ppConfig)==null?0:a.disableAllReporting)return function(){};var b,c,d,e;return(e=(b=window)==null?void 0:(c=b.navigator)==null?void 0:(d=c.sendBeacon)==null?void 0:d.bind(navigator))!=null?e:u}function u(a,b){var c=new XMLHttpRequest;c.open(\"POST\",a);c.send(b)} function v(){var a=(w=Object.prototype)==null?void 0:w.__lookupGetter__(\"__proto__\"),b=x,c=y;return function(){var d=a.call(this),e,f,g,h;r(c,b,{type:\"ACCESS_GET\",origin:(f=window.location.origin)!=null?f:\"unknown\",report:{className:(g=d==null?void 0:(e=d.constructor)==null?void 0:e.name)!=null?g:\"unknown\",stackTrace:(h=Error().stack)!=null?h:\"unknown\"}});return d}} function z(){var a=(A=Object.prototype)==null?void 0:A.__lookupSetter__(\"__proto__\"),b=x,c=y;return function(d){d=a.call(this,d);var e,f,g,h;r(c,b,{type:\"ACCESS_SET\",origin:(f=window.location.origin)!=null?f:\"unknown\",report:{className:(g=d==null?void 0:(e=d.constructor)==null?void 0:e.name)!=null?g:\"unknown\",stackTrace:(h=Error().stack)!=null?h:\"unknown\"}});return d}}function B(a,b){C(a.productName,b);setInterval(function(){C(a.productName,b)},a.periodicReportingRateMillis)} var D=\"constructor __defineGetter__ __defineSetter__ hasOwnProperty __lookupGetter__ __lookupSetter__ isPrototypeOf propertyIsEnumerable toString valueOf __proto__ toLocaleString x_ngfn_x\".split(\" \"),E=D.concat,F=navigator.userAgent.match(/Firefox\\/([0-9]+)\\./),G=(!F||F.length<2?0:Number(F[1])<75)?[\"toSource\"]:[],H;if(G instanceof Array)H=G;else{for(var I=l(G),J,K=[];!(J=I.next()).done;)K.push(J.value);H=K}var L=E.call(D,H),M=[]; function C(a,b){for(var c=[],d=l(Object.getOwnPropertyNames(Object.prototype)),e=d.next();!e.done;e=d.next())e=e.value,L.includes(e)||M.includes(e)||c.push(e);e=Object.prototype;d=[];for(var f=0;f<c.length;f++){var g=c[f];d[f]={name:g,descriptor:Object.getOwnPropertyDescriptor",
+      "redirect_chain": [
+        302
+      ],
+      "elapsed_ms": 2212.8,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:47.927243+00:00",
+      "meta": {
+        "site": "Google Flights",
+        "hote": "www.google.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 500000 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.google.com/maps/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://consent.google.com/m?continue=https://www.google.com/maps/&gl=FR&m=0&pc=m&uxe=eomtm&cm=2&hl=fr&src=1",
+      "body_size": 500000,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "server": "ESF"
+      },
+      "excerpt": "<!doctype html><html lang=\"fr\" dir=\"ltr\"><head><base href=\"https://consent.google.com/\"><link rel=\"preconnect\" href=\"//www.gstatic.com\"><meta name=\"referrer\" content=\"origin\"><script nonce=\"p714IXgaYzIO-qICsoG2kQ\">window['ppConfig'] = {productName: 'ConsentUi', deleteIsEnforced: true , sealIsEnforced: true , heartbeatRate: 0.5 , periodicReportingRateMillis: 60000.0 , disableAllReporting: false };(function(){'use strict';function k(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}function l(a){var b=typeof Symbol!=\"undefined\"&&Symbol.iterator&&a[Symbol.iterator];if(b)return b.call(a);if(typeof a.length==\"number\")return{next:k(a)};throw Error(String(a)+\" is not an iterable or ArrayLike\");}var m=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a}; function n(a){a=[\"object\"==typeof globalThis&&globalThis,a,\"object\"==typeof window&&window,\"object\"==typeof self&&self,\"object\"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error(\"Cannot find global object\");}var p=n(this);function q(a,b){if(b)a:{var c=p;a=a.split(\".\");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&b!=null&&m(c,a,{configurable:!0,writable:!0,value:b})}} q(\"Object.is\",function(a){return a?a:function(b,c){return b===c?b!==0||1/b===1/c:b!==b&&c!==c}});q(\"Array.prototype.includes\",function(a){return a?a:function(b,c){var d=this;d instanceof String&&(d=String(d));var e=d.length;c=c||0;for(c<0&&(c=Math.max(c+e,0));c<e;c++){var f=d[c];if(f===b||Object.is(f,b))return!0}return!1}}); q(\"String.prototype.includes\",function(a){return a?a:function(b,c){if(this==null)throw new TypeError(\"The 'this' value for String.prototype.includes must not be null or undefined\");if(b instanceof RegExp)throw new TypeError(\"First argument to String.prototype.includes must not be a regular expression\");return this.indexOf(b,c||0)!==-1}});function r(a,b,c){a(\"https://csp.withgoogle.com/csp/proto/\"+encodeURIComponent(b),JSON.stringify(c))}function t(){var a;if((a=window.ppConfig)==null?0:a.disableAllReporting)return function(){};var b,c,d,e;return(e=(b=window)==null?void 0:(c=b.navigator)==null?void 0:(d=c.sendBeacon)==null?void 0:d.bind(navigator))!=null?e:u}function u(a,b){var c=new XMLHttpRequest;c.open(\"POST\",a);c.send(b)} function v(){var a=(w=Object.prototype)==null?void 0:w.__lookupGetter__(\"__proto__\"),b=x,c=y;return function(){var d=a.call(this),e,f,g,h;r(c,b,{type:\"ACCESS_GET\",origin:(f=window.location.origin)!=null?f:\"unknown\",report:{className:(g=d==null?void 0:(e=d.constructor)==null?void 0:e.name)!=null?g:\"unknown\",stackTrace:(h=Error().stack)!=null?h:\"unknown\"}});return d}} function z(){var a=(A=Object.prototype)==null?void 0:A.__lookupSetter__(\"__proto__\"),b=x,c=y;return function(d){d=a.call(this,d);var e,f,g,h;r(c,b,{type:\"ACCESS_SET\",origin:(f=window.location.origin)!=null?f:\"unknown\",report:{className:(g=d==null?void 0:(e=d.constructor)==null?void 0:e.name)!=null?g:\"unknown\",stackTrace:(h=Error().stack)!=null?h:\"unknown\"}});return d}}function B(a,b){C(a.productName,b);setInterval(function(){C(a.productName,b)},a.periodicReportingRateMillis)} var D=\"constructor __defineGetter__ __defineSetter__ hasOwnProperty __lookupGetter__ __lookupSetter__ isPrototypeOf propertyIsEnumerable toString valueOf __proto__ toLocaleString x_ngfn_x\".split(\" \"),E=D.concat,F=navigator.userAgent.match(/Firefox\\/([0-9]+)\\./),G=(!F||F.length<2?0:Number(F[1])<75)?[\"toSource\"]:[],H;if(G instanceof Array)H=G;else{for(var I=l(G),J,K=[];!(J=I.next()).done;)K.push(J.value);H=K}var L=E.call(D,H),M=[]; function C(a,b){for(var c=[],d=l(Object.getOwnPropertyNames(Object.prototype)),e=d.next();!e.done;e=d.next())e=e.value,L.includes(e)||M.includes(e)||c.push(e);e=Object.prototype;d=[];for(var f=0;f<c.length;f++){var g=c[f];d[f]={name:g,descriptor:Object.getOwnPropertyDescriptor(Ob",
+      "redirect_chain": [
+        302
+      ],
+      "elapsed_ms": 976.7,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:48.906045+00:00",
+      "meta": {
+        "site": "Google Map",
+        "hote": "www.google.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 500000 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.google.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.google.com/",
+      "body_size": 288651,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "server": "gws",
+        "set-cookie": "AEC=AdJVEauCrFK0ez6ApVVjMpIQPaO2n8PxcrRMaJJNU-gr0jIGyzG5hPuvrg; expires=Fri, 12-Feb-2027 20:42:50 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax, __Secure-ENID=35.SE=T3UdHIEMFxCbBepSggtQuImiFeuZRX_0_XOWgU2RQmvcSHtuVwxZ3N3YheaWRqoKeOCbMfjHEevRNtA44JntQqzkp_NywLSoOKvg09K-g0rTb4jsBcA4fWHqcL_AaRsCz3xDnWvNzPkFjTyJdFls3VrOup8QxN14Q4reX9ABV01upKHlU0GKZZwCIQ44rvn6xLV7tcxQlsrMC8CNffHXiC0Fo8W0G6RVLj4IDDIP0QaA4w6zCiJpHshY-Qyq4g; expires=Thu, 16-Sep-2027 13:01:04 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax"
+      },
+      "excerpt": "<!doctype html><html itemscope=\"\" itemtype=\"http://schema.org/WebPage\" lang=\"fr\"><head><meta charset=\"UTF-8\"><meta content=\"origin\" name=\"referrer\"><link href=\"//www.gstatic.com/images/branding/searchlogo/ico/favicon.ico\" rel=\"icon\"><meta content=\"/images/branding/googleg/1x/googleg_standard_color_128dp.png\" itemprop=\"image\"><style>@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-feature-settings:\"calt\" 0,\"liga\" 0;font-display:optional;src:url(//fonts.gstatic.com/s/googlesans/v29/4UaGrENHsxJlGDuGo1OIlL3Owp5eKQtG.woff2)format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}</style><script nonce=\"UqkB3n1PgJort7aacdXv5w\">(function(){var w=[\"Google Sans\",[400,500,700]];(function(){for(var a=0;a<w.length;a+=2)for(var b=w[a],e=w[a+1],d=0,c=void 0;c=e[d];++d)b===\"Noto Color Emoji\"?document.fonts.load(c+\" 10pt \"+b,\"\\ud83c\\uddfa\\ud83c\\uddf8\").catch(function(){}):document.fonts.load(c+\" 10pt \"+b).catch(function(){})})();})();</script><title>Google</title><script nonce=\"UqkB3n1PgJort7aacdXv5w\">window._hst=Date.now();</script><script nonce=\"UqkB3n1PgJort7aacdXv5w\">(function(){var _g={kEI:'yiCCap3FBbyYkdUPusPcyQc',kEXPI:'31',kBL:'3PCg',kOPI:89978449};(function(){var a;((a=window.google)==null?0:a.stvsc)?google.kEI=_g.kEI:window.google=_g;}).call(this);})();(function(){google.sn='webhp';google.kHL='fr';google.usb=true;})();(function(){ var h=this||self;var k=/#|$/;function l(a,c){var e=a.search(k);a:{var b=0;for(var f=c.length;(b=a.indexOf(c,b))>=0&&b<e;){var d=a.charCodeAt(b-1);if(d==38||d==63)if(d=a.charCodeAt(b+f),!d||d==61||d==38||d==35)break a;b+=f+1}b=-1}if(b<0)return null;f=a.indexOf(\"&\",b);if(f<0||f>e)f=e;b+=c.length+1;return decodeURIComponent(a.slice(b,f!==-1?f:0).replace(/\\+/g,\" \"))};function m(){return window.google&&window.google.kOPI||null};var n;function p(a){for(var c;a&&(!a.getAttribute||!(c=a.getAttribute(\"eid\")));)a=a.parentNode;return c||n}function q(a){for(var c=null;a&&(!a.getAttribute||!(c=a.getAttribute(\"leid\")));)a=a.parentNode;return c} function t(a,c,e,b,f){var d=\"\";c.search(\"&ei=\")===-1&&(d=\"&ei=\"+p(b),c.search(\"&lei=\")===-1&&(b=q(b))&&(d+=\"&lei=\"+b));var r=c.search(\"&cshid=\")===-1&&a!==\"slh\";var g=g===void 0?window.location:g;b=\"&zx=\"+Date.now().toString();h._cshid&&r&&(b+=\"&cshid=\"+h._cshid);(e=e())&&(b+=\"&opi=\"+e);(e=l(g.search,\"gemcid\"))&&(b+=\"&gemcid=\"+e);(g=l(g.search,\"gemrid\"))&&(b+=\"&gemrid=\"+g);return\"/\"+(f||\"gen_204\")+\"?atyp=i&ct=\"+String(a)+\"&cad=\"+(c+d+b)};n=google.kEI;google.getEI=p;google.getLEI=q;google.ml=function(){return null};google.log=function(a,c,e,b,f,d){d=d===void 0?m:d;e||(e=t(a,c,d,b,f));a=e;/^http:/i.test(a)&&window.location.protocol===\"https:\"&&(google.ml&&google.ml(Error(\"a\"),!1,{src:a,glmm:1}),a=\"\");if(e=a)try{window.navigator.sendBeacon(e,\"\")}catch(r){}};google.logUrl=function(a,c){c=c===void 0?m:c;return t(\"\",a,c)};}).call(this);(function(){google.y={};google.sy={};function e(a,b,d){if(a)var c=a.id;else{do c=Math.random();while(d[c])}d[c]=[a,b]}var f;(f=google).x||(f.x=function(a,b){e(a,b,google.y)});var g;(g=google).sx||(g.sx=function(a,b){e(a,b,google.sy)});google.bx=!1;var h;(h=google).lx||(h.lx=function(){});var k=[],l;(l=google).fce||(l.fce=function(a,b,d,c){k.push([a,b,d,c])});google.qce=k;google.adl=[];}).call(this);google.f={};(function(){ document.documentElement.addEventListener(\"submit\",function(b){var a;if(a=b.target){var c=a.getAttribute(\"data-submitfalse\");a=c===\"1\"||c===\"q\"&&!a.elements.q.value?!0:!1}else a=!1;a&&(b.preventDefault(),b.stopPropagation())},!0);document.documentElement.addEventListener(\"click\",function(b){var a;a:{for(a=b.target;a&&a!==document.documentElement;a=a.parentElement)if(a.tagName===\"A\"){a=a.getAttribute(\"data-nohref\")===\"1\";break a}a=!1}a&&b.preventDefault()},!0);}).call(this);(function(){google.hs={h:true,nhs:false,sie:false};})();(function(){google.c={cap:2000,timl:false,vis:true};})",
+      "redirect_chain": [],
+      "elapsed_ms": 2479.8,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:51.388034+00:00",
+      "meta": {
+        "site": "Google Search",
+        "hote": "www.google.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 288651 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://huggingface.co/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://huggingface.co/",
+      "body_size": 179258,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "x-cache": "Hit from cloudfront",
+        "via": "1.1 e33a7efffade24bd6702687553e6f9c0.cloudfront.net (CloudFront)",
+        "x-amz-cf-pop": "CDG52-P4"
+      },
+      "excerpt": "<!doctype html> <html class=\"\"> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\" /> <meta name=\"description\" content=\"We’re on a journey to advance and democratize artificial intelligence through open source and open science.\" /> <meta property=\"fb:app_id\" content=\"1321688464574422\" /> <meta name=\"twitter:card\" content=\"summary_large_image\" /> <meta name=\"twitter:site\" content=\"@huggingface\" /> <meta name=\"twitter:image\" content=\"https://huggingface.co/front/thumbnails/v2-2.png\" /> <meta property=\"og:title\" content=\"Hugging Face – The AI community building the future.\" /> <meta property=\"og:description\" content=\"We’re on a journey to advance and democratize artificial intelligence through open source and open science.\" /> <meta property=\"og:type\" content=\"website\" /> <meta property=\"og:url\" content=\"https://huggingface.co/\" /> <meta property=\"og:image\" content=\"https://huggingface.co/front/thumbnails/v2-2.png\" /> <link rel=\"preload\" href=\"/front/assets/fonts/source-sans-pro-latin-400-normal.woff2\" as=\"font\" type=\"font/woff2\" crossorigin /> <link rel=\"preload\" href=\"/front/assets/fonts/source-sans-pro-latin-600-normal.woff2\" as=\"font\" type=\"font/woff2\" crossorigin /> <link rel=\"preload\" href=\"/front/assets/fonts/source-sans-pro-latin-700-normal.woff2\" as=\"font\" type=\"font/woff2\" crossorigin /> <link rel=\"stylesheet\" href=\"/front/build/kube-5e03759/style.css\" /> <link rel=\"preload\" href=\"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css\" as=\"style\" onload=\" this.onload = null; this.rel = 'stylesheet'; \" /> <noscript> <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css\" /> </noscript> <script>const guestTheme = document.cookie.match(/theme=(\\w+)/)?.[1]; document.documentElement.classList.toggle('dark', guestTheme === 'dark' || ( (!guestTheme || guestTheme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches));</script> <link rel=\"canonical\" href=\"https://huggingface.co/\"> <!--164igl--><link rel=\"alternate\" type=\"application/rss+xml\" href=\"/blog/feed.xml\" title=\"Hugging Face Blog\"/><!----> <title>Hugging Face – The AI community building the future.</title> <script defer src=\"/js/script.js\"></script> <script> ((window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments); }), (plausible.init = plausible.init || function (i) { plausible.o = i || {}; })); plausible.init({ customProperties: { loggedIn: \"false\", }, endpoint: \"/api/event\", }); </script> <script> window.hubConfig = {\"features\":{\"signupDisabled\":false},\"sshGitUrl\":\"git@hf.co\",\"moonHttpUrl\":\"https:\\/\\/huggingface.co\",\"captchaApiKey\":\"5bd005a4-6ac8-4a86-8e60-53083832ed22\",\"datasetViewerPublicUrl\":\"https:\\/\\/datasets-server.huggingface.co\",\"stripePublicKey\":\"pk_live_x2tdjFXBCvXo2FFmMybezpeM00J6gPCAAc\",\"environment\":\"production\",\"userAgent\":\"HuggingFace (production)\",\"spacesIframeDomain\":\"hf.space\",\"spacesApiUrl\":\"https:\\/\\/api.hf.space\",\"logoDev\":{\"apiUrl\":\"https:\\/\\/img.logo.dev\\/\",\"apiKey\":\"pk_UHS2HZOeRnaSOdDp7jbd5w\"}}; window.requestId = \"Root=1-6a8220c7-7c373d126654754f6b1de366\"; window.featureFlags = {}; </script> <script> /// Start offset for looping animations that should carry over across page loads instead of /// restarting: `animation-delay: var(--animation-phase)`. Only correct for durations dividing 12s. document.documentElement.style.setProperty(\"--animation-phase\", -(Date.now() % 12000) + \"ms\"); </script> <script type=\"text/javascript\" src=\"https://de5282c3ca0c.edge.sdk.awswaf.com/de5282c3ca0c/526cf06acb0d/challenge.js\" defer></script> </head> <body class=\"flex flex-col min-h-dvh bg-white dark:bg-gray-950 text-black HomePage\"> <!--[--><div class=\"flex min-h-dvh flex-col\"><div class=\"SVELTE_HYDRATER contents\" data-target=\"ClientErrorCatcher\" data-props=\"{}\"><!----></div> <div class=\"SVELTE_HYDRATER contents\" data-target=\"DeviceProvider\" data-props=\"{}\"><!----></div> <div ",
+      "redirect_chain": [],
+      "elapsed_ms": 1749.0,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:53.138673+00:00",
+      "meta": {
+        "site": "Huggingface",
+        "hote": "huggingface.co",
+        "signature": "ok",
+        "vendor": "aws_waf",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 179258 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    },
+    {
+      "url": "https://www.wolframalpha.com/",
+      "channel": "http_residential",
+      "channel_name": "direct_http:browser",
+      "status": 200,
+      "final_url": "https://www.wolframalpha.com/",
+      "body_size": 182924,
+      "headers": {
+        "content-type": "text/html; charset=utf-8"
+      },
+      "excerpt": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head=\"\"/><title data-next-head=\"\">Wolfram|Alpha: Computational Intelligence</title><meta name=\"description\" content=\"Compute answers using Wolfram&#x27;s breakthrough technology &amp; knowledgebase, relied on by millions of students &amp; professionals. For math, science, nutrition, history, geography, engineering, mathematics, linguistics, sports, finance, music…\" data-next-head=\"\"/><meta property=\"og:url\" content=\"https://www.wolframalpha.com\" data-next-head=\"\"/><meta property=\"og:type\" content=\"website\" data-next-head=\"\"/><meta property=\"og:title\" content=\"Wolfram|Alpha: Making the world’s knowledge computable\" data-next-head=\"\"/><meta property=\"og:description\" content=\"Wolfram|Alpha brings expert-level knowledge and capabilities to the broadest possible range of people—spanning all professions and education levels.\" data-next-head=\"\"/><meta property=\"og:image\" content=\"/_next/static/images/share_9016222d6b2fadaacc58b484cb3edace.png\" data-next-head=\"\"/><meta name=\"keywords\" content=\"Wolfram Alpha\" data-next-head=\"\"/><meta name=\"twitter:description\" content=\"Wolfram|Alpha brings expert-level knowledge and capabilities to the broadest possible range of people—spanning all professions and education levels.\" data-next-head=\"\"/><meta name=\"twitter:title\" content=\"Wolfram|Alpha: Making the world’s knowledge computable\" data-next-head=\"\"/><meta name=\"twitter:site\" content=\"@Wolfram_Alpha\" data-next-head=\"\"/><meta name=\"twitter:card\" content=\"summary_large_image\" data-next-head=\"\"/><meta name=\"twitter:image\" content=\"/_next/static/images/share_9016222d6b2fadaacc58b484cb3edace.png\" data-next-head=\"\"/><meta name=\"apple-itunes-app\" content=\"app-id=548861535\" data-next-head=\"\"/><link rel=\"shortcut icon\" href=\"/_next/static/images/favicon_b48d893b991ff67016124a4d51822e63.ico\" data-next-head=\"\"/><meta name=\"bingbot\" content=\"nocache\"/><link data-next-font=\"size-adjust\" rel=\"preconnect\" href=\"/\" crossorigin=\"anonymous\"/><link rel=\"preload\" href=\"/_next/static/css/b86fd688f650caa5.css\" as=\"style\"/><link rel=\"preload\" href=\"/_next/static/css/3e5e2c10614026a5.css\" as=\"style\"/><link rel=\"stylesheet\" href=\"/_next/static/css/b86fd688f650caa5.css\" data-n-g=\"\"/><link rel=\"stylesheet\" href=\"/_next/static/css/3e5e2c10614026a5.css\" data-n-p=\"\"/><noscript data-n-css=\"\"></noscript><script defer=\"\" noModule=\"\" src=\"/_next/static/chunks/polyfills-42372ed130431b0a.js\"></script><script defer=\"\" src=\"/_next/static/chunks/8798.0d12cf3e87f47c3e.js\"></script><script defer=\"\" src=\"/_next/static/chunks/5158.9e277bbbca345c75.js\"></script><script src=\"/_next/static/chunks/webpack-37618bd3a09cee60.js\" defer=\"\"></script><script src=\"/_next/static/chunks/framework-7e404342b933869f.js\" defer=\"\"></script><script src=\"/_next/static/chunks/main-9c7afc91105fe70f.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages/_app-0202f38d86f65b59.js\" defer=\"\"></script><script src=\"/_next/static/chunks/9afd5809-2c36b1433501745d.js\" defer=\"\"></script><script src=\"/_next/static/chunks/4705-1f37cf179cd9bab9.js\" defer=\"\"></script><script src=\"/_next/static/chunks/8020-154ecc3ce76db25a.js\" defer=\"\"></script><script src=\"/_next/static/chunks/9825-1a00e51fe3a18eef.js\" defer=\"\"></script><script src=\"/_next/static/chunks/6169-cf6f5c9b589c1675.js\" defer=\"\"></script><script src=\"/_next/static/chunks/275-5a9779cce6a9825a.js\" defer=\"\"></script><script src=\"/_next/static/chunks/5098-2e6152d947697dbc.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages/index-0955841e36b777be.js\" defer=\"\"></script><script src=\"/_next/static/c8Fa9VYXM9VUPo6h4tPtV/_buildManifest.js\" defer=\"\"></script><script src=\"/_next/static/c8Fa9VYXM9VUPo6h4tPtV/_ssgManifest.js\" defer=\"\"></script><style data-styled=\"\" data-styled-version=\"6.1.16\">.dkQrSc{background:#ffffff;}/*!sc*/ .izcuJI{background:#ffffff;border-color:#dfdfdf;}/*!sc*/ .jpnfPP{background:#ffffff;border-color",
+      "redirect_chain": [],
+      "elapsed_ms": 2812.4,
+      "error": null,
+      "observed_at": "2026-08-16T20:42:55.953493+00:00",
+      "meta": {
+        "site": "Wolfram Alpha",
+        "hote": "www.wolframalpha.com",
+        "signature": "ok",
+        "vendor": "none",
+        "confidence": 0.9,
+        "rationale": "200 avec un corps de 182924 o, sans marqueur de blocage ni d'absence de contenu",
+        "channel_enum": "http_residential",
+        "moteur": "aucun",
+        "origine": "residentielle",
+        "passe": 1
+      }
+    }
+  ]
+}

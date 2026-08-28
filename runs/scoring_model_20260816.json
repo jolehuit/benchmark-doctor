@@ -1,0 +1,415 @@
+{
+ "statut_editorial": {
+  "statut": "exploratoire",
+  "mention": "configuration exploratoire, non citée",
+  "raison": "Tables de sensibilité (κ, agrégation, échelles) calculées SANS la couche de solvabilité et SANS vérification des contenus. C'est la source de la table κ → D {53, 62, 69, 74, 144} du rapport 5. **Ne jamais coller cette table à côté de la carte du README** : dans la configuration canonique, la même sensibilité donne D {83, 100, 110, 113, 136, 177}. La version canonique est dans `runs/carte_canonique_20260815.json`.",
+  "carte_de_reference": "runs/health_20260815.json",
+  "index": "runs/CARTES.md",
+  "pose_le": "2026-08-16"
+ },
+ "tool_version": "0.1.0",
+ "reference_date": "2026-08-16",
+ "corpus": "data/raw/webvoyager_original.jsonl",
+ "layers_executed": [
+  "L1",
+  "L2",
+  "L3"
+ ],
+ "protocol": {
+  "l2_channel": "direct_http:browser",
+  "l2_channel_kind": "http_datacenter",
+  "l2_content_checks": false,
+  "l3_ambiguity_backend": "llm-judge:gemini-2.5-flash:rubric",
+  "l3_ambiguity_threshold": 0.5
+ },
+ "model": {
+  "aggregation": "noisy_or",
+  "severity_weights": {
+   "info": 0.0,
+   "low": 0.25,
+   "medium": 0.5,
+   "high": 0.75,
+   "critical": 1.0
+  },
+  "channel_credibility": {
+   "static": 1.0,
+   "http_datacenter": 0.4,
+   "http_residential": 0.4,
+   "browser_local": 1.0,
+   "browser_cloud": 1.0,
+   "llm": 1.0
+  },
+  "channel_credibility_source": "runs/l2_probe_20260815.json — 3 URL bloquées en HTTP direct disposant d'un canal navigateur, 1 blocage confirmé ; Laplace (k+1)/(n+2) = 0,40",
+  "channel_credibility_scope": "appliquée aux seuls constats T3 (accès refusé) issus d'un canal réseau",
+  "world_decay_per_month": 0.0143,
+  "world_decay_source": "journal Online-Mind2Web : 52/300 tâches remplacées en 13,35 mois → λ = 0,0143/mois (demi-vie 48 mois) ; contre-vérification WebVoyager 169/643 en 17 mois → λ = 0,0180 (demi-vie 39 mois)",
+  "access_decay_per_month": 0.0,
+  "access_decay_source": "aucune mesure disponible de la volatilité hebdomadaire des signatures anti-bot (répétabilité mesurée sur 3 minutes seulement) : λ = 0 et l'âge de l'observation est affiché au lieu d'être décoté",
+  "prior_weights": {
+   "remove": 1.0,
+   "modify": 0.5
+  },
+  "prior_weights_source": "suppression = irrécupérable (poids critical) ; réécriture = poids medium car Magnitude re-date par précaution des tâches encore valides, ce qui confond « cassée » et « rafraîchie »",
+  "grade_thresholds": {
+   "A": 0.75,
+   "B": 0.5,
+   "C": 0.25,
+   "D": 0.0
+  },
+  "grade_thresholds_source": "1 − w(σ) : chaque frontière est « un constat de cette sévérité tenu pour certain » ; aucun ajustement sur les données",
+  "staleness_days": 30
+ },
+ "calibration": {
+  "channel_credibility": {
+   "source": "runs/l2_probe_20260815.json",
+   "n_checkable": 3,
+   "n_confirmed": 1,
+   "kappa_naive": 0.3333,
+   "kappa_laplace": 0.4,
+   "detail": [
+    {
+     "url": "https://www.allrecipes.com/",
+     "direct": {
+      "direct_http:browser": "paywall_402",
+      "direct_http:minimal": "paywall_402"
+     },
+     "browser": {
+      "browser_cloud:browserbase": "ok"
+     },
+     "blocking_confirmed_by_browser": false
+    },
+    {
+     "url": "https://www.booking.com/",
+     "direct": {
+      "direct_http:browser": "antibot_challenge",
+      "direct_http:minimal": "antibot_challenge"
+     },
+     "browser": {
+      "browser_cloud:browserbase": "antibot_challenge"
+     },
+     "blocking_confirmed_by_browser": true
+    },
+    {
+     "url": "https://www.espn.com/",
+     "direct": {
+      "direct_http:browser": "antibot_challenge",
+      "direct_http:minimal": "forbidden_403"
+     },
+     "browser": {
+      "browser_cloud:browserbase": "ok"
+     },
+     "blocking_confirmed_by_browser": false
+    }
+   ],
+   "caveat": "n très petit ; l'estimateur de Laplace est là pour ne pas publier 0 ou 1. Booking compte comme « confirmé » parce que la signature reste un challenge, alors que le navigateur l'a en fait résolu : c'est la lecture la plus favorable au constat de blocage, donc la plus prudente pour le score."
+  },
+  "world_decay": {
+   "source": "/home/user/memoirem2/benchmark-doctor/data/ground_truth.json",
+   "online_mind2web": {
+    "corpus": 300,
+    "replaced": 52,
+    "window_months": 13.31,
+    "lambda_per_month": 0.01431,
+    "half_life_months": 48.5
+   },
+   "webvoyager_control": {
+    "corpus": 643,
+    "flagged": 169,
+    "window_months": 16.59,
+    "lambda_per_month": 0.01838,
+    "half_life_months": 37.7,
+    "caveat": "mesure l'attention cumulée de six patcheurs autant que la décadence : borne haute"
+   },
+   "retained": 0.0143,
+   "retained_source": "online_mind2web (benchmark maintenu, journal explicite)"
+  }
+ },
+ "sensitivity": {
+  "aggregation": {
+   "n_tasks": 643,
+   "n_tasks_multi_category": 262,
+   "rate_multi_category": 0.4075,
+   "mean_score_noisy_or": 0.6377,
+   "mean_score_max": 0.6869,
+   "mean_abs_delta": 0.0492,
+   "max_abs_delta": 0.3281,
+   "n_grade_changes": 83,
+   "grade_changes": [
+    {
+     "task_id": "Allrecipes--1",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--3",
+     "noisy_or": "D",
+     "max": "C",
+     "score_noisy_or": 0.2433,
+     "score_max": 0.3333
+    },
+    {
+     "task_id": "Allrecipes--9",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--11",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.438,
+     "score_max": 0.6
+    },
+    {
+     "task_id": "Allrecipes--21",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--22",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--23",
+     "noisy_or": "D",
+     "max": "C",
+     "score_noisy_or": 0.2433,
+     "score_max": 0.3333
+    },
+    {
+     "task_id": "Allrecipes--26",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--28",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--32",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Allrecipes--35",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--2",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.3969,
+     "score_max": 0.725
+    },
+    {
+     "task_id": "Amazon--4",
+     "noisy_or": "D",
+     "max": "C",
+     "score_noisy_or": 0.2251,
+     "score_max": 0.3333
+    },
+    {
+     "task_id": "Amazon--17",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--19",
+     "noisy_or": "D",
+     "max": "C",
+     "score_noisy_or": 0.2433,
+     "score_max": 0.3333
+    },
+    {
+     "task_id": "Amazon--23",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--24",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.438,
+     "score_max": 0.6
+    },
+    {
+     "task_id": "Amazon--25",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.438,
+     "score_max": 0.6
+    },
+    {
+     "task_id": "Amazon--33",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--34",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.438,
+     "score_max": 0.6
+    },
+    {
+     "task_id": "Amazon--36",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.438,
+     "score_max": 0.6
+    },
+    {
+     "task_id": "Amazon--37",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--38",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4745,
+     "score_max": 0.65
+    },
+    {
+     "task_id": "Amazon--39",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4791,
+     "score_max": 0.73
+    },
+    {
+     "task_id": "Apple--0",
+     "noisy_or": "C",
+     "max": "B",
+     "score_noisy_or": 0.4758,
+     "score_max": 0.725
+    }
+   ],
+   "reading": "Un écart faible signifie que l'hypothèse d'indépendance entre catégories ne porte pas les résultats : peu de tâches cumulent plusieurs modes de défaillance."
+  },
+  "channel_credibility": {
+   "retained": 0.4,
+   "rows": [
+    {
+     "kappa": 0.0,
+     "mean_stability": 0.6801,
+     "grades": {
+      "A": 290,
+      "B": 129,
+      "C": 171,
+      "D": 53
+     },
+     "n_D": 53,
+     "rate_below_A": 0.549
+    },
+    {
+     "kappa": 0.2,
+     "mean_stability": 0.6592,
+     "grades": {
+      "A": 290,
+      "B": 126,
+      "C": 165,
+      "D": 62
+     },
+     "n_D": 62,
+     "rate_below_A": 0.549
+    },
+    {
+     "kappa": 0.4,
+     "mean_stability": 0.6377,
+     "grades": {
+      "A": 239,
+      "B": 155,
+      "C": 180,
+      "D": 69
+     },
+     "n_D": 69,
+     "rate_below_A": 0.6283
+    },
+    {
+     "kappa": 0.714,
+     "mean_stability": 0.6034,
+     "grades": {
+      "A": 239,
+      "B": 111,
+      "C": 219,
+      "D": 74
+     },
+     "n_D": 74,
+     "rate_below_A": 0.6283
+    },
+    {
+     "kappa": 1.0,
+     "mean_stability": 0.5718,
+     "grades": {
+      "A": 239,
+      "B": 81,
+      "C": 179,
+      "D": 144
+     },
+     "n_D": 144,
+     "rate_below_A": 0.6283
+    }
+   ],
+   "reading": "κ = 1 revient à croire le canal de mesure sur parole : les tâches des sites protégés par un anti-bot basculent en D alors que nos mesures montrent que le site répond normalement à un navigateur. C'est l'erreur que le terme κ existe pour empêcher."
+  },
+  "grade_scales": {
+   "thresholds_retained": {
+    "A": 0.75,
+    "B": 0.5,
+    "C": 0.25,
+    "D": 0.0
+   },
+   "thresholds_legacy": {
+    "A": 0.85,
+    "B": 0.6,
+    "C": 0.35,
+    "D": 0.0
+   },
+   "distribution_retained": {
+    "A": 239,
+    "B": 155,
+    "C": 180,
+    "D": 69
+   },
+   "distribution_legacy": {
+    "A": 219,
+    "B": 142,
+    "C": 170,
+    "D": 112
+   },
+   "migrations": {
+    "D->C": 43,
+    "C->B": 33,
+    "B->A": 20
+   },
+   "justification_retained": "chaque frontière vaut 1 − w(σ) : « un constat de cette sévérité tenu pour certain ». Aucun seuil n'est ajusté sur la vérité terrain, qui sert déjà à l'évaluation — l'ajuster serait circulaire."
+  }
+ }
+}

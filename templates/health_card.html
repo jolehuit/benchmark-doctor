@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+  benchmark-doctor — gabarit de la carte de santé d'un benchmark.
+
+  Le gabarit ne contient que la coquille : en-tête, encadré terminologique, pied de page
+  et emplacements. Les sections sont produites par `benchmark_doctor.report`, qui échappe
+  tout contenu variable. Le fichier produit est autonome : la feuille de style est inlinée
+  à la génération (marqueur {{css}}), aucune ressource externe n'est référencée, aucun
+  script n'est exécuté.
+
+  Marqueurs disponibles : {{title}} {{css}} {{benchmark}} {{subtitle}} {{provenance}}
+  {{sections}} {{terminology}} {{limits}} {{footer}}
+-->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="benchmark-doctor">
+<title>{{title}}</title>
+<style>
+{{css}}
+</style>
+</head>
+<body>
+<main>
+
+<header class="card-head">
+  <h1>{{benchmark}}</h1>
+  <p class="subtitle">{{subtitle}}</p>
+  <dl class="provenance">
+{{provenance}}
+  </dl>
+</header>
+
+{{sections}}
+
+<aside class="terminology">
+{{terminology}}
+</aside>
+
+<section>
+  <h2>Limites de cette mesure</h2>
+  <ul class="limits">
+{{limits}}
+  </ul>
+</section>
+
+<footer>
+{{footer}}
+</footer>
+
+</main>
+</body>
+</html>
